@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 120" role="img" aria-label="Ідея, планування, виконання, результат">
+  <style>
+    rect { fill: #e6f2ef; stroke: #0f766e; stroke-width: 2; }
+    text { font: 16px sans-serif; fill: #134e4a; text-anchor: middle; dominant-baseline: middle; }
+    path { stroke: #0f766e; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" style="fill:#0f766e;stroke:none" />
+    </marker>
+  </defs>
+  <rect x="10" y="35" width="120" height="50" rx="8" /><text x="70" y="60">Ідея</text>
+  <rect x="175" y="35" width="120" height="50" rx="8" /><text x="235" y="60">Планування</text>
+  <rect x="340" y="35" width="120" height="50" rx="8" /><text x="400" y="60">Виконання</text>
+  <rect x="505" y="35" width="120" height="50" rx="8" /><text x="565" y="60">Результат</text>
+  <path d="M130,60 L170,60" /><path d="M295,60 L335,60" /><path d="M460,60 L500,60" />
+</svg>
