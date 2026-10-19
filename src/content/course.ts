@@ -36,9 +36,10 @@ export const modules: CourseModule[] = Array.from(
 modules[0] = {
   ...modules[0],
   title: "Вступ до управління проєктами",
-  description: "Демо-модуль для перевірки сайту. Буде замінений реальним текстом.",
+  description:
+    "Чим проєкт відрізняється від рутини, звідки взялося управління проєктами, хто його учасники, як ставити цілі за SMART і чому проєкти провалюються.",
   published: true,
-  lessons: [{ slug: "demo", title: "Приклад уроку" }],
+  lessons: [{ slug: "intro", title: "Вступ до управління проєктами" }],
 };
 
 export const publishedModules = modules.filter(
