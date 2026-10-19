@@ -10,6 +10,10 @@
   --accent: #0f766e;
   --accent-foreground: #ffffff;
   --accent-soft: #e6f2ef;
+  /* Ordinal ramp for risk levels: one warm hue, light to dark. */
+  --risk-1: #fbf0e9;
+  --risk-2: #f6d6c2;
+  --risk-3: #eba985;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,6 +26,9 @@
     --accent: #2dd4bf;
     --accent-foreground: #0b1f1d;
     --accent-soft: #15302c;
+    --risk-1: #2a221d;
+    --risk-2: #4a2f22;
+    --risk-3: #73402a;
   }
 }
 
@@ -34,7 +41,43 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent-soft: var(--accent-soft);
+  --color-risk-1: var(--risk-1);
+  --color-risk-2: var(--risk-2);
+  --color-risk-3: var(--risk-3);
   --font-sans: var(--font-inter), system-ui, sans-serif;
+
+  --animate-flow-x: flow-x 1.8s linear infinite;
+  --animate-flow-y: flow-y 1.8s linear infinite;
+
+  @keyframes flow-x {
+    from {
+      left: 0;
+      opacity: 0;
+    }
+    20%,
+    80% {
+      opacity: 1;
+    }
+    to {
+      left: 100%;
+      opacity: 0;
+    }
+  }
+
+  @keyframes flow-y {
+    from {
+      top: 0;
+      opacity: 0;
+    }
+    20%,
+    80% {
+      opacity: 1;
+    }
+    to {
+      top: 100%;
+      opacity: 0;
+    }
+  }
 }
 
 body {
