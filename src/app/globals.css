@@ -175,6 +175,7 @@ body {
 @media (min-width: 640px) {
   .lesson-body :where(h1):not(:where(.not-prose, .not-prose *)) {
     font-size: 3rem;
+    hyphens: manual;
   }
 }
 

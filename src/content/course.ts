@@ -47,6 +47,19 @@ modules[0] = {
   ],
 };
 
+modules[1] = {
+  ...modules[1],
+  title: "Як влаштоване управління проєктами",
+  description:
+    "П'ять груп процесів, десять областей знань і три типи організаційних структур: функціональна, проєктна та матрична.",
+  published: true,
+  lessons: [
+    { slug: "process-groups", title: "П'ять груп процесів" },
+    { slug: "knowledge-areas", title: "Області знань" },
+    { slug: "org-structures", title: "Організаційні структури" },
+  ],
+};
+
 export const publishedModules = modules.filter(
   (m) => m.published && m.lessons.length > 0,
 );
