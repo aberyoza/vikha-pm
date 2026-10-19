@@ -13,12 +13,12 @@ export function Figure({ title, lead, caption, children }: FigureProps) {
   return (
     <figure className="@container not-prose my-10 rounded-xl border border-border bg-surface p-5 sm:p-8">
       {title && (
-        <p className="text-xs font-medium uppercase tracking-wide text-muted">
+        <p className="text-xs font-medium uppercase tracking-wider text-muted">
           {title}
         </p>
       )}
       {lead && (
-        <p className="mt-2 text-lg font-medium leading-snug sm:text-xl">
+        <p className="mt-2 font-serif text-xl font-semibold leading-snug sm:text-2xl">
           {lead}
         </p>
       )}

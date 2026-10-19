@@ -35,7 +35,7 @@ export function Columns({ children }: { children: ReactNode }) {
   return (
     <div
       data-split
-      className="my-6 xl:columns-2 xl:gap-12 [&>:first-child]:mt-0 [&_li]:break-inside-avoid"
+      className="my-6 xl:columns-2 xl:gap-12 [&>:first-child]:mt-0 [&_li]:break-inside-avoid [&_li:first-child]:mt-0"
     >
       {children}
     </div>
@@ -51,7 +51,7 @@ type CalloutProps = {
 export function Callout({ title, children }: CalloutProps) {
   return (
     <aside className="my-10 rounded-xl border border-accent bg-accent-soft/40 p-5 sm:p-8 [&>:last-child]:mb-0">
-      <p className="mt-0 text-xs font-medium uppercase tracking-wide text-accent">
+      <p className="mt-0 text-xs font-medium uppercase tracking-wider text-accent">
         {title}
       </p>
       {children}

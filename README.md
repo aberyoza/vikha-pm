@@ -2,6 +2,7 @@
 
 Free Ukrainian-language project management course based on PMBOK 7/8.
 Product brief and user stories: [docs/brief.md](docs/brief.md).
+Design system (tokens, fonts, components, lesson pattern): [design-system/vikha/MASTER.md](design-system/vikha/MASTER.md).
 
 Stack: Next.js 16 (App Router, Cache Components) · MDX lessons · Supabase
 (Postgres, auth, RLS) · Vercel.

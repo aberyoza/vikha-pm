@@ -31,55 +31,108 @@ export default async function LessonPage({ params }: Props) {
     `@/content/modules/${courseModule.slug}/${lesson.slug}.mdx`
   );
 
+  const index = courseModule.lessons.findIndex((l) => l.slug === lesson.slug);
+  const lessonHref = (slug: string) => `/modules/${courseModule.slug}/${slug}`;
+
   return (
-    <div className="grid md:grid-cols-[260px_1fr]">
-      <aside className="border-b border-border px-4 py-6 sm:px-6 md:sticky md:top-0 md:h-dvh md:overflow-y-auto md:border-r md:border-b-0 md:py-10">
-        <Link href="/" className="text-sm text-muted hover:text-foreground">
+    <div className="grid md:grid-cols-[280px_1fr]">
+      <aside className="border-b border-border bg-surface px-4 py-6 sm:px-6 md:sticky md:top-0 md:h-dvh md:overflow-y-auto md:border-r md:border-b-0 md:py-10">
+        <Link
+          href="/#program"
+          className="text-sm text-muted transition-colors duration-200 hover:text-foreground"
+        >
           ← Програма курсу
         </Link>
-        <p className="mt-6 text-xs font-medium uppercase tracking-wide text-muted">
+        <p className="mt-8 text-xs font-medium uppercase tracking-wider text-muted">
           Модуль {courseModule.number}
         </p>
-        <p className="mt-1 font-medium">{courseModule.title}</p>
-        <nav className="mt-4">
-          <ol className="space-y-1 text-sm">
-            {courseModule.lessons.map((l) => (
-              <li key={l.slug}>
-                <Link
-                  href={`/modules/${courseModule.slug}/${l.slug}`}
-                  aria-current={l.slug === lesson.slug ? "page" : undefined}
-                  className="block rounded px-2 py-1.5 text-muted hover:text-foreground aria-[current=page]:bg-accent-soft aria-[current=page]:font-medium aria-[current=page]:text-accent"
-                >
-                  {l.title}
-                </Link>
-              </li>
-            ))}
+        <p className="mt-1 font-serif text-xl font-semibold leading-snug">
+          {courseModule.title}
+        </p>
+        <nav className="mt-6" aria-label="Уроки модуля">
+          <ol className="relative space-y-1 before:absolute before:top-4 before:bottom-4 before:left-[19px] before:w-px before:bg-border">
+            {courseModule.lessons.map((l, i) => {
+              const current = l.slug === lesson.slug;
+              return (
+                <li key={l.slug} className="relative">
+                  <Link
+                    href={lessonHref(l.slug)}
+                    aria-current={current ? "page" : undefined}
+                    className="group flex items-start gap-3 rounded-lg px-2 py-2 text-sm transition-colors duration-200 hover:bg-background aria-[current=page]:bg-accent-soft"
+                  >
+                    <span
+                      className={`grid size-6 shrink-0 place-items-center rounded-full border text-xs tabular-nums ${
+                        current
+                          ? "border-accent bg-accent font-semibold text-accent-foreground"
+                          : "border-border bg-surface text-muted"
+                      }`}
+                    >
+                      {i + 1}
+                    </span>
+                    <span
+                      className={`pt-0.5 ${current ? "font-medium text-accent" : "text-muted group-hover:text-foreground"}`}
+                    >
+                      {l.title}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
           </ol>
         </nav>
       </aside>
 
       <article className="min-w-0 px-4 py-10 sm:px-8 xl:px-12">
+        <p className="mb-4 text-sm text-muted">
+          Модуль {courseModule.number} · Урок {index + 1} з{" "}
+          {courseModule.lessons.length}
+        </p>
         <div className="lesson-body prose max-w-6xl">
           <Content />
         </div>
 
-        <nav className="mt-12 flex max-w-6xl justify-between gap-4 border-t border-border pt-6">
+        <nav
+          aria-label="Навігація уроками"
+          className="mt-16 grid max-w-6xl gap-4 border-t border-border pt-8 sm:grid-cols-2"
+        >
           {prev ? (
             <Link
-              href={`/modules/${courseModule.slug}/${prev.slug}`}
-              className="text-sm text-muted hover:text-foreground"
+              href={lessonHref(prev.slug)}
+              className="group rounded-xl border border-border bg-surface p-5 transition-colors duration-200 hover:border-accent"
             >
-              ← Попередній урок
+              <span className="text-xs font-medium uppercase tracking-wider text-muted">
+                ← Попередній урок
+              </span>
+              <span className="mt-1 block font-medium group-hover:text-accent">
+                {prev.title}
+              </span>
             </Link>
           ) : (
-            <span />
+            <span className="hidden sm:block" />
           )}
-          {next && (
+          {next ? (
             <Link
-              href={`/modules/${courseModule.slug}/${next.slug}`}
-              className="text-sm font-medium text-accent hover:opacity-80"
+              href={lessonHref(next.slug)}
+              className="group rounded-xl border border-border bg-surface p-5 text-right transition-colors duration-200 hover:border-accent"
             >
-              Наступний урок →
+              <span className="text-xs font-medium uppercase tracking-wider text-muted">
+                Наступний урок →
+              </span>
+              <span className="mt-1 block font-medium group-hover:text-accent">
+                {next.title}
+              </span>
+            </Link>
+          ) : (
+            <Link
+              href="/#program"
+              className="group rounded-xl border border-accent bg-accent-soft p-5 text-right transition-colors duration-200"
+            >
+              <span className="text-xs font-medium uppercase tracking-wider text-accent">
+                Модуль пройдено
+              </span>
+              <span className="mt-1 block font-medium">
+                Повернутися до програми →
+              </span>
             </Link>
           )}
         </nav>

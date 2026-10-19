@@ -1,16 +1,26 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* Design tokens. The full style guide lives in design-system/vikha/MASTER.md;
+   components use these tokens only, never raw hex values. */
 :root {
+  /* Surfaces & text: warm paper neutrals for comfortable long reading. */
   --background: #fbfaf7;
   --surface: #ffffff;
   --foreground: #1c1b19;
   --muted: #6b675f;
   --border: #e5e1d8;
+
+  /* Brand: deep teal. White text on it passes AA (5.4:1). */
   --accent: #0f766e;
   --accent-foreground: #ffffff;
   --accent-soft: #e6f2ef;
-  /* Ordinal ramp for risk levels: one warm hue, light to dark. */
+
+  /* Secondary warm hue: progress, "you are here", small highlights only. */
+  --warm: #c2410c;
+  --warm-soft: #fdf0e7;
+
+  /* Ordinal ramp for risk levels: the warm hue, light to dark. */
   --risk-1: #fbf0e9;
   --risk-2: #f6d6c2;
   --risk-3: #eba985;
@@ -26,6 +36,8 @@
     --accent: #2dd4bf;
     --accent-foreground: #0b1f1d;
     --accent-soft: #15302c;
+    --warm: #fb923c;
+    --warm-soft: #3a2418;
     --risk-1: #2a221d;
     --risk-2: #4a2f22;
     --risk-3: #73402a;
@@ -41,10 +53,15 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent-soft: var(--accent-soft);
+  --color-warm: var(--warm);
+  --color-warm-soft: var(--warm-soft);
   --color-risk-1: var(--risk-1);
   --color-risk-2: var(--risk-2);
   --color-risk-3: var(--risk-3);
+
+  /* Inter for text and UI, Source Serif 4 for headings and statements. */
   --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-serif: var(--font-serif-display), Georgia, serif;
 
   --animate-flow-x: flow-x 1.8s linear infinite;
   --animate-flow-y: flow-y 1.8s linear infinite;
@@ -85,8 +102,29 @@ body {
   color: var(--foreground);
 }
 
+/* One visible focus style for every interactive element. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+:where(button, summary) {
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
 /* Lesson text keeps a readable line length; text-plus-figure rows
-   (<Split>) use the full content width. */
+   (<Split>, <Columns>) use the full content width. */
 .lesson-body > :not([data-split]) {
   max-width: 70ch;
 }
@@ -103,4 +141,34 @@ body {
   --tw-prose-th-borders: var(--border);
   --tw-prose-td-borders: var(--border);
   --tw-prose-hr: var(--border);
+}
+
+/* Lesson typography: 17px body at 1.7, serif headings. */
+.lesson-body {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+
+.lesson-body :where(h1, h2, h3):not(:where(.not-prose, .not-prose *)) {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.lesson-body :where(h1):not(:where(.not-prose, .not-prose *)) {
+  font-size: 2rem;
+  line-height: 1.15;
+  margin-bottom: 0.75em;
+  hyphens: auto;
+}
+
+@media (min-width: 640px) {
+  .lesson-body :where(h1):not(:where(.not-prose, .not-prose *)) {
+    font-size: 2.5rem;
+  }
+}
+
+.lesson-body :where(h2):not(:where(.not-prose, .not-prose *)) {
+  font-size: 1.75rem;
+  line-height: 1.25;
 }
