@@ -51,3 +51,6 @@ motif, and nothing that looks like a generic AI template. The
   in the Vercel dashboard (Firewall), not in code.
 - Never commit secrets: only the public Supabase URL and publishable key are
   allowed (in Vercel env vars / `.env.local`).
+- Geo-block: `src/proxy.ts` returns 403 for RU, BY, CN, IR, KP using Vercel's
+  `x-vercel-ip-country` header. Keep the list in sync with the matching
+  Firewall rule in the Vercel dashboard (which blocks before the app runs).
