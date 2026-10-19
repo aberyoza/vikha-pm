@@ -43,11 +43,11 @@ export function RiskMatrix() {
       caption="Для ризиків високого рівня заздалегідь готують сценарій дій, середні — регулярно відстежують, низькі — приймають."
     >
       <div className="grid grid-cols-[auto_1fr] gap-x-3">
-        <p className="row-span-2 hidden self-center text-xs uppercase tracking-wide text-muted [writing-mode:vertical-rl] rotate-180 @md:block">
+        <p className="row-span-2 hidden self-center text-[13px] text-muted [writing-mode:vertical-rl] rotate-180 @md:block">
           Ймовірність →
         </p>
 
-        <div className="col-start-2 grid grid-cols-[3.5rem_repeat(3,1fr)] gap-1 @md:col-start-auto">
+        <div className="col-start-2 grid grid-cols-[3rem_repeat(3,minmax(0,1fr))] @md:grid-cols-[3.5rem_repeat(3,minmax(0,1fr))] gap-1 @md:col-start-auto">
           {rows.map((p) => (
             <div key={p} className="contents">
               <p className="self-center pr-1 text-right text-xs text-muted">
@@ -59,14 +59,14 @@ export function RiskMatrix() {
                 return (
                   <div
                     key={i}
-                    className={`min-h-24 rounded-md p-2 ${levelBg[lvl]}`}
+                    className={`min-h-24 rounded-md p-1.5 @md:p-2 ${levelBg[lvl]}`}
                     title={levelName[lvl]}
                   >
                     <ul className="space-y-1">
                       {here.map((r) => (
                         <li
                           key={r.name}
-                          className="rounded bg-surface px-2 py-1 text-xs leading-snug shadow-sm"
+                          className="rounded bg-surface px-1.5 py-1 text-xs leading-snug hyphens-auto shadow-sm [overflow-wrap:anywhere] @md:px-2"
                         >
                           {r.name}
                         </li>
@@ -85,7 +85,7 @@ export function RiskMatrix() {
             </p>
           ))}
           <span />
-          <p className="col-span-3 pt-1 text-center text-xs uppercase tracking-wide text-muted">
+          <p className="col-span-3 pt-1 text-center text-[13px] text-muted">
             Вплив →
           </p>
         </div>

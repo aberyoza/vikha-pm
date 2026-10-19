@@ -36,7 +36,7 @@ export function CpmPert() {
             </p>
             <dl className="mt-4 space-y-4 text-sm">
               <div>
-                <dt className="text-xs uppercase tracking-wide text-muted">
+                <dt className="text-[13px] text-muted">
                   Розшифровка
                 </dt>
                 <dd className="mt-1">
@@ -44,7 +44,7 @@ export function CpmPert() {
                 </dd>
               </div>
               <div>
-                <dt className="text-xs uppercase tracking-wide text-muted">
+                <dt className="text-[13px] text-muted">
                   Фокус
                 </dt>
                 <dd className="mt-1">{m.focus}</dd>

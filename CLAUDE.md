@@ -14,9 +14,11 @@ if it exists — it overrides MASTER for that page). It defines the tokens,
 fonts, layout, components and the lesson MDX pattern. Reuse the listed
 components; extend MASTER.md when you introduce a new reusable pattern.
 
-The `ui-ux-pro-max` skill is vendored in `.claude/skills/` for design
-research. Its suggestions are inputs, not rules — MASTER.md wins, and its
-"Deviations" section explains what we deliberately rejected.
+Fixed decisions from the author: **dark theme only** (no light mode), warm
+palette (honey + sage on warm graphite), Fixel typeface, Gantt/milestone
+motif, and nothing that looks like a generic AI template. The
+`ui-ux-pro-max` skill (vendored in `.claude/skills/`) and Anthropic's
+`frontend-design` skill are research inputs — MASTER.md wins.
 
 ## Content
 
@@ -30,7 +32,8 @@ research. Its suggestions are inputs, not rules — MASTER.md wins, and its
 ## Workflow
 
 - `npm run build` and `npm run lint` before committing; check the page in
-  the browser in light and dark mode and at phone width.
+  the browser (dark) at 1440px and at phone width (375px) with no
+  horizontal overflow.
 - Commit locally with conventional messages. **Do not push** — the author
   pushes; finish by giving the `git push` command.
 - After editing `src/app/globals.css`, run `rm -rf .next` and restart the dev

@@ -2,16 +2,13 @@ import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 
 type ButtonLinkProps = ComponentProps<typeof Link> & {
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "text";
 };
 
-const buttonBase =
-  "inline-flex h-11 items-center justify-center gap-2 rounded-lg px-5 font-medium transition-colors duration-200";
-
 const buttonVariants = {
-  primary: "bg-accent text-accent-foreground hover:bg-accent/90",
-  secondary:
-    "border border-border bg-surface text-foreground hover:border-accent hover:text-accent",
+  primary:
+    "inline-flex h-12 items-center justify-center rounded-md bg-accent px-6 font-semibold text-accent-foreground transition-[filter] duration-200 hover:brightness-110",
+  text: "inline-flex h-12 items-center font-medium text-foreground underline decoration-border decoration-2 underline-offset-[6px] transition-colors duration-200 hover:decoration-accent",
 };
 
 export function ButtonLink({
@@ -19,26 +16,12 @@ export function ButtonLink({
   className = "",
   ...props
 }: ButtonLinkProps) {
-  return (
-    <Link
-      className={`${buttonBase} ${buttonVariants[variant]} ${className}`}
-      {...props}
-    />
-  );
-}
-
-// Small uppercase label above a heading.
-export function Eyebrow({ children }: { children: ReactNode }) {
-  return (
-    <p className="text-xs font-medium uppercase tracking-wider text-muted">
-      {children}
-    </p>
-  );
+  return <Link className={`${buttonVariants[variant]} ${className}`} {...props} />;
 }
 
 export function SectionHeading({ children }: { children: ReactNode }) {
   return (
-    <h2 className="mt-2 font-serif text-3xl font-semibold tracking-tight sm:text-4xl">
+    <h2 className="font-display text-3xl font-semibold leading-tight tracking-tight sm:text-[34px]">
       {children}
     </h2>
   );

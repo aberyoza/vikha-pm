@@ -21,7 +21,7 @@ function Chips({ items, tone }: { items: string[]; tone: "muted" | "accent" }) {
 
 function Label({ children }: { children: string }) {
   return (
-    <p className="text-xs uppercase tracking-wide text-muted">{children}</p>
+    <p className="text-[13px] text-muted">{children}</p>
   );
 }
 

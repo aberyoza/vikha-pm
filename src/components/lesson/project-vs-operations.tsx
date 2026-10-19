@@ -65,12 +65,12 @@ export function ProjectVsOperations() {
             <dl className="mt-4 space-y-3 text-sm">
               {c.rows.map((r) => (
                 <div key={r.label}>
-                  <dt className="text-xs uppercase tracking-wide text-muted">{r.label}</dt>
+                  <dt className="text-[13px] text-muted">{r.label}</dt>
                   <dd className="mt-0.5">{r.value}</dd>
                 </div>
               ))}
             </dl>
-            <p className="mt-4 text-xs uppercase tracking-wide text-muted">Приклади</p>
+            <p className="mt-4 text-[13px] text-muted">Приклади</p>
             <ul className="mt-2 flex flex-wrap gap-2">
               {c.examples.map((e) => (
                 <li

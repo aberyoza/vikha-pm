@@ -26,14 +26,14 @@ export function ProjectAnatomy() {
     >
       <div className="grid gap-3 @2xl:grid-cols-[1fr_auto_1.7fr_auto_1fr] @2xl:items-stretch">
         <div className="flex flex-col justify-center rounded-lg border border-border p-4">
-          <p className="text-xs uppercase tracking-wide text-muted">Вхід</p>
+          <p className="text-[13px] text-muted">Вхід</p>
           <p className="mt-1 font-medium">Потреба або проблема</p>
         </div>
 
         <Flow />
 
         <div className="rounded-lg border border-dashed border-accent p-4">
-          <p className="text-xs uppercase tracking-wide text-muted">
+          <p className="text-[13px] text-muted">
             Проєкт — засоби реалізації
           </p>
           <ul className="mt-3 flex flex-wrap gap-2">
@@ -55,7 +55,7 @@ export function ProjectAnatomy() {
         <Flow />
 
         <div className="flex flex-col justify-center rounded-lg bg-accent p-4 text-accent-foreground">
-          <p className="text-xs uppercase tracking-wide opacity-80">Вихід</p>
+          <p className="text-[13px] opacity-80">Вихід</p>
           <p className="mt-1 font-medium">Мета або результат</p>
         </div>
       </div>

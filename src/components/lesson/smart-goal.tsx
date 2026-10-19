@@ -31,14 +31,14 @@ export function SmartGoal() {
     >
       <div className="grid gap-3">
         <div className="rounded-lg border border-border p-4">
-          <p className="text-xs uppercase tracking-wide text-muted">Нечітко</p>
+          <p className="text-[13px] text-muted">Нечітко</p>
           <p className="mt-1 text-muted line-through decoration-muted/60">
             «Збільшити продажі»
           </p>
         </div>
 
         <div className="rounded-lg border border-accent p-4">
-          <p className="text-xs uppercase tracking-wide text-accent">SMART</p>
+          <p className="text-[13px] text-accent">SMART</p>
           <p className="mt-2 text-lg leading-loose">
             «
             {goal.map((part, i) =>

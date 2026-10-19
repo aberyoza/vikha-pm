@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { findLesson, publishedModules } from "@/content/course";
+import { findLesson, modules, publishedModules } from "@/content/course";
 
 type Props = PageProps<"/modules/[module]/[lesson]">;
 
@@ -35,57 +35,66 @@ export default async function LessonPage({ params }: Props) {
   const lessonHref = (slug: string) => `/modules/${courseModule.slug}/${slug}`;
 
   return (
-    <div className="grid md:grid-cols-[280px_1fr]">
-      <aside className="border-b border-border bg-surface px-4 py-6 sm:px-6 md:sticky md:top-0 md:h-dvh md:overflow-y-auto md:border-r md:border-b-0 md:py-10">
+    <div className="grid md:grid-cols-[300px_1fr]">
+      <aside className="border-b border-border bg-surface px-4 py-7 sm:px-7 md:sticky md:top-0 md:h-dvh md:overflow-y-auto md:border-r md:border-b-0 md:py-9">
         <Link
           href="/#program"
-          className="text-sm text-muted transition-colors duration-200 hover:text-foreground"
+          className="text-[15px] text-muted transition-colors duration-200 hover:text-foreground"
         >
-          ← Програма курсу
+          Програма курсу
         </Link>
-        <p className="mt-8 text-xs font-medium uppercase tracking-wider text-muted">
-          Модуль {courseModule.number}
-        </p>
-        <p className="mt-1 font-serif text-xl font-semibold leading-snug">
+        <p className="mt-7 font-display text-[22px] leading-tight font-semibold tracking-tight">
           {courseModule.title}
         </p>
-        <nav className="mt-6" aria-label="Уроки модуля">
-          <ol className="relative space-y-1 before:absolute before:top-4 before:bottom-4 before:left-[19px] before:w-px before:bg-border">
+        <p className="mt-1 text-sm text-muted">
+          Модуль {courseModule.number} з {modules.length}
+        </p>
+
+        <nav className="mt-7" aria-label="Уроки модуля">
+          <ol className="relative before:absolute before:top-3 before:bottom-3 before:left-[6px] before:w-0.5 before:bg-border">
             {courseModule.lessons.map((l, i) => {
-              const current = l.slug === lesson.slug;
+              const state = i < index ? "done" : i === index ? "now" : "next";
               return (
-                <li key={l.slug} className="relative">
+                <li key={l.slug}>
                   <Link
                     href={lessonHref(l.slug)}
-                    aria-current={current ? "page" : undefined}
-                    className="group flex items-start gap-3 rounded-lg px-2 py-2 text-sm transition-colors duration-200 hover:bg-background aria-[current=page]:bg-accent-soft"
+                    aria-current={state === "now" ? "page" : undefined}
+                    className={`group relative block py-2 pl-8 text-[15px] transition-colors duration-200 ${
+                      state === "now"
+                        ? "font-semibold text-foreground"
+                        : "text-muted hover:text-foreground"
+                    }`}
                   >
                     <span
-                      className={`grid size-6 shrink-0 place-items-center rounded-full border text-xs tabular-nums ${
-                        current
-                          ? "border-accent bg-accent font-semibold text-accent-foreground"
-                          : "border-border bg-surface text-muted"
+                      aria-hidden
+                      className={`absolute top-[15px] left-px size-3 rounded-full border-2 ${
+                        state === "done"
+                          ? "border-sage bg-sage"
+                          : state === "now"
+                            ? "border-accent bg-surface ring-4 ring-accent-soft"
+                            : "border-border bg-surface"
                       }`}
-                    >
-                      {i + 1}
-                    </span>
-                    <span
-                      className={`pt-0.5 ${current ? "font-medium text-accent" : "text-muted group-hover:text-foreground"}`}
-                    >
-                      {l.title}
-                    </span>
+                    />
+                    {l.title}
                   </Link>
                 </li>
               );
             })}
+            <li className="relative mt-2 py-2 pl-8 text-[15px] text-foreground">
+              <span
+                aria-hidden
+                className="absolute top-[15px] left-px size-3 rotate-45 rounded-[2px] bg-accent"
+              />
+              Завдання модуля
+              <span className="block text-sm text-muted">Скоро</span>
+            </li>
           </ol>
         </nav>
       </aside>
 
-      <article className="min-w-0 px-4 py-10 sm:px-8 xl:px-12">
-        <p className="mb-4 text-sm text-muted">
-          Модуль {courseModule.number} · Урок {index + 1} з{" "}
-          {courseModule.lessons.length}
+      <article className="min-w-0 px-4 py-10 sm:px-10 md:py-12 xl:px-14">
+        <p className="mb-3 text-[15px] text-muted">
+          Урок {index + 1} з {courseModule.lessons.length}
         </p>
         <div className="lesson-body prose max-w-6xl">
           <Content />
@@ -98,12 +107,10 @@ export default async function LessonPage({ params }: Props) {
           {prev ? (
             <Link
               href={lessonHref(prev.slug)}
-              className="group rounded-xl border border-border bg-surface p-5 transition-colors duration-200 hover:border-accent"
+              className="group rounded-[4px] border border-border bg-surface p-5 transition-colors duration-200 hover:border-accent"
             >
-              <span className="text-xs font-medium uppercase tracking-wider text-muted">
-                ← Попередній урок
-              </span>
-              <span className="mt-1 block font-medium group-hover:text-accent">
+              <span className="text-sm text-muted">Попередній урок</span>
+              <span className="mt-1 block font-display text-lg font-semibold group-hover:text-accent">
                 {prev.title}
               </span>
             </Link>
@@ -113,25 +120,21 @@ export default async function LessonPage({ params }: Props) {
           {next ? (
             <Link
               href={lessonHref(next.slug)}
-              className="group rounded-xl border border-border bg-surface p-5 text-right transition-colors duration-200 hover:border-accent"
+              className="group rounded-[4px] border border-border bg-surface p-5 text-right transition-colors duration-200 hover:border-accent"
             >
-              <span className="text-xs font-medium uppercase tracking-wider text-muted">
-                Наступний урок →
-              </span>
-              <span className="mt-1 block font-medium group-hover:text-accent">
+              <span className="text-sm text-muted">Наступний урок</span>
+              <span className="mt-1 block font-display text-lg font-semibold group-hover:text-accent">
                 {next.title}
               </span>
             </Link>
           ) : (
             <Link
               href="/#program"
-              className="group rounded-xl border border-accent bg-accent-soft p-5 text-right transition-colors duration-200"
+              className="group rounded-[4px] border border-accent/60 bg-accent-soft/50 p-5 text-right transition-colors duration-200 hover:border-accent"
             >
-              <span className="text-xs font-medium uppercase tracking-wider text-accent">
-                Модуль пройдено
-              </span>
-              <span className="mt-1 block font-medium">
-                Повернутися до програми →
+              <span className="text-sm text-accent">Уроки модуля пройдено</span>
+              <span className="mt-1 block font-display text-lg font-semibold">
+                Повернутися до програми
               </span>
             </Link>
           )}

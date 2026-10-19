@@ -1,67 +1,68 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* Design tokens. The full style guide lives in design-system/vikha/MASTER.md;
-   components use these tokens only, never raw hex values. */
+/* Design tokens — dark only, warm. The full style guide lives in
+   design-system/vikha/MASTER.md; components use these tokens only. */
 :root {
-  /* Surfaces & text: warm paper neutrals for comfortable long reading. */
-  --background: #fbfaf7;
-  --surface: #ffffff;
-  --foreground: #1c1b19;
-  --muted: #6b675f;
-  --border: #e5e1d8;
+  color-scheme: dark;
 
-  /* Brand: deep teal. White text on it passes AA (5.4:1). */
-  --accent: #0f766e;
-  --accent-foreground: #ffffff;
-  --accent-soft: #e6f2ef;
+  /* Surfaces & text: warm graphite paper, ivory ink. */
+  --background: #17140f;
+  --surface: #201c16;
+  --surface-raised: #2a251d;
+  --foreground: #f1e9dc;
+  --muted: #a99e8d;
+  --border: #3a3329;
+  --grid: #221e18;
 
-  /* Secondary warm hue: progress, "you are here", small highlights only. */
-  --warm: #c2410c;
-  --warm-soft: #fdf0e7;
+  /* Brand: honey. Buttons, open modules, milestone diamonds. */
+  --accent: #e8a33d;
+  --accent-foreground: #1e1609;
+  --accent-soft: #33270f;
 
-  /* Ordinal ramp for risk levels: the warm hue, light to dark. */
-  --risk-1: #fbf0e9;
-  --risk-2: #f6d6c2;
-  --risk-3: #eba985;
-}
+  /* Sage: progress — "you are here", completed lessons. */
+  --sage: #8cc2a8;
+  --sage-soft: #1f3029;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #141412;
-    --surface: #1c1c19;
-    --foreground: #ecebe6;
-    --muted: #a19d93;
-    --border: #2e2d29;
-    --accent: #2dd4bf;
-    --accent-foreground: #0b1f1d;
-    --accent-soft: #15302c;
-    --warm: #fb923c;
-    --warm-soft: #3a2418;
-    --risk-1: #2a221d;
-    --risk-2: #4a2f22;
-    --risk-3: #73402a;
-  }
+  /* Ordinal ramp for risk levels: warm clay, dark to light. */
+  --risk-1: #2a221d;
+  --risk-2: #4a2f22;
+  --risk-3: #73402a;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-border: var(--border);
+  --color-grid: var(--grid);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent-soft: var(--accent-soft);
-  --color-warm: var(--warm);
-  --color-warm-soft: var(--warm-soft);
+  --color-sage: var(--sage);
+  --color-sage-soft: var(--sage-soft);
   --color-risk-1: var(--risk-1);
   --color-risk-2: var(--risk-2);
   --color-risk-3: var(--risk-3);
 
-  /* Inter for text and UI, Source Serif 4 for headings and statements. */
-  --font-sans: var(--font-inter), system-ui, sans-serif;
-  --font-serif: var(--font-serif-display), Georgia, serif;
+  /* Fixel (MacPaw): Text cut for body and UI, Display cut for headings. */
+  --font-sans: var(--font-fixel-text), system-ui, sans-serif;
+  --font-display: var(--font-fixel-display), var(--font-fixel-text), system-ui, sans-serif;
+
+  --animate-draw: draw 600ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+
+  @keyframes draw {
+    from {
+      transform: scaleX(0);
+      opacity: 0;
+    }
+    to {
+      transform: scaleX(1);
+      opacity: 1;
+    }
+  }
 
   --animate-flow-x: flow-x 1.8s linear infinite;
   --animate-flow-y: flow-y 1.8s linear infinite;
@@ -143,28 +144,37 @@ body {
   --tw-prose-hr: var(--border);
 }
 
-/* Lesson typography: 17px body at 1.7, serif headings. */
+/* Planning-paper grid behind the hero and the course chart. */
+.bg-graph {
+  background-color: var(--background);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Lesson typography: 17px body at 1.7, display headings. */
 .lesson-body {
   font-size: 1.0625rem;
   line-height: 1.7;
 }
 
 .lesson-body :where(h1, h2, h3):not(:where(.not-prose, .not-prose *)) {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 .lesson-body :where(h1):not(:where(.not-prose, .not-prose *)) {
-  font-size: 2rem;
-  line-height: 1.15;
+  font-size: 2.125rem;
+  line-height: 1.08;
   margin-bottom: 0.75em;
   hyphens: auto;
 }
 
 @media (min-width: 640px) {
   .lesson-body :where(h1):not(:where(.not-prose, .not-prose *)) {
-    font-size: 2.5rem;
+    font-size: 3rem;
   }
 }
 
