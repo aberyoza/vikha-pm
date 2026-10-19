@@ -43,11 +43,11 @@ export function RiskMatrix() {
       caption="Для ризиків високого рівня заздалегідь готують сценарій дій, середні — регулярно відстежують, низькі — приймають."
     >
       <div className="grid grid-cols-[auto_1fr] gap-x-3">
-        <p className="row-span-2 hidden self-center text-xs uppercase tracking-wide text-muted [writing-mode:vertical-rl] rotate-180 sm:block">
+        <p className="row-span-2 hidden self-center text-xs uppercase tracking-wide text-muted [writing-mode:vertical-rl] rotate-180 @md:block">
           Ймовірність →
         </p>
 
-        <div className="col-start-2 grid grid-cols-[3.5rem_repeat(3,1fr)] gap-1 sm:col-start-auto">
+        <div className="col-start-2 grid grid-cols-[3.5rem_repeat(3,1fr)] gap-1 @md:col-start-auto">
           {rows.map((p) => (
             <div key={p} className="contents">
               <p className="self-center pr-1 text-right text-xs text-muted">

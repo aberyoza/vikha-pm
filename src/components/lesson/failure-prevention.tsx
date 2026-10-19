@@ -37,7 +37,7 @@ export function FailurePrevention() {
         {pairs.map((pair, n) => (
           <li
             key={pair.cause}
-            className="grid gap-1 py-3 first:pt-0 last:pb-0 sm:grid-cols-[1fr_auto_1fr] sm:items-center sm:gap-4"
+            className="grid gap-1 py-3 first:pt-0 last:pb-0 @xl:grid-cols-[1fr_auto_1fr] @xl:items-center @xl:gap-4"
           >
             <p className="flex gap-3 font-medium">
               <span className="w-4 shrink-0 text-sm tabular-nums text-muted">
@@ -45,11 +45,11 @@ export function FailurePrevention() {
               </span>
               {pair.cause}
             </p>
-            <span aria-hidden className="hidden text-accent sm:block">
+            <span aria-hidden className="hidden text-accent @xl:block">
               →
             </span>
-            <p className="pl-7 text-sm text-muted sm:pl-0">
-              <span className="text-accent sm:hidden">→ </span>
+            <p className="pl-7 text-sm text-muted @xl:pl-0">
+              <span className="text-accent @xl:hidden">→ </span>
               {pair.fix}
             </p>
           </li>

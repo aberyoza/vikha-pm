@@ -28,7 +28,7 @@ export function CpmPert() {
         </>
       }
     >
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-4 @xl:grid-cols-2">
         {methods.map((m) => (
           <div key={m.name} className="rounded-lg border border-border p-5">
             <p className="text-3xl font-semibold tracking-tight text-accent">

@@ -24,7 +24,7 @@ export function Ecosystem() {
       title="Третій вимір складності: екосистемний підхід"
       lead="У 1970-х роках Світовий банк починає активно застосовувати управління проєктами, назавжди змінюючи масштаб дисципліни."
     >
-      <div className="grid items-center gap-8 md:grid-cols-[1fr_220px]">
+      <div className="grid items-center gap-8 @2xl:grid-cols-[1fr_220px]">
         <svg
           viewBox="0 0 400 400"
           className="mx-auto h-auto w-full max-w-sm"

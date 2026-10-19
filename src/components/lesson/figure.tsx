@@ -11,7 +11,7 @@ type FigureProps = {
 // the visual itself and a takeaway caption.
 export function Figure({ title, lead, caption, children }: FigureProps) {
   return (
-    <figure className="not-prose my-10 rounded-xl border border-border bg-surface p-5 sm:p-8">
+    <figure className="@container not-prose my-10 rounded-xl border border-border bg-surface p-5 sm:p-8">
       {title && (
         <p className="text-xs font-medium uppercase tracking-wide text-muted">
           {title}

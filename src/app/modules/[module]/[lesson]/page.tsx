@@ -32,9 +32,12 @@ export default async function LessonPage({ params }: Props) {
   );
 
   return (
-    <div className="mx-auto grid max-w-5xl gap-10 px-4 py-10 sm:px-6 md:grid-cols-[220px_1fr]">
-      <aside>
-        <p className="text-xs font-medium uppercase tracking-wide text-muted">
+    <div className="grid md:grid-cols-[260px_1fr]">
+      <aside className="border-b border-border px-4 py-6 sm:px-6 md:sticky md:top-0 md:h-dvh md:overflow-y-auto md:border-r md:border-b-0 md:py-10">
+        <Link href="/" className="text-sm text-muted hover:text-foreground">
+          ← Програма курсу
+        </Link>
+        <p className="mt-6 text-xs font-medium uppercase tracking-wide text-muted">
           Модуль {courseModule.number}
         </p>
         <p className="mt-1 font-medium">{courseModule.title}</p>
@@ -55,12 +58,12 @@ export default async function LessonPage({ params }: Props) {
         </nav>
       </aside>
 
-      <article className="min-w-0">
-        <div className="prose max-w-none">
+      <article className="min-w-0 px-4 py-10 sm:px-8 xl:px-12">
+        <div className="lesson-body prose max-w-6xl">
           <Content />
         </div>
 
-        <nav className="mt-12 flex justify-between gap-4 border-t border-border pt-6">
+        <nav className="mt-12 flex max-w-6xl justify-between gap-4 border-t border-border pt-6">
           {prev ? (
             <Link
               href={`/modules/${courseModule.slug}/${prev.slug}`}

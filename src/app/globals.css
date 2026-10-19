@@ -85,6 +85,12 @@ body {
   color: var(--foreground);
 }
 
+/* Lesson text keeps a readable line length; text-plus-figure rows
+   (<Split>) use the full content width. */
+.lesson-body > :not([data-split]) {
+  max-width: 70ch;
+}
+
 .prose {
   --tw-prose-body: var(--foreground);
   --tw-prose-headings: var(--foreground);

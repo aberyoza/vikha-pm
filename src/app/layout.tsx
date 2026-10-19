@@ -22,7 +22,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="uk" className={`${inter.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col font-sans">
         <header className="border-b border-border">
-          <div className="mx-auto flex h-14 max-w-5xl items-center px-4 sm:px-6">
+          <div className="flex h-14 items-center px-4 sm:px-6">
             <Link href="/" className="text-lg font-semibold tracking-tight">
               Віха
             </Link>
@@ -30,7 +30,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </header>
         <div className="flex-1">{children}</div>
         <footer className="border-t border-border">
-          <div className="mx-auto max-w-5xl px-4 py-6 text-sm text-muted sm:px-6">
+          <div className="px-4 py-6 text-sm text-muted sm:px-6">
             <p>© 2026 Віха</p>
             <p className="mt-1">
               PMBOK® — зареєстрована торгова марка Project Management Institute,

@@ -8,11 +8,14 @@ import { ProjectAnatomy } from "@/components/lesson/project-anatomy";
 import { ProjectVsOperations } from "@/components/lesson/project-vs-operations";
 import { RiskMatrix } from "@/components/lesson/risk-matrix";
 import { SmartGoal } from "@/components/lesson/smart-goal";
+import { Callout, Columns, Split } from "@/components/lesson/split";
 import { StakeholderMap } from "@/components/lesson/stakeholder-map";
 
 // Text is styled by the `prose` wrapper in the lesson page. Illustrations
 // registered here can be used in any lesson without an import.
 const components: MDXComponents = {
+  Callout,
+  Columns,
   CpmPert,
   CriticalPath,
   Ecosystem,
@@ -22,6 +25,7 @@ const components: MDXComponents = {
   ProjectVsOperations,
   RiskMatrix,
   SmartGoal,
+  Split,
   StakeholderMap,
 };
 

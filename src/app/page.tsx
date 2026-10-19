@@ -24,7 +24,7 @@ export default function Home() {
   const first = publishedModules[0];
 
   return (
-    <main className="mx-auto max-w-5xl px-4 sm:px-6">
+    <main className="mx-auto max-w-6xl px-4 sm:px-6">
       <section className="py-16 sm:py-24">
         <h1 className="max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl">
           Курс з управління проєктами

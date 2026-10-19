@@ -59,7 +59,7 @@ export function SmartGoal() {
         </div>
       </div>
 
-      <dl className="mt-6 grid gap-4 text-sm sm:grid-cols-2">
+      <dl className="mt-6 grid gap-4 text-sm @md:grid-cols-2">
         {letters.map((l) => (
           <div key={l.letter}>
             <dt className="flex items-baseline gap-2">

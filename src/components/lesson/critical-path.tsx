@@ -153,7 +153,7 @@ export function CriticalPath() {
         ))}
       </svg>
 
-      <ul className="mt-5 grid gap-3 text-sm sm:grid-cols-2">
+      <ul className="mt-5 grid gap-3 text-sm @xl:grid-cols-2">
         <li className="flex items-start gap-3">
           <span className="mt-2 h-1 w-6 shrink-0 rounded-full bg-accent" />
           <span>
