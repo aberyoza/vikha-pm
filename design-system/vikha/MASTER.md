@@ -129,10 +129,14 @@ Text the illustration explains…
 - Formulas: KaTeX via `remark-math` — inline `$r$`, block `$$ … $$`. Keep each
   block formula short enough for a phone (split long chains into separate
   blocks); `.katex-display` scrolls horizontally as a safety net.
-- Interactive figures (e.g. `TimeValueCalculator`) are client components
+- Lessons are for understanding, not drilling: start from a question or
+  example, put formulas in `<FormulaNote>` (collapsed by default) unless the
+  author wants them visible.
+- Interactive figures (e.g. `PresentValueCalculator`) are client components
   (`"use client"`) inside a `Figure`: sliders/inputs with visible labels,
   validated input with an inline message, results with `aria-live`, numbers
-  formatted with `Intl.NumberFormat("uk-UA")`.
+  formatted with `Intl.NumberFormat("uk-UA")`. Answer one question and say
+  the result in a sentence, not as a list of raw numbers.
 
 ## 7. Motion
 

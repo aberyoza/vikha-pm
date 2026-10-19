@@ -70,7 +70,7 @@ modules[2] = {
     { slug: "project-analysis", title: "Проєктний аналіз та інвестиції" },
     { slug: "principles-aspects", title: "Принципи та аспекти аналізу" },
     { slug: "horizon", title: "Класифікація і горизонт планування" },
-    { slug: "time-value", title: "Часова цінність грошей" },
+    { slug: "time-value", title: "Гроші й час" },
   ],
 };
 
