@@ -38,3 +38,16 @@ motif, and nothing that looks like a generic AI template. The
   pushes; finish by giving the `git push` command.
 - After editing `src/app/globals.css`, run `rm -rf .next` and restart the dev
   server (Turbopack may serve stale CSS).
+
+## Security
+
+- Security headers (CSP, HSTS, etc.) live in `next.config.ts`. Adding an
+  external service (analytics, fonts, embeds, APIs) means updating the CSP
+  there, or the browser will block it.
+- `vercel.json` holds a WAF rule that denies common exploit paths
+  (`/wp-admin`, `/.env`, `*.php`…). Don't add real routes that match it;
+  test the regex before changing it.
+- Bot protection, AI-bot rules and rate limits are configured by the author
+  in the Vercel dashboard (Firewall), not in code.
+- Never commit secrets: only the public Supabase URL and publishable key are
+  allowed (in Vercel env vars / `.env.local`).
