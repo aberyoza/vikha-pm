@@ -126,6 +126,13 @@ Text the illustration explains…
 - Module closer: `<Split>` with summary + `<Callout title="Ключові висновки">`.
 - Long lists without a figure → `<Columns>`.
 - «ялинки» quotes, «проєкт» spelling, lowercase after colon in list items.
+- Formulas: KaTeX via `remark-math` — inline `$r$`, block `$$ … $$`. Keep each
+  block formula short enough for a phone (split long chains into separate
+  blocks); `.katex-display` scrolls horizontally as a safety net.
+- Interactive figures (e.g. `TimeValueCalculator`) are client components
+  (`"use client"`) inside a `Figure`: sliders/inputs with visible labels,
+  validated input with an inline message, results with `aria-live`, numbers
+  formatted with `Intl.NumberFormat("uk-UA")`.
 
 ## 7. Motion
 

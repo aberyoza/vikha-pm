@@ -18,7 +18,8 @@ const nextConfig: NextConfig = {
 // Plugins are passed by name: Turbopack can't receive JS functions.
 const withMDX = createMDX({
   options: {
-    remarkPlugins: ["remark-gfm"],
+    remarkPlugins: ["remark-gfm", "remark-math"],
+    rehypePlugins: ["rehype-katex"],
   },
 });
 

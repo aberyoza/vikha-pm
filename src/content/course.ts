@@ -60,6 +60,20 @@ modules[1] = {
   ],
 };
 
+modules[2] = {
+  ...modules[2],
+  title: "Проєктний аналіз та інвестиції",
+  description:
+    "Як оцінюють інвестиційні проєкти: п'ять міжнародних принципів, сім аспектів аналізу, горизонт планування та часова цінність грошей.",
+  published: true,
+  lessons: [
+    { slug: "project-analysis", title: "Проєктний аналіз та інвестиції" },
+    { slug: "principles-aspects", title: "Принципи та аспекти аналізу" },
+    { slug: "horizon", title: "Класифікація і горизонт планування" },
+    { slug: "time-value", title: "Часова цінність грошей" },
+  ],
+};
+
 export const publishedModules = modules.filter(
   (m) => m.published && m.lessons.length > 0,
 );

@@ -153,6 +153,14 @@ body {
   background-size: 24px 24px;
 }
 
+/* Long formulas scroll inside themselves instead of widening the page. */
+.katex-display {
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-block: 0.25em;
+}
+
 /* Lesson typography: 17px body at 1.7, display headings. */
 .lesson-body {
   font-size: 1.0625rem;
