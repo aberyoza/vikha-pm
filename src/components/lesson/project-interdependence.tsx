@@ -3,16 +3,32 @@ import { Figure } from "./figure";
 type Kind = {
   name: string;
   effect: string;
+  example: string;
   // How taking project A changes the profitability of project B.
   arrow: "zero" | "needs" | "none" | "up" | "down";
 };
 
 const kinds: Kind[] = [
-  { name: "Взаємовиключні", effect: "Б стає нерентабельним", arrow: "zero" },
-  { name: "Умовні", effect: "Б не працює без А", arrow: "needs" },
-  { name: "Незалежні", effect: "Б не змінюється", arrow: "none" },
-  { name: "Синергетичні", effect: "Б стає вигіднішим", arrow: "up" },
-  { name: "Заміщуючі", effect: "Б стає менш вигідним", arrow: "down" },
+  {
+    name: "Взаємовиключні",
+    effect: "Б стає непотрібним",
+    example: "кросплатформний застосунок або два нативні",
+    arrow: "zero",
+  },
+  { name: "Умовні", effect: "Б не працює без А", example: "застосунок без API на бекенді", arrow: "needs" },
+  { name: "Незалежні", effect: "Б не змінюється", example: "застосунок і ремонт в офісі", arrow: "none" },
+  {
+    name: "Синергетичні",
+    effect: "Б стає вигіднішим",
+    example: "застосунок і програма лояльності",
+    arrow: "up",
+  },
+  {
+    name: "Заміщуючі",
+    effect: "Б стає менш вигідним",
+    example: "застосунок і мобільна версія сайту",
+    arrow: "down",
+  },
 ];
 
 const marks: Record<Kind["arrow"], string> = {
@@ -41,7 +57,7 @@ export function ProjectInterdependence() {
   return (
     <Figure
       title="Взаємозалежність"
-      lead="Що станеться з рентабельністю проєкту Б, якщо прийняти проєкт А?"
+      lead="Що станеться з вигодою від проєкту Б, якщо прийняти проєкт А?"
     >
       <ul className="divide-y divide-grid">
         {kinds.map((k) => (
@@ -55,7 +71,8 @@ export function ProjectInterdependence() {
             </span>
             <span className="min-w-0">
               <span className="block font-medium">{k.name}</span>
-              <span className="text-sm text-muted">{k.effect}</span>
+              <span className="block text-sm text-muted">{k.effect}</span>
+              <span className="block text-[13px] text-muted/80 italic">{k.example}</span>
             </span>
           </li>
         ))}

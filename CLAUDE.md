@@ -28,6 +28,11 @@ motif, and nothing that looks like a generic AI template. The
   typos/obvious facts and report every change. Spelling «проєкт», «ялинки».
 - Text the author didn't write (examples, figure captions) must be called
   out to the author for review.
+- Audience: non-specialists who want to *understand* PM, not to calculate.
+  The author asked for plain language and examples from the IT world: start
+  from a situation (e.g. a store deciding on a mobile app), then name the
+  term; keep one running example per module; hide formulas in
+  `<FormulaNote>`. Module 3 is the reference for this tone.
 
 ## Workflow
 

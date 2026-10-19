@@ -5,8 +5,8 @@ const money = new Intl.NumberFormat("uk-UA", { maximumFractionDigits: 0 });
 // Worked example: invest today, earn the same amount for four years,
 // compare at a 10% rate.
 const RATE = 0.1;
-const INVESTED = 10_000;
-const INCOME = 3_000;
+const INVESTED = 1_000_000;
+const INCOME = 300_000;
 const YEARS = [1, 2, 3, 4];
 
 const todayValues = YEARS.map((t) => INCOME / (1 + RATE) ** t);
@@ -51,12 +51,12 @@ export function ProjectCashTimeline() {
   return (
     <Figure
       title="Гроші проєкту"
-      lead={"Вклали 10\u00a0000\u00a0грн, отримаємо 12\u00a0000\u00a0грн. Чи вигідно?"}
+      lead={"Застосунок коштує 1\u00a0000\u00a0000\u00a0грн, а за 4 роки принесе 1\u00a0200\u00a0000\u00a0грн. Чи вигідно?"}
       caption="Приклад зі ставкою 10% на рік. Номінально проєкт приносить більше, ніж коштує, але в сьогоднішніх грошах — менше. За такої ставки він не окупається."
     >
       <div className="space-y-4">
-        <Bar label="Вкладаємо сьогодні" value={INVESTED} tone="invest" />
-        <Bar label="Отримаємо за 4 роки" value={nominalTotal} tone="nominal" />
+        <Bar label="Розробка сьогодні" value={INVESTED} tone="invest" />
+        <Bar label="Додатковий дохід за 4 роки" value={nominalTotal} tone="nominal" />
         <Bar label="Ті самі доходи в сьогоднішніх грошах" value={todayTotal} tone="today" />
       </div>
 
