@@ -39,7 +39,12 @@ modules[0] = {
   description:
     "Чим проєкт відрізняється від рутини, звідки взялося управління проєктами, хто його учасники, як ставити цілі за SMART і чому проєкти провалюються.",
   published: true,
-  lessons: [{ slug: "intro", title: "Вступ до управління проєктами" }],
+  lessons: [
+    { slug: "evolution", title: "Еволюція управління проєктами" },
+    { slug: "what-is-project", title: "Що таке проєкт" },
+    { slug: "stakeholders-smart", title: "Учасники проєкту та цілі за SMART" },
+    { slug: "risks", title: "Чому проєкти зазнають невдач" },
+  ],
 };
 
 export const publishedModules = modules.filter(
