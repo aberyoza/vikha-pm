@@ -1,8 +1,17 @@
 import type { MDXComponents } from "mdx/types";
+import { CpmPert } from "@/components/lesson/cpm-pert";
+import { CriticalPath } from "@/components/lesson/critical-path";
+import { Ecosystem } from "@/components/lesson/ecosystem";
+import { PmbokOrigin } from "@/components/lesson/pmbok";
 
-// Lessons are styled by the `prose` wrapper in the lesson page,
-// so no element overrides are needed yet.
-const components: MDXComponents = {};
+// Text is styled by the `prose` wrapper in the lesson page. Illustrations
+// registered here can be used in any lesson without an import.
+const components: MDXComponents = {
+  CpmPert,
+  CriticalPath,
+  Ecosystem,
+  PmbokOrigin,
+};
 
 export function useMDXComponents(): MDXComponents {
   return components;
