@@ -168,7 +168,9 @@ Text the illustration explains…
 
 ## 8. Copy
 
-Plain verbs, sentence case, no filler. Buttons say what happens
+Plain verbs, sentence case, no filler. Never show a bare abbreviation:
+expand it at first mention in the text *and* on any figure that can be read
+on its own (Ukrainian name first, then e.g. «PI (Profitability Index)»). Buttons say what happens
 («Почати з модуля 1», «Відкрити програму»). Don't promise features that aren't
 built without marking them («Завдання модуля — скоро»). Never invent
 testimonials or numbers.

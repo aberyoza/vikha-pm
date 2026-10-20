@@ -8,26 +8,34 @@ const dec = (v: number) =>
 
 const cards = [
   {
-    name: "NPV",
+    title: "Чиста приведена вартість",
+    abbr: "NPV",
+    full: "Net Present Value",
     value: `+${thousands(npv(RATE))}`,
     meaning: "на стільки стали багатшими",
     rule: "більше 0",
   },
   {
-    name: "IRR",
-    value: `≈ ${pct(irr())}`,
+    title: "Внутрішня норма доходності",
+    abbr: "IRR",
+    full: "Internal Rate of Return",
+    value: `≈\u00a0${pct(irr())}`,
     meaning: "«ставка», яку дає проєкт",
     rule: `більша за ${pct(RATE)}`,
   },
   {
-    name: "PI",
-    value: dec(pi()),
-    meaning: "гривень на кожну вкладену гривню",
+    title: "Індекс прибутковості",
+    abbr: "PI",
+    full: "Profitability Index",
+    value: `${dec(pi())}\u00a0грн`,
+    meaning: "повертається на кожну вкладену гривню",
     rule: "більше 1",
   },
   {
-    name: "Строк окупності",
-    value: `≈ ${Math.round(dpp())} роки`,
+    title: "Строк окупності",
+    abbr: "DPP",
+    full: "Discounted Payback Period",
+    value: `≈\u00a0${Math.round(dpp())}\u00a0роки`,
     meaning: "коли повернемо вкладене",
     rule: "менше 4 років",
   },
@@ -42,9 +50,15 @@ export function CriteriaCards() {
     >
       <div className="grid gap-3 @md:grid-cols-2">
         {cards.map((c) => (
-          <div key={c.name} className="rounded-[4px] border border-border p-4">
-            <p className="text-sm text-muted">{c.name}</p>
-            <p className="mt-1 font-display text-2xl font-semibold whitespace-nowrap text-accent">
+          <div key={c.abbr} className="rounded-[4px] border border-border p-4">
+            <p className="font-medium leading-snug">{c.title}</p>
+            <p className="mt-1 text-[13px] text-muted">
+              <abbr title={c.full} className="font-semibold tracking-wide no-underline">
+                {c.abbr}
+              </abbr>{" "}
+              <span lang="en">({c.full})</span>
+            </p>
+            <p className="mt-3 font-display text-2xl font-semibold whitespace-nowrap text-accent">
               {c.value}
             </p>
             <p className="mt-1 text-sm">{c.meaning}</p>
