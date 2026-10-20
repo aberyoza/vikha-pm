@@ -8,6 +8,7 @@ import { FailurePrevention } from "@/components/lesson/failure-prevention";
 import { FormulaNote } from "@/components/lesson/formula-note";
 import { IncrementalCashFlow } from "@/components/lesson/incremental-cash-flow";
 import { InvestmentTypes } from "@/components/lesson/investment-types";
+import { ManagerRoles } from "@/components/lesson/manager-roles";
 import { MatrixReporting } from "@/components/lesson/matrix-reporting";
 import { MoneyTimeline } from "@/components/lesson/money-timeline";
 import { PlanningHorizon } from "@/components/lesson/planning-horizon";
@@ -41,6 +42,7 @@ const components: MDXComponents = {
   FormulaNote,
   IncrementalCashFlow,
   InvestmentTypes,
+  ManagerRoles,
   MatrixReporting,
   MoneyTimeline,
   PlanningHorizon,

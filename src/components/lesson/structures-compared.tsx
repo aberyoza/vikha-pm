@@ -6,12 +6,12 @@ const levelName: Record<Level, string> = { 1: "низька", 2: "середня
 const columns = ["Функціональна", "Матрична", "Проєктна"];
 
 // Ratings follow the lesson text: cheapest vs. most expensive, slow vs. fast
-// decisions, flexible vs. duplicated resources.
+// decisions, flexible vs. duplicated specialists.
 const criteria: { name: string; values: [Level, Level, Level] }[] = [
   { name: "Вартість", values: [1, 2, 3] },
   { name: "Швидкість рішень", values: [1, 2, 3] },
   { name: "Влада керівника проєкту", values: [1, 2, 3] },
-  { name: "Гнучкість у використанні людей", values: [3, 3, 1] },
+  { name: "Гнучкий розподіл фахівців між завданнями", values: [3, 3, 1] },
 ];
 
 function Rating({ level }: { level: Level }) {

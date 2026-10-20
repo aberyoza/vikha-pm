@@ -70,7 +70,9 @@ Typographic don'ts (they read as generated/templated):
 - no ALL-CAPS tracked "eyebrow" labels above headings;
 - no meta strings joined with middle dots («A · B · C»);
 - no "→" appended to buttons/links (arrows only where they *mean* direction,
-  e.g. cause → fix, axis labels);
+  e.g. cause → fix, axis labels, and the prev/next lesson cards —
+  `LessonNavCard` puts an arrow icon on the side the reader is going, at the
+  author's request, so the card reads as navigation at a glance);
 - no single accented word inside a headline.
 
 ## 4. Layout & shape
@@ -91,6 +93,7 @@ Typographic don'ts (they read as generated/templated):
 | `Logo`, `MilestoneMark` | `src/components/logo.tsx` | brand; the honey diamond is reused as the milestone symbol everywhere |
 | `ButtonLink` (`primary` / `text`) | `src/components/ui.tsx` | primary = honey button; text = underlined link-button |
 | `SectionHeading` | `src/components/ui.tsx` | section titles |
+| `LessonNavCard` | `src/components/lesson-nav-card.tsx` | prev/next lesson links with a direction arrow |
 | `lessonsLabel(n)` | `src/components/ui.tsx` | Ukrainian plural «урок/уроки/уроків» |
 | `CourseGantt` | `src/components/course-gantt.tsx` | program as Gantt chart (≥1024px) / list (narrower), driven by `src/content/course.ts` |
 | `Figure` | `src/components/lesson/figure.tsx` | frame for lesson illustrations: small title, display lead, visual, caption |

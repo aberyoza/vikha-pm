@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { LessonNavCard } from "@/components/lesson-nav-card";
 import { findLesson, modules, publishedModules } from "@/content/course";
 
 type Props = PageProps<"/modules/[module]/[lesson]">;
@@ -105,38 +106,30 @@ export default async function LessonPage({ params }: Props) {
           className="mt-16 grid max-w-6xl gap-4 border-t border-border pt-8 sm:grid-cols-2"
         >
           {prev ? (
-            <Link
+            <LessonNavCard
               href={lessonHref(prev.slug)}
-              className="group rounded-[4px] border border-border bg-surface p-5 transition-colors duration-200 hover:border-accent"
-            >
-              <span className="text-sm text-muted">Попередній урок</span>
-              <span className="mt-1 block font-display text-lg font-semibold group-hover:text-accent">
-                {prev.title}
-              </span>
-            </Link>
+              label="Попередній урок"
+              title={prev.title}
+              direction="prev"
+            />
           ) : (
             <span className="hidden sm:block" />
           )}
           {next ? (
-            <Link
+            <LessonNavCard
               href={lessonHref(next.slug)}
-              className="group rounded-[4px] border border-border bg-surface p-5 text-right transition-colors duration-200 hover:border-accent"
-            >
-              <span className="text-sm text-muted">Наступний урок</span>
-              <span className="mt-1 block font-display text-lg font-semibold group-hover:text-accent">
-                {next.title}
-              </span>
-            </Link>
+              label="Наступний урок"
+              title={next.title}
+              direction="next"
+            />
           ) : (
-            <Link
+            <LessonNavCard
               href="/#program"
-              className="group rounded-[4px] border border-accent/60 bg-accent-soft/50 p-5 text-right transition-colors duration-200 hover:border-accent"
-            >
-              <span className="text-sm text-accent">Уроки модуля пройдено</span>
-              <span className="mt-1 block font-display text-lg font-semibold">
-                Повернутися до програми
-              </span>
-            </Link>
+              label="Уроки модуля пройдено"
+              title="Повернутися до програми"
+              direction="next"
+              highlight
+            />
           )}
         </nav>
       </article>
