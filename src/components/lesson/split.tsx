@@ -30,6 +30,15 @@ export function Split({ children }: { children: ReactNode }) {
   );
 }
 
+// A figure that needs the full content width (e.g. a mind map).
+export function Wide({ children }: { children: ReactNode }) {
+  return (
+    <div data-split className="my-10 [&>figure]:my-0">
+      {children}
+    </div>
+  );
+}
+
 // A long list flowed into two columns on wide screens.
 export function Columns({ children }: { children: ReactNode }) {
   return (

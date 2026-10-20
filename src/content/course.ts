@@ -71,6 +71,7 @@ modules[2] = {
     { slug: "principles-aspects", title: "П'ять принципів і сім питань" },
     { slug: "horizon", title: "Зв'язки між проєктами і горизонт" },
     { slug: "time-value", title: "Гроші й час" },
+    { slug: "mind-map", title: "Карта модуля" },
   ],
 };
 
@@ -84,6 +85,7 @@ modules[3] = {
     { slug: "costs-benefits", title: "Витрати і вигоди" },
     { slug: "criteria", title: "Чотири показники вигідності" },
     { slug: "cash-gap", title: "Касовий розрив" },
+    { slug: "mind-map", title: "Карта модуля" },
   ],
 };
 

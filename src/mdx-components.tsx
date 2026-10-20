@@ -13,6 +13,7 @@ import { IncrementalCashFlow } from "@/components/lesson/incremental-cash-flow";
 import { InvestmentTypes } from "@/components/lesson/investment-types";
 import { IrrExplorer } from "@/components/lesson/irr-explorer";
 import { ManagerRoles } from "@/components/lesson/manager-roles";
+import { Module3Map, Module4Map, MoneyDecisionPath } from "@/components/lesson/module-maps";
 import { MatrixReporting } from "@/components/lesson/matrix-reporting";
 import { MoneyTimeline } from "@/components/lesson/money-timeline";
 import { PaybackCalculator } from "@/components/lesson/payback-calculator";
@@ -29,7 +30,7 @@ import { RealVsPaperMoney } from "@/components/lesson/real-vs-paper-money";
 import { RiskMatrix } from "@/components/lesson/risk-matrix";
 import { SevenAspects } from "@/components/lesson/seven-aspects";
 import { SmartGoal } from "@/components/lesson/smart-goal";
-import { Callout, Columns, Split } from "@/components/lesson/split";
+import { Callout, Columns, Split, Wide } from "@/components/lesson/split";
 import { StakeholderMap } from "@/components/lesson/stakeholder-map";
 import { StructuresCompared } from "@/components/lesson/structures-compared";
 import { TeamStakeholdersComms } from "@/components/lesson/team-stakeholders-comms";
@@ -55,6 +56,9 @@ const components: MDXComponents = {
   IrrExplorer,
   ManagerRoles,
   MatrixReporting,
+  Module3Map,
+  Module4Map,
+  MoneyDecisionPath,
   MoneyTimeline,
   PaybackCalculator,
   PlanningHorizon,
@@ -75,6 +79,7 @@ const components: MDXComponents = {
   StructuresCompared,
   TeamStakeholdersComms,
   ThreeActivities,
+  Wide,
 };
 
 export function useMDXComponents(): MDXComponents {
