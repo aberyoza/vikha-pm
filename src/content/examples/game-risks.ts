@@ -9,6 +9,21 @@ export const RESERVE_SHARE = 0.1;
 export const RESERVE = BUDGET * RESERVE_SHARE; // 30 of the 300 are kept for surprises
 
 export type Control = "full" | "partial" | "none";
+export type Response = "avoid" | "mitigate" | "transfer" | "accept";
+export type Status = "open" | "watching" | "closed";
+
+export const RESPONSE_LABEL: Record<Response, string> = {
+  avoid: "Уникнути",
+  mitigate: "Зменшити",
+  transfer: "Передати",
+  accept: "Прийняти",
+};
+
+export const STATUS_LABEL: Record<Status, string> = {
+  open: "Відкритий",
+  watching: "Під контролем",
+  closed: "Закритий",
+};
 
 export type Risk = {
   key: string;
@@ -24,6 +39,13 @@ export type Risk = {
   control: Control;
   // Expert danger rating for the risk rose, 1–5.
   danger: number;
+  // Risk register fields: probability and impact on a 1–5 scale.
+  probability: number;
+  impact: number;
+  owner: string;
+  response: Response;
+  trigger: string;
+  status: Status;
 };
 
 export const RISKS: Risk[] = [
@@ -38,6 +60,12 @@ export const RISKS: Risk[] = [
     measureCost: 5,
     control: "full",
     danger: 4,
+    probability: 3,
+    impact: 4,
+    owner: "Product Owner",
+    response: "mitigate",
+    trigger: "у перший тиждень покупки робить менше 2% гравців",
+    status: "open",
   },
   {
     key: "review",
@@ -50,6 +78,12 @@ export const RISKS: Risk[] = [
     measureCost: 2,
     control: "partial",
     danger: 2,
+    probability: 2,
+    impact: 3,
+    owner: "Проєктний менеджер",
+    response: "mitigate",
+    trigger: "магазин повернув гру з зауваженнями",
+    status: "watching",
   },
   {
     key: "developer",
@@ -62,6 +96,12 @@ export const RISKS: Risk[] = [
     measureCost: 8,
     control: "partial",
     danger: 4,
+    probability: 2,
+    impact: 5,
+    owner: "Технічний лідер",
+    response: "mitigate",
+    trigger: "програміст повідомив про звільнення",
+    status: "open",
   },
   {
     key: "server",
@@ -74,6 +114,12 @@ export const RISKS: Risk[] = [
     measureCost: 6,
     control: "full",
     danger: 3,
+    probability: 3,
+    impact: 4,
+    owner: "DevOps-інженер",
+    response: "mitigate",
+    trigger: "навантаження сервера понад 70%",
+    status: "watching",
   },
   {
     key: "usd",
@@ -86,6 +132,12 @@ export const RISKS: Risk[] = [
     measureCost: 12,
     control: "none",
     danger: 2,
+    probability: 4,
+    impact: 2,
+    owner: "Проєктний менеджер",
+    response: "accept",
+    trigger: "курс зріс більше ніж на 5% від плану",
+    status: "open",
   },
   {
     key: "tax",
@@ -98,8 +150,20 @@ export const RISKS: Risk[] = [
     measureCost: 20,
     control: "none",
     danger: 3,
+    probability: 2,
+    impact: 3,
+    owner: "Засновник студії",
+    response: "accept",
+    trigger: "законопроєкт про податки ухвалено в першому читанні",
+    status: "open",
   },
 ];
+
+export const score = (r: Risk) => r.probability * r.impact;
+export const priority = (r: Risk) => {
+  const v = score(r);
+  return v >= 12 ? "високий" : v >= 6 ? "середній" : "низький";
+};
 
 export const COVERAGE_NEEDED = RISKS.reduce((s, r) => s + r.measureCost, 0);
 

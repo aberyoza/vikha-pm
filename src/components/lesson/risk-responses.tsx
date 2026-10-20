@@ -1,63 +1,44 @@
 import { Figure } from "./figure";
 
-const methods = [
+const strategies = [
   {
-    name: "Диверсифікація і розподіл",
-    idea: "не класти всі яйця в один кошик, ділити ризик з партнерами",
-    game: "випустити гру одразу в App Store і Google Play; видавець бере частину витрат на рекламу",
-    when: "до події",
-  },
-  {
-    name: "Уникнення",
-    idea: "відмовитися від ризикованої технології чи ринку",
+    name: "Уникнути",
+    idea: "змінити план так, щоб ризик зник: відмовитися від ризикованої технології чи ринку",
     game: "не писати власний ігровий рушій, а взяти перевірений готовий",
-    when: "до події",
   },
   {
-    name: "Страхування",
-    idea: "передати ризик професійному страховику",
-    game: "застрахувати ноутбуки й техніку студії",
-    when: "до події",
+    name: "Зменшити",
+    idea: "знизити ймовірність чи збиток; сюди ж — диверсифікація і розподіл ризику між учасниками",
+    game: "тест навантаження сервера, документація коду, вихід одразу в App Store і Google Play",
   },
   {
-    name: "Резервування",
-    idea: "відкласти власні гроші на несподіванки (самострахування)",
+    name: "Передати",
+    idea: "перекласти наслідки на того, хто впорається краще: страховика, підрядника, партнера",
+    game: "застрахувати техніку студії; видавець бере на себе витрати на рекламу",
+  },
+  {
+    name: "Прийняти",
+    idea: "свідомо нічого не робити заздалегідь, але тримати резерв (самострахування) і план на випадок події",
     game: "резерв 30 тис. грн на курс долара й податки",
-    when: "до події",
-  },
-  {
-    name: "Додаткові гроші",
-    idea: "залучити кредит чи ресурси, коли подія вже сталася",
-    game: "якщо програміст іде, взяти короткий кредит на найм нової людини",
-    when: "після події",
   },
 ];
 
-// Ways to manage risks, each with an example from the game.
+// Four standard responses to a risk, each with an example from the game.
 export function RiskResponses() {
   return (
     <Figure
-      title="Як захищатися від ризиків"
-      lead="Захист не має коштувати дорожче, ніж можливий збиток."
-      caption="Доподійні методи закладають у гроші проєкту заздалегідь. Післяподійні вмикаються, коли ризик уже стався."
+      title="Чотири реакції на ризик"
+      lead="Для кожного ризику з реєстру команда обирає одну з чотирьох реакцій."
+      caption="Головне правило: захист не має коштувати дорожче, ніж можливий збиток."
     >
-      <ul className="space-y-3">
-        {methods.map((m) => (
-          <li key={m.name} className="rounded-[4px] border border-border p-4">
-            <div className="flex flex-wrap items-baseline justify-between gap-x-3">
-              <p className="font-medium">{m.name}</p>
-              <span
-                className={`rounded-[3px] px-2 py-0.5 text-[12px] ${
-                  m.when === "до події" ? "bg-accent-soft text-accent" : "bg-sage-soft text-sage"
-                }`}
-              >
-                {m.when}
-              </span>
-            </div>
-            <p className="mt-1 text-sm text-muted">{m.idea}</p>
+      <ul className="grid gap-3 @xl:grid-cols-2">
+        {strategies.map((s) => (
+          <li key={s.name} className="rounded-[4px] border border-border p-4">
+            <p className="font-display text-lg font-semibold">{s.name}</p>
+            <p className="mt-1 text-sm text-muted">{s.idea}</p>
             <p className="mt-2 text-sm">
               <span className="font-medium">У грі: </span>
-              {m.game}
+              {s.game}
             </p>
           </li>
         ))}

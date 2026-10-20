@@ -37,6 +37,7 @@ import { ProjectVsOperations } from "@/components/lesson/project-vs-operations";
 import { RealVsPaperMoney } from "@/components/lesson/real-vs-paper-money";
 import { ReserveCoverage } from "@/components/lesson/reserve-coverage";
 import { RiskControl } from "@/components/lesson/risk-control";
+import { RiskLog } from "@/components/lesson/risk-log";
 import { RiskMatrix } from "@/components/lesson/risk-matrix";
 import { RiskRegister } from "@/components/lesson/risk-register";
 import { RiskResponses } from "@/components/lesson/risk-responses";
@@ -45,7 +46,6 @@ import { ScenarioCalculator } from "@/components/lesson/scenario-calculator";
 import { SensitivityExplorer } from "@/components/lesson/sensitivity-explorer";
 import { SevenAspects } from "@/components/lesson/seven-aspects";
 import { SmartGoal } from "@/components/lesson/smart-goal";
-import { SoftwareTools } from "@/components/lesson/software-tools";
 import { Callout, Columns, Split, Wide } from "@/components/lesson/split";
 import { StakeholderMap } from "@/components/lesson/stakeholder-map";
 import { StructuresCompared } from "@/components/lesson/structures-compared";
@@ -99,6 +99,7 @@ const components: MDXComponents = {
   RealVsPaperMoney,
   ReserveCoverage,
   RiskControl,
+  RiskLog,
   RiskMatrix,
   RiskRegister,
   RiskResponses,
@@ -107,7 +108,6 @@ const components: MDXComponents = {
   SensitivityExplorer,
   SevenAspects,
   SmartGoal,
-  SoftwareTools,
   Split,
   StakeholderMap,
   StructuresCompared,
