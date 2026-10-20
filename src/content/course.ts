@@ -102,6 +102,20 @@ modules[4] = {
   ],
 };
 
+modules[5] = {
+  ...modules[5],
+  title: "Ризики проєкту",
+  description:
+    "Чим ризик відрізняється від невизначеності, як знайти й оцінити ризики якісно й кількісно (чутливість, сценарії, Монте-Карло) і як від них захиститися — на прикладі тієї самої мобільної гри.",
+  published: true,
+  lessons: [
+    { slug: "uncertainty", title: "Невизначеність і ризик" },
+    { slug: "qualitative", title: "Якісний аналіз ризиків" },
+    { slug: "quantitative", title: "Кількісний аналіз ризиків" },
+    { slug: "management", title: "Управління ризиками і бізнес-план" },
+  ],
+};
+
 export const publishedModules = modules.filter(
   (m) => m.published && m.lessons.length > 0,
 );
