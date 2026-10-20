@@ -89,6 +89,19 @@ modules[3] = {
   ],
 };
 
+modules[4] = {
+  ...modules[4],
+  title: "Планування: від ідеї до розкладу",
+  description:
+    "Як розбити проєкт на роботи (WBS), розставити їх у правильному порядку на мережевому графіку і знайти критичний шлях — на прикладі студії, що планує випуск мобільної гри.",
+  published: true,
+  lessons: [
+    { slug: "wbs", title: "Планування і структура робіт" },
+    { slug: "network", title: "Мережевий графік" },
+    { slug: "critical-path", title: "Критичний шлях" },
+  ],
+};
+
 export const publishedModules = modules.filter(
   (m) => m.published && m.lessons.length > 0,
 );
