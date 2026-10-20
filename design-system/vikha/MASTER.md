@@ -18,14 +18,20 @@ per page** (on the home page: the course program drawn as a Gantt chart);
 everything around it stays quiet.
 
 - Audience: Ukrainian adults learning PM, beginner → advanced. Calm, practical.
-- **Dark theme only.** `color-scheme: dark`; there is no light theme and no
-  `prefers-color-scheme` branch. Don't add light variants.
+- **Dark by default, light on request.** The author works in dark; visitors
+  asked for light, so a header toggle (`ThemeToggle`) switches to a warm light
+  theme. The choice lives in `localStorage` (`vikha-theme`) and an inline
+  script in `<head>` applies `data-theme="light"` before first paint (no
+  flash, pages stay static). There is no `prefers-color-scheme` branch.
 - Warm, not strict: warm graphite and ivory, honey accent, sage for progress.
 
 ## 2. Color tokens
 
-Defined once in `src/app/globals.css` (`:root`) and exposed to Tailwind via
-`@theme inline`. **Components use tokens only — never raw hex.**
+Defined once in `src/app/globals.css` — `:root` (dark) and
+`:root[data-theme="light"]` — and exposed to Tailwind via `@theme inline`.
+**Components use tokens only — never raw hex**, so both themes work
+automatically. A `light:` Tailwind variant exists for the rare
+theme-specific tweak (e.g. which toggle icon shows).
 
 | Token | Hex | Use |
 |---|---|---|
@@ -42,6 +48,11 @@ Defined once in `src/app/globals.css` (`:root`) and exposed to Tailwind via
 | `sage` | `#8cc2a8` | progress: "Ви тут" line, completed lessons |
 | `sage-soft` | `#1f3029` | sage tint |
 | `risk-1..3` | warm clay ramp | ordinal scale (risk matrix) only |
+
+Light theme values (all text pairs ≥ 4.5:1): background `#f7f2e9`, surface
+`#fffcf6`, foreground `#241d14`, muted `#6b5f4f`, border `#e2d7c5`, accent
+`#94540a` (darker honey so it works as text), accent-foreground `#fffcf6`,
+accent-soft `#f6e6c6`, sage `#3b735b`.
 
 Rules:
 - Honey is the only CTA color. Sage marks position/progress — never a button.
@@ -93,6 +104,7 @@ Typographic don'ts (they read as generated/templated):
 | `Logo`, `MilestoneMark` | `src/components/logo.tsx` | brand; the honey diamond is reused as the milestone symbol everywhere |
 | `ButtonLink` (`primary` / `text`) | `src/components/ui.tsx` | primary = honey button; text = underlined link-button |
 | `SectionHeading` | `src/components/ui.tsx` | section titles |
+| `ThemeToggle` | `src/components/theme-toggle.tsx` (+ `theme.ts`) | header sun/moon switch; no React state, CSS shows the icon |
 | `LessonNavCard` | `src/components/lesson-nav-card.tsx` | prev/next lesson links with a direction arrow |
 | `lessonsLabel(n)` | `src/components/ui.tsx` | Ukrainian plural «урок/уроки/уроків» |
 | `CourseGantt` | `src/components/course-gantt.tsx` | program as Gantt chart (≥1024px) / list (narrower), driven by `src/content/course.ts` |
@@ -159,7 +171,7 @@ testimonials or numbers.
 
 ## 9. Pre-delivery checklist
 
-- [ ] Tokens only; dark only; honey = action, sage = progress
+- [ ] Tokens only; checked in **both** themes; honey = action, sage = progress
 - [ ] Headings `font-display`, body Fixel Text; no all-caps labels, no `·` meta, no `→` on buttons
 - [ ] 375px, 768px, 1280px, 1440px — `document.documentElement.scrollWidth` equals viewport width
 - [ ] Focus visible; hover transitions ≤ 300ms; reduced motion respected

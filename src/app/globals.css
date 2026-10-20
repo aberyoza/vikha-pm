@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* Design tokens — dark only, warm. The full style guide lives in
+/* Design tokens — dark by default, warm. The full style guide lives in
    design-system/vikha/MASTER.md; components use these tokens only. */
 :root {
   color-scheme: dark;
@@ -29,6 +29,34 @@
   --risk-2: #4a2f22;
   --risk-3: #73402a;
 }
+
+/* Light theme: opt-in via the header toggle (stored in localStorage and
+   applied by an inline script before first paint). Same warm line, darker
+   honey so it stays readable as text (all pairs ≥ 4.5:1). */
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --background: #f7f2e9;
+  --surface: #fffcf6;
+  --surface-raised: #efe7da;
+  --foreground: #241d14;
+  --muted: #6b5f4f;
+  --border: #e2d7c5;
+  --grid: #ece4d6;
+
+  --accent: #94540a;
+  --accent-foreground: #fffcf6;
+  --accent-soft: #f6e6c6;
+
+  --sage: #3b735b;
+  --sage-soft: #e2efe8;
+
+  --risk-1: #fbf0e9;
+  --risk-2: #f3d3bd;
+  --risk-3: #e3a07c;
+}
+
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
 
 @theme inline {
   --color-background: var(--background);

@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import { Logo } from "@/components/logo";
+import { themeInitScript } from "@/components/theme";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { fixelDisplay, fixelText } from "@/fonts";
 import "katex/dist/katex.min.css";
 import "./globals.css";
@@ -23,19 +25,25 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="uk"
+      data-theme="dark"
+      suppressHydrationWarning
       className={`${fixelText.variable} ${fixelDisplay.variable} h-full antialiased`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body className="flex min-h-full flex-col font-sans">
         <header className="border-b border-border">
           <div className="flex h-[72px] items-center justify-between px-4 sm:px-8">
             <Logo />
-            <nav>
+            <nav className="flex items-center gap-1">
               <Link
                 href="/#program"
                 className="rounded-md px-3 py-2 text-[15px] text-muted transition-colors duration-200 hover:text-foreground"
               >
                 Програма
               </Link>
+              <ThemeToggle />
             </nav>
           </div>
         </header>
