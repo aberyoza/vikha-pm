@@ -146,7 +146,11 @@ Text the illustration explains…
   blocks); `.katex-display` scrolls horizontally as a safety net.
 - Lessons are for understanding, not drilling: start from a question or
   example, put formulas in `<FormulaNote>` (collapsed by default) unless the
-  author wants them visible.
+  author wants them visible. Inside a `FormulaNote`, explain **every symbol**
+  in plain words before the formula, and where it helps, add a live
+  calculator on the module's example (e.g. `PaybackCalculator`: a
+  year-by-year table with editable amounts) so readers see what the formula
+  does to the money.
 - A module's running example with numbers lives in `src/content/examples/`
   (e.g. `game-studio.ts` for module 4): figures import the data and compute
   values from it, so text, charts and calculators never disagree. Check the

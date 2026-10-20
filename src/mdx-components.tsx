@@ -15,6 +15,7 @@ import { IrrExplorer } from "@/components/lesson/irr-explorer";
 import { ManagerRoles } from "@/components/lesson/manager-roles";
 import { MatrixReporting } from "@/components/lesson/matrix-reporting";
 import { MoneyTimeline } from "@/components/lesson/money-timeline";
+import { PaybackCalculator } from "@/components/lesson/payback-calculator";
 import { PlanningHorizon } from "@/components/lesson/planning-horizon";
 import { PmbokOrigin } from "@/components/lesson/pmbok";
 import { PresentValueCalculator } from "@/components/lesson/present-value-calculator";
@@ -55,6 +56,7 @@ const components: MDXComponents = {
   ManagerRoles,
   MatrixReporting,
   MoneyTimeline,
+  PaybackCalculator,
   PlanningHorizon,
   PmbokOrigin,
   PresentValueCalculator,
