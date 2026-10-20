@@ -147,6 +147,10 @@ Text the illustration explains…
 - Lessons are for understanding, not drilling: start from a question or
   example, put formulas in `<FormulaNote>` (collapsed by default) unless the
   author wants them visible.
+- A module's running example with numbers lives in `src/content/examples/`
+  (e.g. `game-studio.ts` for module 4): figures import the data and compute
+  values from it, so text, charts and calculators never disagree. Check the
+  numbers you quote in MDX against it.
 - Interactive figures (e.g. `PresentValueCalculator`) are client components
   (`"use client"`) inside a `Figure`: sliders/inputs with visible labels,
   validated input with an inline message, results with `aria-live`, numbers

@@ -74,6 +74,19 @@ modules[2] = {
   ],
 };
 
+modules[3] = {
+  ...modules[3],
+  title: "Чи окупиться проєкт",
+  description:
+    "Що рахувати у витратах і вигодах, чотири головні показники вигідності та як не «збанкрутувати» через касовий розрив — на прикладі студії мобільних ігор.",
+  published: true,
+  lessons: [
+    { slug: "costs-benefits", title: "Витрати і вигоди" },
+    { slug: "criteria", title: "Чотири показники вигідності" },
+    { slug: "cash-gap", title: "Касовий розрив" },
+  ],
+};
+
 export const publishedModules = modules.filter(
   (m) => m.published && m.lessons.length > 0,
 );
