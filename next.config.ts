@@ -5,10 +5,11 @@ const isDev = process.env.NODE_ENV === "development";
 
 // Pages are statically prerendered, so a nonce-based CSP isn't possible;
 // inline scripts stay allowed, everything else is locked to our origin
-// (plus Supabase for auth and data).
+// (plus Supabase for auth and data). Vercel Web Analytics is served from
+// our own origin (/_vercel/insights); only its dev debug script is external.
 const contentSecurityPolicy = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval' https://va.vercel-scripts.com" : ""}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob:",
   "font-src 'self' data:",
