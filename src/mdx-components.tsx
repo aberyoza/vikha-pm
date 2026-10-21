@@ -10,6 +10,7 @@ import { CriteriaCards } from "@/components/lesson/criteria-cards";
 import { CriticalPath } from "@/components/lesson/critical-path";
 import { CriticalValues } from "@/components/lesson/critical-values";
 import { DelayExplorer } from "@/components/lesson/delay-explorer";
+import { DevelopmentApproaches } from "@/components/lesson/development-approaches";
 import { Ecosystem } from "@/components/lesson/ecosystem";
 import { FailurePrevention } from "@/components/lesson/failure-prevention";
 import { FormulaNote } from "@/components/lesson/formula-note";
@@ -19,6 +20,7 @@ import { GroupDecision } from "@/components/lesson/group-decision";
 import { IncrementalCashFlow } from "@/components/lesson/incremental-cash-flow";
 import { InvestmentTypes } from "@/components/lesson/investment-types";
 import { IrrExplorer } from "@/components/lesson/irr-explorer";
+import { KnowledgeToDomains } from "@/components/lesson/knowledge-to-domains";
 import { LagTypes } from "@/components/lesson/lag-types";
 import { ManagerRoles } from "@/components/lesson/manager-roles";
 import { MatrixReporting } from "@/components/lesson/matrix-reporting";
@@ -31,7 +33,9 @@ import { PertCalculator } from "@/components/lesson/pert-calculator";
 import { PlanningHorizon } from "@/components/lesson/planning-horizon";
 import { PlanningProcesses } from "@/components/lesson/planning-processes";
 import { PmbokOrigin } from "@/components/lesson/pmbok";
+import { PmbokEditions } from "@/components/lesson/pmbok-editions";
 import { PresentValueCalculator } from "@/components/lesson/present-value-calculator";
+import { PrinciplesCompare } from "@/components/lesson/principles-compare";
 import { ProcessChain } from "@/components/lesson/process-chain";
 import { ProcessGroupsTimeline } from "@/components/lesson/process-groups-timeline";
 import { ProjectAnatomy } from "@/components/lesson/project-anatomy";
@@ -81,6 +85,7 @@ const components: MDXComponents = {
   CriticalPath,
   CriticalValues,
   DelayExplorer,
+  DevelopmentApproaches,
   Ecosystem,
   FailurePrevention,
   FormulaNote,
@@ -90,6 +95,7 @@ const components: MDXComponents = {
   IncrementalCashFlow,
   InvestmentTypes,
   IrrExplorer,
+  KnowledgeToDomains,
   LagTypes,
   ManagerRoles,
   MatrixReporting,
@@ -103,8 +109,10 @@ const components: MDXComponents = {
   PertCalculator,
   PlanningHorizon,
   PlanningProcesses,
+  PmbokEditions,
   PmbokOrigin,
   PresentValueCalculator,
+  PrinciplesCompare,
   ProcessChain,
   ProcessGroupsTimeline,
   ProjectAnatomy,

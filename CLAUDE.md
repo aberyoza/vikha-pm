@@ -34,6 +34,17 @@ motif, and nothing that looks like a generic AI template. The
   from a situation (e.g. a store deciding on a mobile app), then name the
   term; keep one running example per module; hide formulas in
   `<FormulaNote>`. Module 3 is the reference for this tone.
+- The course follows **PMBOK 7 and 8**, not only the university textbook
+  the author's texts come from. Main text follows PMBOK 8; where editions
+  differ, add a `<Callout title="У PMBOK 7 і 8">`. Material outside PMBOK
+  (project analysis, NPV/IRR) stays but is labelled as such.
+- Terms: a plain word first, the official term of the Ukrainian PMBOK 7
+  translation in brackets at first mention, with no note about its source:
+  «зацікавлені сторони (стейкхолдери)», «результати (доробки)»,
+  «адаптувати (припасовувати)». Risk responses: уникнення, пом'якшення,
+  передача, прийняття, ескалація; for opportunities (нагоди): використання,
+  посилення, розподіл, прийняття, ескалація. Never quote or copy the
+  standard itself (PMI copyright); never use pirated copies.
 
 ## Workflow
 
