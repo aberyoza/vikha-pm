@@ -1,37 +1,38 @@
 import type { MDXComponents } from "mdx/types";
 import { AonVsAoa } from "@/components/lesson/aon-vs-aoa";
+import { ApproachSelector } from "@/components/lesson/approach-selector";
 import { AuthoritySpectrum } from "@/components/lesson/authority-spectrum";
+import { BurndownChart } from "@/components/lesson/burndown-chart";
 import { CashGapChart } from "@/components/lesson/cash-gap-chart";
 import { CashProfile } from "@/components/lesson/cash-profile";
+import { CharterCard } from "@/components/lesson/charter-card";
 import { ConstraintsBalance } from "@/components/lesson/constraints-balance";
+import { CourseMap } from "@/components/lesson/course-map";
 import { CpmExplorer } from "@/components/lesson/cpm-explorer";
-import { CpmPert } from "@/components/lesson/cpm-pert";
 import { CriteriaCards } from "@/components/lesson/criteria-cards";
 import { CriticalPath } from "@/components/lesson/critical-path";
 import { CriticalValues } from "@/components/lesson/critical-values";
+import { DefectCost } from "@/components/lesson/defect-cost";
 import { DelayExplorer } from "@/components/lesson/delay-explorer";
 import { DevelopmentApproaches } from "@/components/lesson/development-approaches";
-import { Ecosystem } from "@/components/lesson/ecosystem";
 import { FailurePrevention } from "@/components/lesson/failure-prevention";
 import { FormulaNote } from "@/components/lesson/formula-note";
 import { GameNetwork } from "@/components/lesson/game-network";
 import { GamePlanTable } from "@/components/lesson/game-plan-table";
 import { GroupDecision } from "@/components/lesson/group-decision";
-import { IncrementalCashFlow } from "@/components/lesson/incremental-cash-flow";
 import { InvestmentTypes } from "@/components/lesson/investment-types";
 import { IrrExplorer } from "@/components/lesson/irr-explorer";
 import { KnowledgeToDomains } from "@/components/lesson/knowledge-to-domains";
 import { LagTypes } from "@/components/lesson/lag-types";
+import { LeaderAdmin } from "@/components/lesson/leader-admin";
+import { LifeCycleGates } from "@/components/lesson/life-cycle-gates";
 import { ManagerRoles } from "@/components/lesson/manager-roles";
 import { MatrixReporting } from "@/components/lesson/matrix-reporting";
-import { Module3Map, Module4Map, MoneyDecisionPath } from "@/components/lesson/module-maps";
 import { MoneyTimeline } from "@/components/lesson/money-timeline";
 import { MonteCarlo } from "@/components/lesson/monte-carlo";
 import { NetworkRules } from "@/components/lesson/network-rules";
 import { PaybackCalculator } from "@/components/lesson/payback-calculator";
 import { PertCalculator } from "@/components/lesson/pert-calculator";
-import { PlanningHorizon } from "@/components/lesson/planning-horizon";
-import { PlanningProcesses } from "@/components/lesson/planning-processes";
 import { PmbokOrigin } from "@/components/lesson/pmbok";
 import { PmbokEditions } from "@/components/lesson/pmbok-editions";
 import { PresentValueCalculator } from "@/components/lesson/present-value-calculator";
@@ -45,8 +46,8 @@ import { ProjectVsOperations } from "@/components/lesson/project-vs-operations";
 import { RealVsPaperMoney } from "@/components/lesson/real-vs-paper-money";
 import { ReserveCoverage } from "@/components/lesson/reserve-coverage";
 import { RiskControl } from "@/components/lesson/risk-control";
+import { RiskHeatmap } from "@/components/lesson/risk-heatmap";
 import { RiskLog } from "@/components/lesson/risk-log";
-import { RiskMatrix } from "@/components/lesson/risk-matrix";
 import { RiskRegister } from "@/components/lesson/risk-register";
 import { RiskResponses } from "@/components/lesson/risk-responses";
 import { RiskRose } from "@/components/lesson/risk-rose";
@@ -61,11 +62,14 @@ import { Callout, Columns, Split, Wide } from "@/components/lesson/split";
 import { StakeholderMap } from "@/components/lesson/stakeholder-map";
 import { StepMethod } from "@/components/lesson/step-method";
 import { StructuresCompared } from "@/components/lesson/structures-compared";
+import { SustainabilityPillars } from "@/components/lesson/sustainability-pillars";
+import { TailoringChoices } from "@/components/lesson/tailoring-choices";
 import { TeamStakeholdersComms } from "@/components/lesson/team-stakeholders-comms";
 import { ThreeActivities } from "@/components/lesson/three-activities";
 import { TraceabilityMatrix } from "@/components/lesson/traceability-matrix";
-import { UncertaintyVsRisk } from "@/components/lesson/uncertainty-vs-risk";
+import { UncertaintyTypes } from "@/components/lesson/uncertainty-types";
 import { ValidateFlow } from "@/components/lesson/validate-flow";
+import { ValueChain } from "@/components/lesson/value-chain";
 import { WbsCodes } from "@/components/lesson/wbs-codes";
 import { WbsMethods } from "@/components/lesson/wbs-methods";
 
@@ -73,42 +77,41 @@ import { WbsMethods } from "@/components/lesson/wbs-methods";
 // registered here can be used in any lesson without an import.
 const components: MDXComponents = {
   AonVsAoa,
+  ApproachSelector,
   AuthoritySpectrum,
+  BurndownChart,
   Callout,
   CashGapChart,
   CashProfile,
+  CharterCard,
   Columns,
   ConstraintsBalance,
+  CourseMap,
   CpmExplorer,
-  CpmPert,
   CriteriaCards,
   CriticalPath,
   CriticalValues,
+  DefectCost,
   DelayExplorer,
   DevelopmentApproaches,
-  Ecosystem,
   FailurePrevention,
   FormulaNote,
   GameNetwork,
   GamePlanTable,
   GroupDecision,
-  IncrementalCashFlow,
   InvestmentTypes,
   IrrExplorer,
   KnowledgeToDomains,
   LagTypes,
+  LeaderAdmin,
+  LifeCycleGates,
   ManagerRoles,
   MatrixReporting,
-  Module3Map,
-  Module4Map,
-  MoneyDecisionPath,
   MoneyTimeline,
   MonteCarlo,
   NetworkRules,
   PaybackCalculator,
   PertCalculator,
-  PlanningHorizon,
-  PlanningProcesses,
   PmbokEditions,
   PmbokOrigin,
   PresentValueCalculator,
@@ -122,8 +125,8 @@ const components: MDXComponents = {
   RealVsPaperMoney,
   ReserveCoverage,
   RiskControl,
+  RiskHeatmap,
   RiskLog,
-  RiskMatrix,
   RiskRegister,
   RiskResponses,
   RiskRose,
@@ -138,11 +141,14 @@ const components: MDXComponents = {
   StakeholderMap,
   StepMethod,
   StructuresCompared,
+  SustainabilityPillars,
+  TailoringChoices,
   TeamStakeholdersComms,
   ThreeActivities,
   TraceabilityMatrix,
-  UncertaintyVsRisk,
+  UncertaintyTypes,
   ValidateFlow,
+  ValueChain,
   WbsCodes,
   WbsMethods,
   Wide,

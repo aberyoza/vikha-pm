@@ -5,22 +5,22 @@ type Part = { text: string; letter?: string };
 
 // The SMART goal, split into the pieces each letter points at.
 const goal: Part[] = [
-  { text: "Збільшити онлайн-продажі магазину", letter: "S" },
+  { text: "Випустити гру-головоломку в App Store і Google Play", letter: "S" },
   { text: " " },
-  { text: "на 15%", letter: "M" },
+  { text: "до 1 березня 2027 року", letter: "T" },
   { text: " " },
-  { text: "до кінця II кварталу 2027 року", letter: "T" },
-  { text: " " },
-  { text: "завдяки програмі лояльності з бюджетом 50 000 грн", letter: "A" },
+  { text: "силами команди з трьох людей у бюджеті 300 тис. грн", letter: "A" },
+  { text: " і " },
+  { text: "набрати 50 000 завантажень за перші три місяці", letter: "M" },
   { text: "." },
 ];
 
 const letters = [
-  { letter: "S", name: "Конкретна", note: "Що саме: онлайн-продажі, а не «продажі взагалі»." },
-  { letter: "M", name: "Вимірювана", note: "+15% — зрозуміло, досягнуто чи ні." },
-  { letter: "A", name: "Досяжна", note: "Є інструмент і бюджет, а не лише бажання." },
-  { letter: "R", name: "Релевантна", note: "Онлайн-канал — стратегічний пріоритет компанії." },
-  { letter: "T", name: "Обмежена в часі", note: "Чіткий дедлайн — кінець II кварталу 2027." },
+  { letter: "S", name: "Конкретна", note: "Що саме: гра-головоломка в обох магазинах, а не «гра колись»." },
+  { letter: "M", name: "Вимірювана", note: "50 000 завантажень — зрозуміло, досягнуто чи ні." },
+  { letter: "A", name: "Досяжна", note: "Під мету є люди й гроші, а не лише бажання." },
+  { letter: "R", name: "Релевантна", note: "Студія виходить на ринок головоломок — це її стратегія." },
+  { letter: "T", name: "Обмежена в часі", note: "Чіткий дедлайн — 1 березня 2027 року." },
 ];
 
 export function SmartGoal() {
@@ -33,7 +33,7 @@ export function SmartGoal() {
         <div className="rounded-lg border border-border p-4">
           <p className="text-[13px] text-muted">Нечітко</p>
           <p className="mt-1 text-muted line-through decoration-muted/60">
-            «Збільшити продажі»
+            «Зробити класну гру»
           </p>
         </div>
 
