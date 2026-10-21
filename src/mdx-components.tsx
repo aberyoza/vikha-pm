@@ -22,7 +22,6 @@ import { GamePlanTable } from "@/components/lesson/game-plan-table";
 import { GroupDecision } from "@/components/lesson/group-decision";
 import { InvestmentTypes } from "@/components/lesson/investment-types";
 import { IrrExplorer } from "@/components/lesson/irr-explorer";
-import { KnowledgeToDomains } from "@/components/lesson/knowledge-to-domains";
 import { LagTypes } from "@/components/lesson/lag-types";
 import { LeaderAdmin } from "@/components/lesson/leader-admin";
 import { LifeCycleGates } from "@/components/lesson/life-cycle-gates";
@@ -101,7 +100,6 @@ const components: MDXComponents = {
   GroupDecision,
   InvestmentTypes,
   IrrExplorer,
-  KnowledgeToDomains,
   LagTypes,
   LeaderAdmin,
   LifeCycleGates,
