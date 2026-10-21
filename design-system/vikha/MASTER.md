@@ -111,7 +111,6 @@ Typographic don'ts (they read as generated/templated):
 | `Figure` | `src/components/lesson/figure.tsx` | frame for lesson illustrations: small title, display lead, visual, caption |
 | `Split`, `Columns`, `Callout` | `src/components/lesson/split.tsx` | lesson layout helpers |
 | `Wide` | `src/components/lesson/split.tsx` | full-width figure (mind maps, network diagrams) instead of the 70ch column |
-| `MindMap` | `src/components/lesson/mind-map.tsx` | module map: question in the centre, one branch per lesson linking back to it |
 | `NetworkDiagram`, `NodeKey` | `src/components/lesson/network-diagram.tsx` | AON network of a module example; highlight nodes/edges, optional ES/EF/LS/LF cells. Client-only (uses `useId`): wrap it in a client figure. Wide SVG scrolls inside the figure on phones |
 
 Lesson illustrations are server components in `src/components/lesson/`,

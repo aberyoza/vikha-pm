@@ -34,6 +34,13 @@ motif, and nothing that looks like a generic AI template. The
   from a situation (e.g. a store deciding on a mobile app), then name the
   term; keep one running example per module; hide formulas in
   `<FormulaNote>`. Module 3 is the reference for this tone.
+- Program structure (`src/content/course.ts`) follows PMBOK 8: 1 project &
+  value, 2 principles, 3 development approaches, 4 business case, then one
+  module per domain (5 stakeholders, 6 governance, 7 scope, 8 schedule,
+  9 finance, 10 resources, 11 risk), 12 quality, 13 agile, 14 measurement &
+  closing. The author's Google Docs are raw material mapped onto this
+  structure, not the structure itself. Moved lessons get a redirect in
+  `next.config.ts` (`movedLessons`).
 - The course follows **PMBOK 7 and 8**, not only the university textbook
   the author's texts come from. Main text follows PMBOK 8; where editions
   differ, add a `<Callout title="У PMBOK 7 і 8">`. Material outside PMBOK
