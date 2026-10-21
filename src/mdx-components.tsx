@@ -1,4 +1,5 @@
 import type { MDXComponents } from "mdx/types";
+import { AonVsAoa } from "@/components/lesson/aon-vs-aoa";
 import { AuthoritySpectrum } from "@/components/lesson/authority-spectrum";
 import { CashGapChart } from "@/components/lesson/cash-gap-chart";
 import { CashProfile } from "@/components/lesson/cash-profile";
@@ -14,9 +15,11 @@ import { FailurePrevention } from "@/components/lesson/failure-prevention";
 import { FormulaNote } from "@/components/lesson/formula-note";
 import { GameNetwork } from "@/components/lesson/game-network";
 import { GamePlanTable } from "@/components/lesson/game-plan-table";
+import { GroupDecision } from "@/components/lesson/group-decision";
 import { IncrementalCashFlow } from "@/components/lesson/incremental-cash-flow";
 import { InvestmentTypes } from "@/components/lesson/investment-types";
 import { IrrExplorer } from "@/components/lesson/irr-explorer";
+import { LagTypes } from "@/components/lesson/lag-types";
 import { ManagerRoles } from "@/components/lesson/manager-roles";
 import { MatrixReporting } from "@/components/lesson/matrix-reporting";
 import { Module3Map, Module4Map, MoneyDecisionPath } from "@/components/lesson/module-maps";
@@ -24,6 +27,7 @@ import { MoneyTimeline } from "@/components/lesson/money-timeline";
 import { MonteCarlo } from "@/components/lesson/monte-carlo";
 import { NetworkRules } from "@/components/lesson/network-rules";
 import { PaybackCalculator } from "@/components/lesson/payback-calculator";
+import { PertCalculator } from "@/components/lesson/pert-calculator";
 import { PlanningHorizon } from "@/components/lesson/planning-horizon";
 import { PlanningProcesses } from "@/components/lesson/planning-processes";
 import { PmbokOrigin } from "@/components/lesson/pmbok";
@@ -43,20 +47,28 @@ import { RiskRegister } from "@/components/lesson/risk-register";
 import { RiskResponses } from "@/components/lesson/risk-responses";
 import { RiskRose } from "@/components/lesson/risk-rose";
 import { ScenarioCalculator } from "@/components/lesson/scenario-calculator";
+import { ScopeCreep } from "@/components/lesson/scope-creep";
+import { ScopeProcesses } from "@/components/lesson/scope-processes";
+import { ScopeStatement } from "@/components/lesson/scope-statement";
 import { SensitivityExplorer } from "@/components/lesson/sensitivity-explorer";
 import { SevenAspects } from "@/components/lesson/seven-aspects";
 import { SmartGoal } from "@/components/lesson/smart-goal";
 import { Callout, Columns, Split, Wide } from "@/components/lesson/split";
 import { StakeholderMap } from "@/components/lesson/stakeholder-map";
+import { StepMethod } from "@/components/lesson/step-method";
 import { StructuresCompared } from "@/components/lesson/structures-compared";
 import { TeamStakeholdersComms } from "@/components/lesson/team-stakeholders-comms";
 import { ThreeActivities } from "@/components/lesson/three-activities";
+import { TraceabilityMatrix } from "@/components/lesson/traceability-matrix";
 import { UncertaintyVsRisk } from "@/components/lesson/uncertainty-vs-risk";
+import { ValidateFlow } from "@/components/lesson/validate-flow";
+import { WbsCodes } from "@/components/lesson/wbs-codes";
 import { WbsMethods } from "@/components/lesson/wbs-methods";
 
 // Text is styled by the `prose` wrapper in the lesson page. Illustrations
 // registered here can be used in any lesson without an import.
 const components: MDXComponents = {
+  AonVsAoa,
   AuthoritySpectrum,
   Callout,
   CashGapChart,
@@ -74,9 +86,11 @@ const components: MDXComponents = {
   FormulaNote,
   GameNetwork,
   GamePlanTable,
+  GroupDecision,
   IncrementalCashFlow,
   InvestmentTypes,
   IrrExplorer,
+  LagTypes,
   ManagerRoles,
   MatrixReporting,
   Module3Map,
@@ -86,6 +100,7 @@ const components: MDXComponents = {
   MonteCarlo,
   NetworkRules,
   PaybackCalculator,
+  PertCalculator,
   PlanningHorizon,
   PlanningProcesses,
   PmbokOrigin,
@@ -105,15 +120,22 @@ const components: MDXComponents = {
   RiskResponses,
   RiskRose,
   ScenarioCalculator,
+  ScopeCreep,
+  ScopeProcesses,
+  ScopeStatement,
   SensitivityExplorer,
   SevenAspects,
   SmartGoal,
   Split,
   StakeholderMap,
+  StepMethod,
   StructuresCompared,
   TeamStakeholdersComms,
   ThreeActivities,
+  TraceabilityMatrix,
   UncertaintyVsRisk,
+  ValidateFlow,
+  WbsCodes,
   WbsMethods,
   Wide,
 };

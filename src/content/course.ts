@@ -116,6 +116,21 @@ modules[5] = {
   ],
 };
 
+modules[6] = {
+  ...modules[6],
+  title: "Управління змістом проєкту",
+  description:
+    "Як зібрати вимоги, окреслити межі проєкту, розбити його на робочі пакети й не дати змісту розростатися, а також лаги, ступінчастий метод і оцінка строків за PERT — на прикладі тієї самої мобільної гри.",
+  published: true,
+  lessons: [
+    { slug: "lags", title: "Лаги, ступені й AOA" },
+    { slug: "requirements", title: "Зміст проєкту і збір вимог" },
+    { slug: "scope-wbs", title: "Опис змісту і WBS" },
+    { slug: "scope-control", title: "Підтвердження і контроль змісту" },
+    { slug: "pert", title: "Оцінка тривалості: PERT" },
+  ],
+};
+
 export const publishedModules = modules.filter(
   (m) => m.published && m.lessons.length > 0,
 );
