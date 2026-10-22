@@ -5,7 +5,10 @@ import { AuthoritySpectrum } from "@/components/lesson/authority-spectrum";
 import { BurndownChart } from "@/components/lesson/burndown-chart";
 import { CashGapChart } from "@/components/lesson/cash-gap-chart";
 import { CashProfile } from "@/components/lesson/cash-profile";
+import { ChannelsCounter } from "@/components/lesson/channels-counter";
 import { CharterCard } from "@/components/lesson/charter-card";
+import { CommModel } from "@/components/lesson/comm-model";
+import { CommPlan } from "@/components/lesson/comm-plan";
 import { ConstraintsBalance } from "@/components/lesson/constraints-balance";
 import { CourseMap } from "@/components/lesson/course-map";
 import { CpmExplorer } from "@/components/lesson/cpm-explorer";
@@ -15,6 +18,7 @@ import { CriticalValues } from "@/components/lesson/critical-values";
 import { DefectCost } from "@/components/lesson/defect-cost";
 import { DelayExplorer } from "@/components/lesson/delay-explorer";
 import { DevelopmentApproaches } from "@/components/lesson/development-approaches";
+import { EngagementMatrix } from "@/components/lesson/engagement-matrix";
 import { FailurePrevention } from "@/components/lesson/failure-prevention";
 import { FormulaNote } from "@/components/lesson/formula-note";
 import { GameNetwork } from "@/components/lesson/game-network";
@@ -34,6 +38,7 @@ import { PaybackCalculator } from "@/components/lesson/payback-calculator";
 import { PertCalculator } from "@/components/lesson/pert-calculator";
 import { PmbokOrigin } from "@/components/lesson/pmbok";
 import { PmbokEditions } from "@/components/lesson/pmbok-editions";
+import { PowerInterestGrid } from "@/components/lesson/power-interest-grid";
 import { PresentValueCalculator } from "@/components/lesson/present-value-calculator";
 import { PrinciplesCompare } from "@/components/lesson/principles-compare";
 import { ProcessChain } from "@/components/lesson/process-chain";
@@ -59,6 +64,7 @@ import { SevenAspects } from "@/components/lesson/seven-aspects";
 import { SmartGoal } from "@/components/lesson/smart-goal";
 import { Callout, Columns, Split, Wide } from "@/components/lesson/split";
 import { StakeholderMap } from "@/components/lesson/stakeholder-map";
+import { StakeholderRegister } from "@/components/lesson/stakeholder-register";
 import { StepMethod } from "@/components/lesson/step-method";
 import { StructuresCompared } from "@/components/lesson/structures-compared";
 import { SustainabilityPillars } from "@/components/lesson/sustainability-pillars";
@@ -82,8 +88,11 @@ const components: MDXComponents = {
   Callout,
   CashGapChart,
   CashProfile,
+  ChannelsCounter,
   CharterCard,
   Columns,
+  CommModel,
+  CommPlan,
   ConstraintsBalance,
   CourseMap,
   CpmExplorer,
@@ -93,6 +102,7 @@ const components: MDXComponents = {
   DefectCost,
   DelayExplorer,
   DevelopmentApproaches,
+  EngagementMatrix,
   FailurePrevention,
   FormulaNote,
   GameNetwork,
@@ -112,6 +122,7 @@ const components: MDXComponents = {
   PertCalculator,
   PmbokEditions,
   PmbokOrigin,
+  PowerInterestGrid,
   PresentValueCalculator,
   PrinciplesCompare,
   ProcessChain,
@@ -137,6 +148,7 @@ const components: MDXComponents = {
   SmartGoal,
   Split,
   StakeholderMap,
+  StakeholderRegister,
   StepMethod,
   StructuresCompared,
   SustainabilityPillars,
