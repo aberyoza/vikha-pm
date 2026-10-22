@@ -5,6 +5,7 @@ import { AuthoritySpectrum } from "@/components/lesson/authority-spectrum";
 import { BurndownChart } from "@/components/lesson/burndown-chart";
 import { CashGapChart } from "@/components/lesson/cash-gap-chart";
 import { CashProfile } from "@/components/lesson/cash-profile";
+import { ChangeImpact } from "@/components/lesson/change-impact";
 import { ChannelsCounter } from "@/components/lesson/channels-counter";
 import { CharterCard } from "@/components/lesson/charter-card";
 import { CommModel } from "@/components/lesson/comm-model";
@@ -15,6 +16,7 @@ import { CpmExplorer } from "@/components/lesson/cpm-explorer";
 import { CriteriaCards } from "@/components/lesson/criteria-cards";
 import { CriticalPath } from "@/components/lesson/critical-path";
 import { CriticalValues } from "@/components/lesson/critical-values";
+import { DecisionRights } from "@/components/lesson/decision-rights";
 import { DefectCost } from "@/components/lesson/defect-cost";
 import { DelayExplorer } from "@/components/lesson/delay-explorer";
 import { DevelopmentApproaches } from "@/components/lesson/development-approaches";
@@ -36,6 +38,7 @@ import { MonteCarlo } from "@/components/lesson/monte-carlo";
 import { NetworkRules } from "@/components/lesson/network-rules";
 import { PaybackCalculator } from "@/components/lesson/payback-calculator";
 import { PertCalculator } from "@/components/lesson/pert-calculator";
+import { PlanStack } from "@/components/lesson/plan-stack";
 import { PmbokOrigin } from "@/components/lesson/pmbok";
 import { PmbokEditions } from "@/components/lesson/pmbok-editions";
 import { PowerInterestGrid } from "@/components/lesson/power-interest-grid";
@@ -65,6 +68,7 @@ import { SmartGoal } from "@/components/lesson/smart-goal";
 import { Callout, Columns, Split, Wide } from "@/components/lesson/split";
 import { StakeholderMap } from "@/components/lesson/stakeholder-map";
 import { StakeholderRegister } from "@/components/lesson/stakeholder-register";
+import { StatusReport } from "@/components/lesson/status-report";
 import { StepMethod } from "@/components/lesson/step-method";
 import { StructuresCompared } from "@/components/lesson/structures-compared";
 import { SustainabilityPillars } from "@/components/lesson/sustainability-pillars";
@@ -88,6 +92,7 @@ const components: MDXComponents = {
   Callout,
   CashGapChart,
   CashProfile,
+  ChangeImpact,
   ChannelsCounter,
   CharterCard,
   Columns,
@@ -99,6 +104,7 @@ const components: MDXComponents = {
   CriteriaCards,
   CriticalPath,
   CriticalValues,
+  DecisionRights,
   DefectCost,
   DelayExplorer,
   DevelopmentApproaches,
@@ -120,6 +126,7 @@ const components: MDXComponents = {
   NetworkRules,
   PaybackCalculator,
   PertCalculator,
+  PlanStack,
   PmbokEditions,
   PmbokOrigin,
   PowerInterestGrid,
@@ -149,6 +156,7 @@ const components: MDXComponents = {
   Split,
   StakeholderMap,
   StakeholderRegister,
+  StatusReport,
   StepMethod,
   StructuresCompared,
   SustainabilityPillars,
