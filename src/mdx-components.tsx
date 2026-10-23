@@ -60,7 +60,7 @@ import { ProjectVsOperations } from "@/components/lesson/project-vs-operations";
 import { RaciMatrix } from "@/components/lesson/raci-matrix";
 import { RealVsPaperMoney } from "@/components/lesson/real-vs-paper-money";
 import { ReserveCoverage } from "@/components/lesson/reserve-coverage";
-import { ResourceLeveling } from "@/components/lesson/resource-leveling";
+import { ResourceHistogram, ResourceLeveling } from "@/components/lesson/resource-leveling";
 import { RiskControl } from "@/components/lesson/risk-control";
 import { RiskHeatmap } from "@/components/lesson/risk-heatmap";
 import { RiskLog } from "@/components/lesson/risk-log";
@@ -159,6 +159,7 @@ const components: MDXComponents = {
   RaciMatrix,
   RealVsPaperMoney,
   ReserveCoverage,
+  ResourceHistogram,
   ResourceLeveling,
   RiskControl,
   RiskHeatmap,
