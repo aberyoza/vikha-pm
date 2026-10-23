@@ -41,6 +41,7 @@ import { LifeCycleGates } from "@/components/lesson/life-cycle-gates";
 import { ManagerRoles } from "@/components/lesson/manager-roles";
 import { MatrixReporting } from "@/components/lesson/matrix-reporting";
 import { MoneyTimeline } from "@/components/lesson/money-timeline";
+import { MotivationDrivers } from "@/components/lesson/motivation-drivers";
 import { MonteCarlo } from "@/components/lesson/monte-carlo";
 import { NetworkRules } from "@/components/lesson/network-rules";
 import { PaybackCalculator } from "@/components/lesson/payback-calculator";
@@ -140,6 +141,7 @@ const components: MDXComponents = {
   ManagerRoles,
   MatrixReporting,
   MoneyTimeline,
+  MotivationDrivers,
   MonteCarlo,
   NetworkRules,
   PaybackCalculator,

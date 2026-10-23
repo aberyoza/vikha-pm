@@ -92,6 +92,17 @@
     }
   }
 
+  --animate-dash: dash 1.2s linear infinite;
+
+  @keyframes dash {
+    from {
+      stroke-dashoffset: 24;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
   --animate-flow-x: flow-x 1.8s linear infinite;
   --animate-flow-y: flow-y 1.8s linear infinite;
 
