@@ -1,7 +1,10 @@
 import type { MDXComponents } from "mdx/types";
+import { AccuracyFunnel } from "@/components/lesson/accuracy-funnel";
 import { AonVsAoa } from "@/components/lesson/aon-vs-aoa";
 import { ApproachSelector } from "@/components/lesson/approach-selector";
 import { AuthoritySpectrum } from "@/components/lesson/authority-spectrum";
+import { BudgetCurve } from "@/components/lesson/budget-curve";
+import { BudgetTable } from "@/components/lesson/budget-table";
 import { BurndownChart } from "@/components/lesson/burndown-chart";
 import { CashGapChart } from "@/components/lesson/cash-gap-chart";
 import { CashProfile } from "@/components/lesson/cash-profile";
@@ -21,6 +24,8 @@ import { DefectCost } from "@/components/lesson/defect-cost";
 import { DelayExplorer } from "@/components/lesson/delay-explorer";
 import { DevelopmentApproaches } from "@/components/lesson/development-approaches";
 import { EngagementMatrix } from "@/components/lesson/engagement-matrix";
+import { EvmExplorer } from "@/components/lesson/evm-explorer";
+import { EvmForecast } from "@/components/lesson/evm-forecast";
 import { FailurePrevention } from "@/components/lesson/failure-prevention";
 import { FormulaNote } from "@/components/lesson/formula-note";
 import { GameNetwork } from "@/components/lesson/game-network";
@@ -85,9 +90,12 @@ import { WbsMethods } from "@/components/lesson/wbs-methods";
 // Text is styled by the `prose` wrapper in the lesson page. Illustrations
 // registered here can be used in any lesson without an import.
 const components: MDXComponents = {
+  AccuracyFunnel,
   AonVsAoa,
   ApproachSelector,
   AuthoritySpectrum,
+  BudgetCurve,
+  BudgetTable,
   BurndownChart,
   Callout,
   CashGapChart,
@@ -109,6 +117,8 @@ const components: MDXComponents = {
   DelayExplorer,
   DevelopmentApproaches,
   EngagementMatrix,
+  EvmExplorer,
+  EvmForecast,
   FailurePrevention,
   FormulaNote,
   GameNetwork,

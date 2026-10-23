@@ -1,4 +1,7 @@
+import { BAC, STATUS as WEEK8, evm, fmt } from "@/content/examples/game-finance";
 import { Figure } from "./figure";
+
+const m = evm(WEEK8.pv, WEEK8.ev, WEEK8.ac);
 
 type Status = "green" | "amber" | "red";
 
@@ -9,9 +12,9 @@ const STATUS: Record<Status, { label: string; dot: string; text: string }> = {
 };
 
 const rows: { area: string; status: Status; note: string }[] = [
-  { area: "Зміст", status: "green", note: "18 із 20 рівнів готові" },
+  { area: "Зміст", status: "green", note: "дизайн і сервер готові, рівні збирають" },
   { area: "Розклад", status: "amber", note: "механіка відстає на 3 дні, є резерв" },
-  { area: "Бюджет", status: "green", note: "витрачено 62% за план 60%" },
+  { area: "Бюджет", status: "amber", note: `освоєно ${fmt(WEEK8.ev)} тис. при витратах ${fmt(WEEK8.ac)}; прогноз ${fmt(m.eac)} тис. замість ${BAC}, резерв піде повністю` },
   { area: "Ризики", status: "red", note: "програміст повідомив про звільнення" },
   { area: "Якість", status: "green", note: "критичних помилок немає" },
 ];
@@ -43,7 +46,7 @@ export function StatusReport() {
       <div className="mt-4 grid gap-3 text-sm @xl:grid-cols-2">
         <div className="rounded-[4px] border border-border p-3">
           <p className="text-[13px] text-muted">Зроблено і далі</p>
-          <p className="mt-1">Сервер готовий, збираємо останні рівні. Наступного тижня — бета для 50 тестувальників.</p>
+          <p className="mt-1">Сервер і дизайн готові, збираємо рівні. Після тестування — бета для 50 гравців.</p>
         </div>
         <div className="rounded-[4px] border border-accent bg-accent-soft/60 p-3">
           <p className="text-[13px] text-muted">Потрібне рішення спонсора</p>
