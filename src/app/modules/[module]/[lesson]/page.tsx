@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { LessonNavCard } from "@/components/lesson-nav-card";
 import { findLesson, modules, publishedModules } from "@/content/course";
+import { OPEN_GRAPH } from "@/content/site";
 
 type Props = PageProps<"/modules/[module]/[lesson]">;
 
@@ -19,7 +20,14 @@ export const instant = false;
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { module: moduleSlug, lesson: lessonSlug } = await params;
   const found = findLesson(moduleSlug, lessonSlug);
-  return found ? { title: found.lesson.title } : {};
+  if (!found) return {};
+  const path = `/modules/${moduleSlug}/${lessonSlug}`;
+  return {
+    title: found.lesson.title,
+    description: found.module.description,
+    alternates: { canonical: path },
+    openGraph: { ...OPEN_GRAPH, type: "article", title: found.lesson.title, description: found.module.description, url: path },
+  };
 }
 
 export default async function LessonPage({ params }: Props) {

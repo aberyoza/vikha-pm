@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { themeInitScript } from "@/components/theme";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { INDEXABLE, OPEN_GRAPH, SITE_NAME, SITE_URL } from "@/content/site";
 import { fixelDisplay, fixelText } from "@/fonts";
 import "katex/dist/katex.min.css";
 import "./globals.css";
@@ -15,6 +16,11 @@ export const metadata: Metadata = {
   },
   description:
     "Безкоштовний курс з управління проєктами українською мовою на основі PMBOK 7 і 8.",
+  metadataBase: new URL(SITE_URL),
+  applicationName: SITE_NAME,
+  alternates: { canonical: "/" },
+  openGraph: { ...OPEN_GRAPH, type: "website", url: "/" },
+  robots: INDEXABLE ? undefined : { index: false, follow: false },
 };
 
 export const viewport: Viewport = {
