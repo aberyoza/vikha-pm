@@ -164,7 +164,14 @@ const program: ModuleDef[] = [
   },
   {
     title: "Agile на практиці",
-    description: "Scrum і Kanban: ролі, події, артефакти й показники гнучкої команди.",
+    description:
+      "Цінності й принципи Agile, Scrum і Kanban: ролі, події, артефакти, показники потоку і типові пастки — на прикладі студії мобільних ігор.",
+    lessons: [
+      { slug: "values", title: "Цінності і принципи" },
+      { slug: "scrum", title: "Scrum" },
+      { slug: "kanban", title: "Kanban" },
+      { slug: "choosing", title: "Scrum чи Kanban і типові пастки" },
+    ],
   },
   {
     title: "Вимірювання, закриття і тренди",

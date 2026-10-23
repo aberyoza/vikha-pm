@@ -1,5 +1,6 @@
 import type { MDXComponents } from "mdx/types";
 import { AccuracyFunnel } from "@/components/lesson/accuracy-funnel";
+import { AgileTraps } from "@/components/lesson/agile-traps";
 import { AonVsAoa } from "@/components/lesson/aon-vs-aoa";
 import { ApproachSelector } from "@/components/lesson/approach-selector";
 import { AuthoritySpectrum } from "@/components/lesson/authority-spectrum";
@@ -23,6 +24,7 @@ import { CpmExplorer } from "@/components/lesson/cpm-explorer";
 import { CriteriaCards } from "@/components/lesson/criteria-cards";
 import { CriticalPath } from "@/components/lesson/critical-path";
 import { CriticalValues } from "@/components/lesson/critical-values";
+import { CumulativeFlow } from "@/components/lesson/cumulative-flow";
 import { DecisionRights } from "@/components/lesson/decision-rights";
 import { DefectCost } from "@/components/lesson/defect-cost";
 import { DelayExplorer } from "@/components/lesson/delay-explorer";
@@ -42,6 +44,7 @@ import { LagTypes } from "@/components/lesson/lag-types";
 import { LeaderAdmin } from "@/components/lesson/leader-admin";
 import { LifeCycleGates } from "@/components/lesson/life-cycle-gates";
 import { ManagerRoles } from "@/components/lesson/manager-roles";
+import { ManifestoBalance } from "@/components/lesson/manifesto-balance";
 import { MatrixReporting } from "@/components/lesson/matrix-reporting";
 import { MoneyTimeline } from "@/components/lesson/money-timeline";
 import { MonteCarlo } from "@/components/lesson/monte-carlo";
@@ -80,6 +83,9 @@ import { ScenarioCalculator } from "@/components/lesson/scenario-calculator";
 import { ScopeCreep } from "@/components/lesson/scope-creep";
 import { ScopeProcesses } from "@/components/lesson/scope-processes";
 import { ScopeStatement } from "@/components/lesson/scope-statement";
+import { ScrumArtifacts } from "@/components/lesson/scrum-artifacts";
+import { ScrumOrKanban } from "@/components/lesson/scrum-or-kanban";
+import { ScrumSprint } from "@/components/lesson/scrum-sprint";
 import { SensitivityExplorer } from "@/components/lesson/sensitivity-explorer";
 import { SevenAspects } from "@/components/lesson/seven-aspects";
 import { SmartGoal } from "@/components/lesson/smart-goal";
@@ -102,11 +108,13 @@ import { ValueChain } from "@/components/lesson/value-chain";
 import { VendorMatrix } from "@/components/lesson/vendor-matrix";
 import { WbsCodes } from "@/components/lesson/wbs-codes";
 import { WbsMethods } from "@/components/lesson/wbs-methods";
+import { WipLimit } from "@/components/lesson/wip-limit";
 
 // Text is styled by the `prose` wrapper in the lesson page. Illustrations
 // registered here can be used in any lesson without an import.
 const components: MDXComponents = {
   AccuracyFunnel,
+  AgileTraps,
   AonVsAoa,
   ApproachSelector,
   AuthoritySpectrum,
@@ -132,6 +140,7 @@ const components: MDXComponents = {
   CriteriaCards,
   CriticalPath,
   CriticalValues,
+  CumulativeFlow,
   DecisionRights,
   DefectCost,
   DelayExplorer,
@@ -151,6 +160,7 @@ const components: MDXComponents = {
   LeaderAdmin,
   LifeCycleGates,
   ManagerRoles,
+  ManifestoBalance,
   MatrixReporting,
   MoneyTimeline,
   MonteCarlo,
@@ -190,6 +200,9 @@ const components: MDXComponents = {
   ScopeCreep,
   ScopeProcesses,
   ScopeStatement,
+  ScrumArtifacts,
+  ScrumOrKanban,
+  ScrumSprint,
   SensitivityExplorer,
   SevenAspects,
   SmartGoal,
@@ -213,6 +226,7 @@ const components: MDXComponents = {
   WbsCodes,
   WbsMethods,
   Wide,
+  WipLimit,
 };
 
 export function useMDXComponents(): MDXComponents {
