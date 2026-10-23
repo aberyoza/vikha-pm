@@ -13,7 +13,9 @@ import { ChannelsCounter } from "@/components/lesson/channels-counter";
 import { CharterCard } from "@/components/lesson/charter-card";
 import { CommModel } from "@/components/lesson/comm-model";
 import { CommPlan } from "@/components/lesson/comm-plan";
+import { ConflictModes } from "@/components/lesson/conflict-modes";
 import { ConstraintsBalance } from "@/components/lesson/constraints-balance";
+import { ContractTypes } from "@/components/lesson/contract-types";
 import { CourseMap } from "@/components/lesson/course-map";
 import { CpmExplorer } from "@/components/lesson/cpm-explorer";
 import { CriteriaCards } from "@/components/lesson/criteria-cards";
@@ -55,8 +57,10 @@ import { ProjectAnatomy } from "@/components/lesson/project-anatomy";
 import { ProjectCashTimeline } from "@/components/lesson/project-cash-timeline";
 import { ProjectInterdependence } from "@/components/lesson/project-interdependence";
 import { ProjectVsOperations } from "@/components/lesson/project-vs-operations";
+import { RaciMatrix } from "@/components/lesson/raci-matrix";
 import { RealVsPaperMoney } from "@/components/lesson/real-vs-paper-money";
 import { ReserveCoverage } from "@/components/lesson/reserve-coverage";
+import { ResourceLeveling } from "@/components/lesson/resource-leveling";
 import { RiskControl } from "@/components/lesson/risk-control";
 import { RiskHeatmap } from "@/components/lesson/risk-heatmap";
 import { RiskLog } from "@/components/lesson/risk-log";
@@ -81,9 +85,11 @@ import { TailoringChoices } from "@/components/lesson/tailoring-choices";
 import { TeamStakeholdersComms } from "@/components/lesson/team-stakeholders-comms";
 import { ThreeActivities } from "@/components/lesson/three-activities";
 import { TraceabilityMatrix } from "@/components/lesson/traceability-matrix";
+import { TuckmanCurve } from "@/components/lesson/tuckman-curve";
 import { UncertaintyTypes } from "@/components/lesson/uncertainty-types";
 import { ValidateFlow } from "@/components/lesson/validate-flow";
 import { ValueChain } from "@/components/lesson/value-chain";
+import { VendorMatrix } from "@/components/lesson/vendor-matrix";
 import { WbsCodes } from "@/components/lesson/wbs-codes";
 import { WbsMethods } from "@/components/lesson/wbs-methods";
 
@@ -106,7 +112,9 @@ const components: MDXComponents = {
   Columns,
   CommModel,
   CommPlan,
+  ConflictModes,
   ConstraintsBalance,
+  ContractTypes,
   CourseMap,
   CpmExplorer,
   CriteriaCards,
@@ -148,8 +156,10 @@ const components: MDXComponents = {
   ProjectCashTimeline,
   ProjectInterdependence,
   ProjectVsOperations,
+  RaciMatrix,
   RealVsPaperMoney,
   ReserveCoverage,
+  ResourceLeveling,
   RiskControl,
   RiskHeatmap,
   RiskLog,
@@ -174,9 +184,11 @@ const components: MDXComponents = {
   TeamStakeholdersComms,
   ThreeActivities,
   TraceabilityMatrix,
+  TuckmanCurve,
   UncertaintyTypes,
   ValidateFlow,
   ValueChain,
+  VendorMatrix,
   WbsCodes,
   WbsMethods,
   Wide,
