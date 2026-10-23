@@ -85,6 +85,7 @@ import { SustainabilityPillars } from "@/components/lesson/sustainability-pillar
 import { TailoringChoices } from "@/components/lesson/tailoring-choices";
 import { TeamStakeholdersComms } from "@/components/lesson/team-stakeholders-comms";
 import { ThreeActivities } from "@/components/lesson/three-activities";
+import { SynergyBars } from "@/components/lesson/synergy-bars";
 import { TraceabilityMatrix } from "@/components/lesson/traceability-matrix";
 import { TuckmanCurve } from "@/components/lesson/tuckman-curve";
 import { UncertaintyTypes } from "@/components/lesson/uncertainty-types";
@@ -186,6 +187,7 @@ const components: MDXComponents = {
   TailoringChoices,
   TeamStakeholdersComms,
   ThreeActivities,
+  SynergyBars,
   TraceabilityMatrix,
   TuckmanCurve,
   UncertaintyTypes,
