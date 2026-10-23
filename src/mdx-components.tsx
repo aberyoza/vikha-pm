@@ -16,6 +16,8 @@ import { CommPlan } from "@/components/lesson/comm-plan";
 import { ConflictModes } from "@/components/lesson/conflict-modes";
 import { ConstraintsBalance } from "@/components/lesson/constraints-balance";
 import { ContractTypes } from "@/components/lesson/contract-types";
+import { ControlChart } from "@/components/lesson/control-chart";
+import { CostOfQuality } from "@/components/lesson/cost-of-quality";
 import { CourseMap } from "@/components/lesson/course-map";
 import { CpmExplorer } from "@/components/lesson/cpm-explorer";
 import { CriteriaCards } from "@/components/lesson/criteria-cards";
@@ -29,6 +31,7 @@ import { EngagementMatrix } from "@/components/lesson/engagement-matrix";
 import { EvmExplorer } from "@/components/lesson/evm-explorer";
 import { EvmForecast } from "@/components/lesson/evm-forecast";
 import { FailurePrevention } from "@/components/lesson/failure-prevention";
+import { Fishbone } from "@/components/lesson/fishbone";
 import { FormulaNote } from "@/components/lesson/formula-note";
 import { GameNetwork } from "@/components/lesson/game-network";
 import { GamePlanTable } from "@/components/lesson/game-plan-table";
@@ -41,10 +44,12 @@ import { LifeCycleGates } from "@/components/lesson/life-cycle-gates";
 import { ManagerRoles } from "@/components/lesson/manager-roles";
 import { MatrixReporting } from "@/components/lesson/matrix-reporting";
 import { MoneyTimeline } from "@/components/lesson/money-timeline";
-import { MotivationDrivers } from "@/components/lesson/motivation-drivers";
 import { MonteCarlo } from "@/components/lesson/monte-carlo";
+import { MotivationDrivers } from "@/components/lesson/motivation-drivers";
 import { NetworkRules } from "@/components/lesson/network-rules";
+import { ParetoChart } from "@/components/lesson/pareto-chart";
 import { PaybackCalculator } from "@/components/lesson/payback-calculator";
+import { PdcaCycle } from "@/components/lesson/pdca-cycle";
 import { PertCalculator } from "@/components/lesson/pert-calculator";
 import { PlanStack } from "@/components/lesson/plan-stack";
 import { PmbokOrigin } from "@/components/lesson/pmbok";
@@ -58,6 +63,9 @@ import { ProjectAnatomy } from "@/components/lesson/project-anatomy";
 import { ProjectCashTimeline } from "@/components/lesson/project-cash-timeline";
 import { ProjectInterdependence } from "@/components/lesson/project-interdependence";
 import { ProjectVsOperations } from "@/components/lesson/project-vs-operations";
+import { QualityActivities } from "@/components/lesson/quality-activities";
+import { QualityGrade } from "@/components/lesson/quality-grade";
+import { QualityScorecard } from "@/components/lesson/quality-scorecard";
 import { RaciMatrix } from "@/components/lesson/raci-matrix";
 import { RealVsPaperMoney } from "@/components/lesson/real-vs-paper-money";
 import { ReserveCoverage } from "@/components/lesson/reserve-coverage";
@@ -82,10 +90,10 @@ import { StatusReport } from "@/components/lesson/status-report";
 import { StepMethod } from "@/components/lesson/step-method";
 import { StructuresCompared } from "@/components/lesson/structures-compared";
 import { SustainabilityPillars } from "@/components/lesson/sustainability-pillars";
+import { SynergyBars } from "@/components/lesson/synergy-bars";
 import { TailoringChoices } from "@/components/lesson/tailoring-choices";
 import { TeamStakeholdersComms } from "@/components/lesson/team-stakeholders-comms";
 import { ThreeActivities } from "@/components/lesson/three-activities";
-import { SynergyBars } from "@/components/lesson/synergy-bars";
 import { TraceabilityMatrix } from "@/components/lesson/traceability-matrix";
 import { TuckmanCurve } from "@/components/lesson/tuckman-curve";
 import { UncertaintyTypes } from "@/components/lesson/uncertainty-types";
@@ -117,6 +125,8 @@ const components: MDXComponents = {
   ConflictModes,
   ConstraintsBalance,
   ContractTypes,
+  ControlChart,
+  CostOfQuality,
   CourseMap,
   CpmExplorer,
   CriteriaCards,
@@ -130,6 +140,7 @@ const components: MDXComponents = {
   EvmExplorer,
   EvmForecast,
   FailurePrevention,
+  Fishbone,
   FormulaNote,
   GameNetwork,
   GamePlanTable,
@@ -142,10 +153,12 @@ const components: MDXComponents = {
   ManagerRoles,
   MatrixReporting,
   MoneyTimeline,
-  MotivationDrivers,
   MonteCarlo,
+  MotivationDrivers,
   NetworkRules,
+  ParetoChart,
   PaybackCalculator,
+  PdcaCycle,
   PertCalculator,
   PlanStack,
   PmbokEditions,
@@ -159,6 +172,9 @@ const components: MDXComponents = {
   ProjectCashTimeline,
   ProjectInterdependence,
   ProjectVsOperations,
+  QualityActivities,
+  QualityGrade,
+  QualityScorecard,
   RaciMatrix,
   RealVsPaperMoney,
   ReserveCoverage,
@@ -184,10 +200,10 @@ const components: MDXComponents = {
   StepMethod,
   StructuresCompared,
   SustainabilityPillars,
+  SynergyBars,
   TailoringChoices,
   TeamStakeholdersComms,
   ThreeActivities,
-  SynergyBars,
   TraceabilityMatrix,
   TuckmanCurve,
   UncertaintyTypes,
