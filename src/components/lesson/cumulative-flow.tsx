@@ -79,8 +79,8 @@ export function CumulativeFlow() {
             type="button"
             aria-pressed={scenario === k}
             onClick={() => setScenario(k)}
-            className={`rounded-md border px-3 py-1.5 text-sm font-medium transition-colors duration-200 ${
-              scenario === k ? "border-accent bg-accent text-accent-foreground" : "border-border hover:border-accent hover:text-accent"
+            className={`rounded-md px-3 py-1.5 text-sm font-medium press ${
+              scenario === k ? "bg-accent text-accent-foreground" : "bg-foreground/[0.07] hover:bg-foreground/[0.12]"
             }`}
           >
             {label}

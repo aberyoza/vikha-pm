@@ -55,7 +55,7 @@ export function AgileTraps() {
             aria-pressed={k === i}
             onClick={() => setI(k)}
             className={`rounded-[4px] border px-3 py-2.5 text-left text-sm font-medium transition-colors duration-200 ${
-              k === i ? "border-accent bg-accent-soft" : "border-border hover:border-accent"
+              k === i ? "border-accent bg-accent-soft" : "border-transparent bg-foreground/[0.04] hover:bg-foreground/[0.08]"
             }`}
           >
             {x.sign}

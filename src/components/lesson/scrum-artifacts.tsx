@@ -52,7 +52,7 @@ export function ScrumArtifacts() {
               aria-pressed={k === i}
               onClick={() => setI(k)}
               className={`rounded-[4px] border p-3 text-left transition-colors duration-200 ${
-                k === i ? "border-accent bg-accent-soft" : "border-border hover:border-accent"
+                k === i ? "border-accent bg-accent-soft" : "border-transparent bg-foreground/[0.04] hover:bg-foreground/[0.08]"
               }`}
             >
               <span className="block font-medium">{x.name}</span>

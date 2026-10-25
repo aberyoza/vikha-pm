@@ -28,7 +28,7 @@ export function ValidateFlow() {
         ))}
       </ol>
       <div className="grid gap-3 @md:grid-cols-2">
-        <div className="rounded-[4px] border border-accent bg-accent-soft/60 p-3">
+        <div className="rounded-[4px] bg-accent-soft p-3">
           <p className="font-medium">Так: прийняті результати</p>
           <p className="text-[13px] text-muted">замовник офіційно підтверджує, що частину зроблено</p>
         </div>

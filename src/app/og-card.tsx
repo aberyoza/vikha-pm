@@ -9,9 +9,9 @@ import { modules } from "@/content/course";
 export const OG_SIZE = { width: 1200, height: 630 };
 
 const C = {
-  background: "#17140f",
-  foreground: "#f1e9dc",
-  muted: "#a99e8d",
+  background: "#121211",
+  foreground: "#ecebe6",
+  muted: "#a3a29b",
   accent: "#e8a33d",
 };
 

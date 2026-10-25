@@ -66,8 +66,8 @@ export function ScrumSprint() {
             type="button"
             aria-pressed={k === i}
             onClick={() => setI(k)}
-            className={`rounded-md border px-3 py-1.5 text-sm font-medium transition-colors duration-200 ${
-              k === i ? "border-accent bg-accent text-accent-foreground" : "border-border hover:border-accent hover:text-accent"
+            className={`rounded-md px-3 py-1.5 text-sm font-medium press ${
+              k === i ? "bg-accent text-accent-foreground" : "bg-foreground/[0.07] hover:bg-foreground/[0.12]"
             } ${k === events.length - 1 && k !== i ? "border-dashed" : ""}`}
           >
             {x.name}

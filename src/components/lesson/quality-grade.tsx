@@ -63,7 +63,7 @@ export function QualityGrade() {
                 aria-pressed={i === k}
                 onClick={() => setI(k)}
                 className={`min-h-24 rounded-[4px] border p-3 text-left transition-colors duration-200 ${
-                  i === k ? "border-accent bg-accent-soft" : "border-border hover:border-accent"
+                  i === k ? "border-accent bg-accent-soft" : "border-transparent bg-foreground/[0.04] hover:bg-foreground/[0.08]"
                 }`}
               >
                 <span className={`text-[13px] font-medium ${cells[k].ok ? "" : "text-accent"}`}>

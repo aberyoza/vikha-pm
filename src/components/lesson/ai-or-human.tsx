@@ -37,7 +37,7 @@ export function AiOrHuman() {
               aria-pressed={k === i}
               onClick={() => setI(k)}
               className={`flex w-full items-center gap-2.5 rounded-[4px] border px-3 py-2 text-left text-sm transition-colors duration-200 ${
-                k === i ? "border-accent bg-accent-soft" : "border-border hover:border-accent"
+                k === i ? "border-accent bg-accent-soft" : "border-transparent bg-foreground/[0.04] hover:bg-foreground/[0.08]"
               }`}
             >
               <span

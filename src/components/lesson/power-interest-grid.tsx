@@ -44,7 +44,7 @@ export function PowerInterestGrid() {
                         aria-pressed={s.key === key}
                         onClick={() => setKey(s.key)}
                         className={`rounded-[3px] border px-1.5 py-0.5 text-left text-[12px] leading-tight transition-colors duration-200 ${
-                          s.key === key ? "border-accent bg-accent text-accent-foreground" : "border-border bg-surface hover:border-accent"
+                          s.key === key ? "bg-accent text-accent-foreground" : "border-transparent bg-surface hover:bg-foreground/[0.08]"
                         }`}
                       >
                         {s.name}

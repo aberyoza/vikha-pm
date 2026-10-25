@@ -42,11 +42,29 @@ export default function Home() {
   return (
     <main>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(courseJsonLd()) }} />
-      <div className="bg-graph">
+      <div className="hero-glow">
         <div className="mx-auto max-w-[1200px] px-4 sm:px-8">
           <section className="grid items-end gap-10 pt-16 pb-10 sm:pt-20 lg:grid-cols-[7fr_4fr] lg:gap-12">
             <h1 className="max-w-[13ch] font-display text-[40px] leading-[1.02] font-semibold tracking-[-0.03em] sm:text-6xl lg:text-[76px]">
-              Управління проєктами від першої віхи до результату
+              Управління проєктами від першої{" "}
+              <span className="relative inline-block">
+                віхи
+                <svg
+                  aria-hidden
+                  viewBox="0 0 200 24"
+                  preserveAspectRatio="none"
+                  className="pointer-events-none absolute -bottom-[0.12em] left-[-4%] h-[0.32em] w-[108%] overflow-visible"
+                >
+                  <path
+                    d="M4 15 C 38 7, 74 19, 112 11 S 172 7, 196 13"
+                    pathLength={1}
+                    className="marker-stroke fill-none stroke-accent"
+                    strokeWidth={5}
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </span>{" "}
+              до результату
             </h1>
             <div>
               <p className="mb-6 max-w-[36ch] text-lg text-muted">
@@ -92,14 +110,14 @@ export default function Home() {
 
         <section className="grid gap-10 pb-24 lg:grid-cols-[4fr_7fr] lg:gap-12">
           <SectionHeading>Кому підійде</SectionHeading>
-          <div className="grid gap-8 sm:grid-cols-3">
+          <dl className="grid gap-y-6 sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-x-8 sm:gap-y-8">
             {audience.map((item) => (
-              <div key={item.title} className="border-t-2 border-accent pt-4">
-                <h3 className="font-display text-xl font-semibold">{item.title}</h3>
-                <p className="mt-1.5 text-muted">{item.text}</p>
+              <div key={item.title} className="contents">
+                <dt className="font-display text-2xl font-semibold tracking-tight">{item.title}</dt>
+                <dd className="-mt-4 text-lg sm:mt-0 sm:pt-1">{item.text}</dd>
               </div>
             ))}
-          </div>
+          </dl>
         </section>
       </div>
     </main>

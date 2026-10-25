@@ -25,7 +25,7 @@ export function ScopeStatement() {
       caption="Список «не входить» так само важливий, як «входить»: саме він зупиняє суперечки «а ми думали, що це теж буде»."
     >
       <div className="grid gap-4 @xl:grid-cols-2">
-        <div className="rounded-[4px] border border-accent bg-accent-soft/60 p-4">
+        <div className="rounded-[4px] bg-accent-soft p-4">
           <p className="font-medium">Входить</p>
           <List items={IN_SCOPE} mark="in" />
         </div>

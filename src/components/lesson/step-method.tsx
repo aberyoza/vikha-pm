@@ -43,8 +43,8 @@ export function StepMethod() {
             type="button"
             aria-pressed={p === parts}
             onClick={() => setParts(p)}
-            className={`min-w-11 rounded-md border px-3 py-1.5 text-sm font-medium tabular-nums transition-colors duration-200 ${
-              p === parts ? "border-accent bg-accent text-accent-foreground" : "border-border hover:border-accent hover:text-accent"
+            className={`min-w-11 rounded-md px-3 py-1.5 text-sm font-medium tabular-nums press ${
+              p === parts ? "bg-accent text-accent-foreground" : "bg-foreground/[0.07] hover:bg-foreground/[0.12]"
             }`}
           >
             {p === 1 ? "1 (без ступенів)" : p}

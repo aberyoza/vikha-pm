@@ -59,8 +59,8 @@ type CalloutProps = {
 // Highlighted box for key takeaways, e.g. lesson outcomes.
 export function Callout({ title, children }: CalloutProps) {
   return (
-    <aside className="my-10 rounded-[4px] border border-accent/60 bg-accent-soft/50 p-5 sm:p-8 [&>:last-child]:mb-0">
-      <p className="mt-0 font-display text-lg font-semibold text-accent">
+    <aside className="my-10 rounded-[4px] bg-accent-soft p-5 sm:p-8 [&>:last-child]:mb-0">
+      <p className="mt-0 font-display text-lg font-semibold">
         {title}
       </p>
       {children}

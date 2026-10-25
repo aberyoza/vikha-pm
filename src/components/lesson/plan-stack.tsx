@@ -20,7 +20,7 @@ export function PlanStack() {
         <p className="text-[13px] text-muted">Базові плани</p>
         <ul className="mt-2 space-y-1.5">
           {baselines.map((b) => (
-            <li key={b.name} className="flex flex-wrap items-baseline justify-between gap-x-3 rounded-[3px] border border-accent bg-accent-soft/60 px-3 py-2 text-sm">
+            <li key={b.name} className="flex flex-wrap items-baseline justify-between gap-x-3 rounded-[3px] bg-accent-soft px-3 py-2 text-sm">
               <span>
                 <span className="font-medium">{b.name}</span>
                 <span className="block text-[13px] text-muted">{b.note}</span>

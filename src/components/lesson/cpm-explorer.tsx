@@ -89,10 +89,10 @@ export function CpmExplorer() {
                 type="button"
                 aria-current={on ? "step" : undefined}
                 onClick={() => setStep(i)}
-                className={`rounded-md border px-3 py-1.5 text-sm font-medium transition-colors duration-200 ${
+                className={`rounded-md px-3 py-1.5 text-sm font-medium press ${
                   on
-                    ? "border-accent bg-accent text-accent-foreground"
-                    : "border-border hover:border-accent hover:text-accent"
+                    ? "bg-accent text-accent-foreground"
+                    : "bg-foreground/[0.07] hover:bg-foreground/[0.12]"
                 }`}
               >
                 {i + 1}. {s.label}

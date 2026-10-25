@@ -6,19 +6,20 @@
 :root {
   color-scheme: dark;
 
-  /* Surfaces & text: warm graphite paper, ivory ink. */
-  --background: #17140f;
-  --surface: #201c16;
-  --surface-raised: #2a251d;
-  --foreground: #f1e9dc;
-  --muted: #a99e8d;
-  --border: #3a3329;
-  --grid: #221e18;
+  /* Surfaces & text: near-black ink with only a trace of warmth, so the
+     page reads as print rather than as the brown "assistant" palette. */
+  --background: #121211;
+  --surface: #1a1a18;
+  --surface-raised: #232320;
+  --foreground: #ecebe6;
+  --muted: #a3a29b;
+  --border: #2e2d2a;
+  --grid: #1d1d1b;
 
   /* Brand: honey. Buttons, open modules, milestone diamonds. */
   --accent: #e8a33d;
   --accent-foreground: #1e1609;
-  --accent-soft: #33270f;
+  --accent-soft: #2a2414;
 
   /* Sage: progress — "you are here", completed lessons. */
   --sage: #8cc2a8;
@@ -31,22 +32,23 @@
 }
 
 /* Light theme: opt-in via the header toggle (stored in localStorage and
-   applied by an inline script before first paint). Same warm line, darker
-   honey so it stays readable as text (all pairs ≥ 4.5:1). */
+   applied by an inline script before first paint). Neutral paper and ink;
+   the accent darkens to mustard so it stays readable as text (≥ 4.5:1). */
 :root[data-theme="light"] {
   color-scheme: light;
 
-  --background: #f7f2e9;
-  --surface: #fffcf6;
-  --surface-raised: #efe7da;
-  --foreground: #241d14;
-  --muted: #6b5f4f;
-  --border: #e2d7c5;
-  --grid: #ece4d6;
+  --background: #f4f4f1;
+  --surface: #fbfbf9;
+  --surface-raised: #e9e9e4;
+  --foreground: #171715;
+  --muted: #5d5d57;
+  --border: #dcdcd5;
+  --grid: #e7e7e2;
 
-  --accent: #94540a;
-  --accent-foreground: #fffcf6;
-  --accent-soft: #f6e6c6;
+  /* Mustard rather than rust, so the light theme is not cream-and-terracotta. */
+  --accent: #835a00;
+  --accent-foreground: #fbfbf9;
+  --accent-soft: #f3ead2;
 
   --sage: #3b735b;
   --sage-soft: #e2efe8;
@@ -184,6 +186,55 @@ body {
 }
 
 /* Planning-paper grid behind the hero and the course chart. */
+/* Motion curve for UI feedback: strong ease-out, starts fast (Emil
+   Kowalski's design-engineering defaults). */
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Pressable controls give a small, quick press. Colour changes keep their
+   own pace; the press itself is short so it feels like a physical key. */
+@utility press {
+  transition-property: color, background-color, border-color, opacity, scale;
+  transition-duration: 160ms;
+  transition-timing-function: var(--ease-out);
+  &:active {
+    scale: 0.97;
+  }
+}
+
+/* Paper grain on the page ground (behind content): a static noise tile,
+   barely visible, so the page reads as printed paper. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Hero depth: one static honey glow behind the headline, no motion. */
+.hero-glow {
+  background:
+    radial-gradient(60% 70% at 18% 20%, color-mix(in oklab, var(--accent) 7%, transparent), transparent 70%),
+    var(--background);
+}
+
+/* Hand-drawn marker stroke under a word; it draws itself once. */
+.marker-stroke {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: marker-draw 900ms var(--ease-out) 350ms forwards;
+}
+
+@keyframes marker-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
 .bg-graph {
   background-color: var(--background);
   background-image:
