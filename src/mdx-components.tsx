@@ -1,9 +1,11 @@
 import type { MDXComponents } from "mdx/types";
 import { AccuracyFunnel } from "@/components/lesson/accuracy-funnel";
 import { AgileTraps } from "@/components/lesson/agile-traps";
+import { AiOrHuman } from "@/components/lesson/ai-or-human";
 import { AonVsAoa } from "@/components/lesson/aon-vs-aoa";
 import { ApproachSelector } from "@/components/lesson/approach-selector";
 import { AuthoritySpectrum } from "@/components/lesson/authority-spectrum";
+import { BenefitsTracker } from "@/components/lesson/benefits-tracker";
 import { BudgetCurve } from "@/components/lesson/budget-curve";
 import { BudgetTable } from "@/components/lesson/budget-table";
 import { BurndownChart } from "@/components/lesson/burndown-chart";
@@ -12,6 +14,7 @@ import { CashProfile } from "@/components/lesson/cash-profile";
 import { ChangeImpact } from "@/components/lesson/change-impact";
 import { ChannelsCounter } from "@/components/lesson/channels-counter";
 import { CharterCard } from "@/components/lesson/charter-card";
+import { ClosingChecklist } from "@/components/lesson/closing-checklist";
 import { CommModel } from "@/components/lesson/comm-model";
 import { CommPlan } from "@/components/lesson/comm-plan";
 import { ConflictModes } from "@/components/lesson/conflict-modes";
@@ -42,6 +45,8 @@ import { InvestmentTypes } from "@/components/lesson/investment-types";
 import { IrrExplorer } from "@/components/lesson/irr-explorer";
 import { LagTypes } from "@/components/lesson/lag-types";
 import { LeaderAdmin } from "@/components/lesson/leader-admin";
+import { LeadingLagging } from "@/components/lesson/leading-lagging";
+import { LessonsBoard } from "@/components/lesson/lessons-board";
 import { LifeCycleGates } from "@/components/lesson/life-cycle-gates";
 import { ManagerRoles } from "@/components/lesson/manager-roles";
 import { ManifestoBalance } from "@/components/lesson/manifesto-balance";
@@ -50,6 +55,7 @@ import { MoneyTimeline } from "@/components/lesson/money-timeline";
 import { MonteCarlo } from "@/components/lesson/monte-carlo";
 import { MotivationDrivers } from "@/components/lesson/motivation-drivers";
 import { NetworkRules } from "@/components/lesson/network-rules";
+import { PairedMetrics } from "@/components/lesson/paired-metrics";
 import { ParetoChart } from "@/components/lesson/pareto-chart";
 import { PaybackCalculator } from "@/components/lesson/payback-calculator";
 import { PdcaCycle } from "@/components/lesson/pdca-cycle";
@@ -115,9 +121,11 @@ import { WipLimit } from "@/components/lesson/wip-limit";
 const components: MDXComponents = {
   AccuracyFunnel,
   AgileTraps,
+  AiOrHuman,
   AonVsAoa,
   ApproachSelector,
   AuthoritySpectrum,
+  BenefitsTracker,
   BudgetCurve,
   BudgetTable,
   BurndownChart,
@@ -127,6 +135,7 @@ const components: MDXComponents = {
   ChangeImpact,
   ChannelsCounter,
   CharterCard,
+  ClosingChecklist,
   Columns,
   CommModel,
   CommPlan,
@@ -158,6 +167,8 @@ const components: MDXComponents = {
   IrrExplorer,
   LagTypes,
   LeaderAdmin,
+  LeadingLagging,
+  LessonsBoard,
   LifeCycleGates,
   ManagerRoles,
   ManifestoBalance,
@@ -166,6 +177,7 @@ const components: MDXComponents = {
   MonteCarlo,
   MotivationDrivers,
   NetworkRules,
+  PairedMetrics,
   ParetoChart,
   PaybackCalculator,
   PdcaCycle,
