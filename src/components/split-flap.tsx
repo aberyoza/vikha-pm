@@ -15,14 +15,12 @@ function useFlap(target: string) {
   const [shown, setShown] = useState(target);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setShown(target);
-      return;
-    }
+    // With reduced motion the board shows the final text on the first frame.
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const started = performance.now();
     let frame = 0;
     const step = () => {
-      const t = performance.now() - started;
+      const t = reduce ? Infinity : performance.now() - started;
       const next = [...target]
         .map((ch, i) => {
           if (ch === " ") return " ";
