@@ -88,7 +88,7 @@ export function ChangeImpact() {
               aria-pressed={x.key === key}
               onClick={() => setKey(x.key)}
               className={`w-full rounded-[4px] border px-3 py-2 text-left text-sm transition-colors duration-200 ${
-                x.key === key ? "border-accent bg-accent-soft" : "border-border hover:border-accent"
+                x.key === key ? "border-accent bg-accent-soft" : "border-transparent bg-foreground/[0.04] hover:bg-foreground/[0.08]"
               }`}
             >
               {x.label}

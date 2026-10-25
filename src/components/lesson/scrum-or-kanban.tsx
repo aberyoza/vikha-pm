@@ -69,7 +69,7 @@ export function ScrumOrKanban() {
                   aria-pressed={answers[k] === a}
                   onClick={() => setAnswers((prev) => prev.map((v, j) => (j === k ? a : v)))}
                   className={`rounded-[4px] border px-3 py-2 text-left text-sm transition-colors duration-200 ${
-                    answers[k] === a ? "border-accent bg-accent-soft" : "border-border hover:border-accent"
+                    answers[k] === a ? "border-accent bg-accent-soft" : "border-transparent bg-foreground/[0.04] hover:bg-foreground/[0.08]"
                   }`}
                 >
                   {x[a]}

@@ -48,7 +48,7 @@ export function StatusReport() {
           <p className="text-[13px] text-muted">Зроблено і далі</p>
           <p className="mt-1">Сервер і дизайн готові, збираємо рівні. Після тестування — бета для 50 гравців.</p>
         </div>
-        <div className="rounded-[4px] border border-accent bg-accent-soft/60 p-3">
+        <div className="rounded-[4px] bg-accent-soft p-3">
           <p className="text-[13px] text-muted">Потрібне рішення спонсора</p>
           <p className="mt-1">Найняти другого програміста на два місяці за 40 тис. грн або перенести реліз на місяць.</p>
         </div>

@@ -32,7 +32,7 @@ export function CommModel() {
           <p className="text-[13px] font-medium text-muted">{"Без зворотного зв'язку"}</p>
           <p className="mt-0.5">Рівні здають на тиждень пізніше, і реліз зсувається ще раз.</p>
         </div>
-        <div className="rounded-[4px] border border-accent bg-accent-soft/60 p-3 text-sm">
+        <div className="rounded-[4px] bg-accent-soft p-3 text-sm">
           <p className="text-[13px] font-medium text-muted">{"5. Зі зворотним зв'язком"}</p>
           <p className="mt-0.5">
             «Тобто рівні здаю як раніше, а реліз пізніше?» — «Так, тиждень потрібен на тести». Непорозуміння

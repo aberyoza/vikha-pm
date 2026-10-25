@@ -62,7 +62,7 @@ export function LessonsBoard() {
                     aria-pressed={sel === c.text}
                     onClick={() => setSel(c.text)}
                     className={`w-full rounded-[2px] border px-2.5 py-1.5 text-left text-[13px] leading-snug transition-colors duration-200 ${
-                      sel === c.text ? "border-accent bg-accent-soft" : "border-border bg-surface hover:border-accent"
+                      sel === c.text ? "border-accent bg-accent-soft" : "border-transparent bg-surface hover:bg-foreground/[0.08]"
                     }`}
                   >
                     {c.text}

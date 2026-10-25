@@ -69,8 +69,8 @@ export function GroupDecision() {
             type="button"
             aria-pressed={r.key === key}
             onClick={() => setKey(r.key)}
-            className={`rounded-md border px-3 py-1.5 text-sm font-medium transition-colors duration-200 ${
-              r.key === key ? "border-accent bg-accent text-accent-foreground" : "border-border hover:border-accent hover:text-accent"
+            className={`rounded-md px-3 py-1.5 text-sm font-medium press ${
+              r.key === key ? "bg-accent text-accent-foreground" : "bg-foreground/[0.07] hover:bg-foreground/[0.12]"
             }`}
           >
             {r.name}

@@ -102,9 +102,6 @@ export default async function LessonPage({ params }: Props) {
       </aside>
 
       <article className="min-w-0 px-4 py-10 sm:px-10 md:py-12 xl:px-14">
-        <p className="mb-3 text-[15px] text-muted">
-          Урок {index + 1} з {courseModule.lessons.length}
-        </p>
         <div className="lesson-body prose max-w-6xl">
           <Content />
         </div>

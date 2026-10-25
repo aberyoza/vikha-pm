@@ -41,7 +41,7 @@ export function PrinciplesCompare() {
             ))}
           </ol>
         </div>
-        <div className="rounded-[4px] border border-accent bg-accent-soft/60 p-4">
+        <div className="rounded-[4px] bg-accent-soft p-4">
           <p className="font-medium">PMBOK 8 — 6 принципів</p>
           <ol className="mt-2 space-y-2 text-sm">
             {pmbok8.map((p, i) => (

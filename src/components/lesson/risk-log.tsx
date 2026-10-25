@@ -5,7 +5,7 @@ const rows = [...RISKS].sort((a, b) => score(b) - score(a));
 
 const level = (r: (typeof RISKS)[number]) => {
   const p = priority(r);
-  return p === "високий" ? "border-accent bg-accent text-accent-foreground" : p === "середній" ? "border-accent text-accent" : "border-border text-muted";
+  return p === "високий" ? "bg-accent text-accent-foreground" : p === "середній" ? "border-accent text-accent" : "border-border text-muted";
 };
 
 // The game's risk register as an IT team keeps it: one row per risk,

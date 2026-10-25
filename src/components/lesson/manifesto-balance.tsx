@@ -57,8 +57,8 @@ export function ManifestoBalance() {
             type="button"
             aria-pressed={mode === m}
             onClick={() => setMode(m)}
-            className={`rounded-md border px-3 py-1.5 text-sm font-medium transition-colors duration-200 ${
-              mode === m ? "border-accent bg-accent text-accent-foreground" : "border-border hover:border-accent hover:text-accent"
+            className={`rounded-md px-3 py-1.5 text-sm font-medium press ${
+              mode === m ? "bg-accent text-accent-foreground" : "bg-foreground/[0.07] hover:bg-foreground/[0.12]"
             }`}
           >
             {label}
@@ -74,7 +74,7 @@ export function ManifestoBalance() {
               aria-pressed={k === i}
               onClick={() => setI(k)}
               className={`grid w-full grid-cols-[minmax(0,1.6fr)_auto_minmax(0,1fr)] items-center gap-2 rounded-[4px] border p-2 text-left text-sm transition-colors duration-200 ${
-                k === i ? "border-accent" : "border-border hover:border-accent"
+                k === i ? "border-accent" : "border-transparent bg-foreground/[0.04] hover:bg-foreground/[0.08]"
               }`}
             >
               <span className="rounded-[2px] bg-accent px-2.5 py-2 font-medium text-accent-foreground">{x.left}</span>

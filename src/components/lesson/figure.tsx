@@ -7,24 +7,21 @@ type FigureProps = {
   children: ReactNode;
 };
 
-// Frame for lesson illustrations: small label, optional lead statement,
-// the visual itself and a takeaway caption.
+// Frame for lesson illustrations: a tone step from the page (no outline),
+// the lead statement, the visual and a takeaway caption. The short title
+// names the figure for screen readers only; a visible label above the lead
+// would be one more eyebrow.
 export function Figure({ title, lead, caption, children }: FigureProps) {
   return (
-    <figure className="@container not-prose my-10 rounded-[4px] border border-border bg-surface p-5 sm:p-8">
-      {title && (
-        <p className="text-sm text-muted">
-          {title}
-        </p>
-      )}
+    <figure aria-label={title} className="@container not-prose my-10 rounded-[4px] bg-surface p-5 sm:p-8">
       {lead && (
-        <p className="mt-1 font-display text-xl font-semibold leading-snug tracking-tight sm:text-[22px]">
+        <p className="font-display text-xl font-semibold leading-snug tracking-tight sm:text-[22px]">
           {lead}
         </p>
       )}
-      <div className="mt-6">{children}</div>
+      <div className={lead ? "mt-6" : undefined}>{children}</div>
       {caption && (
-        <figcaption className="mt-6 border-t border-border pt-4 text-sm leading-relaxed text-muted">
+        <figcaption className="mt-6 text-sm leading-relaxed text-muted">
           {caption}
         </figcaption>
       )}

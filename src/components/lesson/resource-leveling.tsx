@@ -210,8 +210,8 @@ export function ResourceLeveling() {
             type="button"
             aria-pressed={mode === m}
             onClick={() => setMode(m)}
-            className={`rounded-md border px-3 py-1.5 text-sm font-medium transition-colors duration-200 ${
-              mode === m ? "border-accent bg-accent text-accent-foreground" : "border-border hover:border-accent hover:text-accent"
+            className={`rounded-md px-3 py-1.5 text-sm font-medium press ${
+              mode === m ? "bg-accent text-accent-foreground" : "bg-foreground/[0.07] hover:bg-foreground/[0.12]"
             }`}
           >
             {MODES[m].label}
