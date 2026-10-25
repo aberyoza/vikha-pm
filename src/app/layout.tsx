@@ -20,6 +20,7 @@ export const metadata: Metadata = {
   applicationName: SITE_NAME,
   alternates: { canonical: "/" },
   openGraph: { ...OPEN_GRAPH, type: "website", url: "/" },
+  twitter: { card: "summary_large_image" },
   robots: INDEXABLE ? undefined : { index: false, follow: false },
 };
 

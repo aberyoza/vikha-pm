@@ -1,6 +1,7 @@
 import { CourseGantt } from "@/components/course-gantt";
 import { ButtonLink, SectionHeading } from "@/components/ui";
 import { publishedModules } from "@/content/course";
+import { courseJsonLd, jsonLd } from "@/content/structured-data";
 
 const steps = [
   {
@@ -40,6 +41,7 @@ export default function Home() {
 
   return (
     <main>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(courseJsonLd()) }} />
       <div className="bg-graph">
         <div className="mx-auto max-w-[1200px] px-4 sm:px-8">
           <section className="grid items-end gap-10 pt-16 pb-10 sm:pt-20 lg:grid-cols-[7fr_4fr] lg:gap-12">

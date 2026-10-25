@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { LessonNavCard } from "@/components/lesson-nav-card";
 import { findLesson, modules, publishedModules } from "@/content/course";
 import { OPEN_GRAPH } from "@/content/site";
+import { jsonLd, lessonJsonLd } from "@/content/structured-data";
 
 type Props = PageProps<"/modules/[module]/[lesson]">;
 
@@ -24,9 +25,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const path = `/modules/${moduleSlug}/${lessonSlug}`;
   return {
     title: found.lesson.title,
-    description: found.module.description,
+    description: found.lesson.description,
     alternates: { canonical: path },
-    openGraph: { ...OPEN_GRAPH, type: "article", title: found.lesson.title, description: found.module.description, url: path },
+    openGraph: { ...OPEN_GRAPH, type: "article", title: found.lesson.title, description: found.lesson.description, url: path },
   };
 }
 
@@ -45,6 +46,7 @@ export default async function LessonPage({ params }: Props) {
 
   return (
     <div className="grid md:grid-cols-[300px_1fr]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(lessonJsonLd(courseModule, lesson)) }} />
       <aside className="border-b border-border bg-surface px-4 py-7 sm:px-7 md:sticky md:top-0 md:h-dvh md:overflow-y-auto md:border-r md:border-b-0 md:py-9">
         <Link
           href="/#program"
