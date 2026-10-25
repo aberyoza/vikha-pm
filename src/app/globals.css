@@ -235,14 +235,6 @@ body::before {
   }
 }
 
-.bg-graph {
-  background-color: var(--background);
-  background-image:
-    linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
 /* Long formulas scroll inside themselves instead of widening the page. */
 .katex-display {
   position: relative;

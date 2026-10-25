@@ -14,12 +14,16 @@ if it exists — it overrides MASTER for that page). It defines the tokens,
 fonts, layout, components and the lesson MDX pattern. Reuse the listed
 components; extend MASTER.md when you introduce a new reusable pattern.
 
-Fixed decisions from the author: **dark theme by default** with an opt-in warm
-light theme (visitors asked for it), warm
-palette (honey + sage on warm graphite), Fixel typeface, Gantt/milestone
-motif, and nothing that looks like a generic AI template. The
-`ui-ux-pro-max` skill (vendored in `.claude/skills/`) and Anthropic's
-`frontend-design` skill are research inputs — MASTER.md wins.
+Fixed decisions from the author: **dark theme by default** with an opt-in
+light theme (visitors asked for it), near-black ink with one honey accent
+(neutral paper with mustard in light), sage only for progress, Fixel
+typeface, Gantt/milestone motif, and **nothing that looks like a generic AI
+template**. A designer once recognised v2 as "made by Claude", so v3 removed
+the cream-and-rust palette, eyebrow labels, outlined boxes and graph paper;
+MASTER.md §2–§4 list what not to bring back. Emil Kowalski's design skills,
+tasteskill.dev, componentry.dev, the vendored `ui-ux-pro-max` skill and
+Anthropic's `frontend-design` skill are research inputs: take ideas, adapt
+them to Віха — MASTER.md wins.
 
 ## Content
 
