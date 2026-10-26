@@ -1,4 +1,6 @@
 import type { MDXComponents } from "mdx/types";
+import Link from "next/link";
+import type { ComponentProps } from "react";
 import { AccuracyFunnel } from "@/components/lesson/accuracy-funnel";
 import { AgileTraps } from "@/components/lesson/agile-traps";
 import { AiOrHuman } from "@/components/lesson/ai-or-human";
@@ -118,7 +120,15 @@ import { WipLimit } from "@/components/lesson/wip-limit";
 
 // Text is styled by the `prose` wrapper in the lesson page. Illustrations
 // registered here can be used in any lesson without an import.
+// Links inside lessons: course pages navigate client-side, other sites
+// open in a new tab.
+function LessonLink({ href = "", ...props }: ComponentProps<"a">) {
+  if (href.startsWith("/")) return <Link href={href} {...props} />;
+  return <a href={href} target="_blank" rel="noopener noreferrer" {...props} />;
+}
+
 const components: MDXComponents = {
+  a: LessonLink,
   AccuracyFunnel,
   AgileTraps,
   AiOrHuman,
