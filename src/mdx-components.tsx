@@ -16,6 +16,7 @@ import { CashProfile } from "@/components/lesson/cash-profile";
 import { ChangeImpact } from "@/components/lesson/change-impact";
 import { ChannelsCounter } from "@/components/lesson/channels-counter";
 import { CharterCard } from "@/components/lesson/charter-card";
+import { ClassesOfService } from "@/components/lesson/classes-of-service";
 import { ClosingChecklist } from "@/components/lesson/closing-checklist";
 import { CommModel } from "@/components/lesson/comm-model";
 import { CommPlan } from "@/components/lesson/comm-plan";
@@ -30,10 +31,12 @@ import { CriteriaCards } from "@/components/lesson/criteria-cards";
 import { CriticalPath } from "@/components/lesson/critical-path";
 import { CriticalValues } from "@/components/lesson/critical-values";
 import { CumulativeFlow } from "@/components/lesson/cumulative-flow";
+import { CycleTimeScatter } from "@/components/lesson/cycle-time-scatter";
 import { DecisionRights } from "@/components/lesson/decision-rights";
 import { DefectCost } from "@/components/lesson/defect-cost";
 import { DelayExplorer } from "@/components/lesson/delay-explorer";
 import { DevelopmentApproaches } from "@/components/lesson/development-approaches";
+import { DmaicSteps } from "@/components/lesson/dmaic-steps";
 import { EngagementMatrix } from "@/components/lesson/engagement-matrix";
 import { EvmExplorer } from "@/components/lesson/evm-explorer";
 import { EvmForecast } from "@/components/lesson/evm-forecast";
@@ -55,6 +58,7 @@ import { ManifestoBalance } from "@/components/lesson/manifesto-balance";
 import { MatrixReporting } from "@/components/lesson/matrix-reporting";
 import { MoneyTimeline } from "@/components/lesson/money-timeline";
 import { MonteCarlo } from "@/components/lesson/monte-carlo";
+import { MoscowBoard } from "@/components/lesson/moscow-board";
 import { MotivationDrivers } from "@/components/lesson/motivation-drivers";
 import { NetworkRules } from "@/components/lesson/network-rules";
 import { PairedMetrics } from "@/components/lesson/paired-metrics";
@@ -63,6 +67,7 @@ import { PaybackCalculator } from "@/components/lesson/payback-calculator";
 import { PdcaCycle } from "@/components/lesson/pdca-cycle";
 import { PertCalculator } from "@/components/lesson/pert-calculator";
 import { PlanStack } from "@/components/lesson/plan-stack";
+import { PlanningPoker } from "@/components/lesson/planning-poker";
 import { PmbokOrigin } from "@/components/lesson/pmbok";
 import { PmbokEditions } from "@/components/lesson/pmbok-editions";
 import { PowerInterestGrid } from "@/components/lesson/power-interest-grid";
@@ -94,8 +99,10 @@ import { ScopeStatement } from "@/components/lesson/scope-statement";
 import { ScrumArtifacts } from "@/components/lesson/scrum-artifacts";
 import { ScrumOrKanban } from "@/components/lesson/scrum-or-kanban";
 import { ScrumSprint } from "@/components/lesson/scrum-sprint";
+import { ScrumbanCompare } from "@/components/lesson/scrumban-compare";
 import { SensitivityExplorer } from "@/components/lesson/sensitivity-explorer";
 import { SevenAspects } from "@/components/lesson/seven-aspects";
+import { SigmaLevels } from "@/components/lesson/sigma-levels";
 import { SmartGoal } from "@/components/lesson/smart-goal";
 import { Callout, Columns, Split, Wide } from "@/components/lesson/split";
 import { StakeholderMap } from "@/components/lesson/stakeholder-map";
@@ -113,6 +120,7 @@ import { TuckmanCurve } from "@/components/lesson/tuckman-curve";
 import { UncertaintyTypes } from "@/components/lesson/uncertainty-types";
 import { ValidateFlow } from "@/components/lesson/validate-flow";
 import { ValueChain } from "@/components/lesson/value-chain";
+import { ValueStreamMap } from "@/components/lesson/value-stream-map";
 import { VendorMatrix } from "@/components/lesson/vendor-matrix";
 import { WbsCodes } from "@/components/lesson/wbs-codes";
 import { WbsMethods } from "@/components/lesson/wbs-methods";
@@ -145,6 +153,7 @@ const components: MDXComponents = {
   ChangeImpact,
   ChannelsCounter,
   CharterCard,
+  ClassesOfService,
   ClosingChecklist,
   Columns,
   CommModel,
@@ -160,10 +169,12 @@ const components: MDXComponents = {
   CriticalPath,
   CriticalValues,
   CumulativeFlow,
+  CycleTimeScatter,
   DecisionRights,
   DefectCost,
   DelayExplorer,
   DevelopmentApproaches,
+  DmaicSteps,
   EngagementMatrix,
   EvmExplorer,
   EvmForecast,
@@ -185,6 +196,7 @@ const components: MDXComponents = {
   MatrixReporting,
   MoneyTimeline,
   MonteCarlo,
+  MoscowBoard,
   MotivationDrivers,
   NetworkRules,
   PairedMetrics,
@@ -193,6 +205,7 @@ const components: MDXComponents = {
   PdcaCycle,
   PertCalculator,
   PlanStack,
+  PlanningPoker,
   PmbokEditions,
   PmbokOrigin,
   PowerInterestGrid,
@@ -225,8 +238,10 @@ const components: MDXComponents = {
   ScrumArtifacts,
   ScrumOrKanban,
   ScrumSprint,
+  ScrumbanCompare,
   SensitivityExplorer,
   SevenAspects,
+  SigmaLevels,
   SmartGoal,
   Split,
   StakeholderMap,
@@ -244,6 +259,7 @@ const components: MDXComponents = {
   UncertaintyTypes,
   ValidateFlow,
   ValueChain,
+  ValueStreamMap,
   VendorMatrix,
   WbsCodes,
   WbsMethods,

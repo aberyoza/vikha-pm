@@ -165,14 +165,17 @@ const program: ModuleDef[] = [
     ],
   },
   {
-    title: "Agile на практиці",
+    title: "Agile і Lean на практиці",
     description:
-      "Цінності й принципи Agile, Scrum і Kanban: ролі, події, артефакти, показники потоку і типові пастки — на прикладі студії мобільних ігор.",
+      "Цінності Agile, Scrum і Kanban на практиці, Scrumban, Lean і Six Sigma, показники і типові пастки — на прикладі студії мобільних ігор.",
     lessons: [
       { slug: "values", title: "Цінності і принципи", description: "Agile простими словами: чотири цінності і принципи маніфесту гнучкої розробки, крос-функціональна команда." },
       { slug: "scrum", title: "Scrum", description: "Scrum за правилами Scrum Guide 2020: три ролі, п'ять подій і три артефакти на прикладі двотижневого спринту." },
-      { slug: "kanban", title: "Kanban", description: "Kanban-дошка, обмеження незавершеної роботи (WIP) і показники потоку: час виконання, час циклу, пропускна здатність." },
-      { slug: "choosing", title: "Scrum чи Kanban і типові пастки", description: "Scrum чи Kanban: як обрати підхід, закон Ґудгарта для показників команди і ознаки «Agile на папері»." },
+      { slug: "scrum-practice", title: "Scrum на практиці", description: "Беклог і користувацькі історії за INVEST, пріоритети за MoSCoW, покер планування і як проводити події Scrum, щоб вони працювали." },
+      { slug: "kanban", title: "Kanban", description: "Метод Kanban: шість практик, обмеження незавершеної роботи, класи обслуговування, показники потоку й очікуваний рівень обслуговування." },
+      { slug: "scrumban", title: "Scrumban", description: "Scrumban: як поєднати ритм зустрічей Scrum із потоком і обмеженнями Kanban, планування за потребою і коли це доречно." },
+      { slug: "lean-six-sigma", title: "Lean і Six Sigma", description: "Lean і Six Sigma простими словами: п'ять принципів, сім втрат у розробці, карта потоку цінності, рівні сигми і кроки DMAIC." },
+      { slug: "choosing", title: "Scrum, Kanban чи Scrumban і типові пастки", description: "Scrum, Kanban чи Scrumban: як обрати підхід, закон Ґудгарта для показників команди і ознаки «Agile на папері»." },
     ],
   },
   {

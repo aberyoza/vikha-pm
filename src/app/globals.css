@@ -235,6 +235,13 @@ body::before {
   }
 }
 
+/* Wide lesson tables scroll inside themselves on phones. */
+.lesson-body table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
 /* Long formulas scroll inside themselves instead of widening the page. */
 .katex-display {
   position: relative;
