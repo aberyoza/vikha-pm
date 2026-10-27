@@ -5,6 +5,7 @@ import { LessonNavCard } from "@/components/lesson-nav-card";
 import { findLesson, modules, publishedModules } from "@/content/course";
 import { OPEN_GRAPH } from "@/content/site";
 import { jsonLd, lessonJsonLd } from "@/content/structured-data";
+import { ASSIGNMENTS, assignmentHref } from "@/content/assignments";
 
 type Props = PageProps<"/modules/[module]/[lesson]">;
 
@@ -43,6 +44,7 @@ export default async function LessonPage({ params }: Props) {
 
   const index = courseModule.lessons.findIndex((l) => l.slug === lesson.slug);
   const lessonHref = (slug: string) => `/modules/${courseModule.slug}/${slug}`;
+  const assignment = ASSIGNMENTS[courseModule.slug];
 
   return (
     <div className="grid md:grid-cols-[300px_1fr]">
@@ -91,13 +93,25 @@ export default async function LessonPage({ params }: Props) {
                 </li>
               );
             })}
-            <li className="relative mt-2 py-2 pl-8 text-[15px] text-foreground">
+            <li className="relative mt-2 text-[15px]">
               <span
                 aria-hidden
                 className="absolute top-[15px] left-px size-3 rotate-45 rounded-[2px] bg-accent"
               />
-              Завдання модуля
-              <span className="block text-sm text-muted">Скоро</span>
+              {assignment ? (
+                <Link
+                  href={assignmentHref(courseModule.slug)}
+                  className="block py-2 pl-8 text-foreground transition-colors duration-200 hover:text-accent"
+                >
+                  Завдання модуля
+                  <span className="block text-sm text-muted">Гра на 10 хвилин</span>
+                </Link>
+              ) : (
+                <span className="block py-2 pl-8 text-foreground">
+                  Завдання модуля
+                  <span className="block text-sm text-muted">Скоро</span>
+                </span>
+              )}
             </li>
           </ol>
         </nav>
@@ -128,6 +142,14 @@ export default async function LessonPage({ params }: Props) {
               label="Наступний урок"
               title={next.title}
               direction="next"
+            />
+          ) : assignment ? (
+            <LessonNavCard
+              href={assignmentHref(courseModule.slug)}
+              label="Уроки модуля пройдено"
+              title="Перейти до завдання"
+              direction="next"
+              highlight
             />
           ) : (
             <LessonNavCard
