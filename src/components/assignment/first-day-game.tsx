@@ -37,6 +37,24 @@ const write = (s: Saved) => {
 
 const LEVELS = ["Проєкт чи ні?", "Ланцюжок цінності", "Хто є хто", "Два начальники"];
 
+// Card order is shuffled on every play, so the answers can't be guessed from
+// the position of a card.
+const shuffled = (n: number) => {
+  const a = Array.from({ length: n }, (_, i) => i);
+  for (let i = n - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+type Orders = { sort: number[]; chain: number[]; speakers: number[]; roles: number[] };
+const newOrders = (): Orders => ({
+  sort: shuffled(G.SORT.length),
+  chain: shuffled(G.CHAIN.length),
+  speakers: shuffled(G.SPEAKERS.length),
+  roles: shuffled(G.ROLES.length),
+});
+
 const chip = (on: boolean) =>
   `rounded-md px-3 py-2 text-sm font-medium press ${
     on ? "bg-accent text-accent-foreground" : "bg-foreground/[0.07] hover:bg-foreground/[0.12]"
@@ -56,12 +74,12 @@ function Feedback({ ok, title, children }: { ok: boolean; title?: string; childr
 }
 
 // Level 1: swipe or tap each card to the project or the operations side.
-function SortLevel({ onDone }: { onDone: (score: number) => void }) {
+function SortLevel({ order, onDone }: { order: number[]; onDone: (score: number) => void }) {
   const [i, setI] = useState(0);
   const [answer, setAnswer] = useState<G.Kind | null>(null);
   const [score, setScore] = useState(0);
   const [drag, setDrag] = useState<{ start: number; dx: number } | null>(null);
-  const card = G.SORT[i];
+  const card = G.SORT[order[i]];
   const last = i === G.SORT.length - 1;
 
   const choose = (k: G.Kind) => {
@@ -136,12 +154,12 @@ function SortLevel({ onDone }: { onDone: (score: number) => void }) {
 }
 
 // Level 2: put each card into the result, outcome or benefit basket.
-function ChainLevel({ onDone }: { onDone: (score: number) => void }) {
+function ChainLevel({ order, onDone }: { order: number[]; onDone: (score: number) => void }) {
   const [place, setPlace] = useState<(G.Step | null)[]>(G.CHAIN.map(() => null));
   const [sel, setSel] = useState<number | null>(null);
   const [checked, setChecked] = useState(false);
   const [score, setScore] = useState<number | null>(null);
-  const pool = G.CHAIN.map((c, k) => ({ ...c, k })).filter((c) => place[c.k] === null);
+  const pool = order.map((k) => ({ ...G.CHAIN[k], k })).filter((c) => place[c.k] === null);
   const wrong = G.CHAIN.filter((c, k) => place[k] !== c.step).length;
 
   const drop = (step: G.Step) => {
@@ -189,7 +207,7 @@ function ChainLevel({ onDone }: { onDone: (score: number) => void }) {
               <span className="block text-[13px] text-muted">{s.hint}</span>
             </button>
             <ul className="mt-1 space-y-1">
-              {G.CHAIN.map((c, k) =>
+              {order.map((k) => [G.CHAIN[k], k] as const).map(([c, k]) =>
                 place[k] === s.key ? (
                   <li key={k}>
                     <button
@@ -241,11 +259,19 @@ function ChainLevel({ onDone }: { onDone: (score: number) => void }) {
 }
 
 // Level 3: guess each speaker's role from one line.
-function RolesLevel({ onDone }: { onDone: (score: number) => void }) {
+function RolesLevel({
+  speakers,
+  roles,
+  onDone,
+}: {
+  speakers: number[];
+  roles: number[];
+  onDone: (score: number) => void;
+}) {
   const [i, setI] = useState(0);
   const [pick, setPick] = useState<G.Role | null>(null);
   const [score, setScore] = useState(0);
-  const s = G.SPEAKERS[i];
+  const s = G.SPEAKERS[speakers[i]];
   const last = i === G.SPEAKERS.length - 1;
 
   const choose = (r: G.Role) => {
@@ -274,7 +300,7 @@ function RolesLevel({ onDone }: { onDone: (score: number) => void }) {
       </div>
 
       <div className="mt-6 flex flex-wrap gap-2" role="group" aria-label="Роль">
-        {G.ROLES.map((r) => (
+        {roles.map((k) => G.ROLES[k]).map((r) => (
           <button
             key={r}
             type="button"
@@ -368,6 +394,7 @@ export function FirstDayGame({ nextHref }: { nextHref: string }) {
   const saved = parse(useSyncExternalStore(subscribe, readRaw, () => null));
   const [phase, setPhase] = useState<"intro" | number | "final">("intro");
   const [scores, setScores] = useState<number[]>([]);
+  const [orders, setOrders] = useState<Orders | null>(null);
   const total = scores.reduce((a, b) => a + b, 0);
 
   const finishLevel = (level: number) => (score: number) => {
@@ -379,7 +406,8 @@ export function FirstDayGame({ nextHref }: { nextHref: string }) {
     setPhase("final");
   };
 
-  const restart = () => {
+  const start = () => {
+    setOrders(newOrders());
     setScores([]);
     setPhase(0);
   };
@@ -418,7 +446,7 @@ export function FirstDayGame({ nextHref }: { nextHref: string }) {
             ))}
           </ol>
           <div className="mt-6 flex flex-wrap items-center gap-4">
-            <button type="button" onClick={() => setPhase(0)} className={primary}>
+            <button type="button" onClick={start} className={primary}>
               {saved ? "Зіграти ще раз" : "Почати день"}
             </button>
             {saved && (
@@ -430,9 +458,9 @@ export function FirstDayGame({ nextHref }: { nextHref: string }) {
         </div>
       )}
 
-      {phase === 0 && <SortLevel onDone={finishLevel(0)} />}
-      {phase === 1 && <ChainLevel onDone={finishLevel(1)} />}
-      {phase === 2 && <RolesLevel onDone={finishLevel(2)} />}
+      {phase === 0 && orders && <SortLevel order={orders.sort} onDone={finishLevel(0)} />}
+      {phase === 1 && orders && <ChainLevel order={orders.chain} onDone={finishLevel(1)} />}
+      {phase === 2 && orders && <RolesLevel speakers={orders.speakers} roles={orders.roles} onDone={finishLevel(2)} />}
       {phase === 3 && <BossLevel onDone={finishLevel(3)} />}
 
       {phase === "final" && (
@@ -459,17 +487,17 @@ export function FirstDayGame({ nextHref }: { nextHref: string }) {
             <Link href={nextHref} className={primary}>
               До модуля 2
             </Link>
-            <button type="button" onClick={restart} className={chip(false)}>
+            <button type="button" onClick={start} className={chip(false)}>
               Зіграти ще раз
             </button>
           </div>
 
           <div className="mt-10 rounded-[4px] bg-foreground/[0.05] p-4">
             <label htmlFor="own-project" className="font-medium">
-              Бонус, якщо є сили: опиши свій проєкт у трьох реченнях
+              Бонус, якщо є сили: опиши свій проєкт у кількох реченнях
             </label>
             <p className="mt-1 text-sm text-muted">
-              Що створюєш, для кого і коли закінчиш. Текст лишиться в цьому браузері, а коли з&apos;явиться кабінет, автор
+              Що створюєш і для кого. Текст лишиться в цьому браузері, а коли з&apos;явиться кабінет, автор
               зможе його прокоментувати.
             </p>
             <textarea
