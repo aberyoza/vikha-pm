@@ -105,6 +105,19 @@
     }
   }
 
+  --animate-drum: drum 140ms var(--ease-out) both;
+
+  @keyframes drum {
+    from {
+      transform: translateY(-40%);
+      opacity: 0.2;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
   --animate-flow-x: flow-x 1.8s linear infinite;
   --animate-flow-y: flow-y 1.8s linear infinite;
 

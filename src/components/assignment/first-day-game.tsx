@@ -3,11 +3,14 @@
 import Link from "next/link";
 import { useState, useSyncExternalStore, type PointerEvent, type ReactNode } from "react";
 import { MilestoneMark } from "@/components/logo";
+import { ProjectBuilder } from "@/components/my-project/project-builder";
 import * as G from "@/content/assignments/module-01";
+import { MILESTONES } from "@/content/my-project";
+import { useMyProject } from "@/lib/my-project";
 
 // Progress lives in the browser until accounts exist.
 const STORE = "vikha-assignment-module-01";
-type Saved = { best: number; completedAt?: string; project?: string };
+type Saved = { best: number; completedAt?: string };
 
 const subscribe = (cb: () => void) => {
   window.addEventListener("storage", cb);
@@ -392,7 +395,8 @@ function BossLevel({ onDone }: { onDone: (score: number) => void }) {
 // The whole game: intro, four levels and the finish with diamonds.
 export function FirstDayGame({ nextHref }: { nextHref: string }) {
   const saved = parse(useSyncExternalStore(subscribe, readRaw, () => null));
-  const [phase, setPhase] = useState<"intro" | number | "final">("intro");
+  const project = useMyProject();
+  const [phase, setPhase] = useState<"intro" | number | "final" | "project">("intro");
   const [scores, setScores] = useState<number[]>([]);
   const [orders, setOrders] = useState<Orders | null>(null);
   const total = scores.reduce((a, b) => a + b, 0);
@@ -463,6 +467,15 @@ export function FirstDayGame({ nextHref }: { nextHref: string }) {
       {phase === 2 && orders && <RolesLevel speakers={orders.speakers} roles={orders.roles} onDone={finishLevel(2)} />}
       {phase === 3 && <BossLevel onDone={finishLevel(3)} />}
 
+      {phase === "project" && (
+        <div>
+          <h2 className="font-display text-3xl font-semibold tracking-tight">Твій проєкт</h2>
+          <div className="mt-4">
+            <ProjectBuilder initial={project} onSaved={() => setPhase("final")} />
+          </div>
+        </div>
+      )}
+
       {phase === "final" && (
         <div>
           <div className="flex items-center gap-4">
@@ -492,22 +505,36 @@ export function FirstDayGame({ nextHref }: { nextHref: string }) {
             </button>
           </div>
 
-          <div className="mt-10 rounded-[4px] bg-foreground/[0.05] p-4">
-            <label htmlFor="own-project" className="font-medium">
-              Бонус, якщо є сили: опиши свій проєкт у кількох реченнях
-            </label>
-            <p className="mt-1 text-sm text-muted">
-              Що створюєш і для кого. Текст лишиться в цьому браузері, а коли з&apos;явиться кабінет, автор
-              зможе його прокоментувати.
-            </p>
-            <textarea
-              id="own-project"
-              rows={4}
-              maxLength={1000}
-              defaultValue={saved?.project ?? ""}
-              onChange={(e) => write({ ...(parse(readRaw()) ?? { best: total }), project: e.target.value })}
-              className="mt-3 w-full rounded-[4px] bg-background p-3 text-base leading-relaxed outline-none focus-visible:outline-2 focus-visible:outline-accent"
-            />
+          <div className="mt-10 rounded-[4px] bg-foreground/[0.05] p-4 sm:p-5">
+            {project ? (
+              <>
+                <p className="text-[13px] text-muted">Твій проєкт</p>
+                <p className="mt-0.5 font-display text-xl font-semibold">{project.name}</p>
+                <p className="mt-2 max-w-[60ch] leading-relaxed text-muted">
+                  Перша віха проєкту поставлена: зрозуміло, що створюєш, для кого і навіщо. Наступну додаси в завданні
+                  модуля 3. Усього їх {MILESTONES.length}.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <Link href="/my-project" className={chip(false)}>
+                    Паспорт проєкту
+                  </Link>
+                  <button type="button" onClick={() => setPhase("project")} className={chip(false)}>
+                    Змінити
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <p className="font-medium">Бонус: почни свій проєкт</p>
+                <p className="mt-1 max-w-[60ch] leading-relaxed text-muted">
+                  Хвилина з підказками: крутиш барабани «що» і «для кого» і збираєш ланцюжок цінності. Проєкт піде з
+                  тобою через увесь курс, і кожен модуль додасть до нього віху.
+                </p>
+                <button type="button" onClick={() => setPhase("project")} className={`${primary} mt-4`}>
+                  Зібрати проєкт
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}
