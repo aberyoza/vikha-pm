@@ -23,13 +23,14 @@ function CardLevel({ order, hand, onDone }: { order: number[]; hand: number[]; o
   return (
     <div>
       <p className="text-muted">
-        Яку карту зіграєш?{" "}
-        <span className="tabular-nums">
-          {i + 1} з {G.SITUATIONS.length}
-        </span>
+        Прочитай ситуацію і зіграй карту-принцип, який підкаже, як тут вчинити. Під назвою кожної карти коротко
+        сказано, про що вона.
       </p>
 
-      <div className="mt-5 flex min-h-32 items-center justify-center rounded-[6px] bg-surface-raised p-6 text-center font-display text-xl font-semibold leading-snug sm:text-2xl">
+      <p className="mt-5 text-sm text-muted tabular-nums">
+        Ситуація {i + 1} з {G.SITUATIONS.length}
+      </p>
+      <div className="mt-2 flex min-h-32 items-center justify-center rounded-[6px] bg-surface-raised p-6 text-center font-display text-xl font-semibold leading-snug sm:text-2xl">
         {s.text}
       </div>
 
@@ -44,16 +45,19 @@ function CardLevel({ order, hand, onDone }: { order: number[]; hand: number[]; o
               onClick={() => play(p)}
               disabled={!!pick}
               aria-pressed={pick === p}
-              className={`flex min-h-20 flex-col justify-between rounded-[6px] p-3 text-left font-medium leading-snug press ${
+              className={`flex flex-col gap-1.5 rounded-[6px] p-3 text-left leading-snug press ${
                 right
                   ? "bg-accent text-accent-foreground"
                   : wrong
-                    ? "bg-foreground/[0.12] line-through decoration-2"
+                    ? "bg-foreground/[0.12]"
                     : "bg-background hover:bg-foreground/[0.08] disabled:opacity-60"
               }`}
             >
-              <span aria-hidden className="block size-2 rotate-45 rounded-[1px] bg-current opacity-50" />
-              {p}
+              <span className={`flex items-center gap-2 font-medium ${wrong ? "line-through decoration-2" : ""}`}>
+                <span aria-hidden className="block size-2 shrink-0 rotate-45 rounded-[1px] bg-current opacity-50" />
+                {p}
+              </span>
+              <span className={`text-[13px] ${right ? "" : "text-muted"}`}>{G.PRINCIPLE_NOTES[p]}</span>
             </button>
           );
         })}
