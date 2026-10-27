@@ -41,7 +41,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className="flex min-h-full flex-col font-sans">
-        <header className="border-b border-border">
+        <header className="border-b border-border print:hidden">
           <div className="flex h-[72px] items-center justify-between px-4 sm:px-8">
             <Logo />
             <nav className="flex items-center gap-1">
@@ -51,12 +51,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               >
                 Програма
               </Link>
+              <Link
+                href="/my-project"
+                className="rounded-md px-3 py-2 text-[15px] text-muted transition-colors duration-200 hover:text-foreground"
+              >
+                Мій проєкт
+              </Link>
               <ThemeToggle />
             </nav>
           </div>
         </header>
         <div className="flex-1">{children}</div>
-        <footer className="border-t border-border">
+        <footer className="border-t border-border print:hidden">
           <div className="flex flex-col gap-4 px-4 py-8 text-sm text-muted sm:flex-row sm:items-center sm:justify-between sm:px-8">
             <Logo />
             <p className="max-w-xl sm:text-right">
