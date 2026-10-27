@@ -124,17 +124,20 @@ function DominoLevel({ tiles, onDone }: { tiles: number[][]; onDone: (score: num
   return (
     <div>
       <p className="text-muted">
-        Позначай кісточки, які впадуть від рішення, і штовхай першу.{" "}
-        <span className="tabular-nums">
-          {d + 1} з {G.DOMINOES.length}
-        </span>
+        Студія ухвалює рішення. Як перша кісточка доміно, воно зачіпає інші частини проєкту. Познач усе, що
+        зміниться через це рішення, і натисни «Штовхнути». Те, чого рішення не зачіпає, не позначай: за зайві
+        кісточки віхи знімаються.
       </p>
 
-      <div className="mt-5 rounded-[6px] bg-accent px-5 py-4 font-display text-xl font-semibold text-accent-foreground sm:text-2xl">
+      <p className="mt-5 text-sm text-muted tabular-nums">
+        Рішення {d + 1} з {G.DOMINOES.length}
+      </p>
+      <div className="mt-2 rounded-[6px] bg-accent px-5 py-4 font-display text-xl font-semibold text-accent-foreground sm:text-2xl">
         {dec.decision}
       </div>
 
-      <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+      <p className="mt-4 font-medium">Що зміниться через це рішення?</p>
+      <ul className="mt-2 grid gap-2 sm:grid-cols-2">
         {order.map((k) => {
           const t = dec.tiles[k];
           const on = picked.has(k);
