@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FirstDayGame } from "@/components/assignment/first-day-game";
+import { PrinciplesWeekGame } from "@/components/assignment/principles-week-game";
 import { ASSIGNMENTS, assignmentHref } from "@/content/assignments";
 import { modules, publishedModules } from "@/content/course";
 import { OPEN_GRAPH } from "@/content/site";
@@ -47,6 +48,7 @@ export default async function AssignmentPage({ params }: Props) {
       </Link>
       <h1 className="mt-3 mb-8 font-display text-4xl font-semibold tracking-tight sm:text-5xl">Завдання модуля</h1>
       {slug === "module-01" && <FirstDayGame nextHref={nextHref} />}
+      {slug === "module-02" && <PrinciplesWeekGame nextHref={nextHref} />}
     </main>
   );
 }

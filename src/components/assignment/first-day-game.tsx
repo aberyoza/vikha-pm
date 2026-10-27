@@ -1,80 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { useState, useSyncExternalStore, type PointerEvent, type ReactNode } from "react";
-import { MilestoneMark } from "@/components/logo";
-import { ProjectBuilder } from "@/components/my-project/project-builder";
+import { useState, type PointerEvent } from "react";
+import { ProjectBonus } from "@/components/my-project/project-bonus";
 import * as G from "@/content/assignments/module-01";
-import { MILESTONES } from "@/content/my-project";
-import { useMyProject } from "@/lib/my-project";
-
-// Progress lives in the browser until accounts exist.
-const STORE = "vikha-assignment-module-01";
-type Saved = { best: number; completedAt?: string };
-
-const subscribe = (cb: () => void) => {
-  window.addEventListener("storage", cb);
-  return () => window.removeEventListener("storage", cb);
-};
-const readRaw = () => {
-  try {
-    return localStorage.getItem(STORE);
-  } catch {
-    return null;
-  }
-};
-const parse = (raw: string | null): Saved | null => {
-  try {
-    return raw ? (JSON.parse(raw) as Saved) : null;
-  } catch {
-    return null;
-  }
-};
-const write = (s: Saved) => {
-  try {
-    localStorage.setItem(STORE, JSON.stringify(s));
-  } catch {
-    // Private mode or storage disabled: the game still works, it just forgets.
-  }
-};
-
-const LEVELS = ["Проєкт чи ні?", "Ланцюжок цінності", "Хто є хто", "Два начальники"];
-
-// Card order is shuffled on every play, so the answers can't be guessed from
-// the position of a card.
-const shuffled = (n: number) => {
-  const a = Array.from({ length: n }, (_, i) => i);
-  for (let i = n - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-};
-type Orders = { sort: number[]; chain: number[]; speakers: number[]; roles: number[] };
-const newOrders = (): Orders => ({
-  sort: shuffled(G.SORT.length),
-  chain: shuffled(G.CHAIN.length),
-  speakers: shuffled(G.SPEAKERS.length),
-  roles: shuffled(G.ROLES.length),
-});
-
-const chip = (on: boolean) =>
-  `rounded-md px-3 py-2 text-sm font-medium press ${
-    on ? "bg-accent text-accent-foreground" : "bg-foreground/[0.07] hover:bg-foreground/[0.12]"
-  }`;
-const primary = "rounded-md bg-accent px-5 py-2.5 font-semibold text-accent-foreground press hover:brightness-110";
-
-function Feedback({ ok, title, children }: { ok: boolean; title?: string; children: ReactNode }) {
-  return (
-    <div className="rounded-[4px] bg-accent-soft p-4 leading-relaxed" aria-live="polite">
-      <p className="font-display text-lg font-semibold">
-        {title ?? (ok ? "Так!" : "Майже.")}
-        {ok && <MilestoneMark className="ml-2 size-2.5 align-middle" />}
-      </p>
-      <p className="mt-1">{children}</p>
-    </div>
-  );
-}
+import { AssignmentGame, BasketLevel, chip, Feedback, primary, shuffled } from "./game-kit";
 
 // Level 1: swipe or tap each card to the project or the operations side.
 function SortLevel({ order, onDone }: { order: number[]; onDone: (score: number) => void }) {
@@ -152,111 +81,6 @@ function SortLevel({ order, onDone }: { order: number[]; onDone: (score: number)
           </button>
         </div>
       )}
-    </div>
-  );
-}
-
-// Level 2: put each card into the result, outcome or benefit basket.
-function ChainLevel({ order, onDone }: { order: number[]; onDone: (score: number) => void }) {
-  const [place, setPlace] = useState<(G.Step | null)[]>(G.CHAIN.map(() => null));
-  const [sel, setSel] = useState<number | null>(null);
-  const [checked, setChecked] = useState(false);
-  const [score, setScore] = useState<number | null>(null);
-  const pool = order.map((k) => ({ ...G.CHAIN[k], k })).filter((c) => place[c.k] === null);
-  const wrong = G.CHAIN.filter((c, k) => place[k] !== c.step).length;
-
-  const drop = (step: G.Step) => {
-    if (sel === null || checked) return;
-    setPlace((p) => p.map((v, k) => (k === sel ? step : v)));
-    setSel(null);
-  };
-  const lift = (k: number) => {
-    if (checked) return;
-    setPlace((p) => p.map((v, j) => (j === k ? null : v)));
-    setSel(k);
-  };
-  const check = () => {
-    setChecked(true);
-    if (score === null) setScore(G.CHAIN.length - wrong);
-  };
-  const retry = () => {
-    setPlace((p) => p.map((v, k) => (v === G.CHAIN[k].step ? v : null)));
-    setChecked(false);
-  };
-
-  return (
-    <div>
-      <p className="text-muted">Обери картку, потім кошик, у який вона лягає. Картку з кошика можна забрати назад.</p>
-
-      <div className="mt-5 flex min-h-12 flex-wrap gap-2">
-        {pool.map((c) => (
-          <button key={c.k} type="button" aria-pressed={sel === c.k} onClick={() => setSel(sel === c.k ? null : c.k)} className={chip(sel === c.k)}>
-            {c.text}
-          </button>
-        ))}
-        {pool.length === 0 && !checked && <span className="py-2 text-sm text-muted">Усі картки розкладено.</span>}
-      </div>
-
-      <div className="mt-5 grid gap-2 sm:grid-cols-3">
-        {G.STEPS.map((s) => (
-          <div key={s.key} className="rounded-[4px] bg-background p-2">
-            <button
-              type="button"
-              onClick={() => drop(s.key)}
-              disabled={sel === null || checked}
-              className={`w-full rounded-[2px] px-2 py-2 text-left press ${sel !== null && !checked ? "bg-accent-soft hover:bg-accent/25" : ""}`}
-            >
-              <span className="block font-medium">{s.name}</span>
-              <span className="block text-[13px] text-muted">{s.hint}</span>
-            </button>
-            <ul className="mt-1 space-y-1">
-              {order.map((k) => [G.CHAIN[k], k] as const).map(([c, k]) =>
-                place[k] === s.key ? (
-                  <li key={k}>
-                    <button
-                      type="button"
-                      onClick={() => lift(k)}
-                      className={`w-full rounded-[2px] px-2 py-1.5 text-left text-sm leading-snug ${
-                        checked ? (c.step === s.key ? "bg-surface-raised" : "bg-accent text-accent-foreground") : "bg-surface-raised hover:bg-foreground/[0.12]"
-                      }`}
-                    >
-                      {checked && (c.step === s.key ? "✓ " : "✗ ")}
-                      {c.text}
-                    </button>
-                  </li>
-                ) : null,
-              )}
-            </ul>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-5 space-y-4">
-        {!checked && (
-          <button type="button" onClick={check} disabled={pool.length > 0} className={`${primary} disabled:opacity-40`}>
-            Перевірити
-          </button>
-        )}
-        {checked && (
-          <>
-            <Feedback ok={wrong === 0} title={wrong === 0 ? "Усе на своїх місцях!" : `Не на місці: ${wrong}.`}>
-              {wrong === 0
-                ? "Результат — що створили, наслідок — що змінилося, вигода — яка з цього користь."
-                : G.CHAIN.filter((c, k) => place[k] !== c.step).map((c) => `«${c.text}»: ${c.why}`).join(" ")}
-            </Feedback>
-            <div className="flex flex-wrap gap-2">
-              {wrong > 0 && (
-                <button type="button" onClick={retry} className={chip(false)}>
-                  Переставити неправильні
-                </button>
-              )}
-              <button type="button" onClick={() => onDone(score ?? 0)} className={primary}>
-                До наступного рівня
-              </button>
-            </div>
-          </>
-        )}
-      </div>
     </div>
   );
 }
@@ -392,152 +216,49 @@ function BossLevel({ onDone }: { onDone: (score: number) => void }) {
   );
 }
 
-// The whole game: intro, four levels and the finish with diamonds.
+const CHAIN = G.CHAIN.map((c) => ({ ...c, bin: c.step }));
+
+type Orders = { sort: number[]; chain: number[]; speakers: number[]; roles: number[] };
+
+// Module 1 game: four levels, then the start of the reader's own project.
 export function FirstDayGame({ nextHref }: { nextHref: string }) {
-  const saved = parse(useSyncExternalStore(subscribe, readRaw, () => null));
-  const project = useMyProject();
-  const [phase, setPhase] = useState<"intro" | number | "final" | "project">("intro");
-  const [scores, setScores] = useState<number[]>([]);
-  const [orders, setOrders] = useState<Orders | null>(null);
-  const total = scores.reduce((a, b) => a + b, 0);
-
-  const finishLevel = (level: number) => (score: number) => {
-    const next = [...scores.slice(0, level), score];
-    setScores(next);
-    if (level < LEVELS.length - 1) return setPhase(level + 1);
-    const sum = next.reduce((a, b) => a + b, 0);
-    write({ ...saved, best: Math.max(sum, saved?.best ?? 0), completedAt: new Date().toISOString() });
-    setPhase("final");
-  };
-
-  const start = () => {
-    setOrders(newOrders());
-    setScores([]);
-    setPhase(0);
-  };
-
   return (
-    <div className="rounded-[6px] bg-surface p-5 sm:p-8">
-      {typeof phase === "number" && (
-        <div className="mb-6 flex items-center justify-between gap-4">
-          <ol className="flex gap-1.5" aria-label="Рівні">
-            {LEVELS.map((name, k) => (
-              <li key={name} aria-current={k === phase ? "step" : undefined} title={name}>
-                <span
-                  className={`block size-3 rotate-45 rounded-[2px] ${
-                    k < phase ? "bg-accent" : k === phase ? "bg-accent/40 ring-2 ring-accent" : "bg-foreground/15"
-                  }`}
-                />
-              </li>
-            ))}
-          </ol>
-          <p className="text-sm text-muted">
-            Рівень {phase + 1}: <span className="text-foreground">{LEVELS[phase]}</span>
-          </p>
-        </div>
-      )}
-
-      {phase === "intro" && (
-        <div>
-          <h2 className="font-display text-3xl font-semibold tracking-tight">{G.TITLE}</h2>
-          <p className="mt-3 max-w-[60ch] text-lg leading-relaxed">{G.INTRO}</p>
-          <ol className="mt-5 grid gap-2 sm:grid-cols-2">
-            {LEVELS.map((name, k) => (
-              <li key={name} className="flex items-center gap-3 rounded-[4px] bg-foreground/[0.05] px-3 py-2">
-                <span className="font-display font-semibold text-accent tabular-nums">{k + 1}</span>
-                {name}
-              </li>
-            ))}
-          </ol>
-          <div className="mt-6 flex flex-wrap items-center gap-4">
-            <button type="button" onClick={start} className={primary}>
-              {saved ? "Зіграти ще раз" : "Почати день"}
-            </button>
-            {saved && (
-              <span className="text-sm text-muted">
-                Твій рекорд: {saved.best} з {G.MAX_DIAMONDS} віх.
-              </span>
-            )}
-          </div>
-        </div>
-      )}
-
-      {phase === 0 && orders && <SortLevel order={orders.sort} onDone={finishLevel(0)} />}
-      {phase === 1 && orders && <ChainLevel order={orders.chain} onDone={finishLevel(1)} />}
-      {phase === 2 && orders && <RolesLevel speakers={orders.speakers} roles={orders.roles} onDone={finishLevel(2)} />}
-      {phase === 3 && <BossLevel onDone={finishLevel(3)} />}
-
-      {phase === "project" && (
-        <div>
-          <h2 className="font-display text-3xl font-semibold tracking-tight">Твій проєкт</h2>
-          <div className="mt-4">
-            <ProjectBuilder initial={project} onSaved={() => setPhase("final")} />
-          </div>
-        </div>
-      )}
-
-      {phase === "final" && (
-        <div>
-          <div className="flex items-center gap-4">
-            <span className="grid size-16 shrink-0 place-items-center">
-              <MilestoneMark className="size-11" />
-            </span>
-            <div>
-              <h2 className="font-display text-3xl font-semibold tracking-tight">Перша віха!</h2>
-              <p className="mt-1 text-lg">
-                За день зібрано{" "}
-                <strong className="tabular-nums">
-                  {total} з {G.MAX_DIAMONDS}
-                </strong>{" "}
-                віх.
-              </p>
-            </div>
-          </div>
-          <p className="mt-4 max-w-[60ch] leading-relaxed text-muted">
-            Модуль 1 пройдено. Далі — принципи, на яких тримається управління проєктами.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link href={nextHref} className={primary}>
-              До модуля 2
-            </Link>
-            <button type="button" onClick={start} className={chip(false)}>
-              Зіграти ще раз
-            </button>
-          </div>
-
-          <div className="mt-10 rounded-[4px] bg-foreground/[0.05] p-4 sm:p-5">
-            {project ? (
-              <>
-                <p className="text-[13px] text-muted">Твій проєкт</p>
-                <p className="mt-0.5 font-display text-xl font-semibold">{project.name}</p>
-                <p className="mt-2 max-w-[60ch] leading-relaxed text-muted">
-                  Перша віха проєкту поставлена: зрозуміло, що створюєш, для кого і навіщо. Наступну додаси в завданні
-                  модуля 3. Усього їх {MILESTONES.length}.
-                </p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <Link href="/my-project" className={chip(false)}>
-                    Паспорт проєкту
-                  </Link>
-                  <button type="button" onClick={() => setPhase("project")} className={chip(false)}>
-                    Змінити
-                  </button>
-                </div>
-              </>
-            ) : (
-              <>
-                <p className="font-medium">Бонус: почни свій проєкт</p>
-                <p className="mt-1 max-w-[60ch] leading-relaxed text-muted">
-                  Хвилина з підказками: крутиш барабани «що» і «для кого» і збираєш ланцюжок цінності. Проєкт піде з
-                  тобою через увесь курс, і кожен модуль додасть до нього віху.
-                </p>
-                <button type="button" onClick={() => setPhase("project")} className={`${primary} mt-4`}>
-                  Зібрати проєкт
-                </button>
-              </>
-            )}
-          </div>
-        </div>
-      )}
-    </div>
+    <AssignmentGame<Orders>
+      storeKey="vikha-assignment-module-01"
+      title={G.TITLE}
+      intro={G.INTRO}
+      max={G.MAX_DIAMONDS}
+      newOrders={() => ({
+        sort: shuffled(G.SORT.length),
+        chain: shuffled(G.CHAIN.length),
+        speakers: shuffled(G.SPEAKERS.length),
+        roles: shuffled(G.ROLES.length),
+      })}
+      levels={[
+        { name: "Проєкт чи ні?", play: (o, done) => <SortLevel order={o.sort} onDone={done} /> },
+        {
+          name: "Ланцюжок цінності",
+          play: (o, done) => (
+            <BasketLevel
+              items={CHAIN}
+              bins={G.STEPS}
+              order={o.chain}
+              allRight="Результат — що створили, наслідок — що змінилося, вигода — яка з цього користь."
+              onDone={done}
+            />
+          ),
+        },
+        { name: "Хто є хто", play: (o, done) => <RolesLevel speakers={o.speakers} roles={o.roles} onDone={done} /> },
+        { name: "Два начальники", play: (_, done) => <BossLevel onDone={done} /> },
+      ]}
+      startLabel="Почати день"
+      period="За день"
+      finalTitle="Перша віха!"
+      finalText="Модуль 1 пройдено. Далі — принципи, на яких тримається управління проєктами."
+      nextHref={nextHref}
+      nextLabel="До модуля 2"
+    >
+      <ProjectBonus />
+    </AssignmentGame>
   );
 }
