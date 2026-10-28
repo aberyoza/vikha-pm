@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import * as G from "@/content/assignments/module-02";
-import { AssignmentGame, BasketLevel, CardLevel, Feedback, primary, shuffled } from "./game-kit";
+import { AssignmentGame, BasketLevel, CardLevel, Feedback, Meter, primary, shuffled } from "./game-kit";
 
 const CARDS = G.PRINCIPLES.map((name) => ({ name, note: G.PRINCIPLE_NOTES[name] }));
 
@@ -112,23 +112,6 @@ function DominoLevel({ tiles, onDone }: { tiles: number[][]; onDone: (score: num
             </button>
           </>
         )}
-      </div>
-    </div>
-  );
-}
-
-function Meter({ label, value }: { label: string; value: number }) {
-  return (
-    <div>
-      <div className="flex justify-between text-[13px]">
-        <span className="text-muted">{label}</span>
-        <span className="tabular-nums">{value}%</span>
-      </div>
-      <div className="mt-1 h-2 overflow-hidden rounded-full bg-foreground/15">
-        <div
-          className="h-full rounded-full bg-accent transition-[width] duration-500 ease-[var(--ease-out)]"
-          style={{ width: `${value}%` }}
-        />
       </div>
     </div>
   );

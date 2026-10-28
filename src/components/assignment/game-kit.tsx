@@ -37,6 +37,24 @@ export function Feedback({ ok, title, children }: { ok: boolean; title?: string;
   );
 }
 
+// A labelled bar from 0 to 100%.
+export function Meter({ label, value }: { label: string; value: number }) {
+  return (
+    <div>
+      <div className="flex justify-between text-[13px]">
+        <span className="text-muted">{label}</span>
+        <span className="tabular-nums">{value}%</span>
+      </div>
+      <div className="mt-1 h-2 overflow-hidden rounded-full bg-foreground/15">
+        <div
+          className="h-full rounded-full bg-accent transition-[width] duration-500 ease-[var(--ease-out)]"
+          style={{ width: `${value}%` }}
+        />
+      </div>
+    </div>
+  );
+}
+
 // Progress lives in the browser until accounts exist.
 type Saved = { best: number; completedAt?: string };
 
@@ -366,7 +384,7 @@ export function AssignmentGame<O>(p: GameProps<O>) {
             </button>
             {saved && (
               <span className="text-sm text-muted">
-                Твій рекорд: {saved.best} з {p.max} віх.
+                Твій рекорд: {Math.min(saved.best, p.max)} з {p.max} віх.
               </span>
             )}
           </div>
