@@ -11,6 +11,8 @@ export type MyProject = {
   who: string;
   name: string;
   value: Record<ValueStep, string>;
+  // Module 3: answers to the approach questions and the chosen approach.
+  approach?: { answers: number[]; kind: string; cadence: string };
   updatedAt: string;
 };
 

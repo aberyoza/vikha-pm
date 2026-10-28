@@ -2,89 +2,11 @@
 
 import { useState } from "react";
 import * as G from "@/content/assignments/module-02";
-import { AssignmentGame, BasketLevel, Feedback, primary, shuffled } from "./game-kit";
+import { AssignmentGame, BasketLevel, CardLevel, Feedback, primary, shuffled } from "./game-kit";
+
+const CARDS = G.PRINCIPLES.map((name) => ({ name, note: G.PRINCIPLE_NOTES[name] }));
 
 type Orders = { situations: number[]; hand: number[]; tiles: number[][]; sustain: number[]; boss: number[][] };
-
-// Level 1: play the principle card that helps in the situation.
-function CardLevel({ order, hand, onDone }: { order: number[]; hand: number[]; onDone: (score: number) => void }) {
-  const [i, setI] = useState(0);
-  const [pick, setPick] = useState<G.Principle | null>(null);
-  const [score, setScore] = useState(0);
-  const s = G.SITUATIONS[order[i]];
-  const last = i === G.SITUATIONS.length - 1;
-
-  const play = (p: G.Principle) => {
-    if (pick) return;
-    setPick(p);
-    if (p === s.card) setScore((v) => v + 1);
-  };
-
-  return (
-    <div>
-      <p className="text-muted">
-        Прочитай ситуацію і зіграй карту-принцип, який підкаже, як тут вчинити. Під назвою кожної карти коротко
-        сказано, про що вона.
-      </p>
-
-      <p className="mt-5 text-sm text-muted tabular-nums">
-        Ситуація {i + 1} з {G.SITUATIONS.length}
-      </p>
-      <div className="mt-2 flex min-h-32 items-center justify-center rounded-[6px] bg-surface-raised p-6 text-center font-display text-xl font-semibold leading-snug sm:text-2xl">
-        {s.text}
-      </div>
-
-      <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3" role="group" aria-label="Карти-принципи">
-        {hand.map((k) => G.PRINCIPLES[k]).map((p) => {
-          const right = pick !== null && p === s.card;
-          const wrong = pick === p && p !== s.card;
-          return (
-            <button
-              key={p}
-              type="button"
-              onClick={() => play(p)}
-              disabled={!!pick}
-              aria-pressed={pick === p}
-              className={`flex flex-col gap-1.5 rounded-[6px] p-3 text-left leading-snug press ${
-                right
-                  ? "bg-accent text-accent-foreground"
-                  : wrong
-                    ? "bg-foreground/[0.12]"
-                    : "bg-background hover:bg-foreground/[0.08] disabled:opacity-60"
-              }`}
-            >
-              <span className={`flex items-center gap-2 font-medium ${wrong ? "line-through decoration-2" : ""}`}>
-                <span aria-hidden className="block size-2 shrink-0 rotate-45 rounded-[1px] bg-current opacity-50" />
-                {p}
-              </span>
-              <span className={`text-[13px] ${right ? "" : "text-muted"}`}>{G.PRINCIPLE_NOTES[p]}</span>
-            </button>
-          );
-        })}
-      </div>
-
-      {pick && (
-        <div className="mt-5 space-y-4">
-          <Feedback ok={pick === s.card}>
-            {pick === s.card ? "" : `Тут краще зіграти «${s.card}». `}
-            {s.why}
-          </Feedback>
-          <button
-            type="button"
-            onClick={() => {
-              if (last) return onDone(score);
-              setI(i + 1);
-              setPick(null);
-            }}
-            className={primary}
-          >
-            {last ? "До наступного рівня" : "Далі"}
-          </button>
-        </div>
-      )}
-    </div>
-  );
-}
 
 // Level 2: mark what a decision knocks over, then push the first domino.
 function DominoLevel({ tiles, onDone }: { tiles: number[][]; onDone: (score: number) => void }) {
@@ -306,7 +228,21 @@ export function PrinciplesWeekGame({ nextHref }: { nextHref: string }) {
         boss: G.BOSS.map((b) => shuffled(b.moves.length)),
       })}
       levels={[
-        { name: "Зіграй карту", play: (o, done) => <CardLevel order={o.situations} hand={o.hand} onDone={done} /> },
+        {
+          name: "Зіграй карту",
+          play: (o, done) => (
+            <CardLevel
+              intro="Прочитай ситуацію і зіграй карту-принцип, який підкаже, як тут вчинити. Під назвою кожної карти коротко сказано, про що вона."
+              itemLabel="Ситуація"
+              cardsLabel="Карти-принципи"
+              items={G.SITUATIONS}
+              cards={CARDS}
+              order={o.situations}
+              hand={o.hand}
+              onDone={done}
+            />
+          ),
+        },
         { name: "Ефект доміно", play: (o, done) => <DominoLevel tiles={o.tiles} onDone={done} /> },
         {
           name: "Три стовпи",

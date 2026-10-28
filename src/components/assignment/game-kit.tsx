@@ -66,17 +66,115 @@ const write = (key: string, s: Saved) => {
   }
 };
 
+// Read the situation, play the card that fits. Each card carries a short note,
+// so the player doesn't have to go back to the lesson.
+export function CardLevel({
+  intro,
+  itemLabel,
+  cardsLabel,
+  items,
+  cards,
+  order,
+  hand,
+  onDone,
+}: {
+  intro: string;
+  itemLabel: string;
+  cardsLabel: string;
+  items: { text: string; card: string; why: string }[];
+  cards: { name: string; note: string }[];
+  order: number[];
+  hand: number[];
+  onDone: (score: number) => void;
+}) {
+  const [i, setI] = useState(0);
+  const [pick, setPick] = useState<string | null>(null);
+  const [score, setScore] = useState(0);
+  const s = items[order[i]];
+  const last = i === items.length - 1;
+
+  const play = (p: string) => {
+    if (pick) return;
+    setPick(p);
+    if (p === s.card) setScore((v) => v + 1);
+  };
+
+  return (
+    <div>
+      <p className="text-muted">{intro}</p>
+
+      <p className="mt-5 text-sm text-muted tabular-nums">
+        {itemLabel} {i + 1} з {items.length}
+      </p>
+      <div className="mt-2 flex min-h-32 items-center justify-center rounded-[6px] bg-surface-raised p-6 text-center font-display text-xl font-semibold leading-snug sm:text-2xl">
+        {s.text}
+      </div>
+
+      <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3" role="group" aria-label={cardsLabel}>
+        {hand.map((k) => cards[k]).map((c) => {
+          const right = pick !== null && c.name === s.card;
+          const wrong = pick === c.name && c.name !== s.card;
+          return (
+            <button
+              key={c.name}
+              type="button"
+              onClick={() => play(c.name)}
+              disabled={!!pick}
+              aria-pressed={pick === c.name}
+              className={`flex flex-col gap-1.5 rounded-[6px] p-3 text-left leading-snug press ${
+                right
+                  ? "bg-accent text-accent-foreground"
+                  : wrong
+                    ? "bg-foreground/[0.12]"
+                    : "bg-background hover:bg-foreground/[0.08] disabled:opacity-60"
+              }`}
+            >
+              <span className={`flex items-center gap-2 font-medium ${wrong ? "line-through decoration-2" : ""}`}>
+                <span aria-hidden className="block size-2 shrink-0 rotate-45 rounded-[1px] bg-current opacity-50" />
+                {c.name}
+              </span>
+              <span className={`text-[13px] ${right ? "" : "text-muted"}`}>{c.note}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {pick && (
+        <div className="mt-5 space-y-4">
+          <Feedback ok={pick === s.card}>
+            {pick === s.card ? "" : `Тут краще зіграти «${s.card}». `}
+            {s.why}
+          </Feedback>
+          <button
+            type="button"
+            onClick={() => {
+              if (last) return onDone(score);
+              setI(i + 1);
+              setPick(null);
+            }}
+            className={primary}
+          >
+            {last ? "До наступного рівня" : "Далі"}
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 type Bin<K extends string> = { key: K; name: string; hint: string };
 
 // Pick a card, then the basket it belongs to. Checked all at once; wrong cards
 // can be moved again.
 export function BasketLevel<K extends string>({
+  intro = "Обери картку, потім кошик, у який вона лягає. Картку з кошика можна забрати назад.",
   items,
   bins,
   order,
   allRight,
   onDone,
 }: {
+  intro?: string;
   items: { text: string; bin: K; why: string }[];
   bins: Bin<K>[];
   order: number[];
@@ -111,7 +209,7 @@ export function BasketLevel<K extends string>({
 
   return (
     <div>
-      <p className="text-muted">Обери картку, потім кошик, у який вона лягає. Картку з кошика можна забрати назад.</p>
+      <p className="text-muted">{intro}</p>
 
       <div className="mt-5 flex min-h-12 flex-wrap gap-2">
         {pool.map((c) => (
