@@ -7,6 +7,7 @@ import { MILESTONES, VALUE_STEPS } from "@/content/my-project";
 import { parseProject, saveProject, useMyProject, type MyProject } from "@/lib/my-project";
 import { ApproachEditor } from "./project-approach";
 import { InvestEditor } from "./project-invest";
+import { PeopleEditor, PeopleList } from "./project-people";
 import { ProjectBuilder } from "./project-builder";
 
 const chip = "rounded-md bg-foreground/[0.07] px-3 py-2 text-sm font-medium press hover:bg-foreground/[0.12]";
@@ -14,7 +15,7 @@ const primary = "rounded-md bg-accent px-5 py-2.5 font-semibold text-accent-fore
 
 // Modules add their milestones here as their games get a project step.
 const isDone = (p: MyProject, module: number) =>
-  module === 1 ? !!p.name : module === 3 ? !!p.approach : module === 4 ? !!p.invest : false;
+  module === 1 ? !!p.name : module === 3 ? !!p.approach : module === 4 ? !!p.invest : module === 5 ? !!p.people : false;
 
 function download(p: MyProject) {
   const blob = new Blob([JSON.stringify(p, null, 2)], { type: "application/json" });
@@ -174,6 +175,19 @@ export function ProjectPassport({ titles, startHref }: { titles: Record<number, 
                   {m.module === 4 && editing === 4 && (
                     <div className="mt-4">
                       <InvestEditor project={project} onSaved={() => setEditing(null)} />
+                    </div>
+                  )}
+                  {m.module === 5 && project.people && editing !== 5 && (
+                    <>
+                      <PeopleList people={project.people} />
+                      <button type="button" onClick={() => setEditing(5)} className={`${chip} mt-4 print:hidden`}>
+                        Змінити
+                      </button>
+                    </>
+                  )}
+                  {m.module === 5 && editing === 5 && (
+                    <div className="mt-4">
+                      <PeopleEditor project={project} onSaved={() => setEditing(null)} />
                     </div>
                   )}
                   {!ok && <p className="mt-1 text-sm text-muted">Відкриється в завданні модуля {m.module}.</p>}
