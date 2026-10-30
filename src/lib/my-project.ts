@@ -13,6 +13,8 @@ export type MyProject = {
   value: Record<ValueStep, string>;
   // Module 3: answers to the approach questions and the chosen approach.
   approach?: { answers: number[]; kind: string; cadence: string };
+  // Module 4: a tiny business case and its verdict.
+  invest?: { answers: number[]; alternative: string; goal: string; verdict: string };
   updatedAt: string;
 };
 
