@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ApproachesGame } from "@/components/assignment/approaches-game";
 import { FirstDayGame } from "@/components/assignment/first-day-game";
+import { InvestmentCommitteeGame } from "@/components/assignment/investment-committee-game";
 import { PrinciplesWeekGame } from "@/components/assignment/principles-week-game";
 import { ASSIGNMENTS, assignmentHref } from "@/content/assignments";
 import { modules, publishedModules } from "@/content/course";
@@ -51,6 +52,7 @@ export default async function AssignmentPage({ params }: Props) {
       {slug === "module-01" && <FirstDayGame nextHref={nextHref} />}
       {slug === "module-02" && <PrinciplesWeekGame nextHref={nextHref} />}
       {slug === "module-03" && <ApproachesGame nextHref={nextHref} />}
+      {slug === "module-04" && <InvestmentCommitteeGame nextHref={nextHref} />}
     </main>
   );
 }

@@ -6,13 +6,15 @@ import { MilestoneMark } from "@/components/logo";
 import { MILESTONES, VALUE_STEPS } from "@/content/my-project";
 import { parseProject, saveProject, useMyProject, type MyProject } from "@/lib/my-project";
 import { ApproachEditor } from "./project-approach";
+import { InvestEditor } from "./project-invest";
 import { ProjectBuilder } from "./project-builder";
 
 const chip = "rounded-md bg-foreground/[0.07] px-3 py-2 text-sm font-medium press hover:bg-foreground/[0.12]";
 const primary = "rounded-md bg-accent px-5 py-2.5 font-semibold text-accent-foreground press hover:brightness-110";
 
 // Modules add their milestones here as their games get a project step.
-const isDone = (p: MyProject, module: number) => (module === 1 ? !!p.name : module === 3 ? !!p.approach : false);
+const isDone = (p: MyProject, module: number) =>
+  module === 1 ? !!p.name : module === 3 ? !!p.approach : module === 4 ? !!p.invest : false;
 
 function download(p: MyProject) {
   const blob = new Blob([JSON.stringify(p, null, 2)], { type: "application/json" });
@@ -146,6 +148,32 @@ export function ProjectPassport({ titles, startHref }: { titles: Record<number, 
                   {m.module === 3 && editing === 3 && (
                     <div className="mt-4">
                       <ApproachEditor project={project} onSaved={() => setEditing(null)} />
+                    </div>
+                  )}
+                  {m.module === 4 && project.invest && editing !== 4 && (
+                    <>
+                      <dl className="mt-3 grid gap-3 sm:grid-cols-3">
+                        <div>
+                          <dt className="text-[13px] text-muted">Вердикт</dt>
+                          <dd className="mt-0.5 leading-snug">{project.invest.verdict}</dd>
+                        </div>
+                        <div>
+                          <dt className="text-[13px] text-muted">Якщо нічого не робити</dt>
+                          <dd className="mt-0.5 leading-snug">{project.invest.alternative}</dd>
+                        </div>
+                        <div>
+                          <dt className="text-[13px] text-muted">Мета</dt>
+                          <dd className="mt-0.5 leading-snug">{project.invest.goal}</dd>
+                        </div>
+                      </dl>
+                      <button type="button" onClick={() => setEditing(4)} className={`${chip} mt-4 print:hidden`}>
+                        Змінити
+                      </button>
+                    </>
+                  )}
+                  {m.module === 4 && editing === 4 && (
+                    <div className="mt-4">
+                      <InvestEditor project={project} onSaved={() => setEditing(null)} />
                     </div>
                   )}
                   {!ok && <p className="mt-1 text-sm text-muted">Відкриється в завданні модуля {m.module}.</p>}
