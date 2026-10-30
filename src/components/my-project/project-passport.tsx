@@ -5,13 +5,14 @@ import { useState, type ChangeEvent } from "react";
 import { MilestoneMark } from "@/components/logo";
 import { MILESTONES, VALUE_STEPS } from "@/content/my-project";
 import { parseProject, saveProject, useMyProject, type MyProject } from "@/lib/my-project";
+import { ApproachEditor } from "./project-approach";
 import { ProjectBuilder } from "./project-builder";
 
 const chip = "rounded-md bg-foreground/[0.07] px-3 py-2 text-sm font-medium press hover:bg-foreground/[0.12]";
 const primary = "rounded-md bg-accent px-5 py-2.5 font-semibold text-accent-foreground press hover:brightness-110";
 
-// Only module 1 has its step so far; later modules add theirs here.
-const isDone = (p: MyProject, module: number) => module === 1 && !!p.name;
+// Modules add their milestones here as their games get a project step.
+const isDone = (p: MyProject, module: number) => (module === 1 ? !!p.name : module === 3 ? !!p.approach : false);
 
 function download(p: MyProject) {
   const blob = new Blob([JSON.stringify(p, null, 2)], { type: "application/json" });
@@ -25,7 +26,8 @@ function download(p: MyProject) {
 // The reader's project as one page: a milestone per module, filled as they go.
 export function ProjectPassport({ titles, startHref }: { titles: Record<number, string>; startHref: string }) {
   const project = useMyProject();
-  const [editing, setEditing] = useState(false);
+  // Module whose milestone is being edited.
+  const [editing, setEditing] = useState<number | null>(null);
   const [importError, setImportError] = useState(false);
 
   const load = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -104,7 +106,7 @@ export function ProjectPassport({ titles, startHref }: { titles: Record<number, 
                   </p>
                   <h3 className={`font-display text-xl font-semibold ${ok ? "" : "text-muted"}`}>{m.name}</h3>
 
-                  {m.module === 1 && ok && !editing && (
+                  {m.module === 1 && ok && editing !== 1 && (
                     <>
                       <dl className="mt-3 grid gap-3 sm:grid-cols-3">
                         {VALUE_STEPS.map((s) => (
@@ -114,14 +116,36 @@ export function ProjectPassport({ titles, startHref }: { titles: Record<number, 
                           </div>
                         ))}
                       </dl>
-                      <button type="button" onClick={() => setEditing(true)} className={`${chip} mt-4 print:hidden`}>
+                      <button type="button" onClick={() => setEditing(1)} className={`${chip} mt-4 print:hidden`}>
                         Змінити
                       </button>
                     </>
                   )}
-                  {m.module === 1 && editing && (
+                  {m.module === 1 && editing === 1 && (
                     <div className="mt-4">
-                      <ProjectBuilder initial={project} onSaved={() => setEditing(false)} />
+                      <ProjectBuilder initial={project} onSaved={() => setEditing(null)} />
+                    </div>
+                  )}
+                  {m.module === 3 && project.approach && editing !== 3 && (
+                    <>
+                      <dl className="mt-3 grid gap-3 sm:grid-cols-3">
+                        <div>
+                          <dt className="text-[13px] text-muted">Підхід</dt>
+                          <dd className="mt-0.5 leading-snug">{project.approach.kind}</dd>
+                        </div>
+                        <div>
+                          <dt className="text-[13px] text-muted">Каденція</dt>
+                          <dd className="mt-0.5 leading-snug">{project.approach.cadence}</dd>
+                        </div>
+                      </dl>
+                      <button type="button" onClick={() => setEditing(3)} className={`${chip} mt-4 print:hidden`}>
+                        Змінити
+                      </button>
+                    </>
+                  )}
+                  {m.module === 3 && editing === 3 && (
+                    <div className="mt-4">
+                      <ApproachEditor project={project} onSaved={() => setEditing(null)} />
                     </div>
                   )}
                   {!ok && <p className="mt-1 text-sm text-muted">Відкриється в завданні модуля {m.module}.</p>}

@@ -143,7 +143,9 @@ export function ProjectBuilder({ initial, onSaved }: { initial: MyProject | null
 
   const ready = name.trim() && VALUE_STEPS.every((s) => value[s.key].trim());
   const save = () => {
+    // Later milestones stay when the first one is edited.
     const p: MyProject = {
+      ...initial,
       version: 1,
       what: what.trim(),
       who: who.trim(),
