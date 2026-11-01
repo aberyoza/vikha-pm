@@ -57,6 +57,8 @@ export type Idea = {
   invest: { answers: number[]; alternative: string[]; goal: string[] };
   // Module 5: people around the project with suggested analysis.
   people: Person[];
+  // Module 6: the sponsor and suggested answers to RULE_QUESTIONS.
+  rules: { sponsor: string; answers: number[] };
 };
 
 // Module 5: one row of the stakeholder register. Levels index ENGAGEMENT.
@@ -88,6 +90,7 @@ export const IDEAS: Idea[] = [
       person("Постійні клієнти", 0, 1, 0, 3),
       person("Telegram", 1, 0, 0, 2),
     ],
+    rules: { sponsor: "Власник барбершопу", answers: [1, 1, 0, 0] },
     hints: {
       result: ["Telegram-бот, через який можна записатися на стрижку", "Бот, що показує вільні віконця кожного майстра"],
       outcome: ["Клієнти записуються самі, без дзвінків", "Менше людей забувають про візит, бо бот нагадує за день"],
@@ -111,6 +114,7 @@ export const IDEAS: Idea[] = [
       person("Google", 1, 0, 0, 2),
       person("Сусідня кав'ярня", 0, 0, 0, 0),
     ],
+    rules: { sponsor: "Власниця кав'ярні", answers: [1, 2, 0, 1] },
     hints: {
       result: ["Сайт з меню, цінами і формою бронювання", "Сторінка кав'ярні, яку знаходить Google"],
       outcome: ["Люди бронюють столик заздалегідь", "Нові гості знаходять кав'ярню через пошук"],
@@ -134,6 +138,7 @@ export const IDEAS: Idea[] = [
       person("Водоканал і обленерго", 1, 0, 0, 2),
       person("Telegram", 1, 0, 0, 2),
     ],
+    rules: { sponsor: "Голова ОСББ", answers: [2, 0, 1, 2] },
     hints: {
       result: ["Бот, у який мешканці надсилають показники лічильників", "Бот, що розсилає оголошення про відключення"],
       outcome: ["Показники приходять вчасно, без папірців у поштових скриньках", "Мешканці дізнаються про відключення заздалегідь"],
@@ -157,6 +162,7 @@ export const IDEAS: Idea[] = [
       person("Служба безпеки", 1, 0, 0, 2),
       person("Сусідні команди", 0, 0, 0, 2),
     ],
+    rules: { sponsor: "Керівник", answers: [1, 0, 0, 1] },
     hints: {
       result: ["Дашборд, який сам збирає цифри з таблиць", "Щоденний звіт, що сам приходить на пошту"],
       outcome: ["Команда більше не збирає звіт руками щоп'ятниці", "Керівник бачить цифри щодня, а не раз на тиждень"],
@@ -180,6 +186,7 @@ export const IDEAS: Idea[] = [
       person("Нові джуни", 0, 1, 0, 3),
       person("Юристи", 1, 0, 0, 2),
     ],
+    rules: { sponsor: "HR", answers: [2, 0, 1, 1] },
     hints: {
       result: ["Курс з короткими відео про те, як влаштовано проєкт", "Чек-лист першого тижня з посиланнями й доступами"],
       outcome: ["Новачки ставлять менше однакових питань", "Джун робить перший реліз за тиждень, а не за місяць"],
@@ -203,6 +210,7 @@ export const IDEAS: Idea[] = [
       person("Бігуни", 0, 1, 0, 3),
       person("Мешканці вулиць на маршруті", 0, 1, 1, 2),
     ],
+    rules: { sponsor: "Спонсори", answers: [0, 2, 1, 0] },
     hints: {
       result: ["Забіг на 5 км з реєстрацією і медалями", "Сторінка збору, куди можна задонатити"],
       outcome: ["Сотні людей приходять бігти й приводять друзів", "Люди донатять, бо бачать, на що підуть гроші"],
@@ -226,6 +234,7 @@ export const IDEAS: Idea[] = [
       person("Сусіди за стіною", 0, 1, 1, 2),
       person("Управляюча компанія", 1, 0, 0, 2),
     ],
+    rules: { sponsor: "Партнер чи партнерка", answers: [1, 2, 1, 0] },
     hints: {
       result: ["Нова кухня з технікою, що працює", "Кухня, де нарешті вистачає місця для всіх"],
       outcome: ["Родина знову вечеряє разом на кухні", "Готувати стало швидше і зручніше"],
@@ -346,6 +355,22 @@ export const stakeholderGroup = (power: boolean, interest: boolean) =>
 // The next move for one person, or null when they are where we need them.
 export const nextAction = (now: number, want: number) =>
   want > now ? ENGAGE_ACTIONS.find((a) => a.from === now)! : null;
+
+// Module 6: the rules of decisions for the own project.
+export const RULE_QUESTIONS: { ask: string; label: string; options: string[] }[] = [
+  { ask: "На скільки можеш сам зсунути строки?", label: "Зсув", options: ["до 1 дня", "до 3 днів", "до тижня", "до 2 тижнів"] },
+  { ask: "Скільки можеш сам витратити?", label: "Витрати", options: ["нічого", "до 1 тис. грн", "до 5 тис. грн", "до 20 тис. грн"] },
+  {
+    ask: "Коли перевіряєш, чи проєкт досі варто робити?",
+    label: "Контрольна точка",
+    options: ["після прототипу", "після першого місяця", "перед запуском"],
+  },
+  {
+    ask: "Як звітуєш спонсору?",
+    label: "Звіт",
+    options: ["щотижня коротко в месенджері", "демо раз на два тижні", "звіт раз на місяць"],
+  },
+];
 
 export const findIdea = (what: string, who: string) => IDEAS.find((i) => i.what === what && i.who === who);
 

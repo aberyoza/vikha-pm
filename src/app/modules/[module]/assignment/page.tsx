@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ApproachesGame } from "@/components/assignment/approaches-game";
 import { FirstDayGame } from "@/components/assignment/first-day-game";
+import { GovernanceGame } from "@/components/assignment/governance-game";
 import { InvestmentCommitteeGame } from "@/components/assignment/investment-committee-game";
 import { PrinciplesWeekGame } from "@/components/assignment/principles-week-game";
 import { StakeholdersGame } from "@/components/assignment/stakeholders-game";
@@ -55,6 +56,7 @@ export default async function AssignmentPage({ params }: Props) {
       {slug === "module-03" && <ApproachesGame nextHref={nextHref} />}
       {slug === "module-04" && <InvestmentCommitteeGame nextHref={nextHref} />}
       {slug === "module-05" && <StakeholdersGame nextHref={nextHref} />}
+      {slug === "module-06" && <GovernanceGame nextHref={nextHref} />}
     </main>
   );
 }
