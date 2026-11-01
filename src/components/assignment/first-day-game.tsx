@@ -3,7 +3,7 @@
 import { useState, type PointerEvent } from "react";
 import { ProjectBonus } from "@/components/my-project/project-bonus";
 import * as G from "@/content/assignments/module-01";
-import { AssignmentGame, BasketLevel, chip, Feedback, primary, shuffled } from "./game-kit";
+import { AssignmentGame, BasketLevel, basketSteps, chip, Feedback, HowTo, primary, shuffled } from "./game-kit";
 
 // Level 1: swipe or tap each card to the project or the operations side.
 function SortLevel({ order, onDone }: { order: number[]; onDone: (score: number) => void }) {
@@ -39,11 +39,18 @@ function SortLevel({ order, onDone }: { order: number[]; onDone: (score: number)
 
   return (
     <div>
-      <p className="text-muted">
-        Гортай картку вліво, якщо це операційна робота, і вправо, якщо проєкт. Або тисни кнопки.{" "}
-        <span className="tabular-nums">
-          {i + 1} з {G.SORT.length}
-        </span>
+      <HowTo
+        goal="розібратися, яка робота в студії — проєкт, а яка — операційна."
+        steps={[
+          "На картці — справа, яку робить студія. Прочитай її.",
+          "Якщо в справи є початок і кінець, а результат ще ніхто не створював, це проєкт. Потягни картку вправо або натисни «Проєкт →».",
+          "Якщо справа повторюється знову і знову, це операційна робота. Потягни картку вліво або натисни «← Операційна робота».",
+          "Прочитай пояснення і натисни «Далі».",
+        ]}
+        tip="Підказка: спитай себе, чи настане день, коли цю роботу можна назвати завершеною."
+      />
+      <p className="mt-5 text-sm text-muted tabular-nums">
+        Картка {i + 1} з {G.SORT.length}
       </p>
 
       <div className="relative mt-6 flex justify-center">
@@ -109,11 +116,17 @@ function RolesLevel({
 
   return (
     <div>
-      <p className="text-muted">
-        Нарада в студії. Хто це говорить?{" "}
-        <span className="tabular-nums">
-          {i + 1} з {G.SPEAKERS.length}
-        </span>
+      <HowTo
+        goal="на нараді в студії за однією реплікою вгадати роль кожного, хто говорить."
+        steps={[
+          "Прочитай, що каже людина. Її посада підписана, але роль треба вгадати за словами.",
+          "Натисни на роль, якій підходять ці слова.",
+          "Прочитай пояснення і натисни «Далі».",
+        ]}
+        tip="Підказка: спонсор дає гроші й вирішує, чи йти далі; керівник проєкту веде роботу до мети; власник продукту вирішує, що робити першим; команда робить; користувач користується результатом."
+      />
+      <p className="mt-5 text-sm text-muted tabular-nums">
+        Репліка {i + 1} з {G.SPEAKERS.length}
       </p>
 
       <div className="mt-6 flex items-start gap-3">
@@ -172,7 +185,15 @@ function BossLevel({ onDone }: { onDone: (score: number) => void }) {
 
   return (
     <div>
-      <p className="leading-relaxed">{G.BOSS.setup}</p>
+      <HowTo
+        goal="вирішити конфлікт двох начальників і побачити, яку ціну має кожне рішення."
+        steps={[
+          "Прочитай ситуацію нижче.",
+          "Обери один із трьох ходів. Правильної відповіді немає: кожен хід показує, як працює одна з організаційних структур.",
+          "Натисни «Спробувати інший хід», щоб порівняти. Коли досить, натисни «Завершити день».",
+        ]}
+      />
+      <p className="mt-5 leading-relaxed">{G.BOSS.setup}</p>
 
       <div className="mt-5 grid gap-2">
         {G.BOSS.moves.map((x, k) => (
@@ -240,6 +261,13 @@ export function FirstDayGame({ nextHref }: { nextHref: string }) {
           name: "Ланцюжок цінності",
           play: (o, done) => (
             <BasketLevel
+              intro={
+                <HowTo
+                  goal="розкласти картки про гру студії за ланцюжком цінності: що створили, що змінилося і яка з цього користь."
+                  steps={basketSteps(G.STEPS.map((b) => b.name))}
+                  tip="Підказка: результат можна показати, наслідок видно в поведінці людей, а вигоду рахують у грошах, часі чи задоволенні."
+                />
+              }
               items={CHAIN}
               bins={G.STEPS}
               order={o.chain}
