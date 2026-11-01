@@ -9,6 +9,7 @@ import { ApproachEditor } from "./project-approach";
 import { InvestEditor } from "./project-invest";
 import { PeopleEditor, PeopleList } from "./project-people";
 import { RulesEditor, RulesList } from "./project-rules";
+import { ScheduleEditor, ScheduleList } from "./project-schedule";
 import { ScopeEditor, ScopeList } from "./project-scope";
 import { ProjectBuilder } from "./project-builder";
 
@@ -29,7 +30,9 @@ const isDone = (p: MyProject, module: number) =>
             ? !!p.rules
             : module === 7
               ? !!p.scope
-              : false;
+              : module === 8
+                ? !!p.schedule
+                : false;
 
 function download(p: MyProject) {
   const blob = new Blob([JSON.stringify(p, null, 2)], { type: "application/json" });
@@ -228,6 +231,19 @@ export function ProjectPassport({ titles, startHref }: { titles: Record<number, 
                   {m.module === 7 && editing === 7 && (
                     <div className="mt-4">
                       <ScopeEditor project={project} onSaved={() => setEditing(null)} />
+                    </div>
+                  )}
+                  {m.module === 8 && project.schedule && editing !== 8 && (
+                    <>
+                      <ScheduleList schedule={project.schedule} />
+                      <button type="button" onClick={() => setEditing(8)} className={`${chip} mt-4 print:hidden`}>
+                        Змінити
+                      </button>
+                    </>
+                  )}
+                  {m.module === 8 && editing === 8 && (
+                    <div className="mt-4">
+                      <ScheduleEditor project={project} onSaved={() => setEditing(null)} />
                     </div>
                   )}
                   {!ok && <p className="mt-1 text-sm text-muted">Відкриється в завданні модуля {m.module}.</p>}

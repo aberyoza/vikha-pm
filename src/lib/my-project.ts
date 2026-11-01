@@ -21,6 +21,8 @@ export type MyProject = {
   rules?: { sponsor: string; answers: number[] };
   // Module 7: the blocks of work and what stays out of the project.
   scope?: { blocks: string[]; out: string[] };
+  // Module 8: the start, the milestones (week from the start) and three estimates of the end.
+  schedule?: { start: string; milestones: { name: string; week: number }[]; a: number; m: number; b: number };
   updatedAt: string;
 };
 
