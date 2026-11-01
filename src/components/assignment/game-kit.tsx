@@ -37,6 +37,33 @@ export function Feedback({ ok, title, children }: { ok: boolean; title?: string;
   );
 }
 
+// «Як грати»: the goal of a level, numbered steps and an optional tip, for
+// levels whose mechanics aren't obvious at first sight.
+export function HowTo({ goal, steps, tip }: { goal: string; steps: ReactNode[]; tip?: string }) {
+  return (
+    <div className="rounded-[6px] bg-foreground/[0.05] p-4 leading-relaxed">
+      <p>
+        <strong>Мета:</strong> {goal}
+      </p>
+      <p className="mt-3 font-medium">Як грати</p>
+      <ol className="mt-1 list-decimal space-y-1.5 pl-5 marker:text-accent marker:font-semibold">
+        {steps.map((s, k) => (
+          <li key={k}>{s}</li>
+        ))}
+      </ol>
+      {tip && <p className="mt-3 text-muted">{tip}</p>}
+    </div>
+  );
+}
+
+// The steps of every basket level; only the basket names differ.
+export const basketSteps = (bins: string[]) => [
+  "Угорі — картки. Натисни на картку, щоб її взяти: вона підсвітиться.",
+  `Потім натисни на кошик, у який вона лягає: ${bins.map((b) => `«${b}»`).join(", ")}. Під назвою кошика підказка, що в нього кладуть.`,
+  "Картку з кошика можна забрати назад: натисни на неї, і вона знову в руці.",
+  "Коли всі картки розкладено, натисни «Перевірити». Неправильні можна переставити кнопкою «Переставити неправильні».",
+];
+
 // A labelled bar from 0 to 100%.
 export function Meter({ label, value }: { label: string; value: number }) {
   return (
@@ -96,7 +123,7 @@ export function CardLevel({
   hand,
   onDone,
 }: {
-  intro: string;
+  intro: ReactNode;
   itemLabel: string;
   cardsLabel: string;
   items: { text: string; card: string; why: string }[];
@@ -119,7 +146,7 @@ export function CardLevel({
 
   return (
     <div>
-      <p className="text-muted">{intro}</p>
+      {intro}
 
       <p className="mt-5 text-sm text-muted tabular-nums">
         {itemLabel} {i + 1} з {items.length}
@@ -185,14 +212,14 @@ type Bin<K extends string> = { key: K; name: string; hint: string };
 // Pick a card, then the basket it belongs to. Checked all at once; wrong cards
 // can be moved again.
 export function BasketLevel<K extends string>({
-  intro = "Обери картку, потім кошик, у який вона лягає. Картку з кошика можна забрати назад.",
+  intro,
   items,
   bins,
   order,
   allRight,
   onDone,
 }: {
-  intro?: string;
+  intro: ReactNode;
   items: { text: string; bin: K; why: string }[];
   bins: Bin<K>[];
   order: number[];
@@ -227,7 +254,7 @@ export function BasketLevel<K extends string>({
 
   return (
     <div>
-      <p className="text-muted">{intro}</p>
+      {intro}
 
       <div className="mt-5 flex min-h-12 flex-wrap gap-2">
         {pool.map((c) => (

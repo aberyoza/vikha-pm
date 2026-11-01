@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { InvestBonus } from "@/components/my-project/project-invest";
 import * as G from "@/content/assignments/module-04";
-import { AssignmentGame, primary, shuffled } from "./game-kit";
+import { AssignmentGame, HowTo, primary, shuffled } from "./game-kit";
 
 type Pick = { decision: number; opened: G.Fact[] };
 // The founder levels `record` their picks and the reveal reads them. Levels
@@ -42,11 +42,16 @@ function FounderLevel({ index, orders, onDone }: { index: number; orders: Orders
 
   return (
     <div>
-      <p className="text-muted">
-        Засновник розповідає про проєкт і просить грошей. Відкрий до трьох карток з фактами, а потім виріши: дати
-        гроші, відмовити чи дати з умовою. Усіх фактів не дізнаєшся, тож обирай, про що спитати. Що вийшло з рішення,
-        покаже фінал.
-      </p>
+      <HowTo
+        goal="вирішити, кому з чотирьох засновників дати гроші, щоб за чотири роки фонд виріс більше, ніж виріс би на депозиті під 10%."
+        steps={[
+          "Прочитай, що каже засновник і скільки грошей просить.",
+          `Натисни на картки з фактами, щоб їх відкрити. Відкрити можна лише ${G.MAX_OPEN} з ${G.FACTS.length}, тож обирай, що важливіше дізнатися. Під назвою кожної картки сказано, що вона показує.`,
+          "Обери рішення: дати гроші, відмовити чи дати з умовою. Потім натисни «Записати рішення».",
+          "Вкладені гроші йдуть із фонду, тож стеж за залишком. Що вийшло з рішень, покаже фінал «Минуло чотири роки».",
+        ]}
+        tip="Підказка: красивий виступ — ще не вигідний проєкт. Шукай пастки з уроків: гроші, що приходять надто пізно, витрати, яких уже не повернеш, і гроші, що закінчуються посередині."
+      />
 
       <div className="mt-5 flex flex-wrap items-baseline justify-between gap-2 text-sm">
         <span className="text-muted tabular-nums">

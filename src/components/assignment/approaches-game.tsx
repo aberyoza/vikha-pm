@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ApproachBonus } from "@/components/my-project/project-approach";
 import * as G from "@/content/assignments/module-03";
-import { AssignmentGame, chip, Feedback, Meter, primary } from "./game-kit";
+import { AssignmentGame, chip, Feedback, HowTo, Meter, primary } from "./game-kit";
 
 const option = (on: boolean) =>
   `flex flex-col gap-1.5 rounded-[6px] p-3 text-left leading-snug press ${
@@ -91,10 +91,17 @@ function MissionLevel({ mission, last, onDone }: { mission: G.Mission; last: boo
   if (phase === "setup")
     return (
       <div>
-        <p className="text-muted">
-          Обери підхід до розробки і скільки процесу, а потім веди проєкт. Від цих двох рішень залежить, що станеться
-          далі. Місію можна переграти іншим підходом.
-        </p>
+        <HowTo
+          goal="довести проєкт до релізу і зібрати якомога більше ромбів, до 5. Для цього треба обрати підхід, який пасує саме цьому проєкту."
+          steps={[
+            "Прочитай опис місії: що за продукт і для кого.",
+            "Обери підхід до розробки: предиктивний, гібридний чи адаптивний. Під кожним коротко сказано, як він працює.",
+            "Обери, скільки процесу: «Легко» чи «Формально». Потім натисни «Почати місію».",
+            "У проєкті стаються події. На кожну обери, як відреагувати. Угорі видно тижні, дух команди і головний показник місії.",
+            "Після релізу побачиш оцінку і що на неї вплинуло. Зіграй ще раз іншим підходом, щоб порівняти: зараховується найкраща спроба.",
+          ]}
+          tip="Підказка: підхід обирають за проєктом, а не за модою. Подумай, чи зрозуміло наперед, що робити, і чи дорого переробляти на ходу."
+        />
         <div className="mt-5 rounded-[6px] bg-surface-raised p-5">
           <p className="font-display text-xl font-semibold">{mission.name}</p>
           <p className="mt-1 leading-relaxed">{mission.brief}</p>

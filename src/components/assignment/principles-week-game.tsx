@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import * as G from "@/content/assignments/module-02";
-import { AssignmentGame, BasketLevel, CardLevel, Feedback, Meter, primary, shuffled } from "./game-kit";
+import { AssignmentGame, BasketLevel, basketSteps, CardLevel, Feedback, HowTo, Meter, primary, shuffled } from "./game-kit";
 
 const CARDS = G.PRINCIPLES.map((name) => ({ name, note: G.PRINCIPLE_NOTES[name] }));
 
@@ -45,11 +45,16 @@ function DominoLevel({ tiles, onDone }: { tiles: number[][]; onDone: (score: num
 
   return (
     <div>
-      <p className="text-muted">
-        Студія ухвалює рішення. Як перша кісточка доміно, воно зачіпає інші частини проєкту. Познач усе, що
-        зміниться через це рішення, і натисни «Штовхнути». Те, чого рішення не зачіпає, не позначай: за зайві
-        кісточки віхи знімаються.
-      </p>
+      <HowTo
+        goal="передбачити, що зміниться в проєкті через одне рішення студії."
+        steps={[
+          "Угорі — рішення студії. Це перша кісточка доміно.",
+          "Нижче — частини проєкту. Натисни на кожну, яка зміниться через це рішення. Повторне натискання знімає позначку.",
+          "Коли все позначено, натисни «Штовхнути». Позначені правильно кісточки впадуть, пропущені стануть пунктирними, а зайві — перекресленими.",
+          "За кожну кісточку, що впала, — віха, за кожну зайву — мінус віха. Потім натисни «Наступне рішення».",
+        ]}
+        tip="Підказка: рішення в проєкті рідко зачіпає щось одне, але й не все. Для кожної частини подумай, як саме рішення до неї дотягнеться."
+      />
 
       <p className="mt-5 text-sm text-muted tabular-nums">
         Рішення {d + 1} з {G.DOMINOES.length}
@@ -139,7 +144,16 @@ function BossLevel({ order, onDone }: { order: number[][]; onDone: (score: numbe
 
   return (
     <div>
-      <div className="grid grid-cols-2 gap-4">
+      <HowTo
+        goal="повідомити погані новини так, щоб не втратити довіру ні команди, ні спонсора."
+        steps={[
+          "Угорі дві шкали: довіра команди і довіра спонсора. На старті обидві на 50%.",
+          "Прочитай, що тобі кажуть, і обери відповідь.",
+          "Шкали зміняться, і з'явиться, що з цього вийшло. Потім натисни «Далі». Таких розмов буде дві.",
+        ]}
+        tip="Підказка: згадай принцип культури довіри: погані новини повідомляють рано і чесно."
+      />
+      <div className="mt-5 grid grid-cols-2 gap-4">
         <Meter label="Довіра команди" value={trust.team} />
         <Meter label="Довіра спонсора" value={trust.sponsor} />
       </div>
@@ -215,7 +229,18 @@ export function PrinciplesWeekGame({ nextHref }: { nextHref: string }) {
           name: "Зіграй карту",
           play: (o, done) => (
             <CardLevel
-              intro="Прочитай ситуацію і зіграй карту-принцип, який підкаже, як тут вчинити. Під назвою кожної карти коротко сказано, про що вона."
+              intro={
+                <HowTo
+                  goal="для кожної ситуації зі студії зіграти карту-принцип, який підкаже, як тут вчинити."
+                  steps={[
+                    "Прочитай ситуацію в рамці.",
+                    "Нижче — шість карт-принципів. Під назвою кожної коротко сказано, про що вона.",
+                    "Натисни на карту, яка найкраще підходить до ситуації. Одразу з'явиться пояснення.",
+                    "Натисни «Далі», щоб перейти до наступної ситуації.",
+                  ]}
+                  tip="Підказка: шукай, що в ситуації пішло не так, і карту, яка це виправляє."
+                />
+              }
               itemLabel="Ситуація"
               cardsLabel="Карти-принципи"
               items={G.SITUATIONS}
@@ -231,6 +256,13 @@ export function PrinciplesWeekGame({ nextHref }: { nextHref: string }) {
           name: "Три стовпи",
           play: (o, done) => (
             <BasketLevel
+              intro={
+                <HowTo
+                  goal="визначити, на який стовп сталого розвитку працює кожен крок студії."
+                  steps={basketSteps(G.PILLARS.map((b) => b.name))}
+                  tip="Підказка: питай, кому чи чому цей крок допомагає — людям, довкіллю чи грошам студії в довгу."
+                />
+              }
               items={G.SUSTAIN}
               bins={G.PILLARS}
               order={o.sustain}
