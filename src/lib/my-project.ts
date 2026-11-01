@@ -19,6 +19,8 @@ export type MyProject = {
   people?: Person[];
   // Module 6: who can say «stop» and what the reader decides alone.
   rules?: { sponsor: string; answers: number[] };
+  // Module 7: the blocks of work and what stays out of the project.
+  scope?: { blocks: string[]; out: string[] };
   updatedAt: string;
 };
 
