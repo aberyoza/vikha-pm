@@ -9,6 +9,7 @@ import { ApproachEditor } from "./project-approach";
 import { InvestEditor } from "./project-invest";
 import { PeopleEditor, PeopleList } from "./project-people";
 import { RulesEditor, RulesList } from "./project-rules";
+import { ScopeEditor, ScopeList } from "./project-scope";
 import { ProjectBuilder } from "./project-builder";
 
 const chip = "rounded-md bg-foreground/[0.07] px-3 py-2 text-sm font-medium press hover:bg-foreground/[0.12]";
@@ -16,7 +17,19 @@ const primary = "rounded-md bg-accent px-5 py-2.5 font-semibold text-accent-fore
 
 // Modules add their milestones here as their games get a project step.
 const isDone = (p: MyProject, module: number) =>
-  module === 1 ? !!p.name : module === 3 ? !!p.approach : module === 4 ? !!p.invest : module === 5 ? !!p.people : module === 6 ? !!p.rules : false;
+  module === 1
+    ? !!p.name
+    : module === 3
+      ? !!p.approach
+      : module === 4
+        ? !!p.invest
+        : module === 5
+          ? !!p.people
+          : module === 6
+            ? !!p.rules
+            : module === 7
+              ? !!p.scope
+              : false;
 
 function download(p: MyProject) {
   const blob = new Blob([JSON.stringify(p, null, 2)], { type: "application/json" });
@@ -202,6 +215,19 @@ export function ProjectPassport({ titles, startHref }: { titles: Record<number, 
                   {m.module === 6 && editing === 6 && (
                     <div className="mt-4">
                       <RulesEditor project={project} onSaved={() => setEditing(null)} />
+                    </div>
+                  )}
+                  {m.module === 7 && project.scope && editing !== 7 && (
+                    <>
+                      <ScopeList scope={project.scope} />
+                      <button type="button" onClick={() => setEditing(7)} className={`${chip} mt-4 print:hidden`}>
+                        Змінити
+                      </button>
+                    </>
+                  )}
+                  {m.module === 7 && editing === 7 && (
+                    <div className="mt-4">
+                      <ScopeEditor project={project} onSaved={() => setEditing(null)} />
                     </div>
                   )}
                   {!ok && <p className="mt-1 text-sm text-muted">Відкриється в завданні модуля {m.module}.</p>}
