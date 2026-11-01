@@ -152,34 +152,52 @@ function ArrowsLevel({ paths, onDone }: { paths: number[]; onDone: (score: numbe
   );
 }
 
-// The plan as a Gantt chart: a bar for the work, a lighter tail for its reserve.
-function Gantt({ tasks, scale, mark }: { tasks: Scheduled[]; scale: number; mark?: number }) {
-  const pct = (w: number) => `${(w / scale) * 100}%`;
+// The longest plan in the game: the design delay ends on week 15.
+const GANTT_WEEKS = 15;
+const WEEK_LINES = {
+  backgroundImage: "linear-gradient(to right, color-mix(in srgb, var(--foreground) 14%, transparent) 1px, transparent 1px)",
+  backgroundSize: `${100 / GANTT_WEEKS}% 100%`,
+};
+
+// The plan as a Gantt chart with a cell per week: a bar for the work with its
+// weeks on it, a lighter tail for its reserve. Narrow screens put names above
+// the bars, so a week stays wide enough to read.
+function Gantt({ tasks, mark }: { tasks: Scheduled[]; mark?: number }) {
+  const pct = (w: number) => `${(w / GANTT_WEEKS) * 100}%`;
   return (
     <div className="space-y-1.5" aria-hidden>
       {tasks.map((t) => (
-        <div key={t.id} className="grid grid-cols-[6.5rem_minmax(0,1fr)] items-center gap-3 text-[13px]">
+        <div key={t.id} className="grid items-center gap-x-3 gap-y-0.5 text-[13px] sm:grid-cols-[6.5rem_minmax(0,1fr)]">
           <span className={`flex items-center gap-1.5 truncate ${t.id === mark ? "font-semibold" : ""}`}>
             {t.critical && <span className="size-2 shrink-0 rotate-45 rounded-[1px] bg-accent" />}
             {t.name}
           </span>
-          <div className="relative h-5 rounded-[2px] bg-foreground/[0.05]">
-            {t.slack > 0 && <span className="absolute inset-y-1 rounded-[2px] bg-foreground/25 transition-[left,width] duration-500" style={{ left: pct(t.ef), width: pct(t.slack) }} />}
+          <div className="relative h-6 rounded-[2px] bg-foreground/[0.05]" style={WEEK_LINES}>
+            {t.slack > 0 && (
+              <span
+                className="absolute inset-y-0.5 grid place-items-center overflow-hidden rounded-[2px] bg-foreground/25 text-[11px] leading-none tabular-nums transition-[left,width] duration-500"
+                style={{ left: pct(t.ef), width: pct(t.slack) }}
+              >
+                +{t.slack}
+              </span>
+            )}
             <span
-              className={`absolute inset-y-0 rounded-[3px] transition-[left,width] duration-500 ease-[var(--ease-out)] ${t.critical ? "bg-accent" : "bg-muted/70"} ${
-                t.id === mark ? "ring-2 ring-foreground ring-offset-1 ring-offset-background" : ""
-              }`}
+              className={`absolute inset-y-0 grid place-items-center overflow-hidden rounded-[3px] text-xs font-semibold tabular-nums transition-[left,width] duration-500 ease-[var(--ease-out)] ${
+                t.critical ? "bg-accent text-accent-foreground" : "bg-muted text-background"
+              } ${t.id === mark ? "ring-2 ring-foreground ring-offset-1 ring-offset-background" : ""}`}
               style={{ left: pct(t.es), width: pct(t.weeks) }}
-            />
+            >
+              {t.weeks}
+            </span>
           </div>
         </div>
       ))}
-      <div className="grid grid-cols-[6.5rem_minmax(0,1fr)] gap-3 text-[12px] text-muted">
-        <span>тижні</span>
-        <div className="relative h-4">
-          {[0, 5, 10, 15].map((w) => (
-            <span key={w} className="absolute -translate-x-1/2 tabular-nums first:translate-x-0" style={{ left: pct(w) }}>
-              {w}
+      <div className="grid gap-x-3 gap-y-0.5 pt-0.5 text-[12px] text-muted sm:grid-cols-[6.5rem_minmax(0,1fr)]">
+        <span>Тиждень</span>
+        <div className="grid tabular-nums" style={{ gridTemplateColumns: `repeat(${GANTT_WEEKS}, minmax(0, 1fr))` }}>
+          {Array.from({ length: GANTT_WEEKS }, (_, k) => (
+            <span key={k} className="text-center">
+              {k + 1}
             </span>
           ))}
         </div>
@@ -195,7 +213,16 @@ function GanttKey() {
         <span aria-hidden className="size-2 rotate-45 rounded-[1px] bg-accent" /> критичний шлях
       </span>
       <span className="flex items-center gap-2">
-        <span aria-hidden className="h-2 w-5 rounded-[2px] bg-foreground/25" /> резерв
+        <span aria-hidden className="grid h-4 w-5 place-items-center rounded-[2px] bg-muted text-[11px] font-semibold text-background">
+          5
+        </span>
+        тижнів роботи
+      </span>
+      <span className="flex items-center gap-2">
+        <span aria-hidden className="grid h-4 w-5 place-items-center rounded-[2px] bg-foreground/25 text-[11px] text-foreground">
+          +2
+        </span>
+        тижні резерву
       </span>
     </div>
   );
@@ -213,7 +240,6 @@ function DelayLevel({ events, donors, onDone }: { events: number[]; donors: numb
   const shift = late.total - PLAN.total;
   const shown = pick !== null ? late : PLAN;
   const picked = donor === null ? null : G.DONORS[donor];
-  const scale = PLAN.total + 6;
 
   const predict = (s: number) => {
     if (pick !== null) return;
@@ -226,7 +252,7 @@ function DelayLevel({ events, donors, onDone }: { events: number[]; donors: numb
       <HowTo
         goal="передбачити, чи зсунеться реліз, і зрозуміти, де в плані є запас."
         steps={[
-          "Перед тобою діаграма Ганта. Смуга — робота, світліше продовження — її резерв: на стільки роботу можна затримати без шкоди для релізу. Ромб позначає критичний шлях.",
+          "Перед тобою діаграма Ганта: одна клітинка — один тиждень. Число на смузі показує, скільки тижнів займає робота. Світліше продовження з «+» — її резерв: на стільки роботу можна затримати без шкоди для релізу. Ромб позначає критичний шлях.",
           "Приходить подія: якась робота затримується. Подивись на її резерв.",
           "Натисни, на скільки тижнів, на твою думку, зсунеться реліз. Смуги поїдуть і покажуть відповідь.",
           "Кожна нова подія стартує зі звичайного плану, затримки не накопичуються.",
@@ -239,7 +265,7 @@ function DelayLevel({ events, donors, onDone }: { events: number[]; donors: numb
         <p className="mb-3 font-medium" aria-live="polite">
           Реліз через <span className="tabular-nums">{predicting ? shown.total : PLAN.total}</span> тиж.
         </p>
-        <Gantt tasks={predicting ? shown.tasks : PLAN.tasks} scale={scale} mark={e?.task} />
+        <Gantt tasks={predicting ? shown.tasks : PLAN.tasks} mark={e?.task} />
         <GanttKey />
       </div>
 
@@ -487,7 +513,7 @@ function CompressLevel({ onDone }: { onDone: (score: number) => void }) {
           Реліз через <span className="tabular-nums">{plan.total}</span> тиж.
           <span className="font-normal text-muted"> Мета: {G.TARGET}.</span>
         </p>
-        <Gantt tasks={plan.tasks} scale={PLAN.total + 2} />
+        <Gantt tasks={plan.tasks} />
         <GanttKey />
         <dl className="mt-4 grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
           <div>
