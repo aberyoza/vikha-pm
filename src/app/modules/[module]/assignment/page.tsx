@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ApproachesGame } from "@/components/assignment/approaches-game";
+import { BudgetGame } from "@/components/assignment/budget-game";
 import { FirstDayGame } from "@/components/assignment/first-day-game";
 import { GovernanceGame } from "@/components/assignment/governance-game";
 import { InvestmentCommitteeGame } from "@/components/assignment/investment-committee-game";
@@ -61,6 +62,7 @@ export default async function AssignmentPage({ params }: Props) {
       {slug === "module-06" && <GovernanceGame nextHref={nextHref} />}
       {slug === "module-07" && <ScopeGame nextHref={nextHref} />}
       {slug === "module-08" && <ScheduleGame nextHref={nextHref} />}
+      {slug === "module-09" && <BudgetGame nextHref={nextHref} />}
     </main>
   );
 }

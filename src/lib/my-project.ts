@@ -23,6 +23,8 @@ export type MyProject = {
   scope?: { blocks: string[]; out: string[] };
   // Module 8: the start, the milestones (week from the start) and three estimates of the end.
   schedule?: { start: string; milestones: { name: string; week: number }[]; a: number; m: number; b: number };
+  // Module 9: a cost per block of work, the reserve in percent and how precise the estimate is.
+  budget?: { items: { name: string; cost: number }[]; reserve: number; rough: boolean };
   updatedAt: string;
 };
 
