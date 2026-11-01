@@ -7,6 +7,7 @@ import { TITLE as MODULE_04 } from "./module-04";
 import { TITLE as MODULE_05 } from "./module-05";
 import { TITLE as MODULE_06 } from "./module-06";
 import { TITLE as MODULE_07 } from "./module-07";
+import { TITLE as MODULE_08 } from "./module-08";
 
 export const ASSIGNMENTS: Record<string, { title: string }> = {
   "module-01": { title: MODULE_01 },
@@ -16,6 +17,7 @@ export const ASSIGNMENTS: Record<string, { title: string }> = {
   "module-05": { title: MODULE_05 },
   "module-06": { title: MODULE_06 },
   "module-07": { title: MODULE_07 },
+  "module-08": { title: MODULE_08 },
 };
 
 export const assignmentHref = (moduleSlug: string) => `/modules/${moduleSlug}/assignment`;

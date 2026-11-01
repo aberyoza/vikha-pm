@@ -56,6 +56,8 @@ type NetworkDiagramProps = {
   highlightEdges?: ReadonlySet<string>;
   // Fade everything that is not highlighted.
   dim?: boolean;
+  // Draw only these arrows, for a network that is still being built.
+  visibleEdges?: ReadonlySet<string>;
 };
 
 export function NetworkDiagram({
@@ -67,6 +69,7 @@ export function NetworkDiagram({
   highlightNodes = new Set(),
   highlightEdges = new Set(),
   dim = false,
+  visibleEdges,
 }: NetworkDiagramProps) {
   const uid = useId().replace(/[^a-zA-Z0-9]/g, "");
   const width = PAD * 2 + 4 * COL + W;
@@ -99,7 +102,7 @@ export function NetworkDiagram({
           ))}
         </defs>
 
-        {EDGES.map(([from, to]) => {
+        {EDGES.filter(([from, to]) => !visibleEdges || visibleEdges.has(edgeKey(from, to))).map(([from, to]) => {
           const on = highlightEdges.has(edgeKey(from, to));
           return (
             <path
