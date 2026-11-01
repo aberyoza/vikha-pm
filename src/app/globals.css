@@ -106,6 +106,18 @@
   }
 
   --animate-drum: drum 140ms var(--ease-out) both;
+  --animate-stamp: stamp 220ms var(--ease-out) both;
+
+  @keyframes stamp {
+    from {
+      transform: scale(1.6);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
 
   @keyframes drum {
     from {

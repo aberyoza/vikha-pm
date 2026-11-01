@@ -17,6 +17,8 @@ export type MyProject = {
   invest?: { answers: number[]; alternative: string; goal: string; verdict: string };
   // Module 5: a small stakeholder register.
   people?: Person[];
+  // Module 6: who can say «stop» and what the reader decides alone.
+  rules?: { sponsor: string; answers: number[] };
   updatedAt: string;
 };
 
