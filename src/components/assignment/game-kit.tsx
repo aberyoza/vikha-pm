@@ -37,6 +37,25 @@ export function Feedback({ ok, title, children }: { ok: boolean; title?: string;
   );
 }
 
+// «Як грати»: the goal of a level, numbered steps and an optional tip, for
+// levels whose mechanics aren't obvious at first sight.
+export function HowTo({ goal, steps, tip }: { goal: string; steps: ReactNode[]; tip?: string }) {
+  return (
+    <div className="rounded-[6px] bg-foreground/[0.05] p-4 leading-relaxed">
+      <p>
+        <strong>Мета:</strong> {goal}
+      </p>
+      <p className="mt-3 font-medium">Як грати</p>
+      <ol className="mt-1 list-decimal space-y-1.5 pl-5 marker:text-accent marker:font-semibold">
+        {steps.map((s, k) => (
+          <li key={k}>{s}</li>
+        ))}
+      </ol>
+      {tip && <p className="mt-3 text-muted">{tip}</p>}
+    </div>
+  );
+}
+
 // A labelled bar from 0 to 100%.
 export function Meter({ label, value }: { label: string; value: number }) {
   return (
