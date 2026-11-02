@@ -25,6 +25,8 @@ export type MyProject = {
   schedule?: { start: string; milestones: { name: string; week: number }[]; a: number; m: number; b: number };
   // Module 9: a cost per block of work, the reserve in percent and how precise the estimate is.
   budget?: { items: { name: string; cost: number }[]; reserve: number; rough: boolean };
+  // Module 10: the roles and, per block of work, who does it and who answers for it.
+  team?: { roles: string[]; blocks: { name: string; r: string; a: string }[] };
   updatedAt: string;
 };
 

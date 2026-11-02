@@ -1,22 +1,8 @@
 "use client";
 
 import { useId, useState } from "react";
+import { CRITERIA, VENDORS, type Criterion as Key } from "@/content/examples/game-vendors";
 import { Figure } from "./figure";
-
-const CRITERIA = [
-  { key: "price", label: "Ціна" },
-  { key: "quality", label: "Якість" },
-  { key: "time", label: "Строки" },
-] as const;
-
-type Key = (typeof CRITERIA)[number]["key"];
-
-// Scores 1–10 for three sound studios bidding to voice the game.
-const VENDORS: { name: string; offer: string; scores: Record<Key, number> }[] = [
-  { name: "Студія «Тиша»", offer: "30 тис., 3 тижні", scores: { price: 9, quality: 6, time: 8 } },
-  { name: "Студія «Ехо»", offer: "45 тис., 4 тижні", scores: { price: 6, quality: 9, time: 7 } },
-  { name: "Студія «Відлуння»", offer: "38 тис., 5 тижнів", scores: { price: 7, quality: 8, time: 5 } },
-];
 
 const fmt = (v: number) => new Intl.NumberFormat("uk-UA", { maximumFractionDigits: 1, minimumFractionDigits: 1 }).format(v);
 

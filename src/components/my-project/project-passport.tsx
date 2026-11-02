@@ -12,6 +12,7 @@ import { PeopleEditor, PeopleList } from "./project-people";
 import { RulesEditor, RulesList } from "./project-rules";
 import { ScheduleEditor, ScheduleList } from "./project-schedule";
 import { ScopeEditor, ScopeList } from "./project-scope";
+import { TeamEditor, TeamList } from "./project-team";
 import { ProjectBuilder } from "./project-builder";
 
 const chip = "rounded-md bg-foreground/[0.07] px-3 py-2 text-sm font-medium press hover:bg-foreground/[0.12]";
@@ -35,7 +36,9 @@ const isDone = (p: MyProject, module: number) =>
                 ? !!p.schedule
                 : module === 9
                   ? !!p.budget
-                  : false;
+                  : module === 10
+                    ? !!p.team
+                    : false;
 
 function download(p: MyProject) {
   const blob = new Blob([JSON.stringify(p, null, 2)], { type: "application/json" });
@@ -260,6 +263,19 @@ export function ProjectPassport({ titles, startHref }: { titles: Record<number, 
                   {m.module === 9 && editing === 9 && (
                     <div className="mt-4">
                       <BudgetEditor project={project} onSaved={() => setEditing(null)} />
+                    </div>
+                  )}
+                  {m.module === 10 && project.team && editing !== 10 && (
+                    <>
+                      <TeamList team={project.team} />
+                      <button type="button" onClick={() => setEditing(10)} className={`${chip} mt-4 print:hidden`}>
+                        Змінити
+                      </button>
+                    </>
+                  )}
+                  {m.module === 10 && editing === 10 && (
+                    <div className="mt-4">
+                      <TeamEditor project={project} onSaved={() => setEditing(null)} />
                     </div>
                   )}
                   {!ok && <p className="mt-1 text-sm text-muted">Відкриється в завданні модуля {m.module}.</p>}
