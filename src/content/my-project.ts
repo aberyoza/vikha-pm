@@ -63,6 +63,8 @@ export type Idea = {
   scope: { blocks: string[]; out: string[] };
   // Module 8: suggested milestones and three estimates of the whole project, in weeks.
   schedule: { milestones: { name: string; week: number }[]; a: number; m: number; b: number };
+  // Module 9: suggested costs of the scope blocks, by block index, and the reserve in percent.
+  budget: { costs: number[]; reserve: number };
 };
 
 // Module 5: one row of the stakeholder register. Levels index ENGAGEMENT.
@@ -109,6 +111,7 @@ export const IDEAS: Idea[] = [
       m: 6,
       b: 10,
     },
+    budget: { costs: [3000, 1500, 1000, 500, 1000], reserve: 15 },
     hints: {
       result: ["Telegram-бот, через який можна записатися на стрижку", "Бот, що показує вільні віконця кожного майстра"],
       outcome: ["Клієнти записуються самі, без дзвінків", "Менше людей забувають про візит, бо бот нагадує за день"],
@@ -147,6 +150,7 @@ export const IDEAS: Idea[] = [
       m: 5,
       b: 8,
     },
+    budget: { costs: [1500, 3000, 500, 1000, 2000], reserve: 15 },
     hints: {
       result: ["Сайт з меню, цінами і формою бронювання", "Сторінка кав'ярні, яку знаходить Google"],
       outcome: ["Люди бронюють столик заздалегідь", "Нові гості знаходять кав'ярню через пошук"],
@@ -185,6 +189,7 @@ export const IDEAS: Idea[] = [
       m: 6,
       b: 9,
     },
+    budget: { costs: [2000, 1000, 500, 500, 1000], reserve: 10 },
     hints: {
       result: ["Бот, у який мешканці надсилають показники лічильників", "Бот, що розсилає оголошення про відключення"],
       outcome: ["Показники приходять вчасно, без папірців у поштових скриньках", "Мешканці дізнаються про відключення заздалегідь"],
@@ -223,6 +228,7 @@ export const IDEAS: Idea[] = [
       m: 8,
       b: 12,
     },
+    budget: { costs: [4000, 3000, 2000, 1000, 1000], reserve: 15 },
     hints: {
       result: ["Дашборд, який сам збирає цифри з таблиць", "Щоденний звіт, що сам приходить на пошту"],
       outcome: ["Команда більше не збирає звіт руками щоп'ятниці", "Керівник бачить цифри щодня, а не раз на тиждень"],
@@ -261,6 +267,7 @@ export const IDEAS: Idea[] = [
       m: 8,
       b: 12,
     },
+    budget: { costs: [1000, 6000, 3000, 1000, 500], reserve: 10 },
     hints: {
       result: ["Курс з короткими відео про те, як влаштовано проєкт", "Чек-лист першого тижня з посиланнями й доступами"],
       outcome: ["Новачки ставлять менше однакових питань", "Джун робить перший реліз за тиждень, а не за місяць"],
@@ -299,6 +306,7 @@ export const IDEAS: Idea[] = [
       m: 12,
       b: 14,
     },
+    budget: { costs: [12000, 8000, 5000, 15000, 5000], reserve: 20 },
     hints: {
       result: ["Забіг на 5 км з реєстрацією і медалями", "Сторінка збору, куди можна задонатити"],
       outcome: ["Сотні людей приходять бігти й приводять друзів", "Люди донатять, бо бачать, на що підуть гроші"],
@@ -337,6 +345,7 @@ export const IDEAS: Idea[] = [
       m: 8,
       b: 12,
     },
+    budget: { costs: [15000, 40000, 60000, 150000, 5000], reserve: 20 },
     hints: {
       result: ["Нова кухня з технікою, що працює", "Кухня, де нарешті вистачає місця для всіх"],
       outcome: ["Родина знову вечеряє разом на кухні", "Готувати стало швидше і зручніше"],
@@ -433,6 +442,21 @@ export function investVerdict(answers: number[]) {
   if (answers[2] === 0) return VERDICTS.go;
   return answers[1] === 2 ? VERDICTS.recheck : VERDICTS.care;
 }
+
+// Module 9: the reserve and the range to name to the sponsor. A rough estimate
+// runs from -25% to +75%, a precise one from -5% to +10%, as PMBOK suggests.
+export const RESERVES = [10, 15, 20] as const;
+
+type Budget = { items: { cost: number }[]; reserve: number; rough: boolean };
+
+export const budgetTotal = (b: Budget) => Math.round(b.items.reduce((s, i) => s + i.cost, 0) * (1 + b.reserve / 100));
+
+const round100 = (v: number) => Math.round(v / 100) * 100;
+
+export const budgetRange = (b: Budget) => {
+  const total = budgetTotal(b);
+  return b.rough ? [round100(total * 0.75), round100(total * 1.75)] : [round100(total * 0.95), round100(total * 1.1)];
+};
 
 // Module 5: the five levels of engagement and the move that lifts each one.
 export const ENGAGEMENT = ["Не обізнаний", "Чинить опір", "Нейтральний", "Підтримує", "Веде"] as const;
