@@ -1,7 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import type { Person, ValueStep } from "@/content/my-project";
+import type { Person, ProjectRisk, ValueStep } from "@/content/my-project";
 
 // The reader's project lives in the browser until accounts exist. Each module
 // adds its own field; `version` lets a later shape migrate old saves.
@@ -27,6 +27,8 @@ export type MyProject = {
   budget?: { items: { name: string; cost: number }[]; reserve: number; rough: boolean };
   // Module 10: the roles and, per block of work, who does it and who answers for it.
   team?: { roles: string[]; blocks: { name: string; r: string; a: string }[] };
+  // Module 11: the three main risks.
+  risks?: ProjectRisk[];
   updatedAt: string;
 };
 

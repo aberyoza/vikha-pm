@@ -9,6 +9,7 @@ import { ApproachEditor } from "./project-approach";
 import { BudgetEditor, BudgetList } from "./project-budget";
 import { InvestEditor } from "./project-invest";
 import { PeopleEditor, PeopleList } from "./project-people";
+import { RisksEditor, RisksList } from "./project-risks";
 import { RulesEditor, RulesList } from "./project-rules";
 import { ScheduleEditor, ScheduleList } from "./project-schedule";
 import { ScopeEditor, ScopeList } from "./project-scope";
@@ -38,7 +39,9 @@ const isDone = (p: MyProject, module: number) =>
                   ? !!p.budget
                   : module === 10
                     ? !!p.team
-                    : false;
+                    : module === 11
+                      ? !!p.risks
+                      : false;
 
 function download(p: MyProject) {
   const blob = new Blob([JSON.stringify(p, null, 2)], { type: "application/json" });
@@ -276,6 +279,19 @@ export function ProjectPassport({ titles, startHref }: { titles: Record<number, 
                   {m.module === 10 && editing === 10 && (
                     <div className="mt-4">
                       <TeamEditor project={project} onSaved={() => setEditing(null)} />
+                    </div>
+                  )}
+                  {m.module === 11 && project.risks && editing !== 11 && (
+                    <>
+                      <RisksList project={project} risks={project.risks} />
+                      <button type="button" onClick={() => setEditing(11)} className={`${chip} mt-4 print:hidden`}>
+                        Змінити
+                      </button>
+                    </>
+                  )}
+                  {m.module === 11 && editing === 11 && (
+                    <div className="mt-4">
+                      <RisksEditor project={project} onSaved={() => setEditing(null)} />
                     </div>
                   )}
                   {!ok && <p className="mt-1 text-sm text-muted">Відкриється в завданні модуля {m.module}.</p>}
