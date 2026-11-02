@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { RisksBonus } from "@/components/my-project/project-risks";
 import * as G from "@/content/assignments/module-11";
 import { npvWith, type Factor } from "@/content/examples/game-risks";
@@ -215,17 +215,20 @@ function FogLevel({
 
       <div className="mt-4 space-y-4">
         {!checked ? (
-          <button
-            type="button"
-            disabled={!ready}
-            onClick={() => {
-              setChecked(true);
-              if (rightAll) setScore((v) => v + 1);
-            }}
-            className={primary}
-          >
-            Перевірити
-          </button>
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              disabled={!ready}
+              onClick={() => {
+                setChecked(true);
+                if (rightAll) setScore((v) => v + 1);
+              }}
+              className={primary}
+            >
+              Перевірити
+            </button>
+            {!ready && <span className="text-sm text-muted">Вибери по одному варіанту в кожному рядку.</span>}
+          </div>
         ) : (
           <>
             <Feedback ok={rightAll}>
@@ -310,9 +313,16 @@ function MapLevel({ order, onDone }: { order: number[]; onDone: (score: number) 
   const [miss, setMiss] = useState(false);
   const [picks, setPicks] = useState<string[]>([]);
   const [checked, setChecked] = useState(false);
+  const [news, setNews] = useState(false);
   const [moved, setMoved] = useState(false);
   const [first, setFirst] = useState<string | null>(null);
   const [score, setScore] = useState(0);
+  const newsRef = useRef<HTMLDivElement>(null);
+
+  // The news sits above the map, far from the button that opens it.
+  useEffect(() => {
+    if (news) newsRef.current?.scrollIntoView({ block: "start" });
+  }, [news]);
 
   const queue = order.map((k) => G.RISKS[k]);
   const current = queue[placed];
@@ -377,6 +387,13 @@ function MapLevel({ order, onDone }: { order: number[]; onDone: (score: number) 
               Імовірність {current.probability}, вплив {current.impact}
             </p>
           </div>
+        ) : news && !moved ? (
+          <div ref={newsRef} className="scroll-mt-4 rounded-[6px] bg-surface-raised p-4 leading-relaxed" aria-live="polite">
+            <p>{G.OFFER.text}</p>
+            <p className="mt-2 font-medium">
+              Постав {G.RISK_ID(G.OFFER.key)} на нове місце: натисни на клітинку, де імовірність {G.OFFER.p}, а вплив {dev.impact}.
+            </p>
+          </div>
         ) : (
           <p className="text-sm text-muted">Усі ризики на карті.</p>
         )}
@@ -384,10 +401,10 @@ function MapLevel({ order, onDone }: { order: number[]; onDone: (score: number) 
       </div>
 
       <div className="mt-4 rounded-[6px] bg-background p-3 sm:p-4">
-        <HeatMap placed={onMap} active={placing || (checked && !moved)} onCell={onCell} />
+        <HeatMap placed={onMap} active={placing || (news && !moved)} onCell={onCell} />
       </div>
 
-      {!placing && (
+      {!placing && !news && (
         <div className="mt-4 space-y-4">
           <div>
             <p className="font-medium">Сил до релізу вистачить на два ризики. Які вибираєш?</p>
@@ -399,56 +416,67 @@ function MapLevel({ order, onDone }: { order: number[]; onDone: (score: number) 
                   disabled={checked}
                   aria-pressed={picks.includes(r.key)}
                   onClick={() => toggle(r.key)}
-                  className={optionClass(checked ? G.TOP_TWO.includes(r.key) : picks.includes(r.key), checked)}
+                  className={`${optionClass(checked ? G.TOP_TWO.includes(r.key) : picks.includes(r.key), checked)} ${
+                    checked && picks.includes(r.key) && !G.TOP_TWO.includes(r.key) ? "line-through decoration-2" : ""
+                  }`}
                 >
                   {G.RISK_ID(r.key)}. {r.name}
                 </button>
               ))}
             </div>
             {!checked && (
-              <button type="button" onClick={check} disabled={picks.length < 2} className={`${primary} mt-3`}>
-                Перевірити
-              </button>
+              <div className="mt-3 flex flex-wrap items-center gap-3">
+                <button type="button" onClick={check} disabled={picks.length < 2} className={primary}>
+                  Перевірити
+                </button>
+                {picks.length < 2 && <span className="text-sm text-muted">Вибери два ризики.</span>}
+              </div>
             )}
           </div>
 
-          {checked && <Feedback ok={picks.every((k) => G.TOP_TWO.includes(k))}>{G.PICK_WHY}</Feedback>}
-
           {checked && (
-            <div className="rounded-[6px] bg-surface-raised p-4 leading-relaxed" aria-live="polite">
-              {moved ? G.OFFER.why : `${G.OFFER.text} Постав ${G.RISK_ID(G.OFFER.key)} на нове місце на карті вище.`}
-            </div>
+            <>
+              <Feedback ok={picks.every((k) => G.TOP_TWO.includes(k))}>{G.PICK_WHY}</Feedback>
+              <button type="button" onClick={() => setNews(true)} className={primary}>
+                Далі
+              </button>
+            </>
           )}
+        </div>
+      )}
 
-          {moved && (
-            <div>
-              <p className="font-medium">Який ризик обговорюємо першим на наступному перегляді реєстру?</p>
-              <div className="mt-2 flex flex-wrap gap-1.5" role="group" aria-label="Перший ризик">
-                {G.RISKS.map((r) => (
-                  <button
-                    key={r.key}
-                    type="button"
-                    disabled={first !== null}
-                    aria-pressed={first === r.key}
-                    onClick={() => answer(r.key)}
-                    className={optionClass(first !== null && r.key === G.OFFER.key, first !== null)}
-                  >
-                    {r.short}
-                  </button>
-                ))}
-              </div>
-              {first && (
-                <div className="mt-4 space-y-4">
-                  <Feedback ok={first === G.OFFER.key}>
-                    {first === G.OFFER.key ? "Найвищий пріоритет обговорюють першим." : "Першим обговорюють найвищий пріоритет, а тепер це програміст: 20."} Ця сама логіка діє щотижня.
-                  </Feedback>
-                  <button type="button" onClick={() => onDone(score)} className={primary}>
-                    До наступного рівня
-                  </button>
-                </div>
-              )}
+      {moved && (
+        <div className="mt-4 space-y-4">
+          <div className="rounded-[6px] bg-surface-raised p-4 leading-relaxed" aria-live="polite">
+            {G.OFFER.why}
+          </div>
+          <div>
+            <p className="font-medium">Який ризик обговорюємо першим на наступному перегляді реєстру?</p>
+            <div className="mt-2 flex flex-wrap gap-1.5" role="group" aria-label="Перший ризик">
+              {G.RISKS.map((r) => (
+                <button
+                  key={r.key}
+                  type="button"
+                  disabled={first !== null}
+                  aria-pressed={first === r.key}
+                  onClick={() => answer(r.key)}
+                  className={optionClass(first !== null && r.key === G.OFFER.key, first !== null)}
+                >
+                  {r.short}
+                </button>
+              ))}
             </div>
-          )}
+            {first && (
+              <div className="mt-4 space-y-4">
+                <Feedback ok={first === G.OFFER.key}>
+                  {first === G.OFFER.key ? "Найвищий пріоритет обговорюють першим." : "Першим обговорюють найвищий пріоритет, а тепер це програміст: 20."} Ця сама логіка діє щотижня.
+                </Feedback>
+                <button type="button" onClick={() => onDone(score)} className={primary}>
+                  До наступного рівня
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>
@@ -591,6 +619,9 @@ function ThinLevel({ link, say, onDone }: { link: number[]; say: number[]; onDon
       {bet && (
         <div className="mt-4 rounded-[6px] bg-background p-4">
           <p className="font-medium">Рухай повзунки, доки NPV не впаде до нуля</p>
+          <p className="mt-0.5 text-sm text-muted tabular-nums">
+            Знайдено меж: {found.length} з {G.SLIDERS.length}. {allFound ? "Читай далі під повзунками." : "Гра продовжиться, коли знайдеш усі три."}
+          </p>
           <div className="mt-3 space-y-4">
             {G.SLIDERS.map((s) => {
               const value = npvWith(s.key, s.change(values[s.key]));
@@ -1026,9 +1057,12 @@ function DeadRegister({ onDone }: { onDone: (score: number) => void }) {
       </div>
       <div className="mt-4 space-y-4">
         {!checked ? (
-          <button type="button" onClick={() => setChecked(true)} disabled={marks.length !== flaws.length} className={primary}>
-            Перевірити
-          </button>
+          <div className="flex flex-wrap items-center gap-3">
+            <button type="button" onClick={() => setChecked(true)} disabled={marks.length !== flaws.length} className={primary}>
+              Перевірити
+            </button>
+            <span className="text-sm text-muted tabular-nums">Позначено: {marks.length} з {flaws.length}.</span>
+          </div>
         ) : (
           <>
             <div className="rounded-[4px] bg-accent-soft p-4 leading-relaxed" aria-live="polite">
