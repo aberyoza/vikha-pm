@@ -116,7 +116,7 @@ export function RisksEditor({ project, onSaved }: { project: MyProject; onSaved:
     <div>
       <p className="leading-relaxed text-muted">
         Що може піти не так у проєкті «{project.name}»? Опиши три головні ризики: причину, подію і наслідок. Оціни їх, вибери реакцію і
-        людину, яка стежитиме за ознаками. Нагоди теж можна: це ризик зі знаком плюс.
+        людину, яка стежитиме за ознаками. Замість загрози можна записати нагоду, тобто подію, яка допоможе проєкту.
         {idea && !saved && " Для твоєї ідеї все вже заповнено. Зміни, якщо в тебе інакше."}
       </p>
 
@@ -186,7 +186,7 @@ export function RisksEditor({ project, onSaved }: { project: MyProject; onSaved:
                 грн
               </label>
 
-              <p className="mt-3 text-[13px] text-muted">Власник: одна конкретна людина, не «команда»</p>
+              <p className="mt-3 text-[13px] text-muted">Власник — це одна конкретна людина, яка стежить за ризиком.</p>
               <div className="mt-1 flex flex-wrap gap-1.5" role="group" aria-label={`Власник ризику ${k + 1}`}>
                 {owners.map((o) => (
                   <button key={o} type="button" aria-pressed={r.owner === o} onClick={() => set(k, { owner: o })} className={chip(r.owner === o)}>
@@ -196,7 +196,7 @@ export function RisksEditor({ project, onSaved }: { project: MyProject; onSaved:
               </div>
 
               <label className="mt-3 block text-sm">
-                <span className="text-muted">Тригер: ознака, яку можна помітити</span>
+                <span className="text-muted">Тригер — це ознака, яку можна помітити заздалегідь.</span>
                 <input value={r.trigger} maxLength={140} placeholder="за тиждень до запуску немає половини матеріалів" onChange={(e) => set(k, { trigger: e.target.value })} className={`${field} mt-1`} />
               </label>
             </li>
