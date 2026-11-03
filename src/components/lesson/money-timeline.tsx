@@ -15,11 +15,11 @@ function Direction({
   reverse,
 }: {
   text: string;
-  tone: "accent" | "sage";
+  tone: "accent" | "second";
   reverse?: boolean;
 }) {
-  const color = tone === "accent" ? "bg-accent" : "bg-sage";
-  const textColor = tone === "accent" ? "text-accent" : "text-sage";
+  const color = tone === "accent" ? "bg-accent" : "bg-second";
+  const textColor = tone === "accent" ? "text-accent" : "text-second";
   return (
     <div className={`flex items-center gap-2 text-sm ${textColor}`}>
       {reverse && <span aria-hidden>←</span>}
@@ -55,7 +55,7 @@ export function MoneyTimeline() {
         ))}
       </ol>
 
-      <Direction text="назад: дисконтування" tone="sage" reverse />
+      <Direction text="назад: дисконтування" tone="second" reverse />
     </Figure>
   );
 }

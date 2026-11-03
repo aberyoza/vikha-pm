@@ -13,8 +13,9 @@ Kowalski's design-engineering skills, tasteskill.dev and componentry.dev and
 adapts them to Віха ("90% borrowed, 10% ours"). The site itself is the
 reference; `/lab` (noindex, not linked) holds ideas under evaluation.
 In November 2026 the author asked to replace the orange tones with light and
-deep blue, so the accent, the risk ramp and the neutrals' tint are now blue. The first
-bright version strained the eyes, so the palette is pastel and low in saturation.
+deep blue. The first bright version strained the eyes, so the palette went pastel
+and low in saturation. The same month the logo became a psi emblem; a blue one read
+as the VK icon, so the author chose teal for the emblem and then for the whole site.
 
 ## 1. Concept: "Віха як діаграма Ганта"
 
@@ -29,7 +30,7 @@ around it stays quiet. Real content carries the page, not decoration.
   inline script in `<head>` applies `data-theme="light"` before first paint
   (no flash, pages stay static). There is no `prefers-color-scheme` branch.
 - Print, not screen: near-black ink with a trace of blue, paper grain,
-  one blue accent. Surfaces are separated by tone, not by lines.
+  one teal accent. Surfaces are separated by tone, not by lines.
 
 ## 2. Color tokens
 
@@ -48,30 +49,32 @@ theme-specific tweak (e.g. which toggle icon shows).
 | `muted` | `#9aa1aa` | `#59616b` | secondary text |
 | `border` | `#2c3036` | `#dadfe5` | real tables and form fields only |
 | `grid` | `#1b1e22` | `#e6e9ed` | chart rows and columns |
-| `accent` | `#8aa8dc` pastel blue | `#4069a8` muted blue | the brand: primary button, open modules, diamonds, selected state |
-| `accent-foreground` | `#101a24` | `#fafbfc` | text on accent |
-| `accent-soft` | `#1a2433` | `#e7eef7` | accent tint: result panels, Callout |
-| `sage` / `sage-soft` | `#a8cc96` / `#202b22` | `#4a7a4e` / `#e6f0e4` | progress: "Ви тут", completed lessons |
-| `risk-1` | `#181e26` | `#f0f4f9` | low priority (risk matrix only) |
-| `risk-2` | `#233449` | `#d6e3f2` | medium priority (risk matrix only) |
-| `risk-3` | `#3a5575` | `#b3c9e4` | high priority (risk matrix only) |
+| `accent` | `#86c5bd` pastel teal | `#2c746e` deep teal | the brand: emblem, primary button, open modules, diamonds, selected state |
+| `accent-foreground` | `#10211f` | `#fafbfc` | text on accent |
+| `accent-soft` | `#182a29` | `#e3f1ef` | accent tint: result panels, Callout |
+| `second` / `second-soft` | `#6a88cc` / `#1b2130` | `#2b4684` / `#e7ebf5` | muted blue: progress ("Ви тут", completed lessons) and the other series in charts |
+| `risk-1` | `#172120` | `#eef6f5` | low priority (risk matrix only) |
+| `risk-2` | `#1f3a37` | `#d2e8e5` | medium priority (risk matrix only) |
+| `risk-3` | `#2f5a55` | `#aed5d0` | high priority (risk matrix only) |
 
 Body text and buttons are ≥ 5:1. The tightest text pairs are in the light theme:
-`accent` on `accent-soft` (4.7:1) and `sage` on `surface` (4.8:1), both above
+`accent` on `surface-raised` (4.6:1) and `accent` on `accent-soft` (4.7:1), both above
 the required 4.5:1 (checked with the WCAG formula).
 
 Rules:
 - **No assistant palette.** No cream or yellow-beige ground with rust or
   terracotta accents, no violet/indigo. That combination is what made v2 read
-  as "made by Claude". The light theme is cool paper with a muted blue accent.
+  as "made by Claude". The light theme is cool paper with a deep teal accent.
 - **Soft, not vivid.** The author found the first bright blue (`#5cb0f5`) tiring
   to look at. Keep the accent pastel and low in saturation, and do not make
   large filled areas brighter than the table above.
-- Blue and sage appear next to each other in charts. After changing either one,
+- Teal and blue appear next to each other in charts. After changing either one,
   recheck them: OKLab distance ≥ 15 at normal vision and with deuteranopia or
-  protanopia simulated. The current pairs give 16–17 in both themes.
-- One accent. Blue is the only CTA and selection color. Sage marks
-  position/progress, never a button. Running text stays in full `foreground`.
+  protanopia simulated. The current pairs give 18–19 in dark and 15–16 in light.
+  Hue alone does not separate them, so `second` is deliberately darker than the accent.
+- One accent. Teal is the only CTA and selection color. Blue (`second`) marks
+  position/progress, never a button. A blue emblem on a rounded tile reads as the
+  VK icon, so the emblem stays teal. Running text stays in full `foreground`.
 - Ordinal/status colors always come with a text label or legend.
 - Link-preview images (`src/app/og-card.tsx`) repeat the dark tokens as hex,
   because they render outside the page. Change them together with the tokens.
@@ -109,7 +112,7 @@ Typographic don'ts (they read as generated/templated):
 ## 4. Layout & shape
 
 - Content width `max-w-[1200px]`, side padding `px-4 sm:px-8`. Header/footer full width.
-- Home: hero (headline left, intro + actions right) on a static blue glow
+- Home: hero (headline left, intro + actions right) on a static teal glow
   (`.hero-glow`) → Gantt program → two "label column + content" sections
   (`lg:grid-cols-[4fr_7fr]`). Lists of equal items are rows (`<dl>`), not
   three identical cards.
@@ -130,8 +133,9 @@ Typographic don'ts (they read as generated/templated):
 
 | Component | File | Use |
 |---|---|---|
-| `Logo`, `MilestoneMark` | `src/components/logo.tsx` | brand; the blue diamond is reused as the milestone symbol everywhere |
-| `ButtonLink` (`primary` / `text`) | `src/components/ui.tsx` | primary = blue button; text = underlined link-button |
+| `Logo`, `Emblem` | `src/components/logo.tsx` | brand: Ψ with a diamond on its stem, in `accent`. Repeated in `src/app/og-card.tsx` and `src/app/icon.svg` |
+| `MilestoneMark` | `src/components/logo.tsx` | the teal diamond, the milestone symbol everywhere |
+| `ButtonLink` (`primary` / `text`) | `src/components/ui.tsx` | primary = teal button; text = underlined link-button |
 | `SectionHeading` | `src/components/ui.tsx` | section titles |
 | `ThemeToggle` | `src/components/theme-toggle.tsx` (+ `theme.ts`) | header sun/moon switch; no React state, CSS shows the icon |
 | `LessonNavCard` | `src/components/lesson-nav-card.tsx` | prev/next lesson links with a direction arrow |
@@ -232,7 +236,7 @@ promise features that aren't built without marking them («Завдання мо
 
 ## 9. Pre-delivery checklist
 
-- [ ] Tokens only; checked in **both** themes; one accent for action/selection, sage = progress
+- [ ] Tokens only; checked in **both** themes; one accent for action/selection, `second` = progress
 - [ ] No eyebrows, no outlines around figures or callouts, no hairline dividers, no assistant palette
 - [ ] Headings `font-display`, body Fixel Text; no all-caps labels, no `·` meta, no `→` on buttons
 - [ ] 375px, 768px, 1280px, 1440px — `document.documentElement.scrollWidth` equals viewport width

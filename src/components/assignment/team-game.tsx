@@ -154,7 +154,7 @@ function LoadLevel({ terms, onDone }: { terms: number[]; onDone: (score: number)
           />
           <CalendarRow
             name="Сервер"
-            color="bg-sage"
+            color="bg-second"
             es={s.es}
             ef={s.ef}
             note={r.serverLocked ? `${weekRange(s.es, s.ef)}, не посунути` : weekRange(s.es, s.ef)}
@@ -241,12 +241,12 @@ function OverrunBill({ overrun, contractor }: { overrun: number; contractor: num
         Рахунок за перевитрату: <span className="tabular-nums">{overrun}</span> тис. грн
       </p>
       <div aria-hidden className="mt-2 flex h-4 gap-0.5 overflow-hidden rounded-full">
-        {vendor > 0 && <span className="bg-sage" style={{ width: `${contractor * 100}%` }} />}
+        {vendor > 0 && <span className="bg-second" style={{ width: `${contractor * 100}%` }} />}
         {studio > 0 && <span className="bg-accent" style={{ width: `${(1 - contractor) * 100}%` }} />}
       </div>
       <div className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-[13px]">
         <span className="flex items-center gap-2">
-          <span aria-hidden className="size-2.5 rounded-[2px] bg-sage" />
+          <span aria-hidden className="size-2.5 rounded-[2px] bg-second" />
           Виконавець: <span className="tabular-nums">{vendor} тис.</span>
         </span>
         <span className="flex items-center gap-2">

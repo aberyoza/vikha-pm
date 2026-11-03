@@ -33,7 +33,7 @@ export function CycleTimeScatter() {
     <Figure
       title="Час циклу"
       lead="Скільки днів пішло на кожну закриту задачу."
-      caption="Кожна точка — задача, закрита за вісім тижнів після релізу. Синя лінія — межа, у яку вклалася обрана частка задач."
+      caption="Кожна точка — задача, закрита за вісім тижнів після релізу. Бірюзова лінія — межа, у яку вклалася обрана частка задач."
     >
       <div className="flex items-baseline justify-between text-sm">
         <label htmlFor={`${id}-p`}>Яку частку задач обіцяємо</label>
@@ -72,7 +72,7 @@ export function CycleTimeScatter() {
         </text>
       </svg>
       <p className="mt-1 text-[13px] text-muted">
-        Пунктир — середнє, {fmt(AVERAGE, 1)} дня. Сині точки — задачі, що не вклалися в межу.
+        Пунктир — середнє, {fmt(AVERAGE, 1)} дня. Бірюзові точки — задачі, що не вклалися в межу.
       </p>
 
       <p className="mt-4 rounded-[4px] bg-accent-soft p-4 leading-relaxed" aria-live="polite">

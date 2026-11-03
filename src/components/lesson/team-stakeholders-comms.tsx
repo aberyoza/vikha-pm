@@ -48,9 +48,9 @@ export function TeamStakeholdersComms() {
         />
 
         <div className="flex items-center gap-3 px-1 @2xl:flex-col @2xl:px-0">
-          <span aria-hidden className="h-8 w-0.5 bg-sage @2xl:h-0.5 @2xl:w-10" />
-          <span className="text-sm text-sage">{"Комунікації — канали зв'язку"}</span>
-          <span aria-hidden className="hidden h-0.5 w-10 bg-sage @2xl:block" />
+          <span aria-hidden className="h-8 w-0.5 bg-second @2xl:h-0.5 @2xl:w-10" />
+          <span className="text-sm text-second">{"Комунікації — канали зв'язку"}</span>
+          <span aria-hidden className="hidden h-0.5 w-10 bg-second @2xl:block" />
         </div>
 
         <Block

@@ -6,7 +6,7 @@
 :root {
   color-scheme: dark;
 
-  /* Surfaces & text: near-black ink with a trace of blue, so the neutrals
+  /* Surfaces & text: near-black ink with a cool trace, so the neutrals
      sit calmly next to the accent. */
   --background: #111316;
   --surface: #181b1f;
@@ -16,24 +16,25 @@
   --border: #2c3036;
   --grid: #1b1e22;
 
-  /* Brand: pastel blue. Buttons, open modules, milestone diamonds. */
-  --accent: #8aa8dc;
-  --accent-foreground: #101a24;
-  --accent-soft: #1a2433;
+  /* Brand: pastel teal. Emblem, buttons, open modules, milestone diamonds. */
+  --accent: #86c5bd;
+  --accent-foreground: #10211f;
+  --accent-soft: #182a29;
 
-  /* Sage: progress — "you are here", completed lessons. */
-  --sage: #a8cc96;
-  --sage-soft: #202b22;
+  /* Second: muted blue. Progress ("you are here", completed lessons) and
+     the other series in charts, darker than the accent so the two stay apart. */
+  --second: #6a88cc;
+  --second-soft: #1b2130;
 
-  /* Ordinal ramp for risk levels: soft blue, kept low in saturation. */
-  --risk-1: #181e26;
-  --risk-2: #233449;
-  --risk-3: #3a5575;
+  /* Ordinal ramp for risk levels: soft teal, kept low in saturation. */
+  --risk-1: #172120;
+  --risk-2: #1f3a37;
+  --risk-3: #2f5a55;
 }
 
 /* Light theme: opt-in via the header toggle (stored in localStorage and
    applied by an inline script before first paint). Cool paper and ink;
-   the accent darkens to a muted blue so it stays readable as text (≥ 4.5:1). */
+   the accent darkens to a deep teal so it stays readable as text (≥ 4.5:1). */
 :root[data-theme="light"] {
   color-scheme: light;
 
@@ -45,16 +46,16 @@
   --border: #dadfe5;
   --grid: #e6e9ed;
 
-  --accent: #4069a8;
+  --accent: #2c746e;
   --accent-foreground: #fafbfc;
-  --accent-soft: #e7eef7;
+  --accent-soft: #e3f1ef;
 
-  --sage: #4a7a4e;
-  --sage-soft: #e6f0e4;
+  --second: #2b4684;
+  --second-soft: #e7ebf5;
 
-  --risk-1: #f0f4f9;
-  --risk-2: #d6e3f2;
-  --risk-3: #b3c9e4;
+  --risk-1: #eef6f5;
+  --risk-2: #d2e8e5;
+  --risk-3: #aed5d0;
 }
 
 @custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
@@ -70,8 +71,8 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent-soft: var(--accent-soft);
-  --color-sage: var(--sage);
-  --color-sage-soft: var(--sage-soft);
+  --color-second: var(--second);
+  --color-second-soft: var(--second-soft);
   --color-risk-1: var(--risk-1);
   --color-risk-2: var(--risk-2);
   --color-risk-3: var(--risk-3);

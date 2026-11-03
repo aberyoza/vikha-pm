@@ -37,8 +37,8 @@ export function ProcessChain() {
         {/* Monitoring & control spans planning and execution. */}
         <div className="grid grid-rows-[1fr_2fr_1fr] pt-11 pb-14">
           <div className="row-start-2 flex w-28 items-stretch gap-2">
-            <span className="w-1 shrink-0 rounded-full bg-sage" />
-            <span className="self-center text-sm leading-snug text-sage">
+            <span className="w-1 shrink-0 rounded-full bg-second" />
+            <span className="self-center text-sm leading-snug text-second">
               Моніторинг і контроль
             </span>
           </div>

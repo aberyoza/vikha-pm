@@ -19,7 +19,7 @@ type Series = { values: number[]; tone: "plan" | "ev" | "ac" };
 
 const tones = {
   plan: { stroke: "var(--muted)", dash: undefined, width: 2 },
-  ev: { stroke: "var(--sage)", dash: undefined, width: 2.5 },
+  ev: { stroke: "var(--second)", dash: undefined, width: 2.5 },
   ac: { stroke: "var(--accent)", dash: undefined, width: 2.5 },
 } as const;
 
@@ -106,7 +106,7 @@ export function SCurve({
 export function Legend({ items }: { items: { tone: "plan" | "ev" | "ac" | "forecast"; label: string }[] }) {
   const swatch = {
     plan: "w-5 border-t-2 border-dashed border-muted",
-    ev: "h-0.5 w-5 bg-sage",
+    ev: "h-0.5 w-5 bg-second",
     ac: "h-0.5 w-5 bg-accent",
     forecast: "w-5 border-t-2 border-dashed border-accent",
   } as const;
