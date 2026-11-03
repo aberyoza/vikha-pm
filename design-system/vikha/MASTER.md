@@ -51,6 +51,7 @@ theme-specific tweak (e.g. which toggle icon shows).
 | `accent` | `#8aa8dc` pastel blue | `#4069a8` muted blue | the brand: primary button, open modules, diamonds, selected state |
 | `accent-foreground` | `#101a24` | `#fafbfc` | text on accent |
 | `accent-soft` | `#1a2433` | `#e7eef7` | accent tint: result panels, Callout |
+| `emblem` | `#86c5bd` teal | `#2f7a74` deep teal | the logo emblem only (9.5:1 and 4.6:1 on the background) |
 | `sage` / `sage-soft` | `#a8cc96` / `#202b22` | `#4a7a4e` / `#e6f0e4` | progress: "Ви тут", completed lessons |
 | `risk-1` | `#181e26` | `#f0f4f9` | low priority (risk matrix only) |
 | `risk-2` | `#233449` | `#d6e3f2` | medium priority (risk matrix only) |
@@ -71,7 +72,8 @@ Rules:
   recheck them: OKLab distance ≥ 15 at normal vision and with deuteranopia or
   protanopia simulated. The current pairs give 16–17 in both themes.
 - One accent. Blue is the only CTA and selection color. Sage marks
-  position/progress, never a button. Running text stays in full `foreground`.
+  position/progress, never a button. Teal belongs to the emblem and is used
+  nowhere else: a blue emblem on a rounded tile reads as the VK icon. Running text stays in full `foreground`.
 - Ordinal/status colors always come with a text label or legend.
 - Link-preview images (`src/app/og-card.tsx`) repeat the dark tokens as hex,
   because they render outside the page. Change them together with the tokens.
@@ -130,7 +132,8 @@ Typographic don'ts (they read as generated/templated):
 
 | Component | File | Use |
 |---|---|---|
-| `Logo`, `MilestoneMark` | `src/components/logo.tsx` | brand; the blue diamond is reused as the milestone symbol everywhere |
+| `Logo`, `Emblem` | `src/components/logo.tsx` | brand: Ψ with a diamond on its stem, in `emblem`. Repeated in `src/app/og-card.tsx` and `src/app/icon.svg` |
+| `MilestoneMark` | `src/components/logo.tsx` | the blue diamond, the milestone symbol everywhere |
 | `ButtonLink` (`primary` / `text`) | `src/components/ui.tsx` | primary = blue button; text = underlined link-button |
 | `SectionHeading` | `src/components/ui.tsx` | section titles |
 | `ThemeToggle` | `src/components/theme-toggle.tsx` (+ `theme.ts`) | header sun/moon switch; no React state, CSS shows the icon |

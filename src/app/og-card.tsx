@@ -13,6 +13,7 @@ const C = {
   foreground: "#dde1e6",
   muted: "#9aa1aa",
   accent: "#8aa8dc",
+  emblem: "#86c5bd",
 };
 
 const fonts = Promise.all([
@@ -39,7 +40,10 @@ export async function ogCard({ kicker, title, current }: { kicker: string; title
       >
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-            <div style={{ width: 22, height: 22, background: C.accent, borderRadius: 3, transform: "rotate(45deg)" }} />
+            <svg width={44} height={44} viewBox="0 0 24 24">
+              <path d="M5 4v7a7 7 0 0 0 14 0V4M12 8v14" fill="none" stroke={C.emblem} strokeWidth="2.6" />
+              <rect x="9.5" y="1.7" width="5" height="5" rx=".7" transform="rotate(45 12 4.2)" fill={C.emblem} />
+            </svg>
             <div style={{ fontFamily: "Fixel Display", fontSize: 40 }}>Віха</div>
           </div>
           <div style={{ fontSize: 26, color: C.muted }}>vikha-pm.com</div>

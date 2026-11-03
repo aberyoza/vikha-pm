@@ -21,6 +21,9 @@
   --accent-foreground: #101a24;
   --accent-soft: #1a2433;
 
+  /* Teal: the emblem in the logo and nothing else. */
+  --emblem: #86c5bd;
+
   /* Sage: progress — "you are here", completed lessons. */
   --sage: #a8cc96;
   --sage-soft: #202b22;
@@ -49,6 +52,8 @@
   --accent-foreground: #fafbfc;
   --accent-soft: #e7eef7;
 
+  --emblem: #2f7a74;
+
   --sage: #4a7a4e;
   --sage-soft: #e6f0e4;
 
@@ -70,6 +75,7 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent-soft: var(--accent-soft);
+  --color-emblem: var(--emblem);
   --color-sage: var(--sage);
   --color-sage-soft: var(--sage-soft);
   --color-risk-1: var(--risk-1);
