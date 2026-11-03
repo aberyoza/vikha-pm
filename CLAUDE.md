@@ -15,8 +15,8 @@ fonts, layout, components and the lesson MDX pattern. Reuse the listed
 components; extend MASTER.md when you introduce a new reusable pattern.
 
 Fixed decisions from the author: **dark theme by default** with an opt-in
-light theme (visitors asked for it), near-black ink with one honey accent
-(neutral paper with mustard in light), sage only for progress, Fixel
+light theme (visitors asked for it), near-black ink with one blue accent
+(cool paper with deep blue in light), sage only for progress, Fixel
 typeface, Gantt/milestone motif, and **nothing that looks like a generic AI
 template**. A designer once recognised v2 as "made by Claude", so v3 removed
 the cream-and-rust palette, eyebrow labels, outlined boxes and graph paper;

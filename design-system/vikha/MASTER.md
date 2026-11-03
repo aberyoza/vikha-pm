@@ -12,6 +12,8 @@ so the author asked to remove that impression. v3 borrows ideas from Emil
 Kowalski's design-engineering skills, tasteskill.dev and componentry.dev and
 adapts them to Віха ("90% borrowed, 10% ours"). The site itself is the
 reference; `/lab` (noindex, not linked) holds ideas under evaluation.
+In November 2026 the author asked to replace the orange tones with light and
+deep blue, so the accent, the risk ramp and the neutrals' tint are now blue.
 
 ## 1. Concept: "Віха як діаграма Ганта"
 
@@ -25,8 +27,8 @@ around it stays quiet. Real content carries the page, not decoration.
   switches themes. The choice lives in `localStorage` (`vikha-theme`) and an
   inline script in `<head>` applies `data-theme="light"` before first paint
   (no flash, pages stay static). There is no `prefers-color-scheme` branch.
-- Print, not screen: near-black ink with a trace of warmth, paper grain,
-  one honey accent. Surfaces are separated by tone, not by lines.
+- Print, not screen: near-black ink with a trace of blue, paper grain,
+  one blue accent. Surfaces are separated by tone, not by lines.
 
 ## 2. Color tokens
 
@@ -38,26 +40,26 @@ theme-specific tweak (e.g. which toggle icon shows).
 
 | Token | Dark | Light | Use |
 |---|---|---|---|
-| `background` | `#121211` | `#f4f4f1` | page ground |
-| `surface` | `#1a1a18` | `#fbfbf9` | one tone step up: figures, sidebar, chart |
-| `surface-raised` | `#232320` | `#e9e9e4` | second step: tiles, raised areas |
-| `foreground` | `#ecebe6` | `#171715` | text |
-| `muted` | `#a3a29b` | `#5d5d57` | secondary text |
-| `border` | `#2e2d2a` | `#dcdcd5` | real tables and form fields only |
-| `grid` | `#1d1d1b` | `#e7e7e2` | chart rows and columns |
-| `accent` | `#e8a33d` honey | `#835a00` mustard | the brand: primary button, open modules, diamonds, selected state |
-| `accent-foreground` | `#1e1609` | `#fbfbf9` | text on accent |
-| `accent-soft` | `#2a2414` | `#f3ead2` | accent tint: result panels, Callout |
+| `background` | `#101215` | `#f2f4f7` | page ground |
+| `surface` | `#171a1f` | `#fafbfc` | one tone step up: figures, sidebar, chart |
+| `surface-raised` | `#20242a` | `#e6eaef` | second step: tiles, raised areas |
+| `foreground` | `#e8ebef` | `#14171c` | text |
+| `muted` | `#9fa6b0` | `#565e69` | secondary text |
+| `border` | `#2b3038` | `#d8dde4` | real tables and form fields only |
+| `grid` | `#1a1d22` | `#e4e8ed` | chart rows and columns |
+| `accent` | `#5cb0f5` sky blue | `#1a62b8` deep blue | the brand: primary button, open modules, diamonds, selected state |
+| `accent-foreground` | `#07131f` | `#fafbfc` | text on accent |
+| `accent-soft` | `#14263a` | `#dde9f8` | accent tint: result panels, Callout |
 | `sage` / `sage-soft` | `#8cc2a8` / `#1f3029` | `#3b735b` / `#e2efe8` | progress: "Ви тут", completed lessons |
-| `risk-1..3` | warm clay ramp | warm clay ramp | ordinal scale (risk matrix) only |
+| `risk-1..3` | deepening blue ramp | deepening blue ramp | ordinal scale (risk matrix) only |
 
 All text pairs are ≥ 5:1 (checked with the WCAG formula).
 
 Rules:
 - **No assistant palette.** No cream or yellow-beige ground with rust or
   terracotta accents, no violet/indigo. That combination is what made v2 read
-  as "made by Claude". The light theme is neutral paper with a mustard accent.
-- One accent. Honey/mustard is the only CTA and selection color. Sage marks
+  as "made by Claude". The light theme is cool paper with a deep blue accent.
+- One accent. Blue is the only CTA and selection color. Sage marks
   position/progress, never a button. Running text stays in full `foreground`.
 - Ordinal/status colors always come with a text label or legend.
 - Link-preview images (`src/app/og-card.tsx`) repeat the dark tokens as hex,
@@ -96,7 +98,7 @@ Typographic don'ts (they read as generated/templated):
 ## 4. Layout & shape
 
 - Content width `max-w-[1200px]`, side padding `px-4 sm:px-8`. Header/footer full width.
-- Home: hero (headline left, intro + actions right) on a static honey glow
+- Home: hero (headline left, intro + actions right) on a static blue glow
   (`.hero-glow`) → Gantt program → two "label column + content" sections
   (`lg:grid-cols-[4fr_7fr]`). Lists of equal items are rows (`<dl>`), not
   three identical cards.
@@ -109,7 +111,7 @@ Typographic don'ts (they read as generated/templated):
   inside figures; space separates parts. Outlines stay only for real tables,
   form fields, the Gantt grid, and the selected state of an option card.
 - No shadows on things at rest, no glows, no gradient washes. The two
-  exceptions are deliberate and static: `.hero-glow` (honey at ~7%) and the
+  exceptions are deliberate and static: `.hero-glow` (accent at ~7%) and the
   paper grain on the page ground (`body::before`, ~6% noise, behind content).
 - No hairline graph-paper backgrounds (removed in v3).
 
@@ -117,8 +119,8 @@ Typographic don'ts (they read as generated/templated):
 
 | Component | File | Use |
 |---|---|---|
-| `Logo`, `MilestoneMark` | `src/components/logo.tsx` | brand; the honey diamond is reused as the milestone symbol everywhere |
-| `ButtonLink` (`primary` / `text`) | `src/components/ui.tsx` | primary = honey button; text = underlined link-button |
+| `Logo`, `MilestoneMark` | `src/components/logo.tsx` | brand; the blue diamond is reused as the milestone symbol everywhere |
+| `ButtonLink` (`primary` / `text`) | `src/components/ui.tsx` | primary = blue button; text = underlined link-button |
 | `SectionHeading` | `src/components/ui.tsx` | section titles |
 | `ThemeToggle` | `src/components/theme-toggle.tsx` (+ `theme.ts`) | header sun/moon switch; no React state, CSS shows the icon |
 | `LessonNavCard` | `src/components/lesson-nav-card.tsx` | prev/next lesson links with a direction arrow |
@@ -206,7 +208,7 @@ feedback stays under 300ms; never `ease-in` on UI.
 - Hover = color/background change only, `duration-200` or `press`.
 - `prefers-reduced-motion` reduces animation globally (`globals.css`); the
   marker and split-flap then show their final state at once.
-- Focus: global 2px honey outline, offset 3px — never remove.
+- Focus: global 2px accent outline, offset 3px — never remove.
 
 ## 8. Copy
 

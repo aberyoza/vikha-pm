@@ -283,7 +283,7 @@ function HeatMap({
                     active ? "press hover:ring-2 hover:ring-accent" : ""
                   }`}
                 >
-                  <span aria-hidden className="text-[11px] text-muted tabular-nums">{p * i}</span>
+                  <span aria-hidden className="text-[11px] text-foreground/75 tabular-nums">{p * i}</span>
                   <span className="flex flex-wrap gap-0.5">
                     {here.map((r) => (
                       <span key={r.key} className="rounded-[2px] bg-surface/90 px-1 font-display text-[11px] leading-tight font-semibold text-foreground">
