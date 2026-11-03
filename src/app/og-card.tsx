@@ -9,10 +9,10 @@ import { modules } from "@/content/course";
 export const OG_SIZE = { width: 1200, height: 630 };
 
 const C = {
-  background: "#101215",
-  foreground: "#e8ebef",
-  muted: "#9fa6b0",
-  accent: "#5cb0f5",
+  background: "#111316",
+  foreground: "#dde1e6",
+  muted: "#9aa1aa",
+  accent: "#8aa8dc",
 };
 
 const fonts = Promise.all([

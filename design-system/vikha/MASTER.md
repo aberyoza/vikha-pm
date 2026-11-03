@@ -13,7 +13,8 @@ Kowalski's design-engineering skills, tasteskill.dev and componentry.dev and
 adapts them to Віха ("90% borrowed, 10% ours"). The site itself is the
 reference; `/lab` (noindex, not linked) holds ideas under evaluation.
 In November 2026 the author asked to replace the orange tones with light and
-deep blue, so the accent, the risk ramp and the neutrals' tint are now blue.
+deep blue, so the accent, the risk ramp and the neutrals' tint are now blue. The first
+bright version strained the eyes, so the palette is pastel and low in saturation.
 
 ## 1. Concept: "Віха як діаграма Ганта"
 
@@ -40,25 +41,25 @@ theme-specific tweak (e.g. which toggle icon shows).
 
 | Token | Dark | Light | Use |
 |---|---|---|---|
-| `background` | `#101215` | `#f2f4f7` | page ground |
-| `surface` | `#171a1f` | `#fafbfc` | one tone step up: figures, sidebar, chart |
-| `surface-raised` | `#20242a` | `#e6eaef` | second step: tiles, raised areas |
-| `foreground` | `#e8ebef` | `#14171c` | text |
-| `muted` | `#9fa6b0` | `#565e69` | secondary text |
-| `border` | `#2b3038` | `#d8dde4` | real tables and form fields only |
-| `grid` | `#1a1d22` | `#e4e8ed` | chart rows and columns |
-| `accent` | `#5cb0f5` sky blue | `#1a62b8` deep blue | the brand: primary button, open modules, diamonds, selected state |
-| `accent-foreground` | `#07131f` | `#fafbfc` | text on accent |
-| `accent-soft` | `#14263a` | `#dde9f8` | accent tint: result panels, Callout |
-| `sage` / `sage-soft` | `#8cc2a8` / `#1f3029` | `#3b735b` / `#e2efe8` | progress: "Ви тут", completed lessons |
-| `risk-1..3` | deepening blue ramp | deepening blue ramp | ordinal scale (risk matrix) only |
+| `background` | `#111316` | `#f3f5f7` | page ground |
+| `surface` | `#181b1f` | `#fafbfc` | one tone step up: figures, sidebar, chart |
+| `surface-raised` | `#21252a` | `#e8ebef` | second step: tiles, raised areas |
+| `foreground` | `#dde1e6` | `#1c2026` | text |
+| `muted` | `#9aa1aa` | `#59616b` | secondary text |
+| `border` | `#2c3036` | `#dadfe5` | real tables and form fields only |
+| `grid` | `#1b1e22` | `#e6e9ed` | chart rows and columns |
+| `accent` | `#8aa8dc` pastel blue | `#4069a8` muted blue | the brand: primary button, open modules, diamonds, selected state |
+| `accent-foreground` | `#101a24` | `#fafbfc` | text on accent |
+| `accent-soft` | `#1a2433` | `#e7eef7` | accent tint: result panels, Callout |
+| `sage` / `sage-soft` | `#a8cc96` / `#202b22` | `#4a7a4e` / `#e6f0e4` | progress: "Ви тут", completed lessons |
+| `risk-1..3` | soft blue ramp | soft blue ramp | ordinal scale (risk matrix) only |
 
 All text pairs are ≥ 5:1 (checked with the WCAG formula).
 
 Rules:
 - **No assistant palette.** No cream or yellow-beige ground with rust or
   terracotta accents, no violet/indigo. That combination is what made v2 read
-  as "made by Claude". The light theme is cool paper with a deep blue accent.
+  as "made by Claude". The light theme is cool paper with a muted blue accent.
 - One accent. Blue is the only CTA and selection color. Sage marks
   position/progress, never a button. Running text stays in full `foreground`.
 - Ordinal/status colors always come with a text label or legend.
