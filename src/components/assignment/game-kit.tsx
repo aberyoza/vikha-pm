@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useSyncExternalStore, type ReactNode } from "react";
+import { createContext, useContext, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import { MilestoneMark } from "@/components/logo";
 
 // Shared pieces of the module games: buttons, feedback, the basket level and
@@ -329,6 +329,38 @@ export function BasketLevel<K extends string>({
   );
 }
 
+// Neighbouring assignments, set once by the page so that every game gets them.
+const NeighbourContext = createContext<{ prevHref?: string; nextHref?: string }>({});
+
+export function AssignmentNeighbours({ prevHref, nextHref, children }: { prevHref?: string; nextHref?: string; children: ReactNode }) {
+  return <NeighbourContext.Provider value={{ prevHref, nextHref }}>{children}</NeighbourContext.Provider>;
+}
+
+const navDisabled = "cursor-not-allowed rounded-md bg-foreground/[0.04] px-3 py-2 text-sm font-medium text-muted";
+
+// A step through the game, or a link once the game has nothing left that way.
+function NavStep({ label, onClick, href }: { label: string; onClick?: () => void; href?: string }) {
+  if (onClick) {
+    return (
+      <button type="button" onClick={onClick} className={chip(false)}>
+        {label}
+      </button>
+    );
+  }
+  if (href) {
+    return (
+      <Link href={href} className={chip(false)}>
+        {label}
+      </Link>
+    );
+  }
+  return (
+    <button type="button" disabled className={navDisabled}>
+      {label}
+    </button>
+  );
+}
+
 type GameProps<O> = {
   storeKey: string;
   title: string;
@@ -350,15 +382,20 @@ type GameProps<O> = {
 // The frame of every module game: intro, levels and the finish with diamonds.
 export function AssignmentGame<O>(p: GameProps<O>) {
   const saved = parse(useSyncExternalStore(subscribe, () => readRaw(p.storeKey), () => null));
+  const neighbours = useContext(NeighbourContext);
+  const frame = useRef<HTMLDivElement>(null);
   const [phase, setPhase] = useState<"intro" | number | "final">("intro");
   const [scores, setScores] = useState<number[]>([]);
   // Shuffled in the start handler, not in render, so render stays pure.
   const [orders, setOrders] = useState<O | null>(null);
+  // Restarting on the same level has to remount it too.
+  const [run, setRun] = useState(0);
   const total = scores.reduce((a, b) => a + b, 0);
   const last = p.levels.length - 1;
 
   const finishLevel = (level: number) => (score: number) => {
-    const next = [...scores.slice(0, level), score];
+    const next = [...scores];
+    next[level] = score;
     setScores(next);
     if (level < last) return setPhase(level + 1);
     const sum = next.reduce((a, b) => a + b, 0);
@@ -369,11 +406,17 @@ export function AssignmentGame<O>(p: GameProps<O>) {
   const start = () => {
     setOrders(p.newOrders());
     setScores([]);
+    setRun((r) => r + 1);
     setPhase(0);
+    frame.current?.scrollIntoView({ block: "start" });
+  };
+  const goTo = (next: number) => {
+    setPhase(next);
+    frame.current?.scrollIntoView({ block: "start" });
   };
 
   return (
-    <div className="rounded-[6px] bg-surface p-5 sm:p-8">
+    <div ref={frame} className="scroll-mt-4 rounded-[6px] bg-surface p-5 sm:p-8">
       {typeof phase === "number" && (
         <div className="mb-6 flex items-center justify-between gap-4">
           <ol className="flex gap-1.5" aria-label="Рівні">
@@ -418,7 +461,7 @@ export function AssignmentGame<O>(p: GameProps<O>) {
         </div>
       )}
 
-      {typeof phase === "number" && orders && <div key={phase}>{p.levels[phase].play(orders, finishLevel(phase))}</div>}
+      {typeof phase === "number" && orders && <div key={`${run}-${phase}`}>{p.levels[phase].play(orders, finishLevel(phase))}</div>}
 
       {phase === "final" && (
         <div>
@@ -442,13 +485,28 @@ export function AssignmentGame<O>(p: GameProps<O>) {
             <Link href={p.nextHref} className={primary}>
               {p.nextLabel}
             </Link>
-            <button type="button" onClick={start} className={chip(false)}>
-              Зіграти ще раз
-            </button>
           </div>
           {p.children}
         </div>
       )}
+
+      <nav className="mt-8 flex flex-wrap gap-2 border-t border-border pt-4 print:hidden" aria-label="Перехід між завданнями">
+        <NavStep
+          label="Попереднє завдання"
+          onClick={phase === "final" ? () => goTo(last) : typeof phase === "number" && phase > 0 ? () => goTo(phase - 1) : undefined}
+          href={neighbours.prevHref}
+        />
+        <NavStep
+          label="Наступне завдання"
+          onClick={phase === "intro" ? start : typeof phase === "number" && phase < last ? () => goTo(phase + 1) : undefined}
+          href={neighbours.nextHref}
+        />
+        {phase !== "intro" && (
+          <button type="button" onClick={start} className={chip(false)}>
+            Почати заново
+          </button>
+        )}
+      </nav>
     </div>
   );
 }
