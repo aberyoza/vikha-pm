@@ -34,6 +34,14 @@ export const BASELINE = BUILDS.slice(0, 8);
 export const TOLERANCE = 99.5;
 export const OUTLIER_NOTE = "У збірці оновили рекламну бібліотеку, а нова версія падає на старих Android.";
 
+// Centre line and control limits from the stable builds, three standard
+// deviations either side.
+export const BUILD_MEAN = BASELINE.reduce((a, b) => a + b, 0) / BASELINE.length;
+const buildSd = Math.sqrt(BASELINE.reduce((a, b) => a + (b - BUILD_MEAN) ** 2, 0) / (BASELINE.length - 1));
+export const UCL = Math.min(100, BUILD_MEAN + 3 * buildSd);
+export const LCL = BUILD_MEAN - 3 * buildSd;
+export const outOfControl = (v: number) => v < LCL || v > UCL;
+
 // Beta-test complaints sorted into a check sheet; 100 in total.
 export const COMPLAINTS = [
   { name: "Вилітає на старих Android", count: 46 },
@@ -42,4 +50,25 @@ export const COMPLAINTS = [
   { name: "Звук обривається", count: 8 },
   { name: "Рекорди не зберігаються", count: 7 },
   { name: "Інше", count: 6 },
+];
+
+// Why 40% of players quit at level 3: the bones of the Ishikawa diagram.
+export const BONES: { name: string; cause: string; check: string; whys?: [string, string][] }[] = [
+  { name: "Вимоги", cause: "Між 2-м і 3-м рівнем різко зростає складність.", check: "Порівняти кількість спроб на рівнях 2 і 3." },
+  {
+    name: "Процес",
+    cause: "Рівень не тестували на новачках.",
+    check: "Докопатися до кореня через «5 чому».",
+    whys: [
+      ["Чому гравці кидають 3-й рівень?", "Не можуть пройти перешкоду, де потрібен подвійний стрибок."],
+      ["Чому не можуть?", "Не знають, що подвійний стрибок існує."],
+      ["Чому не знають?", "На рівнях 1–2 його ніде не показано."],
+      ["Чому не показано?", "Подвійний стрибок додали пізно, коли навчальні рівні вже були готові."],
+      ["Чому навчальні рівні не оновили?", "У чек-листі змін механіки немає пункту «перевірити навчання»."],
+    ],
+  },
+  { name: "Команда", cause: "Дизайнер рівнів добре знає гру і не бачить, де новачку складно.", check: "Дати пройти рівень п'ятьом людям, які гри не бачили." },
+  { name: "Інструменти", cause: "Аналітика не рахує кількість спроб на рівні.", check: "Додати подію «спроба рівня» і подивитися дані за тиждень." },
+  { name: "Дані", cause: "Немає записів гри новачків.", check: "Записати екран десяти гравців з бета-тесту." },
+  { name: "Середовище", cause: "На старих телефонах 3-й рівень довго завантажується.", check: "Порівняти, де кидають гру частіше: на старих чи на нових телефонах." },
 ];
