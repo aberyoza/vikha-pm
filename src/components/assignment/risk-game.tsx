@@ -503,7 +503,7 @@ function Tornado() {
             </p>
             <div aria-hidden className="relative mt-1 h-3 rounded-[2px] bg-foreground/[0.07]">
               <span className="absolute inset-y-0 rounded-l-[2px] bg-accent" style={{ left: x(t.low), width: `calc(${x(G.BASE_NPV)} - ${x(t.low)})` }} />
-              <span className="absolute inset-y-0 rounded-r-[2px] bg-sage" style={{ left: x(G.BASE_NPV), width: `calc(${x(t.high)} - ${x(G.BASE_NPV)})` }} />
+              <span className="absolute inset-y-0 rounded-r-[2px] bg-second" style={{ left: x(G.BASE_NPV), width: `calc(${x(t.high)} - ${x(G.BASE_NPV)})` }} />
               <span className="absolute -inset-y-1 w-0.5 bg-foreground" style={{ left: x(G.BASE_NPV) }} />
             </div>
           </li>
@@ -515,7 +515,7 @@ function Tornado() {
           гірше за план
         </span>
         <span className="flex items-center gap-2">
-          <span aria-hidden className="size-2.5 rounded-[2px] bg-sage" />
+          <span aria-hidden className="size-2.5 rounded-[2px] bg-second" />
           краще за план
         </span>
         <span className="flex items-center gap-2">

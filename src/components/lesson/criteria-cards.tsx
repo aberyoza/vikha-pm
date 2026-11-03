@@ -62,8 +62,8 @@ export function CriteriaCards() {
               {c.value}
             </p>
             <p className="mt-1 text-sm">{c.meaning}</p>
-            <p className="mt-2 flex items-center gap-2 text-[13px] text-sage">
-              <span aria-hidden className="size-2 rotate-45 rounded-[1px] bg-sage" />
+            <p className="mt-2 flex items-center gap-2 text-[13px] text-second">
+              <span aria-hidden className="size-2 rotate-45 rounded-[1px] bg-second" />
               Вигідно, якщо {c.rule}
             </p>
           </div>

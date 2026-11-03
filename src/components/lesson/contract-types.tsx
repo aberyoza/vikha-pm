@@ -8,7 +8,7 @@ const types = [
 ];
 
 const mix = (contractor: number) =>
-  `color-mix(in oklab, var(--sage) ${contractor * 100}%, var(--accent))`;
+  `color-mix(in oklab, var(--second) ${contractor * 100}%, var(--accent))`;
 
 function Badge({ n, contractor }: { n: number; contractor: number }) {
   return (
@@ -31,14 +31,14 @@ export function ContractTypes() {
     >
       <div aria-hidden className="mb-3 flex justify-between text-[12px] text-muted">
         <span className="flex items-center gap-1.5">
-          <span className="size-2.5 rounded-full bg-sage" /> ризик у виконавця
+          <span className="size-2.5 rounded-full bg-second" /> ризик у виконавця
         </span>
         <span className="flex items-center gap-1.5">
           ризик у замовника <span className="size-2.5 rounded-full bg-accent" />
         </span>
       </div>
       <div aria-hidden className="relative mx-3 mb-6 h-6">
-        <span className="absolute inset-x-0 top-1/2 h-1.5 -translate-y-1/2 rounded-full bg-gradient-to-r from-sage to-accent" />
+        <span className="absolute inset-x-0 top-1/2 h-1.5 -translate-y-1/2 rounded-full bg-gradient-to-r from-second to-accent" />
         {types.map((t, i) => (
           <span
             key={t.name}
@@ -58,7 +58,7 @@ export function ContractTypes() {
             </p>
             <p className="mt-2 text-muted">{t.example}</p>
             <div aria-hidden className="mt-3 flex h-1.5 gap-0.5 overflow-hidden rounded-full">
-              {t.contractor > 0 && <span className="bg-sage" style={{ flex: t.contractor }} />}
+              {t.contractor > 0 && <span className="bg-second" style={{ flex: t.contractor }} />}
               {t.contractor < 1 && <span className="bg-accent" style={{ flex: 1 - t.contractor }} />}
             </div>
             <p className="mt-2 text-[13px]">{t.risk}</p>

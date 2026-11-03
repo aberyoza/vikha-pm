@@ -91,7 +91,7 @@ export function EvmExplorer() {
         ].map((i) => (
           <div key={i.k} className="rounded-[4px] border border-border p-2.5">
             <dt className="text-[12px] text-muted">{i.k}</dt>
-            <dd className={`font-display text-lg font-semibold tabular-nums ${i.bad ? "" : "text-sage"}`}>
+            <dd className={`font-display text-lg font-semibold tabular-nums ${i.bad ? "" : "text-second"}`}>
               {i.v}
               <span className="ml-1 text-[12px] font-normal text-muted">{i.bad ? "гірше за план" : "у нормі"}</span>
             </dd>

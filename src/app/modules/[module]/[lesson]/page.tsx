@@ -82,7 +82,7 @@ export default async function LessonPage({ params }: Props) {
                       aria-hidden
                       className={`absolute top-[15px] left-px size-3 rounded-full border-2 ${
                         state === "done"
-                          ? "border-sage bg-sage"
+                          ? "border-second bg-second"
                           : state === "now"
                             ? "border-accent bg-surface ring-4 ring-accent-soft"
                             : "border-border bg-surface"

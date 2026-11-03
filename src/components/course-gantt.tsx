@@ -103,12 +103,12 @@ export function CourseGantt() {
           {currentIndex >= 0 && (
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-y-0 z-20 w-0.5 bg-sage"
+              className="pointer-events-none absolute inset-y-0 z-20 w-0.5 bg-second"
               style={{
                 left: `calc(${LABEL_W} + (100% - ${LABEL_W} - ${END_W}) * ${(currentIndex + 0.5) / COLS})`,
               }}
             >
-              <span className="absolute top-[12px] left-[78px] bg-surface px-1 text-[13px] font-semibold whitespace-nowrap text-sage">
+              <span className="absolute top-[12px] left-[78px] bg-surface px-1 text-[13px] font-semibold whitespace-nowrap text-second">
                 Ви тут
               </span>
             </div>
@@ -125,7 +125,7 @@ export function CourseGantt() {
             Готується
           </span>
           <span className="flex items-center gap-2">
-            <i className="h-3 w-0.5 bg-sage" />
+            <i className="h-3 w-0.5 bg-second" />
             Ви тут
           </span>
           <span className="flex items-center gap-2">

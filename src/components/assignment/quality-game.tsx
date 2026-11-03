@@ -167,7 +167,7 @@ function Iceberg() {
               <span className="font-display font-semibold tabular-nums">{s.total}</span>
             </p>
             <div aria-hidden className="mt-1 flex h-4 gap-0.5" style={{ width: w(s.total) }}>
-              <span className="rounded-l-[2px] bg-sage" style={{ width: `${(s.visible / s.total) * 100}%` }} />
+              <span className="rounded-l-[2px] bg-second" style={{ width: `${(s.visible / s.total) * 100}%` }} />
               <span className="flex-1 rounded-r-[2px] bg-accent" />
             </div>
             <p className="mt-1 text-[13px] text-muted tabular-nums">
@@ -178,7 +178,7 @@ function Iceberg() {
       </ul>
       <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-[13px] text-muted">
         <span className="flex items-center gap-2">
-          <span aria-hidden className="size-2.5 rounded-[2px] bg-sage" />
+          <span aria-hidden className="size-2.5 rounded-[2px] bg-second" />
           запобігання й оцінювання
         </span>
         <span className="flex items-center gap-2">
@@ -346,7 +346,7 @@ function BuildChart({ focus, answered }: { focus: number; answered: boolean }) {
           <line key={v} x1={CP.left} x2={CW - CP.right} y1={cy(v)} y2={cy(v)} className="stroke-foreground/70" strokeWidth={1.5} strokeDasharray="5 4" />
         ))}
         <line x1={CP.left} x2={CW - CP.right} y1={cy(BUILD_MEAN)} y2={cy(BUILD_MEAN)} className="stroke-muted" />
-        <line x1={CP.left} x2={CW - CP.right} y1={cy(TOLERANCE)} y2={cy(TOLERANCE)} className="stroke-sage" strokeWidth={1.5} />
+        <line x1={CP.left} x2={CW - CP.right} y1={cy(TOLERANCE)} y2={cy(TOLERANCE)} className="stroke-second" strokeWidth={1.5} />
         {[
           { label: "верхня межа", y: cy(UCL) + 3 },
           { label: "середнє", y: cy(BUILD_MEAN) - 1 },
@@ -455,7 +455,7 @@ function BuildsLevel({
             "Подивись, чи лежить ця точка між двома пунктирними межами контролю.",
             "Прочитай повідомлення і вибери, що робиш.",
           ]}
-          tip="Підказка: поки точка між межами, процес поводиться як завжди, і реагувати на кожне коливання не треба. Зелена лінія показує допуск, тобто вимогу замовника."
+          tip="Підказка: поки точка між межами, процес поводиться як завжди, і реагувати на кожне коливання не треба. Синя лінія показує допуск, тобто вимогу замовника."
         />
         <Questions
           key="chart"

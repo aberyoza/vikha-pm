@@ -6,7 +6,7 @@ const m = evm(WEEK8.pv, WEEK8.ev, WEEK8.ac);
 type Status = "green" | "amber" | "red";
 
 const STATUS: Record<Status, { label: string; dot: string; text: string }> = {
-  green: { label: "у межах плану", dot: "bg-sage", text: "text-sage" },
+  green: { label: "у межах плану", dot: "bg-second", text: "text-second" },
   amber: { label: "увага", dot: "bg-accent", text: "text-accent" },
   red: { label: "потрібне рішення", dot: "bg-risk-3", text: "text-foreground" },
 };

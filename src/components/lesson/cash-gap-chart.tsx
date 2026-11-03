@@ -50,7 +50,7 @@ export function CashGapChart() {
                       {Math.round(v)}
                     </span>
                     <span
-                      className="mx-auto w-3/4 rounded-t-[2px] bg-sage transition-[height] duration-300"
+                      className="mx-auto w-3/4 rounded-t-[2px] bg-second transition-[height] duration-300"
                       style={{ height: h }}
                     />
                   </>

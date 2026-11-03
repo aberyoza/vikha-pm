@@ -12,7 +12,7 @@ const PROGRAMMER = [MECHANICS, SERVER, RELEASE];
 
 const COLOR: Record<number, string> = {
   [MECHANICS]: "bg-accent",
-  [SERVER]: "bg-sage",
+  [SERVER]: "bg-second",
   [RELEASE]: "bg-accent/55",
 };
 

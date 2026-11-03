@@ -253,7 +253,7 @@ function CashChart({ own, loanWeek }: { own: number; loanWeek: number }) {
         strokeDasharray="6 4"
         style={{ stroke: "var(--muted)" }}
       />
-      <polyline points={cash.map((p) => p.join(",")).join(" ")} fill="none" strokeWidth={2.5} strokeLinejoin="round" style={{ stroke: "var(--sage)" }} />
+      <polyline points={cash.map((p) => p.join(",")).join(" ")} fill="none" strokeWidth={2.5} strokeLinejoin="round" style={{ stroke: "var(--second)" }} />
     </svg>
   );
 }
@@ -529,7 +529,7 @@ function ProgressLevel({ onDone }: { onDone: (score: number) => void }) {
   );
 }
 
-const TONE = { plan: "bg-foreground/35", ev: "bg-sage", ac: "bg-accent" } as const;
+const TONE = { plan: "bg-foreground/35", ev: "bg-second", ac: "bg-accent" } as const;
 
 // Amounts as bars on one scale.
 function Bars({ rows }: { rows: { label: string; value?: number; tone: keyof typeof TONE }[] }) {
@@ -727,7 +727,7 @@ function ForecastMeter({ value, limit }: { value: number; limit: number }) {
         <span className="font-normal text-muted"> · межа бюджету <span className="tabular-nums">{limit}</span> тис.{over ? " · перевищено" : ""}</span>
       </p>
       <div aria-hidden className="relative mt-5 h-3 rounded-full bg-foreground/[0.07]">
-        <span className="absolute inset-y-0 left-0 rounded-l-full bg-sage/40" style={{ width: meterAt(limit) }} />
+        <span className="absolute inset-y-0 left-0 rounded-l-full bg-second/40" style={{ width: meterAt(limit) }} />
         <span className="absolute -top-1.5 h-6 w-0.5 bg-foreground" style={{ left: meterAt(limit) }} />
         <span
           className="absolute -top-1 block size-5 -translate-x-1/2 rotate-45 rounded-[3px] bg-accent ring-2 ring-background transition-[left] duration-500 ease-[var(--ease-out)]"
