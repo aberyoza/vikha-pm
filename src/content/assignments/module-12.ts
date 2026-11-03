@@ -3,18 +3,12 @@
 // read a control chart, walk through PDCA and find a root cause. The metrics, costs,
 // builds, complaints and the Ishikawa diagram come from game-quality.ts.
 import { BONES, COMPLAINTS, COQ_PARTS, COQ_SCENARIOS, type CoqKey } from "@/content/examples/game-quality";
+import type { Card, Choice, Question } from "./types";
 
 export const TITLE = "Чи готова гра?";
 
 export const INTRO =
   "Бета-тест закінчився, і 3 сесії зі 100 вилітають. Тестувальники кажуть, що гра неякісна, а розробники кажуть, що для маленької студії вона непогана. Розсуди цю суперечку цифрами і доведи гру до стабільного стану. П'ять рівнів, близько 30 хвилин.";
-
-// A card to answer with one of a few fixed choices.
-export type Card<K extends string> = { text: string; answer: K; why: string };
-export type Choice<K extends string> = { key: K; name: string; note?: string };
-
-// A question with its own answers.
-export type Question = { text: string; options: { text: string; right?: boolean; why: string }[] };
 
 // Level 1: quality goes to the team, grade goes to the founders.
 export type Desk = "team" | "founders";
