@@ -1,61 +1,60 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* Design tokens — dark by default, warm. The full style guide lives in
+/* Design tokens — dark by default, cool. The full style guide lives in
    design-system/vikha/MASTER.md; components use these tokens only. */
 :root {
   color-scheme: dark;
 
-  /* Surfaces & text: near-black ink with only a trace of warmth, so the
-     page reads as print rather than as the brown "assistant" palette. */
-  --background: #121211;
-  --surface: #1a1a18;
-  --surface-raised: #232320;
-  --foreground: #ecebe6;
-  --muted: #a3a29b;
-  --border: #2e2d2a;
-  --grid: #1d1d1b;
+  /* Surfaces & text: near-black ink with a trace of blue, so the neutrals
+     sit calmly next to the accent. */
+  --background: #111316;
+  --surface: #181b1f;
+  --surface-raised: #21252a;
+  --foreground: #dde1e6;
+  --muted: #9aa1aa;
+  --border: #2c3036;
+  --grid: #1b1e22;
 
-  /* Brand: honey. Buttons, open modules, milestone diamonds. */
-  --accent: #e8a33d;
-  --accent-foreground: #1e1609;
-  --accent-soft: #2a2414;
+  /* Brand: pastel blue. Buttons, open modules, milestone diamonds. */
+  --accent: #8aa8dc;
+  --accent-foreground: #101a24;
+  --accent-soft: #1a2433;
 
   /* Sage: progress — "you are here", completed lessons. */
-  --sage: #8cc2a8;
-  --sage-soft: #1f3029;
+  --sage: #a8cc96;
+  --sage-soft: #202b22;
 
-  /* Ordinal ramp for risk levels: warm clay, dark to light. */
-  --risk-1: #2a221d;
-  --risk-2: #4a2f22;
-  --risk-3: #73402a;
+  /* Ordinal ramp for risk levels: soft blue, kept low in saturation. */
+  --risk-1: #181e26;
+  --risk-2: #233449;
+  --risk-3: #3a5575;
 }
 
 /* Light theme: opt-in via the header toggle (stored in localStorage and
-   applied by an inline script before first paint). Neutral paper and ink;
-   the accent darkens to mustard so it stays readable as text (≥ 4.5:1). */
+   applied by an inline script before first paint). Cool paper and ink;
+   the accent darkens to a muted blue so it stays readable as text (≥ 4.5:1). */
 :root[data-theme="light"] {
   color-scheme: light;
 
-  --background: #f4f4f1;
-  --surface: #fbfbf9;
-  --surface-raised: #e9e9e4;
-  --foreground: #171715;
-  --muted: #5d5d57;
-  --border: #dcdcd5;
-  --grid: #e7e7e2;
+  --background: #f3f5f7;
+  --surface: #fafbfc;
+  --surface-raised: #e8ebef;
+  --foreground: #1c2026;
+  --muted: #59616b;
+  --border: #dadfe5;
+  --grid: #e6e9ed;
 
-  /* Mustard rather than rust, so the light theme is not cream-and-terracotta. */
-  --accent: #835a00;
-  --accent-foreground: #fbfbf9;
-  --accent-soft: #f3ead2;
+  --accent: #4069a8;
+  --accent-foreground: #fafbfc;
+  --accent-soft: #e7eef7;
 
-  --sage: #3b735b;
-  --sage-soft: #e2efe8;
+  --sage: #4a7a4e;
+  --sage-soft: #e6f0e4;
 
-  --risk-1: #fbf0e9;
-  --risk-2: #f3d3bd;
-  --risk-3: #e3a07c;
+  --risk-1: #f0f4f9;
+  --risk-2: #d6e3f2;
+  --risk-3: #b3c9e4;
 }
 
 @custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
@@ -240,7 +239,7 @@ body::before {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Hero depth: one static honey glow behind the headline, no motion. */
+/* Hero depth: one static accent glow behind the headline, no motion. */
 .hero-glow {
   background:
     radial-gradient(60% 70% at 18% 20%, color-mix(in oklab, var(--accent) 7%, transparent), transparent 70%),
