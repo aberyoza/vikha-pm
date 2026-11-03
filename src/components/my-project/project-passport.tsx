@@ -9,6 +9,7 @@ import { ApproachEditor } from "./project-approach";
 import { BudgetEditor, BudgetList } from "./project-budget";
 import { InvestEditor } from "./project-invest";
 import { PeopleEditor, PeopleList } from "./project-people";
+import { QualityEditor, QualityList } from "./project-quality";
 import { RisksEditor, RisksList } from "./project-risks";
 import { RulesEditor, RulesList } from "./project-rules";
 import { ScheduleEditor, ScheduleList } from "./project-schedule";
@@ -41,7 +42,9 @@ const isDone = (p: MyProject, module: number) =>
                     ? !!p.team
                     : module === 11
                       ? !!p.risks
-                      : false;
+                      : module === 12
+                        ? !!p.quality
+                        : false;
 
 function download(p: MyProject) {
   const blob = new Blob([JSON.stringify(p, null, 2)], { type: "application/json" });
@@ -292,6 +295,19 @@ export function ProjectPassport({ titles, startHref }: { titles: Record<number, 
                   {m.module === 11 && editing === 11 && (
                     <div className="mt-4">
                       <RisksEditor project={project} onSaved={() => setEditing(null)} />
+                    </div>
+                  )}
+                  {m.module === 12 && project.quality && editing !== 12 && (
+                    <>
+                      <QualityList project={project} quality={project.quality} />
+                      <button type="button" onClick={() => setEditing(12)} className={`${chip} mt-4 print:hidden`}>
+                        Змінити
+                      </button>
+                    </>
+                  )}
+                  {m.module === 12 && editing === 12 && (
+                    <div className="mt-4">
+                      <QualityEditor project={project} onSaved={() => setEditing(null)} />
                     </div>
                   )}
                   {!ok && <p className="mt-1 text-sm text-muted">Відкриється в завданні модуля {m.module}.</p>}

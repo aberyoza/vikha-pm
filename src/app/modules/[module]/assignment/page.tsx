@@ -7,6 +7,7 @@ import { FirstDayGame } from "@/components/assignment/first-day-game";
 import { GovernanceGame } from "@/components/assignment/governance-game";
 import { InvestmentCommitteeGame } from "@/components/assignment/investment-committee-game";
 import { PrinciplesWeekGame } from "@/components/assignment/principles-week-game";
+import { QualityGame } from "@/components/assignment/quality-game";
 import { RiskGame } from "@/components/assignment/risk-game";
 import { ScheduleGame } from "@/components/assignment/schedule-game";
 import { ScopeGame } from "@/components/assignment/scope-game";
@@ -67,6 +68,7 @@ export default async function AssignmentPage({ params }: Props) {
       {slug === "module-09" && <BudgetGame nextHref={nextHref} />}
       {slug === "module-10" && <TeamGame nextHref={nextHref} />}
       {slug === "module-11" && <RiskGame nextHref={nextHref} />}
+      {slug === "module-12" && <QualityGame nextHref={nextHref} />}
     </main>
   );
 }

@@ -1,16 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { BASELINE, BUILDS, OUTLIER_NOTE, TOLERANCE } from "@/content/examples/game-quality";
+import { BUILD_MEAN as mean, BUILDS, LCL, OUTLIER_NOTE, TOLERANCE, UCL, outOfControl as out } from "@/content/examples/game-quality";
 import { fmt } from "@/content/examples/game-finance";
 import { Figure } from "./figure";
-
-// Centre line and control limits from the stable builds, three standard
-// deviations either side.
-const mean = BASELINE.reduce((a, b) => a + b, 0) / BASELINE.length;
-const sd = Math.sqrt(BASELINE.reduce((a, b) => a + (b - mean) ** 2, 0) / (BASELINE.length - 1));
-const UCL = Math.min(100, mean + 3 * sd);
-const LCL = mean - 3 * sd;
 
 const W = 360;
 const H = 200;
@@ -19,7 +12,6 @@ const Y_MIN = 98.5;
 const Y_MAX = 100;
 const x = (i: number) => PAD.left + ((i + 0.5) / BUILDS.length) * (W - PAD.left - PAD.right);
 const y = (v: number) => PAD.top + ((Y_MAX - v) / (Y_MAX - Y_MIN)) * (H - PAD.top - PAD.bottom);
-const out = (v: number) => v < LCL || v > UCL;
 const pct = (v: number) => `${fmt(v, 1)}%`;
 
 // Crash-free sessions per build with control limits; one build falls out.
