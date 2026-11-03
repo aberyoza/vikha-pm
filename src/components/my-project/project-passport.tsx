@@ -6,6 +6,7 @@ import { MilestoneMark } from "@/components/logo";
 import { MILESTONES, VALUE_STEPS } from "@/content/my-project";
 import { parseProject, saveProject, useMyProject, type MyProject } from "@/lib/my-project";
 import { ApproachEditor } from "./project-approach";
+import { BoardEditor, BoardList } from "./project-board";
 import { BudgetEditor, BudgetList } from "./project-budget";
 import { InvestEditor } from "./project-invest";
 import { PeopleEditor, PeopleList } from "./project-people";
@@ -44,7 +45,9 @@ const isDone = (p: MyProject, module: number) =>
                       ? !!p.risks
                       : module === 12
                         ? !!p.quality
-                        : false;
+                        : module === 13
+                          ? !!p.board
+                          : false;
 
 function download(p: MyProject) {
   const blob = new Blob([JSON.stringify(p, null, 2)], { type: "application/json" });
@@ -308,6 +311,19 @@ export function ProjectPassport({ titles, startHref }: { titles: Record<number, 
                   {m.module === 12 && editing === 12 && (
                     <div className="mt-4">
                       <QualityEditor project={project} onSaved={() => setEditing(null)} />
+                    </div>
+                  )}
+                  {m.module === 13 && project.board && editing !== 13 && (
+                    <>
+                      <BoardList board={project.board} />
+                      <button type="button" onClick={() => setEditing(13)} className={`${chip} mt-4 print:hidden`}>
+                        Змінити
+                      </button>
+                    </>
+                  )}
+                  {m.module === 13 && editing === 13 && (
+                    <div className="mt-4">
+                      <BoardEditor project={project} onSaved={() => setEditing(null)} />
                     </div>
                   )}
                   {!ok && <p className="mt-1 text-sm text-muted">Відкриється в завданні модуля {m.module}.</p>}

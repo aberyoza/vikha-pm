@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { createContext, useContext, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import { MilestoneMark } from "@/components/logo";
+import type { Card, Choice, Question } from "@/content/assignments/types";
 
 // Shared pieces of the module games: buttons, feedback, the basket level and
 // the frame with intro, level progress and the finish.
@@ -325,6 +326,162 @@ export function BasketLevel<K extends string>({
           </>
         )}
       </div>
+    </div>
+  );
+}
+
+export const optionClass = (on: boolean, off: boolean) =>
+  `rounded-md px-3 py-2 text-left text-sm font-medium leading-snug press ${
+    on ? "bg-accent text-accent-foreground" : `bg-foreground/[0.07] enabled:hover:bg-foreground/[0.12] ${off ? "opacity-60" : ""}`
+  }`;
+
+export const cardClass = (right: boolean, wrong: boolean) =>
+  `flex flex-col gap-1 rounded-[6px] p-3 text-left leading-snug press ${
+    right ? "bg-accent text-accent-foreground" : wrong ? "bg-foreground/[0.12]" : "bg-background enabled:hover:bg-foreground/[0.08] disabled:opacity-60"
+  }`;
+
+// A pile of cards, each answered with one of a few fixed choices. `above` draws
+// whatever grows as cards get answered: a wheel, a skeleton.
+export function Deck<K extends string>({
+  label,
+  question,
+  items,
+  order,
+  choices,
+  columns = "sm:grid-cols-2",
+  doneLabel,
+  above,
+  onDone,
+}: {
+  label: string;
+  question: string;
+  items: Card<K>[];
+  order: number[];
+  choices: Choice<K>[];
+  columns?: string;
+  doneLabel: string;
+  above?: (answered: Card<K>[]) => ReactNode;
+  onDone: (score: number) => void;
+}) {
+  const [i, setI] = useState(0);
+  const [pick, setPick] = useState<K | null>(null);
+  const [score, setScore] = useState(0);
+  const item = items[order[i]];
+  const last = i === items.length - 1;
+  const answered = order.slice(0, pick === null ? i : i + 1).map((k) => items[k]);
+
+  const choose = (k: K) => {
+    setPick(k);
+    if (k === item.answer) setScore((v) => v + 1);
+  };
+
+  return (
+    <div className="mt-5">
+      {above?.(answered)}
+      <p className={`text-sm text-muted tabular-nums ${above ? "mt-4" : ""}`}>
+        {label} {i + 1} з {items.length}
+      </p>
+      <div className="mt-2 rounded-[6px] bg-surface-raised p-4 leading-relaxed sm:p-5">{item.text}</div>
+      <p className="mt-4 font-medium">{question}</p>
+      <div className={`mt-2 grid gap-2 ${columns}`} role="group" aria-label={question}>
+        {choices.map((c) => {
+          const right = pick !== null && c.key === item.answer;
+          const wrong = pick === c.key && c.key !== item.answer;
+          return (
+            <button key={c.key} type="button" disabled={pick !== null} aria-pressed={pick === c.key} onClick={() => choose(c.key)} className={cardClass(right, wrong)}>
+              <span className={`font-medium ${wrong ? "line-through decoration-2" : ""}`}>{c.name}</span>
+              {c.note && <span className={`text-[13px] ${right ? "" : "text-muted"}`}>{c.note}</span>}
+            </button>
+          );
+        })}
+      </div>
+      {pick !== null && (
+        <div className="mt-4 space-y-4">
+          <Feedback ok={pick === item.answer}>
+            {pick === item.answer ? "" : `Правильна відповідь: «${choices.find((c) => c.key === item.answer)!.name}». `}
+            {item.why}
+          </Feedback>
+          <button
+            type="button"
+            onClick={() => {
+              if (last) return onDone(score);
+              setI(i + 1);
+              setPick(null);
+            }}
+            className={primary}
+          >
+            {last ? doneLabel : "Далі"}
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// A row of questions, each with its own answers. `above` draws what the question is about.
+export function Questions({
+  label,
+  items,
+  orders,
+  doneLabel,
+  above,
+  onDone,
+}: {
+  label?: string;
+  items: Question[];
+  orders: number[][];
+  doneLabel: string;
+  above?: (i: number, answered: boolean) => ReactNode;
+  onDone: (score: number) => void;
+}) {
+  const [i, setI] = useState(0);
+  const [pick, setPick] = useState<number | null>(null);
+  const [score, setScore] = useState(0);
+  const q = items[i];
+  const last = i === items.length - 1;
+
+  return (
+    <div className="mt-5">
+      {above?.(i, pick !== null)}
+      {label && (
+        <p className={`text-sm text-muted tabular-nums ${above ? "mt-4" : ""}`}>
+          {label} {i + 1} з {items.length}
+        </p>
+      )}
+      <p className="mt-2 font-medium leading-snug">{q.text}</p>
+      <div className="mt-2 grid gap-1.5" role="group" aria-label="Варіанти відповіді">
+        {orders[i].map((k) => (
+          <button
+            key={k}
+            type="button"
+            disabled={pick !== null}
+            aria-pressed={pick === k}
+            onClick={() => {
+              setPick(k);
+              if (q.options[k].right) setScore((v) => v + 1);
+            }}
+            className={`${optionClass(pick !== null && !!q.options[k].right, pick !== null)} ${pick === k && !q.options[k].right ? "line-through decoration-2" : ""}`}
+          >
+            {q.options[k].text}
+          </button>
+        ))}
+      </div>
+      {pick !== null && (
+        <div className="mt-4 space-y-4">
+          <Feedback ok={!!q.options[pick].right}>{q.options[pick].why}</Feedback>
+          <button
+            type="button"
+            onClick={() => {
+              if (last) return onDone(score);
+              setI(i + 1);
+              setPick(null);
+            }}
+            className={primary}
+          >
+            {last ? doneLabel : "Далі"}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

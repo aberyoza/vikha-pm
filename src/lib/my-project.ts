@@ -1,7 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import type { Person, ProjectMetric, ProjectRisk, ValueStep } from "@/content/my-project";
+import type { BoardColumn, Person, ProjectMetric, ProjectRisk, ValueStep } from "@/content/my-project";
 
 // The reader's project lives in the browser until accounts exist. Each module
 // adds its own field; `version` lets a later shape migrate old saves.
@@ -31,6 +31,8 @@ export type MyProject = {
   risks?: ProjectRisk[];
   // Module 12: three quality requirements and who may stop the launch.
   quality?: { metrics: ProjectMetric[]; stop: string };
+  // Module 13: the method, the limit of work in progress, the rhythm and the first cards.
+  board?: { method: string; limit: number; rhythm: string; cards: { name: string; column: BoardColumn }[] };
   updatedAt: string;
 };
 

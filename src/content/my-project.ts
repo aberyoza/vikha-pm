@@ -71,6 +71,8 @@ export type Idea = {
   risks: ProjectRisk[];
   // Module 12: three suggested quality requirements and who may stop the launch.
   quality: { metrics: ProjectMetric[]; stop: string };
+  // Module 13: the suggested method, the scope blocks already in work, the limit and the rhythm.
+  board: { method: string; doing: number[]; limit: number; rhythm: string };
 };
 
 // Module 12: one requirement to the result of the reader's project.
@@ -185,6 +187,7 @@ export const IDEAS: Idea[] = [
       ],
       stop: "Адміністраторка",
     },
+    board: { method: "Scrum", doing: [0], limit: 2, rhythm: "Раз на тиждень" },
     hints: {
       result: ["Telegram-бот, через який можна записатися на стрижку", "Бот, що показує вільні віконця кожного майстра"],
       outcome: ["Клієнти записуються самі, без дзвінків", "Менше людей забувають про візит, бо бот нагадує за день"],
@@ -274,6 +277,7 @@ export const IDEAS: Idea[] = [
       ],
       stop: "Бариста",
     },
+    board: { method: "Kanban", doing: [4], limit: 2, rhythm: "Раз на тиждень" },
     hints: {
       result: ["Сайт з меню, цінами і формою бронювання", "Сторінка кав'ярні, яку знаходить Google"],
       outcome: ["Люди бронюють столик заздалегідь", "Нові гості знаходять кав'ярню через пошук"],
@@ -363,6 +367,7 @@ export const IDEAS: Idea[] = [
       ],
       stop: "Бухгалтерка ОСББ",
     },
+    board: { method: "Scrum", doing: [0], limit: 2, rhythm: "Раз на тиждень" },
     hints: {
       result: ["Бот, у який мешканці надсилають показники лічильників", "Бот, що розсилає оголошення про відключення"],
       outcome: ["Показники приходять вчасно, без папірців у поштових скриньках", "Мешканці дізнаються про відключення заздалегідь"],
@@ -452,6 +457,7 @@ export const IDEAS: Idea[] = [
       ],
       stop: "Колега, що збирає звіт руками",
     },
+    board: { method: "Scrum", doing: [0, 1], limit: 2, rhythm: "Двічі на тиждень" },
     hints: {
       result: ["Дашборд, який сам збирає цифри з таблиць", "Щоденний звіт, що сам приходить на пошту"],
       outcome: ["Команда більше не збирає звіт руками щоп'ятниці", "Керівник бачить цифри щодня, а не раз на тиждень"],
@@ -541,6 +547,7 @@ export const IDEAS: Idea[] = [
       ],
       stop: "Тімлід",
     },
+    board: { method: "Scrumban", doing: [0], limit: 2, rhythm: "Раз на тиждень" },
     hints: {
       result: ["Курс з короткими відео про те, як влаштовано проєкт", "Чек-лист першого тижня з посиланнями й доступами"],
       outcome: ["Новачки ставлять менше однакових питань", "Джун робить перший реліз за тиждень, а не за місяць"],
@@ -630,6 +637,7 @@ export const IDEAS: Idea[] = [
       ],
       stop: "Координатор волонтерів",
     },
+    board: { method: "Kanban", doing: [0, 4], limit: 3, rhythm: "Раз на тиждень" },
     hints: {
       result: ["Забіг на 5 км з реєстрацією і медалями", "Сторінка збору, куди можна задонатити"],
       outcome: ["Сотні людей приходять бігти й приводять друзів", "Люди донатять, бо бачать, на що підуть гроші"],
@@ -719,6 +727,7 @@ export const IDEAS: Idea[] = [
       ],
       stop: "Партнер чи партнерка",
     },
+    board: { method: "Kanban", doing: [0], limit: 2, rhythm: "Щодня" },
     hints: {
       result: ["Нова кухня з технікою, що працює", "Кухня, де нарешті вистачає місця для всіх"],
       outcome: ["Родина знову вечеряє разом на кухні", "Готувати стало швидше і зручніше"],
@@ -858,6 +867,18 @@ export const OPPORTUNITY_RESPONSES: { name: string; note: string }[] = [
 ];
 
 export const riskLevel = (v: number) => (v >= 12 ? "високий" : v >= 6 ? "середній" : "низький");
+
+// Module 13: the board of the reader's project.
+export type BoardColumn = "queue" | "doing" | "done";
+
+export const BOARD_COLUMNS: { key: BoardColumn; name: string }[] = [
+  { key: "queue", name: "Черга" },
+  { key: "doing", name: "В роботі" },
+  { key: "done", name: "Готово" },
+];
+
+export const METHODS = ["Scrum", "Kanban", "Scrumban"];
+export const BOARD_RHYTHMS = ["Щодня", "Двічі на тиждень", "Раз на тиждень"];
 
 // Module 5: the five levels of engagement and the move that lifts each one.
 export const ENGAGEMENT = ["Не обізнаний", "Чинить опір", "Нейтральний", "Підтримує", "Веде"] as const;

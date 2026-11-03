@@ -52,14 +52,24 @@ theme-specific tweak (e.g. which toggle icon shows).
 | `accent-foreground` | `#101a24` | `#fafbfc` | text on accent |
 | `accent-soft` | `#1a2433` | `#e7eef7` | accent tint: result panels, Callout |
 | `sage` / `sage-soft` | `#a8cc96` / `#202b22` | `#4a7a4e` / `#e6f0e4` | progress: "Ви тут", completed lessons |
-| `risk-1..3` | soft blue ramp | soft blue ramp | ordinal scale (risk matrix) only |
+| `risk-1` | `#181e26` | `#f0f4f9` | low priority (risk matrix only) |
+| `risk-2` | `#233449` | `#d6e3f2` | medium priority (risk matrix only) |
+| `risk-3` | `#3a5575` | `#b3c9e4` | high priority (risk matrix only) |
 
-All text pairs are ≥ 5:1 (checked with the WCAG formula).
+Body text and buttons are ≥ 5:1. The tightest text pairs are in the light theme:
+`accent` on `accent-soft` (4.7:1) and `sage` on `surface` (4.8:1), both above
+the required 4.5:1 (checked with the WCAG formula).
 
 Rules:
 - **No assistant palette.** No cream or yellow-beige ground with rust or
   terracotta accents, no violet/indigo. That combination is what made v2 read
   as "made by Claude". The light theme is cool paper with a muted blue accent.
+- **Soft, not vivid.** The author found the first bright blue (`#5cb0f5`) tiring
+  to look at. Keep the accent pastel and low in saturation, and do not make
+  large filled areas brighter than the table above.
+- Blue and sage appear next to each other in charts. After changing either one,
+  recheck them: OKLab distance ≥ 15 at normal vision and with deuteranopia or
+  protanopia simulated. The current pairs give 16–17 in both themes.
 - One accent. Blue is the only CTA and selection color. Sage marks
   position/progress, never a button. Running text stays in full `foreground`.
 - Ordinal/status colors always come with a text label or legend.

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { AgileGame } from "@/components/assignment/agile-game";
 import { ApproachesGame } from "@/components/assignment/approaches-game";
 import { BudgetGame } from "@/components/assignment/budget-game";
 import { FirstDayGame } from "@/components/assignment/first-day-game";
@@ -78,6 +79,7 @@ export default async function AssignmentPage({ params }: Props) {
         {slug === "module-10" && <TeamGame nextHref={nextHref} />}
         {slug === "module-11" && <RiskGame nextHref={nextHref} />}
         {slug === "module-12" && <QualityGame nextHref={nextHref} />}
+        {slug === "module-13" && <AgileGame nextHref={nextHref} />}
       </AssignmentNeighbours>
     </main>
   );
