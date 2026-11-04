@@ -1,10 +1,13 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
+import { AccountMenu } from "@/components/auth/account-menu";
 import { Logo } from "@/components/logo";
 import { themeInitScript } from "@/components/theme";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { INDEXABLE, OPEN_GRAPH, SITE_NAME, SITE_URL } from "@/content/site";
+import { authEnabled } from "@/lib/auth";
 import { fixelDisplay, fixelText } from "@/fonts";
 import "katex/dist/katex.min.css";
 import "./globals.css";
@@ -47,7 +50,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <nav className="flex items-center gap-1">
               <Link
                 href="/#program"
-                className="rounded-md px-3 py-2 text-[15px] text-muted transition-colors duration-200 hover:text-foreground"
+                className={`rounded-md px-3 py-2 text-[15px] text-muted transition-colors duration-200 hover:text-foreground ${authEnabled ? "hidden sm:block" : ""}`}
               >
                 Програма
               </Link>
@@ -57,6 +60,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               >
                 Мій проєкт
               </Link>
+              {authEnabled && (
+                <Suspense fallback={null}>
+                  <AccountMenu />
+                </Suspense>
+              )}
               <ThemeToggle />
             </nav>
           </div>
