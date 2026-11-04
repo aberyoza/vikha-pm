@@ -104,7 +104,7 @@ export default async function LessonPage({ params }: Props) {
                   className="block py-2 pl-8 text-foreground transition-colors duration-200 hover:text-accent"
                 >
                   Завдання модуля
-                  <span className="block text-sm text-muted">Гра на 10 хвилин</span>
+                  <span className="block text-sm text-muted">Гра на {assignment.minutes} хвилин</span>
                 </Link>
               ) : (
                 <span className="block py-2 pl-8 text-foreground">

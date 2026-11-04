@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const a = ASSIGNMENTS[slug];
   const m = modules.find((x) => x.slug === slug);
   if (!a || !m) return {};
-  const description = `Завдання модуля ${m.number} у формі короткої гри: ${a.title.toLowerCase()}, близько 10 хвилин.`;
+  const description = `Завдання модуля ${m.number} у формі короткої гри: ${a.title.toLowerCase()}, близько ${a.minutes} хвилин.`;
   return {
     title: `${a.title}: завдання модуля ${m.number}`,
     description,
