@@ -216,6 +216,7 @@ export function BasketLevel<K extends string>({
   intro,
   items,
   bins,
+  columns = "sm:grid-cols-3",
   order,
   allRight,
   onDone,
@@ -223,6 +224,7 @@ export function BasketLevel<K extends string>({
   intro: ReactNode;
   items: { text: string; bin: K; why: string }[];
   bins: Bin<K>[];
+  columns?: string;
   order: number[];
   allRight: string;
   onDone: (score: number) => void;
@@ -266,7 +268,7 @@ export function BasketLevel<K extends string>({
         {pool.length === 0 && !checked && <span className="py-2 text-sm text-muted">Усі картки розкладено.</span>}
       </div>
 
-      <div className="mt-5 grid gap-2 sm:grid-cols-3">
+      <div className={`mt-5 grid gap-2 ${columns}`}>
         {bins.map((s) => (
           <div key={s.key} className="rounded-[4px] bg-background p-2">
             <button

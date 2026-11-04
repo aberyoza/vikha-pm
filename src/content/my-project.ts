@@ -73,6 +73,8 @@ export type Idea = {
   quality: { metrics: ProjectMetric[]; stop: string };
   // Module 13: the suggested method, the scope blocks already in work, the limit and the rhythm.
   board: { method: string; doing: number[]; limit: number; rhythm: string };
+  // Module 14: the measure with its target, an early sign, months of the checks and what to do if it lags.
+  benefit: { metric: string; early: string; checks: number[]; behind: string };
 };
 
 // Module 12: one requirement to the result of the reader's project.
@@ -188,6 +190,12 @@ export const IDEAS: Idea[] = [
       stop: "Адміністраторка",
     },
     board: { method: "Scrum", doing: [0], limit: 2, rhythm: "Раз на тиждень" },
+    benefit: {
+      metric: "85% віконець заповнено через три місяці",
+      early: "Скільки клієнтів записалися через бота за перший місяць",
+      checks: [1, 3, 6],
+      behind: "Попросити майстрів давати посилання на бота кожному клієнту",
+    },
     hints: {
       result: ["Telegram-бот, через який можна записатися на стрижку", "Бот, що показує вільні віконця кожного майстра"],
       outcome: ["Клієнти записуються самі, без дзвінків", "Менше людей забувають про візит, бо бот нагадує за день"],
@@ -278,6 +286,12 @@ export const IDEAS: Idea[] = [
       stop: "Бариста",
     },
     board: { method: "Kanban", doing: [4], limit: 2, rhythm: "Раз на тиждень" },
+    benefit: {
+      metric: "Щотижня через сайт бронюють 20 столиків",
+      early: "Скільки людей за перший місяць відкрили сторінку бронювання",
+      checks: [1, 3, 6],
+      behind: "Додати кнопку бронювання в Google-картку й Instagram",
+    },
     hints: {
       result: ["Сайт з меню, цінами і формою бронювання", "Сторінка кав'ярні, яку знаходить Google"],
       outcome: ["Люди бронюють столик заздалегідь", "Нові гості знаходять кав'ярню через пошук"],
@@ -368,6 +382,12 @@ export const IDEAS: Idea[] = [
       stop: "Бухгалтерка ОСББ",
     },
     board: { method: "Scrum", doing: [0], limit: 2, rhythm: "Раз на тиждень" },
+    benefit: {
+      metric: "70% квартир подають показники через бота",
+      early: "Скільки квартир підключилися за перший тиждень",
+      checks: [1, 3],
+      behind: "Розвісити в під'їздах оголошення і допомогти сусідам підключитися",
+    },
     hints: {
       result: ["Бот, у який мешканці надсилають показники лічильників", "Бот, що розсилає оголошення про відключення"],
       outcome: ["Показники приходять вчасно, без папірців у поштових скриньках", "Мешканці дізнаються про відключення заздалегідь"],
@@ -458,6 +478,12 @@ export const IDEAS: Idea[] = [
       stop: "Колега, що збирає звіт руками",
     },
     board: { method: "Scrum", doing: [0, 1], limit: 2, rhythm: "Двічі на тиждень" },
+    benefit: {
+      metric: "Звіт займає 0 годин замість 4 на тиждень",
+      early: "Скільки людей у команді відкрили дашборд за перший тиждень",
+      checks: [1, 3],
+      behind: "Спитати в команди, яких цифр бракує, і додати їх",
+    },
     hints: {
       result: ["Дашборд, який сам збирає цифри з таблиць", "Щоденний звіт, що сам приходить на пошту"],
       outcome: ["Команда більше не збирає звіт руками щоп'ятниці", "Керівник бачить цифри щодня, а не раз на тиждень"],
@@ -548,6 +574,12 @@ export const IDEAS: Idea[] = [
       stop: "Тімлід",
     },
     board: { method: "Scrumban", doing: [0], limit: 2, rhythm: "Раз на тиждень" },
+    benefit: {
+      metric: "Новачок робить перший реліз за 2 тижні",
+      early: "Скільки модулів курсу новачок проходить за перші три дні",
+      checks: [3, 6, 12],
+      behind: "Прибрати зайве з курсу і призначити наставника на перший тиждень",
+    },
     hints: {
       result: ["Курс з короткими відео про те, як влаштовано проєкт", "Чек-лист першого тижня з посиланнями й доступами"],
       outcome: ["Новачки ставлять менше однакових питань", "Джун робить перший реліз за тиждень, а не за місяць"],
@@ -638,6 +670,12 @@ export const IDEAS: Idea[] = [
       stop: "Координатор волонтерів",
     },
     board: { method: "Kanban", doing: [0, 4], limit: 3, rhythm: "Раз на тиждень" },
+    benefit: {
+      metric: "Зібрано 200 тис. грн на мету",
+      early: "Скільки людей зареєструвалися за місяць до забігу",
+      checks: [1, 3],
+      behind: "Запросити місцевий бізнес у партнери і посилити оголошення",
+    },
     hints: {
       result: ["Забіг на 5 км з реєстрацією і медалями", "Сторінка збору, куди можна задонатити"],
       outcome: ["Сотні людей приходять бігти й приводять друзів", "Люди донатять, бо бачать, на що підуть гроші"],
@@ -728,6 +766,12 @@ export const IDEAS: Idea[] = [
       stop: "Партнер чи партнерка",
     },
     board: { method: "Kanban", doing: [0], limit: 2, rhythm: "Щодня" },
+    benefit: {
+      metric: "Уся родина з 4 людей щодня сідає за стіл без тісноти",
+      early: "Скільки разів за перший тиждень обідали всі разом",
+      checks: [1, 6],
+      behind: "Переставити меблі або докупити те, що заважає",
+    },
     hints: {
       result: ["Нова кухня з технікою, що працює", "Кухня, де нарешті вистачає місця для всіх"],
       outcome: ["Родина знову вечеряє разом на кухні", "Готувати стало швидше і зручніше"],
@@ -878,6 +922,14 @@ export const BOARD_COLUMNS: { key: BoardColumn; name: string }[] = [
 ];
 
 export const METHODS = ["Scrum", "Kanban", "Scrumban"];
+// Module 14: when the benefit gets checked, in months after the launch.
+export const BENEFIT_CHECKS = [
+  { months: 1, name: "1 місяць" },
+  { months: 3, name: "3 місяці" },
+  { months: 6, name: "6 місяців" },
+  { months: 12, name: "12 місяців" },
+];
+
 export const BOARD_RHYTHMS = ["Щодня", "Двічі на тиждень", "Раз на тиждень"];
 
 // Module 5: the five levels of engagement and the move that lifts each one.
