@@ -33,6 +33,8 @@ export type MyProject = {
   quality?: { metrics: ProjectMetric[]; stop: string };
   // Module 13: the method, the limit of work in progress, the rhythm and the first cards.
   board?: { method: string; limit: number; rhythm: string; cards: { name: string; column: BoardColumn }[] };
+  // Module 14: the benefit, its measure, an early sign, when it is checked, by whom and what if it lags.
+  benefit?: { value: string; metric: string; early: string; checks: number[]; owner: string; behind: string };
   updatedAt: string;
 };
 

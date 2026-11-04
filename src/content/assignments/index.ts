@@ -13,6 +13,7 @@ import { TITLE as MODULE_10 } from "./module-10";
 import { TITLE as MODULE_11 } from "./module-11";
 import { TITLE as MODULE_12 } from "./module-12";
 import { TITLE as MODULE_13 } from "./module-13";
+import { TITLE as MODULE_14 } from "./module-14";
 
 export const ASSIGNMENTS: Record<string, { title: string }> = {
   "module-01": { title: MODULE_01 },
@@ -28,6 +29,7 @@ export const ASSIGNMENTS: Record<string, { title: string }> = {
   "module-11": { title: MODULE_11 },
   "module-12": { title: MODULE_12 },
   "module-13": { title: MODULE_13 },
+  "module-14": { title: MODULE_14 },
 };
 
 export const assignmentHref = (moduleSlug: string) => `/modules/${moduleSlug}/assignment`;

@@ -6,6 +6,7 @@ import { MilestoneMark } from "@/components/logo";
 import { MILESTONES, VALUE_STEPS } from "@/content/my-project";
 import { parseProject, saveProject, useMyProject, type MyProject } from "@/lib/my-project";
 import { ApproachEditor } from "./project-approach";
+import { BenefitEditor, BenefitList } from "./project-benefit";
 import { BoardEditor, BoardList } from "./project-board";
 import { BudgetEditor, BudgetList } from "./project-budget";
 import { InvestEditor } from "./project-invest";
@@ -47,7 +48,9 @@ const isDone = (p: MyProject, module: number) =>
                         ? !!p.quality
                         : module === 13
                           ? !!p.board
-                          : false;
+                          : module === 14
+                            ? !!p.benefit
+                            : false;
 
 function download(p: MyProject) {
   const blob = new Blob([JSON.stringify(p, null, 2)], { type: "application/json" });
@@ -324,6 +327,19 @@ export function ProjectPassport({ titles, startHref }: { titles: Record<number, 
                   {m.module === 13 && editing === 13 && (
                     <div className="mt-4">
                       <BoardEditor project={project} onSaved={() => setEditing(null)} />
+                    </div>
+                  )}
+                  {m.module === 14 && project.benefit && editing !== 14 && (
+                    <>
+                      <BenefitList benefit={project.benefit} />
+                      <button type="button" onClick={() => setEditing(14)} className={`${chip} mt-4 print:hidden`}>
+                        Змінити
+                      </button>
+                    </>
+                  )}
+                  {m.module === 14 && editing === 14 && (
+                    <div className="mt-4">
+                      <BenefitEditor project={project} onSaved={() => setEditing(null)} />
                     </div>
                   )}
                   {!ok && <p className="mt-1 text-sm text-muted">Відкриється в завданні модуля {m.module}.</p>}
