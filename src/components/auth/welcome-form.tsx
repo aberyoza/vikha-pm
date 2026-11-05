@@ -66,7 +66,10 @@ export function WelcomeForm() {
     const supabase = createClient();
     (async () => {
       const { data } = await supabase.auth.getUser();
-      if (!data.user) return router.replace(`/login?next=${encodeURIComponent(next)}`);
+      if (!data.user) {
+        await supabase.auth.signOut({ scope: "local" });
+        return router.replace(`/login?next=${encodeURIComponent(next)}`);
+      }
       const { data: profile } = await supabase.from("profiles").select("id").eq("id", data.user.id).maybeSingle();
       if (profile) return router.replace(next);
       setUser(data.user);

@@ -19,6 +19,7 @@ export function AccountMenu() {
   const [open, setOpen] = useState(false);
   const [unsaved, setUnsaved] = useState(false);
   const [unread, setUnread] = useState(0);
+  const [isAdmin, setIsAdmin] = useState(false);
   const box = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -45,6 +46,13 @@ export function AccountMenu() {
         .eq("feedback_requests.user_id", userId)
         .then(({ count: n }) => setUnread(n ?? 0));
     count();
+    // Only decides whether to show the link: the server checks again on /admin.
+    createClient()
+      .from("profiles")
+      .select("is_admin")
+      .eq("id", userId)
+      .maybeSingle()
+      .then(({ data }) => setIsAdmin(!!data?.is_admin));
     window.addEventListener(FEEDBACK_EVENT, count);
     return () => window.removeEventListener(FEEDBACK_EVENT, count);
   }, [userId]);
@@ -85,6 +93,11 @@ export function AccountMenu() {
           <Link role="menuitem" href="/cabinet" onClick={() => setOpen(false)} className={item}>
             Мій кабінет
           </Link>
+          {isAdmin && (
+            <Link role="menuitem" href="/admin/feedback" onClick={() => setOpen(false)} className={item}>
+              Адмінка: запити на фідбек
+            </Link>
+          )}
           {unsaved ? (
             <div role="alert" className="px-3 py-2 text-[15px]">
               <p>Є незбережені зміни. Вийти й втратити їх?</p>
