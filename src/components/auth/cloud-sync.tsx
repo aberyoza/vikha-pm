@@ -4,7 +4,8 @@ import { useEffect } from "react";
 import { primary } from "@/components/assignment/game-kit";
 import { MILESTONES } from "@/content/my-project";
 import { resolveConflict, startCloudSync, useSyncState } from "@/lib/cloud-sync";
-import { doneMilestones, type MyProject } from "@/lib/my-project";
+import { doneMilestones } from "@/lib/milestones";
+import type { MyProject } from "@/lib/my-project";
 import { useSession } from "@/lib/use-session";
 
 const when = (iso: string) => new Intl.DateTimeFormat("uk-UA", { dateStyle: "short", timeStyle: "short" }).format(new Date(iso));

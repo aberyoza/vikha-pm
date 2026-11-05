@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { clearCourseData, flushCloudSync } from "@/lib/cloud-sync";
+import { FEEDBACK_EVENT } from "@/lib/feedback";
 import { createClient } from "@/lib/supabase/client";
 import { useSession } from "@/lib/use-session";
 
@@ -17,6 +18,7 @@ export function AccountMenu() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [unsaved, setUnsaved] = useState(false);
+  const [unread, setUnread] = useState(0);
   const box = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -31,6 +33,21 @@ export function AccountMenu() {
       document.removeEventListener("keydown", close);
     };
   }, [open]);
+
+  const userId = user?.id;
+  useEffect(() => {
+    if (!userId) return;
+    const count = () =>
+      createClient()
+        .from("feedback_replies")
+        .select("id, feedback_requests!inner(user_id)", { count: "exact", head: true })
+        .is("read_at", null)
+        .eq("feedback_requests.user_id", userId)
+        .then(({ count: n }) => setUnread(n ?? 0));
+    count();
+    window.addEventListener(FEEDBACK_EVENT, count);
+    return () => window.removeEventListener(FEEDBACK_EVENT, count);
+  }, [userId]);
 
   // Holds the place until the session is known, so the header doesn't jump.
   if (user === undefined) return <span aria-hidden className={`${trigger} invisible`}>Увійти</span>;
@@ -59,6 +76,9 @@ export function AccountMenu() {
     <div ref={box} className="relative">
       <button type="button" aria-haspopup="menu" aria-expanded={open} onClick={() => setOpen((v) => !v)} className={trigger}>
         Акаунт
+        {unread > 0 && (
+          <span className="ml-1.5 inline-block size-2 rounded-full bg-accent align-middle" role="img" aria-label="Є нова відповідь автора" />
+        )}
       </button>
       {open && (
         <div role="menu" className="absolute top-full right-0 z-20 mt-1 w-64 rounded-[6px] bg-surface-raised p-1 shadow-lg">
