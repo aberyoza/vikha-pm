@@ -4,7 +4,11 @@ import Link from "next/link";
 import { useState, type ChangeEvent } from "react";
 import { MilestoneMark } from "@/components/logo";
 import { MILESTONES, VALUE_STEPS } from "@/content/my-project";
-import { parseProject, saveProject, useMyProject, type MyProject } from "@/lib/my-project";
+import { authEnabled } from "@/lib/auth";
+import { isMilestoneDone, parseProject, saveProject, useMyProject, type MyProject } from "@/lib/my-project";
+import { useSyncState } from "@/lib/cloud-sync";
+import { useSession } from "@/lib/use-session";
+import { LoginPrompt } from "@/components/auth/login-prompt";
 import { ApproachEditor } from "./project-approach";
 import { BenefitEditor, BenefitList } from "./project-benefit";
 import { BoardEditor, BoardList } from "./project-board";
@@ -22,36 +26,6 @@ import { ProjectBuilder } from "./project-builder";
 const chip = "rounded-md bg-foreground/[0.07] px-3 py-2 text-sm font-medium press hover:bg-foreground/[0.12]";
 const primary = "rounded-md bg-accent px-5 py-2.5 font-semibold text-accent-foreground press hover:brightness-110";
 
-// Modules add their milestones here as their games get a project step.
-const isDone = (p: MyProject, module: number) =>
-  module === 1
-    ? !!p.name
-    : module === 3
-      ? !!p.approach
-      : module === 4
-        ? !!p.invest
-        : module === 5
-          ? !!p.people
-          : module === 6
-            ? !!p.rules
-            : module === 7
-              ? !!p.scope
-              : module === 8
-                ? !!p.schedule
-                : module === 9
-                  ? !!p.budget
-                  : module === 10
-                    ? !!p.team
-                    : module === 11
-                      ? !!p.risks
-                      : module === 12
-                        ? !!p.quality
-                        : module === 13
-                          ? !!p.board
-                          : module === 14
-                            ? !!p.benefit
-                            : false;
-
 function download(p: MyProject) {
   const blob = new Blob([JSON.stringify(p, null, 2)], { type: "application/json" });
   const a = document.createElement("a");
@@ -59,6 +33,34 @@ function download(p: MyProject) {
   a.download = "vikha-my-project.json";
   a.click();
   URL.revokeObjectURL(a.href);
+}
+
+function SaveStatus() {
+  const user = useSession();
+  const sync = useSyncState();
+  if (authEnabled && user) {
+    return (
+      <p className="max-w-[60ch] text-sm leading-relaxed text-muted" role="status">
+        {sync.status === "failed"
+          ? "Не вдалося зберегти в акаунті. Зміни лишилися в цьому браузері"
+          : sync.status === "saving"
+            ? "Зберігаємо в акаунті…"
+            : sync.status === "conflict"
+              ? "Є дві версії паспорта. Виберіть потрібну вгорі сторінки"
+              : sync.savedAt
+                ? `Збережено в акаунті, ${new Intl.DateTimeFormat("uk-UA", { dateStyle: "short", timeStyle: "short" }).format(new Date(sync.savedAt))}`
+                : "Збережено в акаунті"}
+      </p>
+    );
+  }
+  return (
+    <>
+      <p className="max-w-[60ch] text-sm leading-relaxed text-muted">
+        Проєкт зберігається лише в цьому браузері. Збережи його файлом, щоб не загубити або перенести на інший пристрій.
+      </p>
+      <LoginPrompt text="Увійдіть, щоб зберегти паспорт проєкту в акаунті" />
+    </>
+  );
 }
 
 // The reader's project as one page: a milestone per module, filled as they go.
@@ -106,7 +108,7 @@ export function ProjectPassport({ titles, startHref }: { titles: Record<number, 
       </div>
     );
 
-  const done = MILESTONES.filter((m) => isDone(project, m.module)).length;
+  const done = MILESTONES.filter((m) => isMilestoneDone(project, m.module)).length;
 
   return (
     <div>
@@ -120,7 +122,7 @@ export function ProjectPassport({ titles, startHref }: { titles: Record<number, 
             {MILESTONES.map((m) => (
               <li key={m.module} title={`Модуль ${m.module}: ${m.name}`}>
                 <span
-                  className={`block size-3 rotate-45 rounded-[2px] ${isDone(project, m.module) ? "bg-accent" : "bg-foreground/15"}`}
+                  className={`block size-3 rotate-45 rounded-[2px] ${isMilestoneDone(project, m.module) ? "bg-accent" : "bg-foreground/15"}`}
                 />
               </li>
             ))}
@@ -133,7 +135,7 @@ export function ProjectPassport({ titles, startHref }: { titles: Record<number, 
 
       <ol className="mt-8 space-y-3">
         {MILESTONES.map((m) => {
-          const ok = isDone(project, m.module);
+          const ok = isMilestoneDone(project, m.module);
           return (
             <li key={m.module} className={`rounded-[4px] p-4 sm:p-5 ${ok ? "bg-surface" : "bg-foreground/[0.03]"}`}>
               <div className="flex items-start gap-3">
@@ -351,10 +353,7 @@ export function ProjectPassport({ titles, startHref }: { titles: Record<number, 
       </ol>
 
       <div className="mt-8 rounded-[4px] bg-foreground/[0.05] p-4 print:hidden">
-        <p className="max-w-[60ch] text-sm leading-relaxed text-muted">
-          Проєкт зберігається лише в цьому браузері. Збережи його файлом, щоб не загубити або перенести на інший
-          пристрій. Коли з&apos;явиться кабінет, проєкт переїде туди.
-        </p>
+        <SaveStatus />
         <div className="mt-3 flex flex-wrap gap-2">
           <button type="button" onClick={() => download(project)} className={chip}>
             Зберегти файлом

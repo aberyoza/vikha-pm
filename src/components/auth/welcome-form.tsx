@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { primary } from "@/components/assignment/game-kit";
 import { isValidName, safeNext } from "@/lib/auth";
+import { requestSync } from "@/lib/cloud-sync";
 import { createClient } from "@/lib/supabase/client";
 import { ProfileFields, type ProfileDraft } from "./profile-fields";
 
@@ -27,6 +28,7 @@ function Form({ user, next }: { user: User; next: string }) {
     const { error } = await createClient().from("profiles").insert({ id: user.id, name, experience: draft.experience, goal: draft.goal.trim() || null });
     setSaving(false);
     if (error) return setFailed(true);
+    requestSync();
     router.replace(next);
   };
 

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { chip } from "@/components/assignment/game-kit";
+import { forgetSyncBase } from "@/lib/cloud-sync";
 import { createClient } from "@/lib/supabase/client";
 
 // Deleting is final, so it takes a second, explicit step.
@@ -20,6 +21,7 @@ export function DeleteAccount() {
       setFailed(true);
       return;
     }
+    forgetSyncBase();
     await supabase.auth.signOut({ scope: "local" });
     // A full reload on purpose: it drops the routes Next keeps in memory, with the deleted profile in them.
     // eslint-disable-next-line @next/next/no-location-assign-relative-destination

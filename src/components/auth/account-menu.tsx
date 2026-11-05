@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { clearCourseData, flushCloudSync } from "@/lib/cloud-sync";
 import { createClient } from "@/lib/supabase/client";
 import { useSession } from "@/lib/use-session";
 
@@ -15,6 +16,7 @@ export function AccountMenu() {
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [unsaved, setUnsaved] = useState(false);
   const box = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -41,10 +43,16 @@ export function AccountMenu() {
     );
   }
 
-  const signOut = async () => {
+  const leave = async () => {
     setOpen(false);
+    setUnsaved(false);
     await createClient().auth.signOut();
+    clearCourseData();
     router.refresh();
+  };
+  const signOut = async () => {
+    if (await flushCloudSync()) await leave();
+    else setUnsaved(true);
   };
 
   return (
@@ -53,13 +61,34 @@ export function AccountMenu() {
         Акаунт
       </button>
       {open && (
-        <div role="menu" className="absolute top-full right-0 z-20 mt-1 w-44 rounded-[6px] bg-surface-raised p-1 shadow-lg">
+        <div role="menu" className="absolute top-full right-0 z-20 mt-1 w-64 rounded-[6px] bg-surface-raised p-1 shadow-lg">
           <Link role="menuitem" href="/cabinet" onClick={() => setOpen(false)} className={item}>
             Мій кабінет
           </Link>
-          <button type="button" role="menuitem" onClick={signOut} className={item}>
-            Вийти
-          </button>
+          {unsaved ? (
+            <div role="alert" className="px-3 py-2 text-[15px]">
+              <p>Є незбережені зміни. Вийти й втратити їх?</p>
+              <div className="mt-2 flex gap-1">
+                <button type="button" onClick={leave} className={item}>
+                  Вийти
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setUnsaved(false);
+                    setOpen(false);
+                  }}
+                  className={item}
+                >
+                  Лишитися
+                </button>
+              </div>
+            </div>
+          ) : (
+            <button type="button" role="menuitem" onClick={signOut} className={item}>
+              Вийти
+            </button>
+          )}
         </div>
       )}
     </div>
