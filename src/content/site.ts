@@ -6,6 +6,9 @@ export const SITE_URL = (
 
 export const SITE_NAME = "Віха";
 
+// Published on the privacy page as the address for questions about data.
+export const CONTACT_EMAIL = "vikha.course@gmail.com";
+
 // Only the production deployment may be indexed; previews live on
 // *.vercel.app and would duplicate the site in search results.
 export const INDEXABLE = (process.env.VERCEL_ENV ?? "production") === "production";

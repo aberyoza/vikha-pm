@@ -54,6 +54,8 @@
 
 Проєкт `fxoxmlmhabecscdpemsv`, регіон Франкфурт, безкоштовний тариф. Міграції лежать у `supabase/migrations/`.
 
+Міграції в бойовій базі запускаються вручну: **SQL Editor → New query**, вставити вміст файлу, **Run**. Міграцію `20261105000000_delete_own_account.sql` треба виконати до ввімкнення входу, інакше видалення акаунта не працюватиме.
+
 | Розділ | Налаштування |
 |---|---|
 | [Sign In / Providers](https://supabase.com/dashboard/project/fxoxmlmhabecscdpemsv/auth/providers) | Google увімкнено, Email увімкнено, строк дії посилання `3600` секунд |
@@ -91,7 +93,9 @@
 - [ ] Переконатися, що старий Google Client secret, який потрапив на скриншот, вимкнено й видалено.
 - [ ] Перевірити `https://vikha-pm.com` в Authorized JavaScript origins клієнта Google.
 - [ ] Отримати український лист: шаблони збережено, але лист після цього ще не надсилали.
-- [ ] Опублікувати сторінку `/privacy`.
+- [ ] Опублікувати сторінку `/privacy`: вона в гілці `feat/privacy-and-account-deletion`. Контактна адреса записана в `CONTACT_EMAIL` у `src/content/site.ts`.
+- [ ] Виконати в бойовій базі міграцію `20261105000000_delete_own_account.sql`.
+- [ ] Показати текст політики юристу. На сторінці поки немає імені відповідальної особи, лише «автор курсу» і контактна пошта.
 - [ ] Заповнити Branding у Google Auth Platform і натиснути **Publish app**: для цього потрібна `/privacy`.
 - [ ] Увімкнути `NEXT_PUBLIC_AUTH_ENABLED=1` у Vercel лише після `/privacy` і збереження прогресу.
 - [ ] Перевірити вхід на реальному сайті vikha-pm.com, а не лише локально.

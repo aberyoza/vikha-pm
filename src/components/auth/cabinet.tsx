@@ -7,6 +7,7 @@ import { primary } from "@/components/assignment/game-kit";
 import { isValidName, type Experience } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/client";
 import { useSession } from "@/lib/use-session";
+import { DeleteAccount } from "./delete-account";
 import { ProfileFields, type ProfileDraft } from "./profile-fields";
 
 function ProfileForm({ user, initial }: { user: User; initial: ProfileDraft }) {
@@ -72,5 +73,10 @@ export function Cabinet() {
   }, [session, router]);
 
   if (!session || !loaded) return <p className="text-muted">Завантажуємо…</p>;
-  return <ProfileForm user={loaded.user} initial={loaded.profile} />;
+  return (
+    <>
+      <ProfileForm user={loaded.user} initial={loaded.profile} />
+      <DeleteAccount />
+    </>
+  );
 }

@@ -73,11 +73,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <footer className="border-t border-border print:hidden">
           <div className="flex flex-col gap-4 px-4 py-8 text-sm text-muted sm:flex-row sm:items-center sm:justify-between sm:px-8">
             <Logo />
-            <p className="max-w-xl sm:text-right">
-              Безкоштовний курс з управління проєктами. PMBOK® — зареєстрована
-              торгова марка Project Management Institute, Inc. Курс не
-              пов&apos;язаний з PMI.
-            </p>
+            <div className="max-w-xl sm:text-right">
+              <p>
+                Безкоштовний курс з управління проєктами. PMBOK® — зареєстрована
+                торгова марка Project Management Institute, Inc. Курс не
+                пов&apos;язаний з PMI.
+              </p>
+              <Link href="/privacy" className="mt-2 inline-block underline underline-offset-4 transition-colors duration-200 hover:text-foreground">
+                Політика конфіденційності
+              </Link>
+            </div>
           </div>
         </footer>
         <Analytics />
