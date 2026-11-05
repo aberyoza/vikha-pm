@@ -7,7 +7,7 @@ import { CloudSync } from "@/components/auth/cloud-sync";
 import { Logo } from "@/components/logo";
 import { themeInitScript } from "@/components/theme";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { INDEXABLE, OPEN_GRAPH, SITE_NAME, SITE_URL } from "@/content/site";
+import { CONTACT_EMAIL, INDEXABLE, OPEN_GRAPH, SITE_NAME, SITE_URL } from "@/content/site";
 import { authEnabled } from "@/lib/auth";
 import { fixelDisplay, fixelText } from "@/fonts";
 import "katex/dist/katex.min.css";
@@ -81,9 +81,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                 торгова марка Project Management Institute, Inc. Курс не
                 пов&apos;язаний з PMI.
               </p>
-              <Link href="/privacy" className="mt-2 inline-block underline underline-offset-4 transition-colors duration-200 hover:text-foreground">
-                Політика конфіденційності
-              </Link>
+              <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 sm:justify-end">
+                <a href={`mailto:${CONTACT_EMAIL}`} className="underline underline-offset-4 transition-colors duration-200 hover:text-foreground">
+                  {CONTACT_EMAIL}
+                </a>
+                <Link href="/privacy" className="underline underline-offset-4 transition-colors duration-200 hover:text-foreground">
+                  Політика конфіденційності
+                </Link>
+              </p>
             </div>
           </div>
         </footer>
