@@ -21,7 +21,7 @@ export function FeedbackPanel({ project, userId }: { project: MyProject; userId:
   const [open, setOpen] = useState(false);
   const [note, setNote] = useState("");
   const [busy, setBusy] = useState(false);
-  const [failed, setFailed] = useState(false);
+  const [failed, setFailed] = useState<string | null>(null);
   const [justSent, setJustSent] = useState(false);
   const milestones = doneMilestones(project);
 
@@ -37,12 +37,12 @@ export function FeedbackPanel({ project, userId }: { project: MyProject; userId:
 
   const send = async () => {
     setBusy(true);
-    setFailed(false);
+    setFailed(null);
     const synced = await flushCloudSync();
     const response = synced ? await fetch("/api/feedback/request", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ note }) }).catch(() => null) : null;
     const created = response?.ok ? ((await response.json()) as { id: string }) : null;
     setBusy(false);
-    if (!created) return setFailed(true);
+    if (!created) return setFailed(response?.status === 429 ? "Забагато запитів за добу. Спробуйте завтра" : "Не вдалося надіслати. Спробуйте ще раз");
     setPending({ id: created.id, created_at: new Date().toISOString() });
     setJustSent(true);
     setOpen(false);
@@ -52,10 +52,10 @@ export function FeedbackPanel({ project, userId }: { project: MyProject; userId:
   const cancel = async () => {
     if (!pending) return;
     setBusy(true);
-    setFailed(false);
-    const { error } = await createClient().from("feedback_requests").delete().eq("id", pending.id);
+    setFailed(null);
+    const { error } = await createClient().rpc("cancel_feedback_request", { request_id: pending.id });
     setBusy(false);
-    if (error) return setFailed(true);
+    if (error) return setFailed("Не вдалося скасувати. Спробуйте ще раз");
     setPending(null);
     setJustSent(false);
   };
@@ -113,7 +113,7 @@ export function FeedbackPanel({ project, userId }: { project: MyProject; userId:
       )}
       {failed && (
         <p role="alert" className="mt-3 text-sm">
-          Не вдалося надіслати. Спробуйте ще раз
+          {failed}
         </p>
       )}
     </section>

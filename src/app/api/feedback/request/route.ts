@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { CONTACT_EMAIL, SITE_URL } from "@/content/site";
+import { isSameOrigin } from "@/lib/api-guard";
 import { authEnabled } from "@/lib/auth";
 import { FEEDBACK_NOTE_MAX } from "@/lib/feedback";
 import { doneMilestones } from "@/lib/milestones";
@@ -10,6 +11,7 @@ import { createClient } from "@/lib/supabase/server";
 // A student sends the passport as saved in the account.
 export async function POST(request: NextRequest) {
   if (!authEnabled) return new NextResponse(null, { status: 404 });
+  if (!isSameOrigin(request)) return NextResponse.json({ error: "forbidden" }, { status: 403 });
 
   const supabase = await createClient();
   const { data: auth } = await supabase.auth.getUser();
@@ -29,6 +31,7 @@ export async function POST(request: NextRequest) {
     .insert({ user_id: auth.user.id, snapshot: project, milestones, note: note || null })
     .select("id")
     .single();
+  if (error?.code === "VK429") return NextResponse.json({ error: "too_many" }, { status: 429 });
   if (error) return NextResponse.json({ error: error.code === "23505" ? "already_pending" : "not_saved" }, { status: error.code === "23505" ? 409 : 500 });
 
   const { data: profile } = await supabase.from("profiles").select("name").eq("id", auth.user.id).maybeSingle();

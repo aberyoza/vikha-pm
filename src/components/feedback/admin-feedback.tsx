@@ -18,7 +18,7 @@ type Row = {
   snapshot: MyProject;
   milestones: number;
   note: string | null;
-  status: "pending" | "answered";
+  status: "pending" | "answered" | "cancelled";
   created_at: string;
   answered_at: string | null;
   profiles: { name: string; experience: string | null; goal: string | null };
@@ -103,12 +103,13 @@ function Request({ id }: { id: string }) {
     setProblem(null);
     const response = await fetch("/api/feedback/reply", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ requestId: id, body }) }).catch(() => null);
     setBusy(false);
+    if (response?.status === 409) return setProblem("Запит уже закрито: учень його скасував або на нього вже є відповідь");
     if (!response?.ok) return setProblem("Не вдалося надіслати. Спробуйте ще раз");
     setRow(await load());
   };
 
   if (row === undefined) return <p className="text-muted">Завантажуємо…</p>;
-  if (row === null) return <p>Запит не знайдено. Можливо, учень його скасував.</p>;
+  if (row === null || row.status === "cancelled") return <p>Запит не знайдено. Можливо, учень його скасував.</p>;
   const experience = EXPERIENCE.find((x) => x.key === row.profiles.experience)?.name;
   return (
     <div>

@@ -1,3 +1,4 @@
+import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 // Access is blocked for these countries (ISO 3166-1 alpha-2): Russia,
@@ -6,7 +7,37 @@ import { NextResponse, type NextRequest } from "next/server";
 // reaches the app; this check is the in-code fallback.
 const BLOCKED_COUNTRIES = new Set(["RU", "BY", "CN", "IR", "KP"]);
 
-export function proxy(request: NextRequest) {
+// The admin area answers 404 to anyone else, so its existence isn't confirmed
+// either. A failure of any kind counts as "not an admin". Row-level security
+// still guards the data on its own.
+async function adminGate(request: NextRequest) {
+  const response = NextResponse.next({ request });
+  const denied = () => NextResponse.rewrite(new URL("/not-found-admin", request.url), { status: 404 });
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+  if (!url || !key) return denied();
+
+  try {
+    const supabase = createServerClient(url, key, {
+      cookies: {
+        getAll: () => request.cookies.getAll(),
+        setAll: (cookies) => {
+          for (const { name, value, options } of cookies) response.cookies.set(name, value, options);
+        },
+      },
+    });
+    const { data: auth } = await supabase.auth.getUser();
+    if (!auth.user) return denied();
+    const { data: profile } = await supabase.from("profiles").select("is_admin").eq("id", auth.user.id).maybeSingle();
+    if (!profile?.is_admin) return denied();
+  } catch {
+    return denied();
+  }
+  response.headers.set("cache-control", "private, no-store");
+  return response;
+}
+
+export async function proxy(request: NextRequest) {
   // Set by Vercel's edge from the client IP; clients can't override it there.
   const country = request.headers.get("x-vercel-ip-country")?.toUpperCase();
 
@@ -15,6 +46,10 @@ export function proxy(request: NextRequest) {
       status: 403,
       headers: { "content-type": "text/plain; charset=utf-8" },
     });
+  }
+
+  if (request.nextUrl.pathname === "/admin" || request.nextUrl.pathname.startsWith("/admin/")) {
+    return adminGate(request);
   }
 
   return NextResponse.next();

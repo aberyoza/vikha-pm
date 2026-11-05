@@ -67,7 +67,10 @@ export function FeedbackReply() {
     const supabase = createClient();
     (async () => {
       const { data: auth } = await supabase.auth.getUser();
-      if (!auth.user) return router.replace(`/login?next=${encodeURIComponent(`/cabinet/feedback?id=${requestId ?? ""}`)}`);
+      if (!auth.user) {
+        await supabase.auth.signOut({ scope: "local" });
+        return router.replace(`/login?next=${encodeURIComponent(`/cabinet/feedback?id=${requestId ?? ""}`)}`);
+      }
       const { data } = await supabase.from("feedback_replies").select(selectReply).eq("request_id", requestId ?? "").eq("feedback_requests.user_id", auth.user.id).maybeSingle();
       const found = data as unknown as Reply | null;
       setReply(found);

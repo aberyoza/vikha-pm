@@ -93,7 +93,11 @@ export function Cabinet() {
     const supabase = createClient();
     (async () => {
       const { data } = await supabase.auth.getUser();
-      if (!data.user) return router.replace("/login?next=/cabinet");
+      if (!data.user) {
+        // A session the server no longer accepts: without dropping it, the login page sends the person right back here.
+        await supabase.auth.signOut({ scope: "local" });
+        return router.replace("/login?next=/cabinet");
+      }
       const { data: p } = await supabase.from("profiles").select("name, experience, goal, emails_enabled").eq("id", data.user.id).maybeSingle();
       if (!p) return router.replace("/welcome?next=/cabinet");
       setLoaded({ user: data.user, profile: { name: p.name, experience: p.experience as Experience | null, goal: p.goal ?? "" }, emailsEnabled: p.emails_enabled });
