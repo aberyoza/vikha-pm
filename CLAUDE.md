@@ -79,7 +79,7 @@ them to Віха — MASTER.md wins.
   in the Vercel dashboard (Firewall), not in code.
 - Never commit secrets: only the public Supabase URL and publishable key are
   allowed (in Vercel env vars / `.env.local`).
-- External services and what is configured in them: `docs/services.md`. Update
+- External services and what is configured in them: `configuration/services.md`. Update
   it whenever a service setting changes. The repo is public: no secrets there.
 - Geo-block: `src/proxy.ts` returns 403 for RU, BY, CN, IR, KP using Vercel's
   `x-vercel-ip-country` header. Keep the list in sync with the matching
