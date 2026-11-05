@@ -6,7 +6,7 @@ export const SITE_URL = (
 
 export const SITE_NAME = "Віха";
 
-// Published on the privacy page for questions about data; new feedback requests also land here.
+// Published in the footer and on the privacy page; new feedback requests also land here.
 export const CONTACT_EMAIL = "vikha.course@gmail.com";
 
 // Only the production deployment may be indexed; previews live on
