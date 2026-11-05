@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import { modules, publishedModules, type CourseModule } from "@/content/course";
+import { isLockedModule, paywallEnabled } from "@/lib/paywall";
 import { MilestoneMark } from "./logo";
 import { lessonsLabel } from "./ui";
 
@@ -14,6 +15,15 @@ const rowGrid: CSSProperties = {
 
 const isOpen = (m: CourseModule) => m.published && m.lessons.length > 0;
 const href = (m: CourseModule) => `/modules/${m.slug}/${m.lessons[0].slug}`;
+
+function LockIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 16 16" aria-hidden fill="none" stroke="currentColor" strokeWidth={1.75} className={`size-3 shrink-0 ${className}`}>
+      <rect x="3" y="7" width="10" height="7" rx="1.5" />
+      <path d="M5.5 7V4.5a2.5 2.5 0 0 1 5 0V7" />
+    </svg>
+  );
+}
 
 function Row({ m, children }: { m: CourseModule; children: ReactNode }) {
   const className =
@@ -55,6 +65,7 @@ export function CourseGantt() {
         <div className="relative">
           {modules.map((m, i) => {
             const open = isOpen(m);
+            const locked = open && isLockedModule(m.number);
             return (
               <Row key={m.slug} m={m}>
                 <span
@@ -80,12 +91,16 @@ export function CourseGantt() {
                     animationDelay: `${150 + i * 60}ms`,
                   }}
                   className={`z-10 mx-[3px] flex h-6 origin-left animate-draw items-center self-center rounded-[3px] ${
-                    open
-                      ? "bg-accent pl-2.5 text-[13px] font-semibold whitespace-nowrap text-accent-foreground"
-                      : "border-[1.5px] border-dashed border-muted/45"
+                    locked
+                      ? "gap-1.5 bg-accent-soft pl-2 text-[13px] font-semibold whitespace-nowrap text-accent"
+                      : open
+                        ? "bg-accent pl-2.5 text-[13px] font-semibold whitespace-nowrap text-accent-foreground"
+                        : "border-[1.5px] border-dashed border-muted/45"
                   }`}
                 >
-                  {open && lessonsLabel(m.lessons.length)}
+                  {locked && <LockIcon />}
+                  {/* The last bar is one column wide: the lock alone fits next to the milestone. */}
+                  {open && !(locked && i === COLS - 1) && lessonsLabel(m.lessons.length)}
                 </span>
                 {i === COLS - 1 && (
                   <span
@@ -120,6 +135,12 @@ export function CourseGantt() {
             <i className="h-2.5 w-5 rounded-[2px] bg-accent" />
             Відкрито
           </span>
+          {paywallEnabled && (
+            <span className="flex items-center gap-2">
+              <i className="h-2.5 w-5 rounded-[2px] bg-accent-soft" />
+              Після оплати
+            </span>
+          )}
           <span className="flex items-center gap-2">
             <i className="h-2.5 w-5 rounded-[2px] border-[1.5px] border-dashed border-muted/45" />
             Готується
@@ -139,6 +160,7 @@ export function CourseGantt() {
       <ol className="rounded-[4px] border border-border bg-surface lg:hidden">
         {modules.map((m) => {
           const open = isOpen(m);
+          const locked = open && isLockedModule(m.number);
           const body = (
             <>
               <b className="w-6 shrink-0 font-display font-semibold tabular-nums">
@@ -147,7 +169,12 @@ export function CourseGantt() {
               <span className={`min-w-0 flex-1 ${open ? "font-medium" : "text-muted"}`}>
                 {m.title}
               </span>
-              {open ? (
+              {locked ? (
+                <span className="flex shrink-0 items-center gap-1 rounded-[3px] bg-accent-soft px-2 py-0.5 text-xs font-semibold text-accent">
+                  <LockIcon />
+                  Після оплати
+                </span>
+              ) : open ? (
                 <span className="shrink-0 rounded-[3px] bg-accent px-2 py-0.5 text-xs font-semibold text-accent-foreground">
                   {lessonsLabel(m.lessons.length)}
                 </span>

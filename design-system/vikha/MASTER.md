@@ -141,6 +141,7 @@ Typographic don'ts (they read as generated/templated):
 | `ThemeToggle` | `src/components/theme-toggle.tsx` (+ `theme.ts`) | header sun/moon switch; no React state, CSS shows the icon |
 | `LessonNavCard` | `src/components/lesson-nav-card.tsx` | prev/next lesson links with a direction arrow |
 | `lessonsLabel(n)` | `src/components/ui.tsx` | Ukrainian plural «урок/уроки/уроків» |
+| `Paywall` | `src/components/paywall.tsx` | `accent-soft` offer in place of a paid lesson or assignment, wrapped by `PaidGate` inside `<Suspense>` |
 | `CourseGantt` | `src/components/course-gantt.tsx` | program as Gantt chart (≥1024px) / list (narrower), driven by `src/content/course.ts` |
 | `Figure` | `src/components/lesson/figure.tsx` | frame for lesson illustrations: tone step, display lead, visual, caption; `title` → `aria-label` only |
 | `Split`, `Columns`, `Callout` | `src/components/lesson/split.tsx` | lesson layout helpers; Callout is an `accent-soft` panel without outline |
