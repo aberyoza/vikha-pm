@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { createContext, useContext, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
+import { LoginPrompt } from "@/components/auth/login-prompt";
 import { MilestoneMark } from "@/components/logo";
+import { GAME_EVENT } from "@/lib/my-project";
 import type { Card, Choice, Question } from "@/content/assignments/types";
 
 // Shared pieces of the module games: buttons, feedback, the basket level and
@@ -88,7 +90,11 @@ type Saved = { best: number; completedAt?: string };
 
 const subscribe = (cb: () => void) => {
   window.addEventListener("storage", cb);
-  return () => window.removeEventListener("storage", cb);
+  window.addEventListener(GAME_EVENT, cb);
+  return () => {
+    window.removeEventListener("storage", cb);
+    window.removeEventListener(GAME_EVENT, cb);
+  };
 };
 const readRaw = (key: string) => {
   try {
@@ -110,6 +116,7 @@ const write = (key: string, s: Saved) => {
   } catch {
     // Private mode or storage disabled: the game still works, it just forgets.
   }
+  window.dispatchEvent(new Event(GAME_EVENT));
 };
 
 // Read the situation, play the card that fits. Each card carries a short note,
@@ -645,6 +652,7 @@ export function AssignmentGame<O>(p: GameProps<O>) {
               {p.nextLabel}
             </Link>
           </div>
+          <LoginPrompt text="Увійдіть, щоб зберегти результат" />
           {p.children}
         </div>
       )}

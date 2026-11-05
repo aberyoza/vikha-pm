@@ -1,7 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import type { BoardColumn, Person, ProjectMetric, ProjectRisk, ValueStep } from "@/content/my-project";
+import { MILESTONES, type BoardColumn, type Person, type ProjectMetric, type ProjectRisk, type ValueStep } from "@/content/my-project";
 
 // The reader's project lives in the browser until accounts exist. Each module
 // adds its own field; `version` lets a later shape migrate old saves.
@@ -38,21 +38,23 @@ export type MyProject = {
   updatedAt: string;
 };
 
-const KEY = "vikha-my-project";
+export const PROJECT_KEY = "vikha-my-project";
 // `storage` fires only in other tabs, so this tab announces its own writes.
-const EVENT = "vikha-my-project-change";
+export const PROJECT_EVENT = "vikha-my-project-change";
+// Game results changed in this tab.
+export const GAME_EVENT = "vikha-game-change";
 
 const subscribe = (cb: () => void) => {
   window.addEventListener("storage", cb);
-  window.addEventListener(EVENT, cb);
+  window.addEventListener(PROJECT_EVENT, cb);
   return () => {
     window.removeEventListener("storage", cb);
-    window.removeEventListener(EVENT, cb);
+    window.removeEventListener(PROJECT_EVENT, cb);
   };
 };
 const readRaw = () => {
   try {
-    return localStorage.getItem(KEY);
+    return localStorage.getItem(PROJECT_KEY);
   } catch {
     return null;
   }
@@ -69,14 +71,36 @@ export const parseProject = (raw: string | null): MyProject | null => {
 
 export function saveProject(p: MyProject) {
   try {
-    localStorage.setItem(KEY, JSON.stringify(p));
+    localStorage.setItem(PROJECT_KEY, JSON.stringify(p));
   } catch {
     // Private mode or storage disabled: nothing to keep it in.
   }
-  window.dispatchEvent(new Event(EVENT));
+  window.dispatchEvent(new Event(PROJECT_EVENT));
 }
 
 // The raw string is the snapshot, so React compares it by value.
 export function useMyProject() {
   return parseProject(useSyncExternalStore(subscribe, readRaw, () => null));
 }
+
+// Modules add their milestones here as their games get a project step.
+export const isMilestoneDone = (p: MyProject, module: number) => {
+  const fields: Record<number, unknown> = {
+    1: p.name,
+    3: p.approach,
+    4: p.invest,
+    5: p.people,
+    6: p.rules,
+    7: p.scope,
+    8: p.schedule,
+    9: p.budget,
+    10: p.team,
+    11: p.risks,
+    12: p.quality,
+    13: p.board,
+    14: p.benefit,
+  };
+  return !!fields[module];
+};
+
+export const doneMilestones = (p: MyProject) => MILESTONES.filter((m) => isMilestoneDone(p, m.module)).length;

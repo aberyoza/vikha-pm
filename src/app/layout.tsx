@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import { AccountMenu } from "@/components/auth/account-menu";
+import { CloudSync } from "@/components/auth/cloud-sync";
 import { Logo } from "@/components/logo";
 import { themeInitScript } from "@/components/theme";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -69,6 +70,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             </nav>
           </div>
         </header>
+        {authEnabled && <CloudSync />}
         <div className="flex-1">{children}</div>
         <footer className="border-t border-border print:hidden">
           <div className="flex flex-col gap-4 px-4 py-8 text-sm text-muted sm:flex-row sm:items-center sm:justify-between sm:px-8">
