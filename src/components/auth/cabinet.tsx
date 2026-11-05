@@ -7,6 +7,7 @@ import { primary } from "@/components/assignment/game-kit";
 import { isValidName, type Experience } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/client";
 import { useSession } from "@/lib/use-session";
+import { FeedbackList } from "@/components/feedback/my-feedback";
 import { DeleteAccount } from "./delete-account";
 import { ProfileFields, type ProfileDraft } from "./profile-fields";
 
@@ -53,11 +54,38 @@ function ProfileForm({ user, initial }: { user: User; initial: ProfileDraft }) {
   );
 }
 
+function EmailToggle({ userId, initial }: { userId: string; initial: boolean }) {
+  const [on, setOn] = useState(initial);
+  const [failed, setFailed] = useState(false);
+  const change = async (next: boolean) => {
+    setOn(next);
+    setFailed(false);
+    const { error } = await createClient().from("profiles").update({ emails_enabled: next }).eq("id", userId);
+    if (error) {
+      setOn(!next);
+      setFailed(true);
+    }
+  };
+  return (
+    <div className="mt-6">
+      <label className="flex items-start gap-3 leading-relaxed">
+        <input type="checkbox" checked={on} onChange={(e) => change(e.target.checked)} className="mt-1.5 size-4 accent-[var(--accent)]" />
+        <span>Листи про фідбек</span>
+      </label>
+      {failed && (
+        <p role="alert" className="mt-1 text-sm">
+          Не вдалося зберегти зміну. Спробуйте ще раз
+        </p>
+      )}
+    </div>
+  );
+}
+
 // Static shell: who is here is decided in the browser, and row-level security guards the data.
 export function Cabinet() {
   const router = useRouter();
   const session = useSession();
-  const [loaded, setLoaded] = useState<{ user: User; profile: ProfileDraft } | null>(null);
+  const [loaded, setLoaded] = useState<{ user: User; profile: ProfileDraft; emailsEnabled: boolean } | null>(null);
 
   useEffect(() => {
     if (session === undefined) return;
@@ -66,9 +94,9 @@ export function Cabinet() {
     (async () => {
       const { data } = await supabase.auth.getUser();
       if (!data.user) return router.replace("/login?next=/cabinet");
-      const { data: p } = await supabase.from("profiles").select("name, experience, goal").eq("id", data.user.id).maybeSingle();
+      const { data: p } = await supabase.from("profiles").select("name, experience, goal, emails_enabled").eq("id", data.user.id).maybeSingle();
       if (!p) return router.replace("/welcome?next=/cabinet");
-      setLoaded({ user: data.user, profile: { name: p.name, experience: p.experience as Experience | null, goal: p.goal ?? "" } });
+      setLoaded({ user: data.user, profile: { name: p.name, experience: p.experience as Experience | null, goal: p.goal ?? "" }, emailsEnabled: p.emails_enabled });
     })();
   }, [session, router]);
 
@@ -76,6 +104,8 @@ export function Cabinet() {
   return (
     <>
       <ProfileForm user={loaded.user} initial={loaded.profile} />
+      <FeedbackList userId={loaded.user.id} />
+      <EmailToggle userId={loaded.user.id} initial={loaded.emailsEnabled} />
       <DeleteAccount />
     </>
   );

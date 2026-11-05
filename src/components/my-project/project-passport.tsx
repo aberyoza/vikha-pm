@@ -5,10 +5,12 @@ import { useState, type ChangeEvent } from "react";
 import { MilestoneMark } from "@/components/logo";
 import { MILESTONES, VALUE_STEPS } from "@/content/my-project";
 import { authEnabled } from "@/lib/auth";
-import { isMilestoneDone, parseProject, saveProject, useMyProject, type MyProject } from "@/lib/my-project";
+import { isMilestoneDone } from "@/lib/milestones";
+import { parseProject, saveProject, useMyProject, type MyProject } from "@/lib/my-project";
 import { useSyncState } from "@/lib/cloud-sync";
 import { useSession } from "@/lib/use-session";
 import { LoginPrompt } from "@/components/auth/login-prompt";
+import { FeedbackPanel } from "@/components/feedback/feedback-panel";
 import { ApproachEditor } from "./project-approach";
 import { BenefitEditor, BenefitList } from "./project-benefit";
 import { BoardEditor, BoardList } from "./project-board";
@@ -58,7 +60,7 @@ function SaveStatus() {
       <p className="max-w-[60ch] text-sm leading-relaxed text-muted">
         Проєкт зберігається лише в цьому браузері. Збережи його файлом, щоб не загубити або перенести на інший пристрій.
       </p>
-      <LoginPrompt text="Увійдіть, щоб зберегти паспорт проєкту в акаунті" />
+      <LoginPrompt text="Увійдіть, щоб зберегти паспорт в акаунті й надіслати його на фідбек" />
     </>
   );
 }
@@ -66,6 +68,7 @@ function SaveStatus() {
 // The reader's project as one page: a milestone per module, filled as they go.
 export function ProjectPassport({ titles, startHref }: { titles: Record<number, string>; startHref: string }) {
   const project = useMyProject();
+  const user = useSession();
   // Module whose milestone is being edited.
   const [editing, setEditing] = useState<number | null>(null);
   const [importError, setImportError] = useState(false);
@@ -351,6 +354,8 @@ export function ProjectPassport({ titles, startHref }: { titles: Record<number, 
           );
         })}
       </ol>
+
+      {authEnabled && user && <FeedbackPanel project={project} userId={user.id} />}
 
       <div className="mt-8 rounded-[4px] bg-foreground/[0.05] p-4 print:hidden">
         <SaveStatus />

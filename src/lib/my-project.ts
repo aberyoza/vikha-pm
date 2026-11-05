@@ -1,7 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { MILESTONES, type BoardColumn, type Person, type ProjectMetric, type ProjectRisk, type ValueStep } from "@/content/my-project";
+import type { BoardColumn, Person, ProjectMetric, ProjectRisk, ValueStep } from "@/content/my-project";
 
 // The reader's project lives in the browser until accounts exist. Each module
 // adds its own field; `version` lets a later shape migrate old saves.
@@ -82,25 +82,3 @@ export function saveProject(p: MyProject) {
 export function useMyProject() {
   return parseProject(useSyncExternalStore(subscribe, readRaw, () => null));
 }
-
-// Modules add their milestones here as their games get a project step.
-export const isMilestoneDone = (p: MyProject, module: number) => {
-  const fields: Record<number, unknown> = {
-    1: p.name,
-    3: p.approach,
-    4: p.invest,
-    5: p.people,
-    6: p.rules,
-    7: p.scope,
-    8: p.schedule,
-    9: p.budget,
-    10: p.team,
-    11: p.risks,
-    12: p.quality,
-    13: p.board,
-    14: p.benefit,
-  };
-  return !!fields[module];
-};
-
-export const doneMilestones = (p: MyProject) => MILESTONES.filter((m) => isMilestoneDone(p, m.module)).length;
