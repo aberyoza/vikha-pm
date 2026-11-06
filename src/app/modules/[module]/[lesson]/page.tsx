@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { LessonNavCard } from "@/components/lesson-nav-card";
+import { PaidGate } from "@/components/paid-gate";
+import { Paywall } from "@/components/paywall";
 import { findLesson, modules, publishedModules } from "@/content/course";
 import { OPEN_GRAPH } from "@/content/site";
 import { jsonLd, lessonJsonLd } from "@/content/structured-data";
 import { ASSIGNMENTS, assignmentHref } from "@/content/assignments";
+import { isLockedModule } from "@/lib/paywall";
 
 type Props = PageProps<"/modules/[module]/[lesson]">;
 
@@ -28,6 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: found.lesson.title,
     description: found.lesson.description,
     alternates: { canonical: path },
+    ...(isLockedModule(found.module.number) && { robots: { index: false, follow: true } }),
     openGraph: { ...OPEN_GRAPH, type: "article", title: found.lesson.title, description: found.lesson.description, url: path },
   };
 }
@@ -45,6 +50,54 @@ export default async function LessonPage({ params }: Props) {
   const index = courseModule.lessons.findIndex((l) => l.slug === lesson.slug);
   const lessonHref = (slug: string) => `/modules/${courseModule.slug}/${slug}`;
   const assignment = ASSIGNMENTS[courseModule.slug];
+
+  const body = (
+    <>
+      <div className="lesson-body prose max-w-6xl">
+        <Content />
+      </div>
+
+      <nav
+        aria-label="Навігація уроками"
+        className="mt-16 grid max-w-6xl gap-4 border-t border-border pt-8 sm:grid-cols-2"
+      >
+        {prev ? (
+          <LessonNavCard
+            href={lessonHref(prev.slug)}
+            label="Попередній урок"
+            title={prev.title}
+            direction="prev"
+          />
+        ) : (
+          <span className="hidden sm:block" />
+        )}
+        {next ? (
+          <LessonNavCard
+            href={lessonHref(next.slug)}
+            label="Наступний урок"
+            title={next.title}
+            direction="next"
+          />
+        ) : assignment ? (
+          <LessonNavCard
+            href={assignmentHref(courseModule.slug)}
+            label="Уроки модуля пройдено"
+            title="Перейти до завдання"
+            direction="next"
+            highlight
+          />
+        ) : (
+          <LessonNavCard
+            href="/#program"
+            label="Уроки модуля пройдено"
+            title="Повернутися до програми"
+            direction="next"
+            highlight
+          />
+        )}
+      </nav>
+    </>
+  );
 
   return (
     <div className="grid md:grid-cols-[300px_1fr]">
@@ -118,49 +171,30 @@ export default async function LessonPage({ params }: Props) {
       </aside>
 
       <article className="min-w-0 px-4 py-10 sm:px-10 md:py-12 xl:px-14">
-        <div className="lesson-body prose max-w-6xl">
-          <Content />
-        </div>
-
-        <nav
-          aria-label="Навігація уроками"
-          className="mt-16 grid max-w-6xl gap-4 border-t border-border pt-8 sm:grid-cols-2"
-        >
-          {prev ? (
-            <LessonNavCard
-              href={lessonHref(prev.slug)}
-              label="Попередній урок"
-              title={prev.title}
-              direction="prev"
-            />
-          ) : (
-            <span className="hidden sm:block" />
-          )}
-          {next ? (
-            <LessonNavCard
-              href={lessonHref(next.slug)}
-              label="Наступний урок"
-              title={next.title}
-              direction="next"
-            />
-          ) : assignment ? (
-            <LessonNavCard
-              href={assignmentHref(courseModule.slug)}
-              label="Уроки модуля пройдено"
-              title="Перейти до завдання"
-              direction="next"
-              highlight
-            />
-          ) : (
-            <LessonNavCard
-              href="/#program"
-              label="Уроки модуля пройдено"
-              title="Повернутися до програми"
-              direction="next"
-              highlight
-            />
-          )}
-        </nav>
+        {isLockedModule(courseModule.number) ? (
+          <Suspense
+            fallback={
+              <div className="lesson-body prose max-w-6xl">
+                <h1>{lesson.title}</h1>
+                <p className="text-muted">Завантажуємо урок…</p>
+              </div>
+            }
+          >
+            <PaidGate
+              paywall={
+                <div className="lesson-body prose max-w-6xl">
+                  <h1>{lesson.title}</h1>
+                  <p>{lesson.description}</p>
+                  <Paywall />
+                </div>
+              }
+            >
+              {body}
+            </PaidGate>
+          </Suspense>
+        ) : (
+          body
+        )}
       </article>
     </div>
   );
