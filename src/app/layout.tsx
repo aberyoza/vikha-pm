@@ -9,6 +9,7 @@ import { themeInitScript } from "@/components/theme";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { CONTACT_EMAIL, INDEXABLE, OPEN_GRAPH, SITE_NAME, SITE_URL } from "@/content/site";
 import { authEnabled } from "@/lib/auth";
+import { COURSE_KIND, FREE_PART, paywallEnabled } from "@/lib/paywall";
 import { fixelDisplay, fixelText } from "@/fonts";
 import "katex/dist/katex.min.css";
 import "./globals.css";
@@ -18,8 +19,7 @@ export const metadata: Metadata = {
     default: "Віха — курс з управління проєктами",
     template: "%s · Віха",
   },
-  description:
-    "Безкоштовний курс з управління проєктами українською мовою на основі PMBOK 7 і 8.",
+  description: `${COURSE_KIND} з управління проєктами українською мовою на основі PMBOK 7 і 8.${paywallEnabled ? ` ${FREE_PART}` : ""}`,
   metadataBase: new URL(SITE_URL),
   applicationName: SITE_NAME,
   alternates: { canonical: "/" },
@@ -77,7 +77,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <Logo />
             <div className="max-w-xl sm:text-right">
               <p>
-                Безкоштовний курс з управління проєктами. PMBOK® — зареєстрована
+                {COURSE_KIND} з управління проєктами. PMBOK® — зареєстрована
                 торгова марка Project Management Institute, Inc. Курс не
                 пов&apos;язаний з PMI.
               </p>
@@ -88,6 +88,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                 <Link href="/privacy" className="underline underline-offset-4 transition-colors duration-200 hover:text-foreground">
                   Політика конфіденційності
                 </Link>
+                {paywallEnabled && (
+                  <Link href="/offer" className="underline underline-offset-4 transition-colors duration-200 hover:text-foreground">
+                    Договір оферти
+                  </Link>
+                )}
               </p>
             </div>
           </div>
