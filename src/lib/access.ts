@@ -11,8 +11,8 @@ export const ACCESS_BASIS_LABEL: Record<AccessBasis, string> = {
 
 export const ACCESS_BASES = Object.keys(ACCESS_BASIS_LABEL) as AccessBasis[];
 
-// Recorded with each request. Raise it when the terms on /access change.
-export const OFFER_VERSION = "2026-11-draft";
+// Recorded with each request. Raise it with the date on /offer when the terms change.
+export const OFFER_VERSION = "2026-11-06";
 
 export type PaymentDetails = {
   recipient: string;

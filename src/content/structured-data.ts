@@ -1,12 +1,16 @@
 import { modules, type CourseModule, type Lesson } from "./course";
+import { COURSE_KIND, COURSE_PRICE_UAH, FREE_PART, isLockedModule, paywallEnabled } from "@/lib/paywall";
 import { SITE_NAME, SITE_URL } from "./site";
 
 // Schema.org data for search engines (JSON-LD). Google reads Course for the
 // course itself and BreadcrumbList for each lesson's place in it.
 
 const COURSE_NAME = "Віха — курс з управління проєктами";
-const COURSE_DESCRIPTION =
-  "Безкоштовний курс з управління проєктами українською мовою на основі PMBOK 7 і 8: 14 модулів з інтерактивними схемами і практичними завданнями.";
+const COURSE_DESCRIPTION = `${COURSE_KIND} з управління проєктами українською мовою на основі PMBOK 7 і 8: 14 модулів з інтерактивними схемами і практичними завданнями.${paywallEnabled ? ` ${FREE_PART}` : ""}`;
+
+const offer = paywallEnabled
+  ? { "@type": "Offer", price: COURSE_PRICE_UAH, priceCurrency: "UAH", category: "Partially Free" }
+  : { "@type": "Offer", price: 0, priceCurrency: "UAH", category: "Free" };
 
 const provider = { "@type": "Organization", name: SITE_NAME, url: SITE_URL };
 const lessonUrl = (m: CourseModule, l: Lesson) => `${SITE_URL}/modules/${m.slug}/${l.slug}`;
@@ -20,11 +24,11 @@ export function courseJsonLd() {
     description: COURSE_DESCRIPTION,
     url: SITE_URL,
     inLanguage: "uk",
-    isAccessibleForFree: true,
+    isAccessibleForFree: !paywallEnabled,
     educationalLevel: "Beginner",
     teaches: "Управління проєктами за PMBOK 7 і 8",
     provider,
-    offers: { "@type": "Offer", price: 0, priceCurrency: "UAH", category: "Free" },
+    offers: offer,
     hasCourseInstance: { "@type": "CourseInstance", courseMode: "Online", inLanguage: "uk" },
     syllabusSections: modules.map((m) => ({
       "@type": "Syllabus",
@@ -43,7 +47,7 @@ export function lessonJsonLd(m: CourseModule, l: Lesson) {
       description: l.description,
       url: lessonUrl(m, l),
       inLanguage: "uk",
-      isAccessibleForFree: true,
+      isAccessibleForFree: !isLockedModule(m.number),
       learningResourceType: "Lesson",
       isPartOf: { "@type": "Course", "@id": `${SITE_URL}/#course`, name: COURSE_NAME, provider },
     },

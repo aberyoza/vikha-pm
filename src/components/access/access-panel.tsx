@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { chip, primary } from "@/components/assignment/game-kit";
@@ -69,7 +70,12 @@ function Request({ revoked, onDone }: { revoked: boolean; onDone: () => void }) 
       <Terms />
       <label className="mt-6 flex items-start gap-3 leading-relaxed">
         <input type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="mt-1.5 size-4 accent-[var(--accent)]" />
-        <span>Погоджуюсь з умовами оплати вище</span>
+        <span>
+          Погоджуюсь з умовами{" "}
+          <Link href="/offer" target="_blank" className="underline underline-offset-4">
+            договору оферти
+          </Link>
+        </span>
       </label>
       <button type="button" onClick={request} disabled={!agreed || busy} className={`${primary} mt-4`}>
         Отримати реквізити
