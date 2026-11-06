@@ -2,8 +2,6 @@ import "server-only";
 import { paywallEnabled } from "./paywall";
 import { createClient } from "./supabase/server";
 
-export type AccessBasis = "paid" | "free" | "free_plus";
-
 // A failure of any kind counts as "no access": the student can reload the page,
 // while a paid lesson shown by mistake can't be taken back.
 export async function hasCourseAccess() {

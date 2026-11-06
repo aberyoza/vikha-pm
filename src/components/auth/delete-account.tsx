@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { chip } from "@/components/assignment/game-kit";
 import { forgetSyncBase } from "@/lib/cloud-sync";
+import { FIRST_PAID_MODULE, paywallEnabled } from "@/lib/paywall";
 import { createClient } from "@/lib/supabase/client";
 
 // Deleting is final, so it takes a second, explicit step.
@@ -37,6 +38,9 @@ export function DeleteAccount() {
       ) : (
         <div role="alertdialog" aria-label="Підтвердження видалення акаунта">
           <p className="leading-relaxed">Акаунт і всі ваші дані на сервері буде видалено без можливості відновлення.</p>
+          {paywallEnabled && (
+            <p className="mt-2 leading-relaxed">Доступ до модулів {FIRST_PAID_MODULE}–14 теж зникне, навіть якщо ви його оплатили.</p>
+          )}
           <div className="mt-3 flex flex-wrap gap-2">
             <button type="button" onClick={remove} disabled={deleting} className="rounded-md bg-foreground px-4 py-2 text-sm font-semibold text-background press disabled:opacity-60">
               Видалити назавжди

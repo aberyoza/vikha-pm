@@ -7,7 +7,9 @@ import { primary } from "@/components/assignment/game-kit";
 import { isValidName, type Experience } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/client";
 import { useSession } from "@/lib/use-session";
+import { AccessStatus } from "@/components/access/access-status";
 import { FeedbackList } from "@/components/feedback/my-feedback";
+import { paywallEnabled } from "@/lib/paywall";
 import { DeleteAccount } from "./delete-account";
 import { ProfileFields, type ProfileDraft } from "./profile-fields";
 
@@ -108,6 +110,7 @@ export function Cabinet() {
   return (
     <>
       <ProfileForm user={loaded.user} initial={loaded.profile} />
+      {paywallEnabled && <AccessStatus userId={loaded.user.id} />}
       <FeedbackList userId={loaded.user.id} />
       <EmailToggle userId={loaded.user.id} initial={loaded.emailsEnabled} />
       <DeleteAccount />
