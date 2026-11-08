@@ -20,14 +20,17 @@ export function Emblem({ className = "size-6" }: { className?: string }) {
   );
 }
 
-export function Logo() {
+// `compact` leaves only the emblem on the narrowest phones, where the header
+// has no room for the word next to its links.
+export function Logo({ compact }: { compact?: boolean }) {
   return (
     <Link
       href="/"
+      aria-label="Віха"
       className="flex items-center gap-2.5 font-display text-[22px] font-semibold tracking-tight"
     >
       <Emblem />
-      Віха
+      <span className={compact ? "max-[369px]:hidden" : undefined}>Віха</span>
     </Link>
   );
 }

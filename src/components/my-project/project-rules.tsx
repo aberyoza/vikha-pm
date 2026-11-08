@@ -50,9 +50,9 @@ export function RulesEditor({ project, onSaved }: { project: MyProject; onSaved:
   return (
     <div>
       <p className="leading-relaxed text-muted">
-        Домовся про правила рішень для «{project.name}», поки немає суперечок: хто може сказати «стоп», що ти
-        вирішуєш сам і коли все перевіряєте разом.
-        {idea && !project.rules && " Для твоєї ідеї відповіді вже вибрані. Зміни їх, якщо в тебе інакше."}
+        Домовтеся про правила рішень для «{project.name}», поки немає суперечок: хто може сказати «стоп», що ви
+        вирішуєте самі і коли все перевіряєте разом.
+        {idea && !project.rules && " Для вашої ідеї відповіді вже вибрані. Змініть їх, якщо у вас інакше."}
       </p>
 
       <div className="mt-5 space-y-5">
@@ -111,7 +111,7 @@ export function RulesEditor({ project, onSaved }: { project: MyProject; onSaved:
         <button type="button" onClick={save} disabled={!ready} className={primary}>
           Поставити віху
         </button>
-        {!ready && <span className="text-sm text-muted">Назви спонсора і дай відповідь на всі питання.</span>}
+        {!ready && <span className="text-sm text-muted">Назвіть спонсора і дайте відповідь на всі питання.</span>}
       </div>
     </div>
   );
@@ -126,9 +126,9 @@ export function RulesBonus() {
     <div className="mt-10 rounded-[4px] bg-foreground/[0.05] p-4 sm:p-5">
       {!project ? (
         <>
-          <p className="font-medium">Бонус: п&apos;ята віха твого проєкту</p>
+          <p className="font-medium">Бонус: п&apos;ята віха вашого проєкту</p>
           <p className="mt-1 max-w-[60ch] leading-relaxed text-muted">
-            Тут домовляються, хто у твоєму власному проєкті може сказати «стоп». Але спершу його треба зібрати: це
+            Тут домовляються, хто у вашому власному проєкті може сказати «стоп». Але спершу його треба зібрати: це
             хвилина наприкінці гри модуля 1.
           </p>
           <Link href={assignmentHref("module-01")} className={`${primary} mt-4 inline-block`}>
@@ -137,7 +137,7 @@ export function RulesBonus() {
         </>
       ) : editing || !project.rules ? (
         <>
-          <p className="text-[13px] text-muted">П&apos;ята віха твого проєкту</p>
+          <p className="text-[13px] text-muted">П&apos;ята віха вашого проєкту</p>
           <h3 className="mb-4 font-display text-2xl font-semibold tracking-tight">Хто може сказати «стоп»</h3>
           <RulesEditor project={project} onSaved={() => setEditing(false)} />
         </>
@@ -147,7 +147,7 @@ export function RulesBonus() {
           <p className="mt-0.5 font-display text-xl font-semibold">Правила рішень</p>
           <RulesList rules={project.rules} />
           <p className="mt-3 max-w-[60ch] leading-relaxed text-muted">
-            П&apos;ята віха поставлена. Наступну додаси в завданні модуля 7: блоки роботи і що не робимо.
+            П&apos;ята віха поставлена. Наступну додасте в завданні модуля 7: блоки роботи і що не робимо.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link href="/my-project" className={chip(false)}>

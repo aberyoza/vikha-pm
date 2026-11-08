@@ -32,7 +32,7 @@ function Row({
             <span className="block font-display text-sm font-semibold tabular-nums">
               {v === "0" ? "0" : `−${v}`}
             </span>
-            <span className="text-[12px] opacity-80">{years[i]}</span>
+            <span className="text-[12px]">{years[i]}</span>
           </div>
         ))}
       </div>

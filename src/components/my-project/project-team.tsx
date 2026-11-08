@@ -139,9 +139,9 @@ export function TeamEditor({ project, onSaved }: { project: MyProject; onSaved: 
   return (
     <div>
       <p className="leading-relaxed text-muted">
-        Хто робитиме «{project.name}»? Познач ролі, а потім для кожного блоку роботи вибери, хто його робить і хто відповідає за
+        Хто робитиме «{project.name}»? Позначте ролі, а потім для кожного блоку роботи виберіть, хто його робить і хто відповідає за
         результат. Відповідальний на кожен блок лише один.
-        {idea && !saved && " Для твоєї ідеї все вже заповнено. Зміни, якщо в тебе інакше."}
+        {idea && !saved && " Для вашої ідеї все вже заповнено. Змініть, якщо у вас інакше."}
       </p>
 
       {blocks.length === 0 ? (
@@ -156,7 +156,7 @@ export function TeamEditor({ project, onSaved }: { project: MyProject; onSaved: 
           <div className="mt-5 space-y-5">
             <div>
               <p className="font-medium">
-                Ролі: <span className="font-normal text-muted">хто потрібен, включно з тобою</span>
+                Ролі: <span className="font-normal text-muted">хто потрібен, включно з вами</span>
               </p>
               <div className="mt-2 flex flex-wrap gap-1.5" role="group" aria-label="Ролі">
                 {[...new Set([...hints, ...roles])].map((h) => (
@@ -202,7 +202,7 @@ export function TeamEditor({ project, onSaved }: { project: MyProject; onSaved: 
 
           {overloaded.length > 0 && (
             <p className="mt-4 rounded-[4px] bg-accent-soft p-4 leading-relaxed" aria-live="polite">
-              <strong>Забагато роботи в однієї ролі:</strong> {overloaded.join(", ")}. Подумай, що можна віддати іншим або купити.
+              <strong>Забагато роботи в однієї ролі:</strong> {overloaded.join(", ")}. Подумайте, що можна віддати іншим або купити.
             </p>
           )}
 
@@ -227,9 +227,9 @@ export function TeamBonus() {
     <div className="mt-10 rounded-[4px] bg-foreground/[0.05] p-4 sm:p-5">
       {!project ? (
         <>
-          <p className="font-medium">Бонус: дев&apos;ята віха твого проєкту</p>
+          <p className="font-medium">Бонус: дев&apos;ята віха вашого проєкту</p>
           <p className="mt-1 max-w-[60ch] leading-relaxed text-muted">
-            Тут вирішують, хто робитиме твій власний проєкт. Але спершу його треба зібрати: це хвилина наприкінці гри модуля 1.
+            Тут вирішують, хто робитиме ваш власний проєкт. Але спершу його треба зібрати: це хвилина наприкінці гри модуля 1.
           </p>
           <Link href={assignmentHref("module-01")} className={`${primary} mt-4 inline-block`}>
             Зібрати проєкт у модулі 1
@@ -237,7 +237,7 @@ export function TeamBonus() {
         </>
       ) : editing || !project.team ? (
         <>
-          <p className="text-[13px] text-muted">Дев&apos;ята віха твого проєкту</p>
+          <p className="text-[13px] text-muted">Дев&apos;ята віха вашого проєкту</p>
           <h3 className="mb-4 font-display text-2xl font-semibold tracking-tight">Хто потрібен у команді</h3>
           <TeamEditor project={project} onSaved={() => setEditing(false)} />
         </>
@@ -247,7 +247,7 @@ export function TeamBonus() {
           <p className="mt-0.5 font-display text-xl font-semibold">Хто потрібен у команді</p>
           <TeamList team={project.team} />
           <p className="mt-3 max-w-[60ch] leading-relaxed text-muted">
-            Дев&apos;ята віха поставлена. Наступну додаси в завданні модуля 11: три головні ризики.
+            Дев&apos;ята віха поставлена. Наступну додасте в завданні модуля 11: три головні ризики.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link href="/my-project" className={chip(false)}>

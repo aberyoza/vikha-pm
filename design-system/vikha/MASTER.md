@@ -234,7 +234,9 @@ feedback stays under 300ms; never `ease-in` on UI.
 
 ## 8. Copy
 
-Plain verbs, sentence case, no filler. Never show a bare abbreviation:
+Address the reader as **«ви»** everywhere: lessons, games, «Мій проєкт», buttons.
+Only characters talking to each other may say «ти» (a line the player sends a
+teammate, for instance). Plain verbs, sentence case, no filler. Never show a bare abbreviation:
 expand it at first mention in the text *and* on any figure that can be read
 on its own (Ukrainian name first, then e.g. «PI (Profitability Index)»).
 Buttons say what happens («Почати з модуля 1», «Відкрити програму»). Don't

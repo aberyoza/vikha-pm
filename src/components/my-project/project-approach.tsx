@@ -36,9 +36,9 @@ export function ApproachEditor({ project, onSaved }: { project: MyProject; onSav
   return (
     <div>
       <p className="leading-relaxed text-muted">
-        Дай відповідь на чотири питання про «{project.name}», і ми підкажемо підхід до розробки та як часто віддавати
+        Дайте відповідь на чотири питання про «{project.name}», і ми підкажемо підхід до розробки та як часто віддавати
         результат.
-        {idea && !project.approach && " Для твоєї ідеї відповіді вже вибрані. Зміни їх, якщо твій проєкт інакший."}
+        {idea && !project.approach && " Для вашої ідеї відповіді вже вибрані. Змініть їх, якщо ваш проєкт інакший."}
       </p>
 
       <div className="mt-5 space-y-5">
@@ -74,7 +74,7 @@ export function ApproachEditor({ project, onSaved }: { project: MyProject; onSav
 
       {rec && (
         <div className="mt-5">
-          <p className="font-medium">Який підхід береш?</p>
+          <p className="font-medium">Який підхід берете?</p>
           <div className="mt-2 flex flex-wrap gap-1.5" role="group" aria-label="Підхід">
             {APPROACH_KINDS.map((k) => (
               <button
@@ -96,7 +96,7 @@ export function ApproachEditor({ project, onSaved }: { project: MyProject; onSav
         <button type="button" onClick={save} disabled={!rec} className={primary}>
           Поставити віху
         </button>
-        {!rec && <span className="text-sm text-muted">Дай відповідь на всі чотири питання.</span>}
+        {!rec && <span className="text-sm text-muted">Дайте відповідь на всі чотири питання.</span>}
       </div>
     </div>
   );
@@ -111,9 +111,9 @@ export function ApproachBonus() {
     <div className="mt-10 rounded-[4px] bg-foreground/[0.05] p-4 sm:p-5">
       {!project ? (
         <>
-          <p className="font-medium">Бонус: друга віха твого проєкту</p>
+          <p className="font-medium">Бонус: друга віха вашого проєкту</p>
           <p className="mt-1 max-w-[60ch] leading-relaxed text-muted">
-            Тут обирають підхід до розробки для твого власного проєкту. Але спершу його треба зібрати: це хвилина
+            Тут обирають підхід до розробки для вашого власного проєкту. Але спершу його треба зібрати: це хвилина
             наприкінці гри модуля 1.
           </p>
           <Link href={assignmentHref("module-01")} className={`${primary} mt-4 inline-block`}>
@@ -122,7 +122,7 @@ export function ApproachBonus() {
         </>
       ) : editing || !project.approach ? (
         <>
-          <p className="text-[13px] text-muted">Друга віха твого проєкту</p>
+          <p className="text-[13px] text-muted">Друга віха вашого проєкту</p>
           <h3 className="mb-4 font-display text-2xl font-semibold tracking-tight">Підхід до розробки</h3>
           <ApproachEditor project={project} onSaved={() => setEditing(false)} />
         </>
@@ -133,7 +133,7 @@ export function ApproachBonus() {
             {project.approach.kind} підхід, каденція {project.approach.cadence.toLowerCase()}
           </p>
           <p className="mt-2 max-w-[60ch] leading-relaxed text-muted">
-            Друга віха поставлена. Наступну додаси в завданні модуля 4: чи варто вкладатися в проєкт.
+            Друга віха поставлена. Наступну додасте в завданні модуля 4: чи варто вкладатися в проєкт.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link href="/my-project" className={chip(false)}>

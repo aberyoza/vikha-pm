@@ -47,17 +47,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-full flex-col font-sans">
         <header className="border-b border-border print:hidden">
           <div className="flex h-[72px] items-center justify-between px-4 sm:px-8">
-            <Logo />
-            <nav className="flex items-center gap-1">
+            <Logo compact />
+            <nav className="flex items-center whitespace-nowrap sm:gap-1">
               <Link
                 href="/#program"
-                className={`rounded-md px-3 py-2 text-[15px] text-muted transition-colors duration-200 hover:text-foreground ${authEnabled ? "hidden sm:block" : ""}`}
+                className="rounded-md px-1.5 py-2 text-sm text-muted transition-colors duration-200 hover:text-foreground sm:px-3 sm:text-[15px]"
               >
                 Програма
               </Link>
               <Link
                 href="/my-project"
-                className="rounded-md px-3 py-2 text-[15px] text-muted transition-colors duration-200 hover:text-foreground"
+                className="rounded-md px-1.5 py-2 text-sm text-muted transition-colors duration-200 hover:text-foreground sm:px-3 sm:text-[15px]"
               >
                 Мій проєкт
               </Link>

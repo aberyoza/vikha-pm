@@ -72,7 +72,9 @@ const readRaw = () => {
 export const parseProject = (raw: string | null): MyProject | null => {
   try {
     const p = raw ? JSON.parse(raw) : null;
-    return p && p.version === 1 && typeof p.name === "string" && p.value ? (p as MyProject) : null;
+    if (!p || p.version !== 1 || typeof p.name !== "string" || !p.value) return null;
+    // Projects saved before the course moved to «ви» kept «для твоєї родини».
+    return { ...p, name: p.name.replaceAll("твоєї", "вашої"), who: typeof p.who === "string" ? p.who.replaceAll("твоєї", "вашої") : p.who } as MyProject;
   } catch {
     return null;
   }

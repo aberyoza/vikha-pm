@@ -8,7 +8,7 @@ import { FEEDBACK_EVENT } from "@/lib/feedback";
 import { createClient } from "@/lib/supabase/client";
 import { useSession } from "@/lib/use-session";
 
-const trigger = "rounded-md px-3 py-2 text-[15px] font-medium transition-colors duration-200 hover:bg-foreground/[0.07]";
+const trigger = "rounded-md px-1.5 py-2 text-sm font-medium transition-colors duration-200 hover:bg-foreground/[0.07] sm:px-3 sm:text-[15px]";
 const item = "block w-full rounded-[4px] px-3 py-2 text-left text-[15px] transition-colors duration-200 hover:bg-foreground/[0.07]";
 
 // The sign-in button for a guest, the account menu for a student.

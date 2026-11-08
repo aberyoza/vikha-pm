@@ -45,12 +45,12 @@ function FounderLevel({ index, orders, onDone }: { index: number; orders: Orders
       <HowTo
         goal="вирішити, кому з чотирьох засновників дати гроші, щоб за чотири роки фонд виріс більше, ніж виріс би на депозиті під 10%."
         steps={[
-          "Прочитай, що каже засновник і скільки грошей просить.",
-          `Натисни на картки з фактами, щоб їх відкрити. Відкрити можна лише ${G.MAX_OPEN} з ${G.FACTS.length}, тож обирай, що важливіше дізнатися. Під назвою кожної картки сказано, що вона показує.`,
-          "Обери рішення: дати гроші, відмовити чи дати з умовою. Потім натисни «Записати рішення».",
+          "Прочитайте, що каже засновник і скільки грошей просить.",
+          `Натисніть на картки з фактами, щоб їх відкрити. Відкрити можна лише ${G.MAX_OPEN} з ${G.FACTS.length}, тож обирайте, що важливіше дізнатися. Під назвою кожної картки сказано, що вона показує.`,
+          "Оберіть рішення: дати гроші, відмовити чи дати з умовою. Потім натисніть «Записати рішення».",
           "Вкладені гроші йдуть із фонду, тож стеж за залишком. Що вийшло з рішень, покаже фінал «Минуло чотири роки».",
         ]}
-        tip="Підказка: красивий виступ — ще не вигідний проєкт. Шукай пастки з уроків: гроші, що приходять надто пізно, витрати, яких уже не повернеш, і гроші, що закінчуються посередині."
+        tip="Підказка: красивий виступ — ще не вигідний проєкт. Шукайте пастки з уроків: гроші, що приходять надто пізно, витрати, яких уже не повернете, і гроші, що закінчуються посередині."
       />
 
       <div className="mt-5 flex flex-wrap items-baseline justify-between gap-2 text-sm">
@@ -113,7 +113,7 @@ function FounderLevel({ index, orders, onDone }: { index: number; orders: Orders
       </ul>
       {full && <p className="mt-2 text-sm text-muted">Три питання поставлено. Час вирішувати.</p>}
 
-      <p className="mt-6 font-medium">Твоє рішення</p>
+      <p className="mt-6 font-medium">Ваше рішення</p>
       <div className="mt-2 grid gap-2" role="group" aria-label="Рішення">
         {orders.decisions[index].map((k) => {
           const d = f.decisions[k];
@@ -175,7 +175,7 @@ function RevealLevel({ orders, onDone }: { orders: Orders; onDone: (score: numbe
                   </p>
                 )}
               </div>
-              <p className="mt-1 text-sm text-muted">Твоє рішення: {d.label.toLowerCase()}</p>
+              <p className="mt-1 text-sm text-muted">Ваше рішення: {d.label.toLowerCase()}</p>
               <p className="mt-3 leading-relaxed">{d.outcome}</p>
               <p className="mt-3 rounded-[4px] bg-accent-soft p-3 leading-relaxed">
                 <strong>{d.right ? "Влучне рішення." : `Краще було: ${best.label.toLowerCase()}.`}</strong> {f.lesson}
@@ -215,10 +215,10 @@ function RevealLevel({ orders, onDone }: { orders: Orders; onDone: (score: numbe
           </dl>
           <p className="mt-4 leading-relaxed">
             {total > safe
-              ? `Це більше, ніж ${money(safe)}, які дав би депозит на всю суму. Твої рішення заробили фонду ${money(total - safe)}.`
+              ? `Це більше, ніж ${money(safe)}, які дав би депозит на всю суму. Ваші рішення заробили фонду ${money(total - safe)}.`
               : total === safe
                 ? `Стільки ж дав би депозит на всю суму. Фонд нічого не втратив, але й не заробив.`
-                : `Депозит на всю суму дав би ${money(safe)}, тобто на ${money(safe - total)} більше. Зіграй ще раз і постав інші питання.`}
+                : `Депозит на всю суму дав би ${money(safe)}, тобто на ${money(safe - total)} більше. Зіграйте ще раз і поставте інші питання.`}
           </p>
           <button type="button" onClick={() => onDone(0)} className={`${primary} mt-5`}>
             Завершити

@@ -96,13 +96,13 @@ export function ScheduleEditor({ project, onSaved }: { project: MyProject; onSav
   const weeksOk = rows.every((r) => r.week >= 1 && r.week <= b);
   const ready = !!start && rows.length >= MIN && orderOk && weeksOk;
   const problem = !start
-    ? "Вибери дату старту."
+    ? "Виберіть дату старту."
     : rows.length < MIN
       ? `Потрібно щонайменше ${MIN} віхи.`
       : !orderOk
         ? "Оцінки мають іти за зростанням: оптимістична, найімовірніша, песимістична."
         : !weeksOk
-          ? "Постав кожній віхі тиждень, не пізніше песимістичної оцінки."
+          ? "Поставте кожній віхі тиждень, не пізніше песимістичної оцінки."
           : null;
 
   const toggle = (name: string) =>
@@ -123,9 +123,9 @@ export function ScheduleEditor({ project, onSaved }: { project: MyProject; onSav
   return (
     <div>
       <p className="leading-relaxed text-muted">
-        Коли «{project.name}» буде готовий? Вибери старт, познач від {MIN} до {MAX} віх і чесно оціни весь проєкт трьома
+        Коли «{project.name}» буде готовий? Виберіть старт, позначте від {MIN} до {MAX} віх і чесно оцініть весь проєкт трьома
         цифрами. Дату, яку можна обіцяти, порахуємо самі.
-        {idea && !saved && " Для твоєї ідеї віхи й оцінки вже заповнено. Зміни їх, якщо в тебе інакше."}
+        {idea && !saved && " Для вашої ідеї віхи й оцінки вже заповнено. Змініть їх, якщо у вас інакше."}
       </p>
 
       <div className="mt-5 space-y-5">
@@ -215,8 +215,8 @@ export function ScheduleEditor({ project, onSaved }: { project: MyProject; onSav
 
       {ready && (
         <p className="mt-6 rounded-[4px] bg-accent-soft p-4 leading-relaxed" aria-live="polite">
-          <strong>Дата завершення.</strong> Найімовірніше {dateAfter(start, m)}, а обіцяй не пізніше {dateAfter(start, promiseWeeks(a, m, b))}: так
-          устигаєш приблизно у 8 випадках із 10.
+          <strong>Дата завершення.</strong> Найімовірніше {dateAfter(start, m)}, а обіцяйте не пізніше {dateAfter(start, promiseWeeks(a, m, b))}: так
+          устигаєте приблизно у 8 випадках із 10.
         </p>
       )}
 
@@ -239,9 +239,9 @@ export function ScheduleBonus() {
     <div className="mt-10 rounded-[4px] bg-foreground/[0.05] p-4 sm:p-5">
       {!project ? (
         <>
-          <p className="font-medium">Бонус: сьома віха твого проєкту</p>
+          <p className="font-medium">Бонус: сьома віха вашого проєкту</p>
           <p className="mt-1 max-w-[60ch] leading-relaxed text-muted">
-            Тут ставлять віхи і дату завершення твого власного проєкту. Але спершу його треба зібрати: це хвилина наприкінці
+            Тут ставлять віхи і дату завершення вашого власного проєкту. Але спершу його треба зібрати: це хвилина наприкінці
             гри модуля 1.
           </p>
           <Link href={assignmentHref("module-01")} className={`${primary} mt-4 inline-block`}>
@@ -250,7 +250,7 @@ export function ScheduleBonus() {
         </>
       ) : editing || !project.schedule ? (
         <>
-          <p className="text-[13px] text-muted">Сьома віха твого проєкту</p>
+          <p className="text-[13px] text-muted">Сьома віха вашого проєкту</p>
           <h3 className="mb-4 font-display text-2xl font-semibold tracking-tight">Віхи і дата завершення</h3>
           <ScheduleEditor project={project} onSaved={() => setEditing(false)} />
         </>
@@ -260,7 +260,7 @@ export function ScheduleBonus() {
           <p className="mt-0.5 font-display text-xl font-semibold">Віхи і дата завершення</p>
           <ScheduleList schedule={project.schedule} />
           <p className="mt-3 max-w-[60ch] leading-relaxed text-muted">
-            Сьома віха поставлена. Наступну додаси в завданні модуля 9: грубий бюджет.
+            Сьома віха поставлена. Наступну додасте в завданні модуля 9: грубий бюджет.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link href="/my-project" className={chip(false)}>

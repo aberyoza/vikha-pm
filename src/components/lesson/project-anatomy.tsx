@@ -55,7 +55,7 @@ export function ProjectAnatomy() {
         <Flow />
 
         <div className="flex flex-col justify-center rounded-lg bg-accent p-4 text-accent-foreground">
-          <p className="text-[13px] opacity-80">Вихід</p>
+          <p className="text-[13px]">Вихід</p>
           <p className="mt-1 font-medium">Мета або результат</p>
         </div>
       </div>

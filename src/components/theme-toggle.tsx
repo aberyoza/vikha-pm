@@ -25,7 +25,7 @@ export function ThemeToggle() {
       onClick={toggleTheme}
       aria-label="Перемкнути світлу або темну тему"
       title="Світла / темна тема"
-      className="grid size-10 place-items-center rounded-md text-muted transition-colors duration-200 hover:text-foreground"
+      className="grid size-9 place-items-center rounded-md text-muted transition-colors duration-200 hover:text-foreground sm:size-10"
     >
       {/* Sun: shown in dark theme, switches to light */}
       <svg viewBox="0 0 24 24" className="size-5 light:hidden" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" aria-hidden>

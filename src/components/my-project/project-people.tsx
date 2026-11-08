@@ -21,7 +21,7 @@ const complete = (d: Draft): d is Person =>
 
 function nextStepText(now: number, want: number) {
   const a = nextAction(now, want);
-  return a ? `${a.name}. ${a.note}` : "Уже там, де потрібно. Підтримуй як є.";
+  return a ? `${a.name}. ${a.note}` : "Уже там, де потрібно. Підтримуйте як є.";
 }
 
 function Pair({
@@ -65,7 +65,7 @@ function Level({ id, label, value, onPick }: { id: string; label: string; value:
         className={`${field} mt-1 block w-full py-1.5 text-sm`}
       >
         <option value="" disabled>
-          Обери рівень
+          Оберіть рівень
         </option>
         {ENGAGEMENT.map((e, k) => (
           <option key={e} value={k}>
@@ -105,9 +105,9 @@ export function PeopleEditor({ project, onSaved }: { project: MyProject; onSaved
   return (
     <div>
       <p className="leading-relaxed text-muted">
-        Хто впливає на «{project.name}» і на кого впливає він? Обери від {MIN} до {MAX} людей, познач для кожного владу,
+        Хто впливає на «{project.name}» і на кого впливає він? Оберіть від {MIN} до {MAX} людей, позначте для кожного владу,
         інтерес і рівень залучення. Наступний крок підкажемо самі.
-        {suggestions.length > 0 && !project.people && " Для твоєї ідеї вже вибрано чотирьох. Зміни, якщо в тебе інакше."}
+        {suggestions.length > 0 && !project.people && " Для вашої ідеї вже вибрано чотирьох. Змініть, якщо у вас інакше."}
       </p>
 
       {suggestions.length > 0 && (
@@ -184,7 +184,7 @@ export function PeopleEditor({ project, onSaved }: { project: MyProject; onSaved
         </button>
         {!ready && (
           <span className="text-sm text-muted">
-            {rows.length < MIN ? `Потрібно щонайменше ${MIN} людей.` : "Заповни владу, інтерес і рівні для кожного."}
+            {rows.length < MIN ? `Потрібно щонайменше ${MIN} людей.` : "Заповніть владу, інтерес і рівні для кожного."}
           </span>
         )}
       </div>
@@ -221,9 +221,9 @@ export function PeopleBonus() {
     <div className="mt-10 rounded-[4px] bg-foreground/[0.05] p-4 sm:p-5">
       {!project ? (
         <>
-          <p className="font-medium">Бонус: четверта віха твого проєкту</p>
+          <p className="font-medium">Бонус: четверта віха вашого проєкту</p>
           <p className="mt-1 max-w-[60ch] leading-relaxed text-muted">
-            Тут складають реєстр людей навколо твого власного проєкту. Але спершу його треба зібрати: це хвилина
+            Тут складають реєстр людей навколо вашого власного проєкту. Але спершу його треба зібрати: це хвилина
             наприкінці гри модуля 1.
           </p>
           <Link href={assignmentHref("module-01")} className={`${primary} mt-4 inline-block`}>
@@ -232,7 +232,7 @@ export function PeopleBonus() {
         </>
       ) : editing || !project.people ? (
         <>
-          <p className="text-[13px] text-muted">Четверта віха твого проєкту</p>
+          <p className="text-[13px] text-muted">Четверта віха вашого проєкту</p>
           <h3 className="mb-4 font-display text-2xl font-semibold tracking-tight">Люди навколо проєкту</h3>
           <PeopleEditor project={project} onSaved={() => setEditing(false)} />
         </>
@@ -242,7 +242,7 @@ export function PeopleBonus() {
           <p className="mt-0.5 font-display text-xl font-semibold">Люди навколо проєкту</p>
           <PeopleList people={project.people} />
           <p className="mt-3 max-w-[60ch] leading-relaxed text-muted">
-            Четверта віха поставлена. Наступну додаси в завданні модуля 6: хто може сказати «стоп».
+            Четверта віха поставлена. Наступну додасте в завданні модуля 6: хто може сказати «стоп».
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link href="/my-project" className={chip(false)}>

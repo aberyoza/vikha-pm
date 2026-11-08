@@ -72,7 +72,7 @@ export function ProjectInterdependence() {
             <span className="min-w-0">
               <span className="block font-medium">{k.name}</span>
               <span className="block text-sm text-muted">{k.effect}</span>
-              <span className="block text-[13px] text-muted/80 italic">{k.example}</span>
+              <span className="block text-[13px] text-muted italic">{k.example}</span>
             </span>
           </li>
         ))}

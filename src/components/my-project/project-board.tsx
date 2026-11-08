@@ -91,8 +91,8 @@ export function BoardEditor({ project, onSaved }: { project: MyProject; onSaved:
   return (
     <div>
       <p className="leading-relaxed text-muted">
-        Як працюватиме «{project.name}»? Вибери метод, постав обмеження незавершеної роботи і розклади блоки роботи на дошці.
-        {idea && !saved && " Для твоєї ідеї все вже заповнено. Зміни, якщо в тебе інакше."}
+        Як працюватиме «{project.name}»? Виберіть метод, поставте обмеження незавершеної роботи і розкладіть блоки роботи на дошці.
+        {idea && !saved && " Для вашої ідеї все вже заповнено. Змініть, якщо у вас інакше."}
       </p>
 
       {blocks.length === 0 ? (
@@ -170,7 +170,7 @@ export function BoardEditor({ project, onSaved }: { project: MyProject; onSaved:
               </ul>
               {over && (
                 <p className="mt-3 rounded-[4px] bg-accent-soft p-3 text-sm leading-relaxed" aria-live="polite">
-                  У роботі {doing} задачі за обмеження {limit}. Спершу закінчи почате або збільш обмеження.
+                  У роботі {doing} задачі за обмеження {limit}. Спершу закінчіть почате або збільште обмеження.
                 </p>
               )}
             </div>
@@ -191,7 +191,7 @@ export function BoardEditor({ project, onSaved }: { project: MyProject; onSaved:
             <button type="button" onClick={save} disabled={!ready} className={primary}>
               Поставити віху
             </button>
-            {!ready && <span className="text-sm text-muted">Вибери метод і ритм, а в роботі лиши не більше задач, ніж дозволяє обмеження.</span>}
+            {!ready && <span className="text-sm text-muted">Виберіть метод і ритм, а в роботі лиште не більше задач, ніж дозволяє обмеження.</span>}
           </div>
         </>
       )}
@@ -208,9 +208,9 @@ export function BoardBonus() {
     <div className="mt-10 rounded-[4px] bg-foreground/[0.05] p-4 sm:p-5">
       {!project ? (
         <>
-          <p className="font-medium">Бонус: дванадцята віха твого проєкту</p>
+          <p className="font-medium">Бонус: дванадцята віха вашого проєкту</p>
           <p className="mt-1 max-w-[60ch] leading-relaxed text-muted">
-            Тут запускають дошку твого власного проєкту. Але спершу його треба зібрати: це хвилина наприкінці гри модуля 1.
+            Тут запускають дошку вашого власного проєкту. Але спершу його треба зібрати: це хвилина наприкінці гри модуля 1.
           </p>
           <Link href={assignmentHref("module-01")} className={`${primary} mt-4 inline-block`}>
             Зібрати проєкт у модулі 1
@@ -218,7 +218,7 @@ export function BoardBonus() {
         </>
       ) : editing || !project.board ? (
         <>
-          <p className="text-[13px] text-muted">Дванадцята віха твого проєкту</p>
+          <p className="text-[13px] text-muted">Дванадцята віха вашого проєкту</p>
           <h3 className="mb-4 font-display text-2xl font-semibold tracking-tight">Перші задачі на дошці</h3>
           <BoardEditor project={project} onSaved={() => setEditing(false)} />
         </>
@@ -228,7 +228,7 @@ export function BoardBonus() {
           <p className="mt-0.5 font-display text-xl font-semibold">Перші задачі на дошці</p>
           <BoardList board={project.board} />
           <p className="mt-3 max-w-[60ch] leading-relaxed text-muted">
-            Дванадцята віха поставлена. Наступну додаси в завданні модуля 14: як зрозуміти, що вигода настала.
+            Дванадцята віха поставлена. Наступну додасте в завданні модуля 14: як зрозуміти, що вигода настала.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link href="/my-project" className={chip(false)}>

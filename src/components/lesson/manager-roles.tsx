@@ -21,7 +21,7 @@ export function ManagerRoles() {
           Функціональний <span className="text-muted">(FM)</span>
         </p>
         <p className="pb-3 font-display text-lg font-semibold text-accent">
-          Проєктний <span className="text-accent/70">(PM)</span>
+          Проєктний <span className="text-accent">(PM)</span>
         </p>
 
         {rows.map((r) => (
