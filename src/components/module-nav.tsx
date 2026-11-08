@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { AssignmentMark } from "@/components/assignment-mark";
+import { AssignmentMark, LessonMark, ModuleProgress } from "@/components/module-progress";
 import { ASSIGNMENTS, assignmentHref } from "@/content/assignments";
 import { modules, type CourseModule } from "@/content/course";
 
@@ -11,7 +11,7 @@ const isAssignment = (c: Current) => typeof c !== "string";
 
 function Track({ module: m, current }: { module: CourseModule; current: Current }) {
   const assignment = ASSIGNMENTS[m.slug];
-  const index = typeof current === "string" ? m.lessons.findIndex((l) => l.slug === current) : m.lessons.length;
+  const index = typeof current === "string" ? m.lessons.findIndex((l) => l.slug === current) : -1;
 
   return (
     <>
@@ -29,30 +29,22 @@ function Track({ module: m, current }: { module: CourseModule; current: Current 
           </span>
         )}
       </p>
+      <ModuleProgress moduleSlug={m.slug} lessons={m.lessons.map((l) => l.slug)} game={!!assignment} />
 
       <nav className="mt-7" aria-label="Уроки модуля">
         <ol className="relative before:absolute before:top-3 before:bottom-3 before:left-[6px] before:w-0.5 before:bg-border">
           {m.lessons.map((l, i) => {
-            const state = i < index ? "done" : i === index ? "now" : "next";
+            const now = i === index;
             return (
               <li key={l.slug}>
                 <Link
                   href={`/modules/${m.slug}/${l.slug}`}
-                  aria-current={state === "now" ? "page" : undefined}
+                  aria-current={now ? "page" : undefined}
                   className={`group relative block py-2 pl-8 text-[15px] transition-colors duration-200 ${
-                    state === "now" ? "font-semibold text-foreground" : "text-muted hover:text-foreground"
+                    now ? "font-semibold text-foreground" : "text-muted hover:text-foreground"
                   }`}
                 >
-                  <span
-                    aria-hidden
-                    className={`absolute top-[15px] left-px size-3 rounded-full border-2 ${
-                      state === "done"
-                        ? "border-second bg-second"
-                        : state === "now"
-                          ? "border-accent bg-surface ring-4 ring-accent-soft"
-                          : "border-border-strong bg-surface"
-                    }`}
-                  />
+                  <LessonMark moduleSlug={m.slug} lessonSlug={l.slug} current={now} />
                   {l.title}
                 </Link>
               </li>
