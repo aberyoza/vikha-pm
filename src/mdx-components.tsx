@@ -43,6 +43,7 @@ import { EvmForecast } from "@/components/lesson/evm-forecast";
 import { FailurePrevention } from "@/components/lesson/failure-prevention";
 import { Fishbone } from "@/components/lesson/fishbone";
 import { FormulaNote, ModuleGoals } from "@/components/lesson/formula-note";
+import { LessonTakeaways } from "@/components/lesson/lesson-takeaways";
 import { GameNetwork } from "@/components/lesson/game-network";
 import { GamePlanTable } from "@/components/lesson/game-plan-table";
 import { GroupDecision } from "@/components/lesson/group-decision";
@@ -181,6 +182,7 @@ const components: MDXComponents = {
   Fishbone,
   FormulaNote,
   ModuleGoals,
+  LessonTakeaways,
   GameNetwork,
   GamePlanTable,
   GroupDecision,

@@ -252,9 +252,9 @@ function PathLevel({ order, onDone }: { order: number[]; onDone: (score: number)
 }
 
 const lightClass: Record<G.Light, string> = {
-  green: "bg-[#3f9a62] text-white",
+  green: "bg-[#2e7d4d] text-white",
   yellow: "bg-[#e3b341] text-[#2a2208]",
-  red: "bg-[#d0533f] text-white",
+  red: "bg-[#bf4a37] text-white",
 };
 const lightName = (l: G.Light) => G.LIGHTS.find((x) => x.key === l)!.name;
 const CYCLE: G.Light[] = ["green", "yellow", "red"];

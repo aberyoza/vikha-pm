@@ -146,6 +146,10 @@ function FounderLevel({ index, orders, onDone }: { index: number; orders: Orders
 // The finale: what came of every decision, one founder at a time, then the fund.
 function RevealLevel({ orders, onDone }: { orders: Orders; onDone: (score: number) => void }) {
   const [shown, setShown] = useState(1);
+  // The level buttons let the player skip ahead, past a founder with no decision.
+  if (G.FOUNDERS.some((_, k) => !orders.picks[k])) {
+    return <p className="leading-relaxed">Спершу прийміть рішення про всіх засновників. Поверніться на попередні рівні кнопкою нижче.</p>;
+  }
   const all = shown > G.FOUNDERS.length;
   const spent = invested(orders.picks);
   const back = orders.picks.reduce((s, p, k) => s + G.FOUNDERS[k].decisions[p.decision].returned, 0);
