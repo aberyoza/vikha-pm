@@ -44,6 +44,15 @@ export const PROJECT_EVENT = "vikha-my-project-change";
 // Game results changed in this tab.
 export const GAME_EVENT = "vikha-game-change";
 
+export const subscribeGames = (cb: () => void) => {
+  window.addEventListener("storage", cb);
+  window.addEventListener(GAME_EVENT, cb);
+  return () => {
+    window.removeEventListener("storage", cb);
+    window.removeEventListener(GAME_EVENT, cb);
+  };
+};
+
 const subscribe = (cb: () => void) => {
   window.addEventListener("storage", cb);
   window.addEventListener(PROJECT_EVENT, cb);

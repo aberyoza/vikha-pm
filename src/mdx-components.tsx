@@ -42,7 +42,7 @@ import { EvmExplorer } from "@/components/lesson/evm-explorer";
 import { EvmForecast } from "@/components/lesson/evm-forecast";
 import { FailurePrevention } from "@/components/lesson/failure-prevention";
 import { Fishbone } from "@/components/lesson/fishbone";
-import { FormulaNote } from "@/components/lesson/formula-note";
+import { FormulaNote, ModuleGoals } from "@/components/lesson/formula-note";
 import { GameNetwork } from "@/components/lesson/game-network";
 import { GamePlanTable } from "@/components/lesson/game-plan-table";
 import { GroupDecision } from "@/components/lesson/group-decision";
@@ -104,7 +104,7 @@ import { SensitivityExplorer } from "@/components/lesson/sensitivity-explorer";
 import { SevenAspects } from "@/components/lesson/seven-aspects";
 import { SigmaLevels } from "@/components/lesson/sigma-levels";
 import { SmartGoal } from "@/components/lesson/smart-goal";
-import { Callout, Columns, Split, Wide } from "@/components/lesson/split";
+import { Callout } from "@/components/lesson/callout";
 import { StakeholderMap } from "@/components/lesson/stakeholder-map";
 import { StakeholderRegister } from "@/components/lesson/stakeholder-register";
 import { StatusReport } from "@/components/lesson/status-report";
@@ -155,7 +155,6 @@ const components: MDXComponents = {
   CharterCard,
   ClassesOfService,
   ClosingChecklist,
-  Columns,
   CommModel,
   CommPlan,
   ConflictModes,
@@ -181,6 +180,7 @@ const components: MDXComponents = {
   FailurePrevention,
   Fishbone,
   FormulaNote,
+  ModuleGoals,
   GameNetwork,
   GamePlanTable,
   GroupDecision,
@@ -243,7 +243,6 @@ const components: MDXComponents = {
   SevenAspects,
   SigmaLevels,
   SmartGoal,
-  Split,
   StakeholderMap,
   StakeholderRegister,
   StatusReport,
@@ -263,7 +262,6 @@ const components: MDXComponents = {
   VendorMatrix,
   WbsCodes,
   WbsMethods,
-  Wide,
   WipLimit,
 };
 

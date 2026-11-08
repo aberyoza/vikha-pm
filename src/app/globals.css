@@ -14,6 +14,7 @@
   --foreground: #dde1e6;
   --muted: #9aa1aa;
   --border: #2c3036;
+  --border-strong: #646a73;
   --grid: #1b1e22;
 
   /* Brand: pastel teal. Emblem, buttons, open modules, milestone diamonds. */
@@ -44,6 +45,7 @@
   --foreground: #1c2026;
   --muted: #59616b;
   --border: #dadfe5;
+  --border-strong: #858c95;
   --grid: #e6e9ed;
 
   --accent: #2c746e;
@@ -67,6 +69,7 @@
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
   --color-grid: var(--grid);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
@@ -190,12 +193,6 @@ body {
   }
 }
 
-/* Lesson text keeps a readable line length; text-plus-figure rows
-   (<Split>, <Columns>) use the full content width. */
-.lesson-body > :not([data-split]) {
-  max-width: 70ch;
-}
-
 .prose {
   --tw-prose-body: var(--foreground);
   --tw-prose-headings: var(--foreground);
@@ -302,6 +299,7 @@ body::before {
 }
 
 .lesson-body :where(h2):not(:where(.not-prose, .not-prose *)) {
+  margin-top: 4rem;
   font-size: 1.75rem;
   line-height: 1.25;
 }

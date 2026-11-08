@@ -84,7 +84,7 @@ export function ProjectPassport({ titles, startHref }: { titles: Record<number, 
 
   const importButton = (
     <label className={`${chip} cursor-pointer`}>
-      Завантажити з файлу
+      Відкрити збережений файл
       <input type="file" accept="application/json,.json" onChange={load} className="sr-only" />
     </label>
   );

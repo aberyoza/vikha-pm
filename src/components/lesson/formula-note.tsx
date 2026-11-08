@@ -22,3 +22,9 @@ export function FormulaNote({
     </details>
   );
 }
+
+// What the reader can do after the module, at the top of its first lesson.
+// Closed by default so that it doesn't compete with the lesson title.
+export function ModuleGoals({ children }: { children: ReactNode }) {
+  return <FormulaNote title="Після завершення цього модуля ви зможете">{children}</FormulaNote>;
+}
