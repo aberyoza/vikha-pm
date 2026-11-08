@@ -2,6 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { LESSON_EVENT, LESSONS_KEY, parseReadLessons } from "@/lib/lesson-progress";
 import { GAME_EVENT, PROJECT_EVENT, PROJECT_KEY, parseProject, type MyProject } from "@/lib/my-project";
 
 // The browser keeps the working copy, the account keeps the shared one. `base`
@@ -120,6 +121,30 @@ async function syncGames(userId: string) {
   }
 }
 
+// A lesson read on any device counts on all of them.
+async function syncLessons(userId: string) {
+  const supabase = createClient();
+  const { data, error } = await supabase.from("lesson_progress").select("module, lesson, read_at");
+  if (error) throw error;
+  const local = parseReadLessons(read(LESSONS_KEY));
+  const cloud = new Map((data ?? []).map((r) => [`${r.module}/${r.lesson}`, r.read_at as string]));
+
+  const missingHere = [...cloud].filter(([key]) => !local[key]);
+  if (missingHere.length > 0) {
+    applyLocal(() => write(LESSONS_KEY, JSON.stringify({ ...local, ...Object.fromEntries(missingHere) })), LESSON_EVENT);
+  }
+  const upload = Object.entries(local)
+    .filter(([key]) => !cloud.has(key))
+    .map(([key, readAt]) => {
+      const [module, lesson] = key.split("/");
+      return { user_id: userId, module, lesson, read_at: readAt };
+    });
+  if (upload.length > 0) {
+    const { error: saveError } = await supabase.from("lesson_progress").upsert(upload, { ignoreDuplicates: true });
+    if (saveError) throw saveError;
+  }
+}
+
 const remember = (userId: string, passport: string, serverAt: string) => {
   write(BASE_KEY, JSON.stringify({ userId, passport, serverAt } satisfies Base));
   setState({ status: "saved", savedAt: serverAt });
@@ -183,12 +208,15 @@ const run = (userId: string) => {
       if (error) throw error;
       if (!profile) return setState({ status: "idle" });
       // A failure on one side must not hold back the other.
-      const games = await syncGames(userId).then(
-        () => true,
-        () => false,
-      );
+      const saved = (sync: Promise<void>) =>
+        sync.then(
+          () => true,
+          () => false,
+        );
+      const games = await saved(syncGames(userId));
+      const lessons = await saved(syncLessons(userId));
       await syncPassport(userId);
-      if (!games) setState({ ...state, status: "failed" });
+      if (!games || !lessons) setState({ ...state, status: "failed" });
     } catch {
       setState({ ...state, status: "failed" });
     }
@@ -214,6 +242,7 @@ export function startCloudSync(userId: string) {
 
   window.addEventListener(PROJECT_EVENT, push);
   window.addEventListener(GAME_EVENT, push);
+  window.addEventListener(LESSON_EVENT, push);
   window.addEventListener("online", again);
   window.addEventListener(SYNC_REQUEST, again);
   document.addEventListener("visibilitychange", refresh);
@@ -224,6 +253,7 @@ export function startCloudSync(userId: string) {
     activeUser = null;
     window.removeEventListener(PROJECT_EVENT, push);
     window.removeEventListener(GAME_EVENT, push);
+    window.removeEventListener(LESSON_EVENT, push);
     window.removeEventListener("online", again);
     window.removeEventListener(SYNC_REQUEST, again);
     document.removeEventListener("visibilitychange", refresh);
@@ -264,5 +294,6 @@ export const forgetSyncBase = () => remove(BASE_KEY);
 export function clearCourseData() {
   applyLocal(() => remove(PROJECT_KEY), PROJECT_EVENT);
   applyLocal(() => GAME_MODULES.forEach((m) => remove(gameKey(m))), GAME_EVENT);
+  applyLocal(() => remove(LESSONS_KEY), LESSON_EVENT);
   forgetSyncBase();
 }

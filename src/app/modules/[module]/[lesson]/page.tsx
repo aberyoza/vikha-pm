@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { LessonPager, type PagerTarget } from "@/components/lesson-pager";
+import { LessonReadMark } from "@/components/lesson-read-mark";
 import { ModuleLayout } from "@/components/module-nav";
 import { PaidGate } from "@/components/paid-gate";
 import { Paywall } from "@/components/paywall";
@@ -69,6 +70,7 @@ export default async function LessonPage({ params }: Props) {
       <div className="lesson-body prose max-w-none">
         <Content />
       </div>
+      <LessonReadMark key={lesson.slug} moduleSlug={courseModule.slug} lessonSlug={lesson.slug} />
       <LessonPager prev={back} next={forward} />
     </>
   );

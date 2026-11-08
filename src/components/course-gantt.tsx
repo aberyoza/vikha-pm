@@ -1,7 +1,9 @@
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
-import { modules, publishedModules, type CourseModule } from "@/content/course";
+import { ASSIGNMENTS } from "@/content/assignments";
+import { modules, type CourseModule } from "@/content/course";
 import { isLockedModule, paywallEnabled } from "@/lib/paywall";
+import { GanttHereLegend, GanttHereLine, ListHere } from "./course-here";
 import { MilestoneMark } from "./logo";
 import { lessonsLabel } from "./ui";
 
@@ -42,8 +44,11 @@ function Row({ m, children }: { m: CourseModule; children: ReactNode }) {
 // The course program drawn as a Gantt chart: each module is a bar, staggered
 // like a project plan; open modules are filled, the rest are dashed outlines.
 export function CourseGantt() {
-  const current = publishedModules[0];
-  const currentIndex = current ? modules.indexOf(current) : -1;
+  const outline = modules.map((m) => ({
+    slug: m.slug,
+    lessons: isOpen(m) ? m.lessons.map((l) => l.slug) : [],
+    game: isOpen(m) && !!ASSIGNMENTS[m.slug],
+  }));
 
   return (
     <>
@@ -115,19 +120,7 @@ export function CourseGantt() {
             );
           })}
 
-          {currentIndex >= 0 && (
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-y-0 z-20 w-0.5 bg-second"
-              style={{
-                left: `calc(${LABEL_W} + (100% - ${LABEL_W} - ${END_W}) * ${(currentIndex + 0.5) / COLS})`,
-              }}
-            >
-              <span className="absolute top-[12px] left-[78px] bg-surface px-1 text-[13px] font-semibold whitespace-nowrap text-second">
-                Ви тут
-              </span>
-            </div>
-          )}
+          <GanttHereLine outline={outline} labelWidth={LABEL_W} endWidth={END_W} />
         </div>
 
         <div className="flex gap-7 border-t border-border px-5 py-3.5 text-[13px] text-muted">
@@ -145,10 +138,7 @@ export function CourseGantt() {
             <i className="h-2.5 w-5 rounded-[2px] border-[1.5px] border-dashed border-muted/45" />
             Готується
           </span>
-          <span className="flex items-center gap-2">
-            <i className="h-3 w-0.5 bg-second" />
-            Ви тут
-          </span>
+          <GanttHereLegend outline={outline} />
           <span className="flex items-center gap-2">
             <MilestoneMark className="size-2.5" />
             Курс завершено
@@ -168,6 +158,7 @@ export function CourseGantt() {
               </b>
               <span className={`min-w-0 flex-1 ${open ? "font-medium" : "text-muted"}`}>
                 {m.title}
+                <ListHere outline={outline} index={modules.indexOf(m)} />
               </span>
               {locked ? (
                 <span className="flex shrink-0 items-center gap-1 rounded-[3px] bg-accent-soft px-2 py-0.5 text-xs font-semibold text-accent">

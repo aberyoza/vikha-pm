@@ -149,7 +149,9 @@ Typographic don'ts (they read as generated/templated):
 | `SectionHeading` | `src/components/ui.tsx` | section titles |
 | `ThemeToggle` | `src/components/theme-toggle.tsx` (+ `theme.ts`) | header sun/moon switch; no React state, CSS shows the icon |
 | `ModuleLayout` | `src/components/module-nav.tsx` | frame of lessons and assignments: module track and the content column |
-| `AssignmentMark` | `src/components/assignment-mark.tsx` | the assignment's diamond in the track: outline until the game is finished, then filled |
+| `LessonMark`, `AssignmentMark`, `ModuleProgress` | `src/components/module-progress.tsx` | real progress in the module track, from the browser: an outline circle, then filled `second`; the assignment's diamond is an outline until the game is finished; a 4px `second` bar with «Пройдено N з M» |
+| `LessonReadMark` | `src/components/lesson-read-mark.tsx` | invisible, right after the lesson text: the lesson counts as read once its end is on screen and the reader has spent 15 seconds on the page |
+| `GanttHereLine`, `GanttHereLegend`, `ListHere` | `src/components/course-here.tsx` | «Ви тут» on the course program: the furthest module with progress, or the next one once it's finished. Nothing for someone who hasn't started |
 | `LessonPager` | `src/components/lesson-pager.tsx` | last block of a lesson or assignment: «Назад» as text, «Далі» with the number and name of the target. It is the one filled button of a lesson; on an assignment it is `quiet`, because the game has its own |
 | `lessonsLabel(n)` | `src/components/ui.tsx` | Ukrainian plural «урок/уроки/уроків» |
 | `Paywall` | `src/components/paywall.tsx` | `accent-soft` offer in place of a paid lesson or assignment, wrapped by `PaidGate` inside `<Suspense>` |
