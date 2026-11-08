@@ -16,15 +16,15 @@ export function ProjectBonus() {
     <div className="mt-10 rounded-[4px] bg-foreground/[0.05] p-4 sm:p-5">
       {building ? (
         <>
-          <h3 className="mb-4 font-display text-2xl font-semibold tracking-tight">Твій проєкт</h3>
+          <h3 className="mb-4 font-display text-2xl font-semibold tracking-tight">Ваш проєкт</h3>
           <ProjectBuilder initial={project} onSaved={() => setBuilding(false)} />
         </>
       ) : project ? (
         <>
-          <p className="text-[13px] text-muted">Твій проєкт</p>
+          <p className="text-[13px] text-muted">Ваш проєкт</p>
           <p className="mt-0.5 font-display text-xl font-semibold">{project.name}</p>
           <p className="mt-2 max-w-[60ch] leading-relaxed text-muted">
-            Перша віха проєкту поставлена: зрозуміло, що створюєш, для кого і навіщо. Наступну додаси в завданні модуля
+            Перша віха проєкту поставлена: зрозуміло, що створюєте, для кого і навіщо. Наступну додасте в завданні модуля
             3. Усього їх {MILESTONES.length}.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
@@ -38,9 +38,9 @@ export function ProjectBonus() {
         </>
       ) : (
         <>
-          <p className="font-medium">Бонус: почни свій проєкт</p>
+          <p className="font-medium">Бонус: почніть свій проєкт</p>
           <p className="mt-1 max-w-[60ch] leading-relaxed text-muted">
-            Хвилина з підказками: крутиш барабани «що» і «для кого» і збираєш ланцюжок цінності. Проєкт піде з тобою
+            Хвилина з підказками: крутите барабани «що» і «для кого» і збираєте ланцюжок цінності. Проєкт піде з вами
             через увесь курс, і кожен модуль додасть до нього віху.
           </p>
           <button type="button" onClick={() => setBuilding(true)} className={`${primary} mt-4`}>

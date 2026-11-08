@@ -90,14 +90,14 @@ export function QualityEditor({ project, onSaved }: { project: MyProject; onSave
   return (
     <div>
       <p className="leading-relaxed text-muted">
-        Як зрозуміти, що «{project.name}» готовий? Запиши три вимоги до якості: що міряєш, який результат вважаєш прийнятним і як це
-        перевіряєш. Потім познач людину, яка може зупинити запуск, якщо побачить проблему.
-        {idea && !saved && " Для твоєї ідеї все вже заповнено. Зміни, якщо в тебе інакше."}
+        Як зрозуміти, що «{project.name}» готовий? Запишіть три вимоги до якості: що міряєте, який результат вважаєте прийнятним і як це
+        перевіряєте. Потім позначте людину, яка може зупинити запуск, якщо побачить проблему.
+        {idea && !saved && " Для вашої ідеї все вже заповнено. Змініть, якщо у вас інакше."}
       </p>
 
       {project.scope && project.scope.out.length > 0 && (
         <p className="mt-3 rounded-[4px] bg-background p-3 text-sm leading-relaxed">
-          У віхі про блоки роботи записано, що в цьому проєкті ти свідомо не робиш таке: {project.scope.out.join(", ")}. Це питання сорту, тому його не треба записувати сюди як вимогу до якості.
+          У віхі про блоки роботи записано, що в цьому проєкті ви свідомо не робите таке: {project.scope.out.join(", ")}. Це питання сорту, тому його не треба записувати сюди як вимогу до якості.
         </p>
       )}
 
@@ -150,7 +150,7 @@ export function QualityEditor({ project, onSaved }: { project: MyProject; onSave
 
       {noNumber && (
         <p className="mt-3 rounded-[4px] bg-accent-soft p-3 text-sm leading-relaxed" aria-live="polite">
-          В одній із вимог немає числа. Додай його, щоб результат можна було перевірити однозначно.
+          В одній із вимог немає числа. Додайте його, щоб результат можна було перевірити однозначно.
         </p>
       )}
 
@@ -158,7 +158,7 @@ export function QualityEditor({ project, onSaved }: { project: MyProject; onSave
         <button type="button" onClick={save} disabled={!ready} className={primary}>
           Поставити віху
         </button>
-        {!ready && <span className="text-sm text-muted">Заповни всі поля трьох вимог і вибери, хто може зупинити запуск.</span>}
+        {!ready && <span className="text-sm text-muted">Заповніть всі поля трьох вимог і виберіть, хто може зупинити запуск.</span>}
       </div>
     </div>
   );
@@ -173,9 +173,9 @@ export function QualityBonus() {
     <div className="mt-10 rounded-[4px] bg-foreground/[0.05] p-4 sm:p-5">
       {!project ? (
         <>
-          <p className="font-medium">Бонус: одинадцята віха твого проєкту</p>
+          <p className="font-medium">Бонус: одинадцята віха вашого проєкту</p>
           <p className="mt-1 max-w-[60ch] leading-relaxed text-muted">
-            Тут вирішують, коли результат твого власного проєкту готовий. Але спершу його треба зібрати: це хвилина наприкінці гри модуля 1.
+            Тут вирішують, коли результат вашого власного проєкту готовий. Але спершу його треба зібрати: це хвилина наприкінці гри модуля 1.
           </p>
           <Link href={assignmentHref("module-01")} className={`${primary} mt-4 inline-block`}>
             Зібрати проєкт у модулі 1
@@ -183,7 +183,7 @@ export function QualityBonus() {
         </>
       ) : editing || !project.quality ? (
         <>
-          <p className="text-[13px] text-muted">Одинадцята віха твого проєкту</p>
+          <p className="text-[13px] text-muted">Одинадцята віха вашого проєкту</p>
           <h3 className="mb-4 font-display text-2xl font-semibold tracking-tight">Коли результат готовий</h3>
           <QualityEditor project={project} onSaved={() => setEditing(false)} />
         </>
@@ -193,7 +193,7 @@ export function QualityBonus() {
           <p className="mt-0.5 font-display text-xl font-semibold">Коли результат готовий</p>
           <QualityList project={project} quality={project.quality} />
           <p className="mt-3 max-w-[60ch] leading-relaxed text-muted">
-            Одинадцята віха поставлена. Наступну додаси в завданні модуля 13: перші задачі на дошці.
+            Одинадцята віха поставлена. Наступну додасте в завданні модуля 13: перші задачі на дошці.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link href="/my-project" className={chip(false)}>

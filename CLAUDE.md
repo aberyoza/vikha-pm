@@ -33,6 +33,8 @@ them to Віха — MASTER.md wins.
   typos/obvious facts and report every change. Spelling «проєкт», «ялинки».
 - Text the author didn't write (examples, figure captions) must be called
   out to the author for review.
+- The whole course addresses the reader as «ви», games too. Only characters
+  talking to each other may say «ти».
 - Audience: non-specialists who want to *understand* PM, not to calculate.
   The author asked for plain language and examples from the IT world: start
   from a situation (e.g. a store deciding on a mobile app), then name the

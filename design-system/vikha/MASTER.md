@@ -158,6 +158,7 @@ Typographic don'ts (they read as generated/templated):
 | `CourseGantt` | `src/components/course-gantt.tsx` | program as Gantt chart (≥1024px) / list (narrower), driven by `src/content/course.ts` |
 | `Figure` | `src/components/lesson/figure.tsx` | frame for lesson illustrations: tone step, display lead, visual, caption; `title` → `aria-label` only |
 | `Callout` | `src/components/lesson/callout.tsx` | `accent-soft` panel without outline, for a module's conclusions and side notes in the text. Not right under a title: it outshines the title |
+| `LessonTakeaways` | `src/components/lesson/lesson-takeaways.tsx` | «Головне з уроку», a numbered list on `surface`: the last block of every lesson |
 | `FormulaNote`, `ModuleGoals` | `src/components/lesson/formula-note.tsx` | collapsed blocks: formulas, and a module's goals under the title of its first lesson |
 | `NetworkDiagram`, `NodeKey` | `src/components/lesson/network-diagram.tsx` | AON network of a module example. Client-only (uses `useId`): wrap it in a client figure |
 | `SplitFlapRow` | `src/components/split-flap.tsx` | departure-board text (on `/lab` for now) |
@@ -196,6 +197,7 @@ Text the illustration explains…
 - Every illustration comes right after the text it explains.
 - Module opener: `<ModuleGoals>` with the list right after the title, then the intro.
 - Module closer: summary + `<Callout title="Ключові висновки модуля">`.
+- Every lesson ends with `<LessonTakeaways>`: about three numbered points, only what the lesson itself says.
 - «ялинки» quotes, «проєкт» spelling, lowercase after colon in list items.
 - Formulas: KaTeX via `remark-math` — inline `$r$`, block `$$ … $$`. Keep each
   block formula short enough for a phone; `.katex-display` scrolls as a
@@ -234,7 +236,9 @@ feedback stays under 300ms; never `ease-in` on UI.
 
 ## 8. Copy
 
-Plain verbs, sentence case, no filler. Never show a bare abbreviation:
+Address the reader as **«ви»** everywhere: lessons, games, «Мій проєкт», buttons.
+Only characters talking to each other may say «ти» (a line the player sends a
+teammate, for instance). Plain verbs, sentence case, no filler. Never show a bare abbreviation:
 expand it at first mention in the text *and* on any figure that can be read
 on its own (Ukrainian name first, then e.g. «PI (Profitability Index)»).
 Buttons say what happens («Почати з модуля 1», «Відкрити програму»). Don't

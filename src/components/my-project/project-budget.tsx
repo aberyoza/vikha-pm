@@ -94,9 +94,9 @@ export function BudgetEditor({ project, onSaved }: { project: MyProject; onSaved
   return (
     <div>
       <p className="leading-relaxed text-muted">
-        Скільки коштуватиме «{project.name}»? Дай кошторис кожному блоку роботи, додай резерв і подивись, яку вилку чесно назвати
-        спонсору. Якщо робиш усе власноруч, порахуй свій час: години помнож на те, скільки година тобі варта.
-        {idea && !saved && " Для твоєї ідеї суми вже підказані. Зміни їх, якщо в тебе інакше."}
+        Скільки коштуватиме «{project.name}»? Дайте кошторис кожному блоку роботи, додайте резерв і подивіться, яку вилку чесно назвати
+        спонсору. Якщо робите усе власноруч, порахуйте свій час: години помножте на те, скільки година вам варта.
+        {idea && !saved && " Для вашої ідеї суми вже підказані. Змініть їх, якщо у вас інакше."}
       </p>
 
       <div className="mt-5 space-y-5">
@@ -153,7 +153,7 @@ export function BudgetEditor({ project, onSaved }: { project: MyProject; onSaved
 
         <div>
           <p className="font-medium">
-            Резерв: <span className="font-normal text-muted">гроші на ризики, про які вже знаєш</span>
+            Резерв: <span className="font-normal text-muted">гроші на ризики, про які вже знаєте</span>
           </p>
           <div className="mt-2 flex flex-wrap gap-1.5" role="group" aria-label="Резерв">
             {RESERVES.map((v) => (
@@ -179,8 +179,8 @@ export function BudgetEditor({ project, onSaved }: { project: MyProject; onSaved
 
       {ready && (
         <p className="mt-6 rounded-[4px] bg-accent-soft p-4 leading-relaxed" aria-live="polite">
-          <strong>Бюджет {uah(total)}.</strong> Скажи {sponsor ? `спонсору (${sponsor})` : "спонсору"}: від {low.toLocaleString("uk-UA")} до {uah(high)}.
-          {rough ? " Вилка звузиться, коли розпишеш блоки." : " Це вже точна оцінка, тож вилка вузька."}
+          <strong>Бюджет {uah(total)}.</strong> Скажіть {sponsor ? `спонсору (${sponsor})` : "спонсору"}: від {low.toLocaleString("uk-UA")} до {uah(high)}.
+          {rough ? " Вилка звузиться, коли розпишете блоки." : " Це вже точна оцінка, тож вилка вузька."}
         </p>
       )}
 
@@ -188,7 +188,7 @@ export function BudgetEditor({ project, onSaved }: { project: MyProject; onSaved
         <button type="button" onClick={save} disabled={!ready} className={primary}>
           Поставити віху
         </button>
-        {!ready && <span className="text-sm text-muted">Постав суму хоча б одному блоку.</span>}
+        {!ready && <span className="text-sm text-muted">Поставте суму хоча б одному блоку.</span>}
       </div>
     </div>
   );
@@ -203,9 +203,9 @@ export function BudgetBonus() {
     <div className="mt-10 rounded-[4px] bg-foreground/[0.05] p-4 sm:p-5">
       {!project ? (
         <>
-          <p className="font-medium">Бонус: восьма віха твого проєкту</p>
+          <p className="font-medium">Бонус: восьма віха вашого проєкту</p>
           <p className="mt-1 max-w-[60ch] leading-relaxed text-muted">
-            Тут рахують бюджет твого власного проєкту. Але спершу його треба зібрати: це хвилина наприкінці гри модуля 1.
+            Тут рахують бюджет вашого власного проєкту. Але спершу його треба зібрати: це хвилина наприкінці гри модуля 1.
           </p>
           <Link href={assignmentHref("module-01")} className={`${primary} mt-4 inline-block`}>
             Зібрати проєкт у модулі 1
@@ -213,7 +213,7 @@ export function BudgetBonus() {
         </>
       ) : editing || !project.budget ? (
         <>
-          <p className="text-[13px] text-muted">Восьма віха твого проєкту</p>
+          <p className="text-[13px] text-muted">Восьма віха вашого проєкту</p>
           <h3 className="mb-4 font-display text-2xl font-semibold tracking-tight">Грубий бюджет</h3>
           <BudgetEditor project={project} onSaved={() => setEditing(false)} />
         </>
@@ -223,7 +223,7 @@ export function BudgetBonus() {
           <p className="mt-0.5 font-display text-xl font-semibold">Грубий бюджет</p>
           <BudgetList budget={project.budget} />
           <p className="mt-3 max-w-[60ch] leading-relaxed text-muted">
-            Восьма віха поставлена. Наступну додаси в завданні модуля 10: хто потрібен у команді.
+            Восьма віха поставлена. Наступну додасте в завданні модуля 10: хто потрібен у команді.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link href="/my-project" className={chip(false)}>

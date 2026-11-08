@@ -36,7 +36,7 @@ function ReserveNote({ project, risks }: { project: MyProject; risks: ProjectRis
   return (
     <p className="mt-3 text-sm text-muted" aria-live="polite">
       Захист коштує {uah(total)}, а резерв у бюджеті {uah(reserve)}.
-      {total > reserve ? " Не вміщається: збільш резерв, знайди дешевшу реакцію або свідомо прийми частину ризиків." : " Вміщається."}
+      {total > reserve ? " Не вміщається: збільште резерв, знайдіть дешевшу реакцію або свідомо прийміть частину ризиків." : " Вміщається."}
     </p>
   );
 }
@@ -115,9 +115,9 @@ export function RisksEditor({ project, onSaved }: { project: MyProject; onSaved:
   return (
     <div>
       <p className="leading-relaxed text-muted">
-        Що може піти не так у проєкті «{project.name}»? Опиши три головні ризики: причину, подію і наслідок. Оціни їх, вибери реакцію і
+        Що може піти не так у проєкті «{project.name}»? Опишіть три головні ризики: причину, подію і наслідок. Оцініть їх, виберіть реакцію і
         людину, яка стежитиме за ознаками. Замість загрози можна записати нагоду, тобто подію, яка допоможе проєкту.
-        {idea && !saved && " Для твоєї ідеї все вже заповнено. Зміни, якщо в тебе інакше."}
+        {idea && !saved && " Для вашої ідеї все вже заповнено. Змініть, якщо у вас інакше."}
       </p>
 
       <ol className="mt-5 space-y-4">
@@ -228,7 +228,7 @@ export function RisksEditor({ project, onSaved }: { project: MyProject; onSaved:
         <button type="button" onClick={save} disabled={!ready} className={primary}>
           Поставити віху
         </button>
-        {!ready && <span className="text-sm text-muted">Заповни всі поля для кожного з трьох ризиків. Ціна реакції може бути нульовою.</span>}
+        {!ready && <span className="text-sm text-muted">Заповніть всі поля для кожного з трьох ризиків. Ціна реакції може бути нульовою.</span>}
       </div>
     </div>
   );
@@ -243,9 +243,9 @@ export function RisksBonus() {
     <div className="mt-10 rounded-[4px] bg-foreground/[0.05] p-4 sm:p-5">
       {!project ? (
         <>
-          <p className="font-medium">Бонус: десята віха твого проєкту</p>
+          <p className="font-medium">Бонус: десята віха вашого проєкту</p>
           <p className="mt-1 max-w-[60ch] leading-relaxed text-muted">
-            Тут описують три головні ризики твого власного проєкту. Але спершу його треба зібрати: це хвилина наприкінці гри модуля 1.
+            Тут описують три головні ризики вашого власного проєкту. Але спершу його треба зібрати: це хвилина наприкінці гри модуля 1.
           </p>
           <Link href={assignmentHref("module-01")} className={`${primary} mt-4 inline-block`}>
             Зібрати проєкт у модулі 1
@@ -253,7 +253,7 @@ export function RisksBonus() {
         </>
       ) : editing || !project.risks ? (
         <>
-          <p className="text-[13px] text-muted">Десята віха твого проєкту</p>
+          <p className="text-[13px] text-muted">Десята віха вашого проєкту</p>
           <h3 className="mb-4 font-display text-2xl font-semibold tracking-tight">Три головні ризики</h3>
           <RisksEditor project={project} onSaved={() => setEditing(false)} />
         </>
@@ -263,7 +263,7 @@ export function RisksBonus() {
           <p className="mt-0.5 font-display text-xl font-semibold">Три головні ризики</p>
           <RisksList project={project} risks={project.risks} />
           <p className="mt-3 max-w-[60ch] leading-relaxed text-muted">
-            Десята віха поставлена. Наступну додаси в завданні модуля 12: коли результат готовий.
+            Десята віха поставлена. Наступну додасте в завданні модуля 12: коли результат готовий.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link href="/my-project" className={chip(false)}>

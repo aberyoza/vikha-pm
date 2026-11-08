@@ -126,9 +126,9 @@ export function ScopeEditor({ project, onSaved }: { project: MyProject; onSaved:
   return (
     <div>
       <p className="leading-relaxed text-muted">
-        З яких великих блоків роботи складається «{project.name}» і що ти свідомо лишаєш за межами? Обери від {BLOCKS.min}{" "}
-        до {BLOCKS.max} блоків і від {OUT.min} до {OUT.max} пунктів, яких не робиш.
-        {idea && !project.scope && " Для твоєї ідеї частину вже вибрано. Зміни, якщо в тебе інакше."}
+        З яких великих блоків роботи складається «{project.name}» і що ви свідомо лишаєте за межами? Оберіть від {BLOCKS.min}{" "}
+        до {BLOCKS.max} блоків і від {OUT.min} до {OUT.max} пунктів, яких не робите.
+        {idea && !project.scope && " Для вашої ідеї частину вже вибрано. Змініть, якщо у вас інакше."}
       </p>
 
       <div className="mt-5 space-y-5">
@@ -142,7 +142,7 @@ export function ScopeEditor({ project, onSaved }: { project: MyProject; onSaved:
         />
         <Picker
           label="Поки не робимо"
-          placeholder="Додати, чого не робиш"
+          placeholder="Додати, чого не робите"
           hints={idea?.out ?? []}
           max={OUT.max}
           value={out}
@@ -163,7 +163,7 @@ export function ScopeEditor({ project, onSaved }: { project: MyProject; onSaved:
         </button>
         {!ready && (
           <span className="text-sm text-muted">
-            {blocks.length < BLOCKS.min ? `Потрібно щонайменше ${BLOCKS.min} блоки.` : "Назви хоча б один пункт, якого не робиш."}
+            {blocks.length < BLOCKS.min ? `Потрібно щонайменше ${BLOCKS.min} блоки.` : "Назвіть хоча б один пункт, якого не робите."}
           </span>
         )}
       </div>
@@ -180,9 +180,9 @@ export function ScopeBonus() {
     <div className="mt-10 rounded-[4px] bg-foreground/[0.05] p-4 sm:p-5">
       {!project ? (
         <>
-          <p className="font-medium">Бонус: шоста віха твого проєкту</p>
+          <p className="font-medium">Бонус: шоста віха вашого проєкту</p>
           <p className="mt-1 max-w-[60ch] leading-relaxed text-muted">
-            Тут окреслюють межі твого власного проєкту. Але спершу його треба зібрати: це хвилина наприкінці гри модуля 1.
+            Тут окреслюють межі вашого власного проєкту. Але спершу його треба зібрати: це хвилина наприкінці гри модуля 1.
           </p>
           <Link href={assignmentHref("module-01")} className={`${primary} mt-4 inline-block`}>
             Зібрати проєкт у модулі 1
@@ -190,7 +190,7 @@ export function ScopeBonus() {
         </>
       ) : editing || !project.scope ? (
         <>
-          <p className="text-[13px] text-muted">Шоста віха твого проєкту</p>
+          <p className="text-[13px] text-muted">Шоста віха вашого проєкту</p>
           <h3 className="mb-4 font-display text-2xl font-semibold tracking-tight">Блоки роботи і що не робимо</h3>
           <ScopeEditor project={project} onSaved={() => setEditing(false)} />
         </>
@@ -200,7 +200,7 @@ export function ScopeBonus() {
           <p className="mt-0.5 font-display text-xl font-semibold">Блоки роботи і що не робимо</p>
           <ScopeList scope={project.scope} />
           <p className="mt-3 max-w-[60ch] leading-relaxed text-muted">
-            Шоста віха поставлена. Наступну додаси в завданні модуля 8: віхи і дата завершення.
+            Шоста віха поставлена. Наступну додасте в завданні модуля 8: віхи і дата завершення.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link href="/my-project" className={chip(false)}>

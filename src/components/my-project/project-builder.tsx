@@ -196,7 +196,7 @@ export function ProjectBuilder({ initial, onSaved }: { initial: MyProject | null
           <p className="mt-4 text-sm text-muted" aria-live="polite">
             {idea
               ? "Для цієї пари є готові підказки на весь курс."
-              : "Незвична пара! Підказки будуть загальні, а деталі допишеш своїми словами."}
+              : "Незвична пара! Підказки будуть загальні, а деталі допишете своїми словами."}
           </p>
         )}
 
@@ -232,7 +232,7 @@ export function ProjectBuilder({ initial, onSaved }: { initial: MyProject | null
       />
 
       <p className="mt-6 leading-relaxed text-muted">
-        Тепер ланцюжок цінності, як у другому рівні. Обери підказку і зміни її під себе або напиши своє.
+        Тепер ланцюжок цінності, як у другому рівні. Оберіть підказку і змініть її під себе або напишіть своє.
       </p>
       <div className="mt-4 space-y-5">
         {VALUE_STEPS.map((s) => (
@@ -275,7 +275,7 @@ export function ProjectBuilder({ initial, onSaved }: { initial: MyProject | null
         <button type="button" onClick={() => setStep("drums")} className={chip(false)}>
           Назад до барабанів
         </button>
-        {!ready && <span className="text-sm text-muted">Заповни назву і всі три поля.</span>}
+        {!ready && <span className="text-sm text-muted">Заповніть назву і всі три поля.</span>}
       </div>
     </div>
   );

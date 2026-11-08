@@ -1,4 +1,5 @@
 import "server-only";
+import { connection } from "next/server";
 import { paywallEnabled } from "./paywall";
 import { createClient } from "./supabase/server";
 
@@ -6,6 +7,8 @@ import { createClient } from "./supabase/server";
 // while a paid lesson shown by mistake can't be taken back.
 export async function hasCourseAccess() {
   if (!paywallEnabled) return true;
+  // Access is decided per request, so none of this belongs in the prerender.
+  await connection();
   try {
     const supabase = await createClient();
     const { data: auth } = await supabase.auth.getUser();

@@ -61,25 +61,25 @@ export function BenefitEditor({ project, onSaved }: { project: MyProject; onSave
   return (
     <div>
       <p className="leading-relaxed text-muted">
-        Проєкт «{project.name}» закінчиться, а вигода з&apos;явиться пізніше. Запиши, як ти зрозумієш, що вона настала.
-        {idea && !saved && " Для твоєї ідеї все вже заповнено. Зміни, якщо в тебе інакше."}
+        Проєкт «{project.name}» закінчиться, а вигода з&apos;явиться пізніше. Запишіть, як ви зрозумієте, що вона настала.
+        {idea && !saved && " Для вашої ідеї все вже заповнено. Змініть, якщо у вас інакше."}
       </p>
 
       <div className="mt-5 space-y-4">
         <label className="block text-sm">
-          <span className="font-medium">Яку вигоду ти чекаєш?</span>
+          <span className="font-medium">Яку вигоду ви чекаєте?</span>
           <input value={value} maxLength={140} onChange={(e) => setValue(e.target.value)} className={`${field} mt-1`} />
         </label>
         <label className="block text-sm">
-          <span className="font-medium">Яким числом ти її виміряєш і яка ціль?</span>
+          <span className="font-medium">Яким числом ви її виміряєте і яка ціль?</span>
           <input value={metric} maxLength={140} placeholder="85% віконець заповнено через три місяці" onChange={(e) => setMetric(e.target.value)} className={`${field} mt-1`} />
         </label>
         <label className="block text-sm">
-          <span className="font-medium">Що заздалегідь підкаже, чи ти рухаєшся до цілі?</span>
+          <span className="font-medium">Що заздалегідь підкаже, чи ви рухаєтеся до цілі?</span>
           <input value={early} maxLength={140} placeholder="Скільки клієнтів записалися через бота за перший місяць" onChange={(e) => setEarly(e.target.value)} className={`${field} mt-1`} />
         </label>
         <div>
-          <p className="text-sm font-medium">Коли ти перевіряєш вигоду? Вибери хоча б дві дати.</p>
+          <p className="text-sm font-medium">Коли ви перевіряєте вигоду? Виберіть хоча б дві дати.</p>
           <div className="mt-2 flex flex-wrap gap-1.5" role="group" aria-label="Коли перевіряємо вигоду">
             {BENEFIT_CHECKS.map((c) => (
               <button key={c.months} type="button" aria-pressed={checks.includes(c.months)} onClick={() => toggle(c.months)} className={chip(checks.includes(c.months))}>
@@ -93,7 +93,7 @@ export function BenefitEditor({ project, onSaved }: { project: MyProject; onSave
           <input value={owner} maxLength={60} placeholder="Власник барбершопу" onChange={(e) => setOwner(e.target.value)} className={`${field} mt-1`} />
         </label>
         <label className="block text-sm">
-          <span className="font-medium">Що ти зробиш, якщо вигода відстає від плану?</span>
+          <span className="font-medium">Що ви зробите, якщо вигода відстає від плану?</span>
           <input value={behind} maxLength={160} placeholder="Попросити майстрів давати посилання на бота кожному клієнту" onChange={(e) => setBehind(e.target.value)} className={`${field} mt-1`} />
         </label>
       </div>
@@ -102,7 +102,7 @@ export function BenefitEditor({ project, onSaved }: { project: MyProject; onSave
         <button type="button" onClick={save} disabled={!ready} className={primary}>
           Поставити віху
         </button>
-        {!ready && <span className="text-sm text-muted">Заповни всі поля і вибери хоча б дві дати перевірки.</span>}
+        {!ready && <span className="text-sm text-muted">Заповніть всі поля і виберіть хоча б дві дати перевірки.</span>}
       </div>
     </div>
   );
@@ -117,7 +117,7 @@ export function BenefitBonus() {
     <div className="mt-6 rounded-[4px] bg-foreground/[0.05] p-4 sm:p-5">
       {!project ? (
         <>
-          <p className="font-medium">Бонус: остання віха твого проєкту</p>
+          <p className="font-medium">Бонус: остання віха вашого проєкту</p>
           <p className="mt-1 max-w-[60ch] leading-relaxed text-muted">
             Тут записують, як зрозуміти, що вигода настала. Але спершу проєкт треба зібрати: це хвилина наприкінці гри модуля 1.
           </p>
@@ -127,7 +127,7 @@ export function BenefitBonus() {
         </>
       ) : editing || !project.benefit ? (
         <>
-          <p className="text-[13px] text-muted">Тринадцята, остання віха твого проєкту</p>
+          <p className="text-[13px] text-muted">Тринадцята, остання віха вашого проєкту</p>
           <h3 className="mb-4 font-display text-2xl font-semibold tracking-tight">Як зрозуміти, що вигода настала</h3>
           <BenefitEditor project={project} onSaved={() => setEditing(false)} />
         </>

@@ -99,9 +99,9 @@ export function InvestEditor({ project, onSaved }: { project: MyProject; onSaved
   return (
     <div>
       <p className="leading-relaxed text-muted">
-        Короткий бізнес-кейс для «{project.name}»: що вкладаєш, що буде без проєкту, коли прийде вигода і чи вистачить
-        до неї грошей. Наприкінці — мета, за якою потім перевіриш успіх.
-        {idea && !project.invest && " Для твоєї ідеї відповіді вже вибрані. Зміни їх, якщо твій проєкт інакший."}
+        Короткий бізнес-кейс для «{project.name}»: що вкладаєте, що буде без проєкту, коли прийде вигода і чи вистачить
+        до неї грошей. Наприкінці — мета, за якою потім перевірите успіх.
+        {idea && !project.invest && " Для вашої ідеї відповіді вже вибрані. Змініть їх, якщо ваш проєкт інакший."}
       </p>
 
       <div className="mt-5 space-y-5">
@@ -139,7 +139,7 @@ export function InvestEditor({ project, onSaved }: { project: MyProject; onSaved
         <button type="button" onClick={save} disabled={!ready} className={primary}>
           Поставити віху
         </button>
-        {!ready && <span className="text-sm text-muted">Дай відповідь на всі питання і напиши альтернативу та мету.</span>}
+        {!ready && <span className="text-sm text-muted">Дайте відповідь на всі питання і напишіть альтернативу та мету.</span>}
       </div>
     </div>
   );
@@ -154,9 +154,9 @@ export function InvestBonus() {
     <div className="mt-10 rounded-[4px] bg-foreground/[0.05] p-4 sm:p-5">
       {!project ? (
         <>
-          <p className="font-medium">Бонус: третя віха твого проєкту</p>
+          <p className="font-medium">Бонус: третя віха вашого проєкту</p>
           <p className="mt-1 max-w-[60ch] leading-relaxed text-muted">
-            Тут вирішують, чи варто вкладатися у твій власний проєкт. Але спершу його треба зібрати: це хвилина
+            Тут вирішують, чи варто вкладатися у ваш власний проєкт. Але спершу його треба зібрати: це хвилина
             наприкінці гри модуля 1.
           </p>
           <Link href={assignmentHref("module-01")} className={`${primary} mt-4 inline-block`}>
@@ -165,7 +165,7 @@ export function InvestBonus() {
         </>
       ) : editing || !project.invest ? (
         <>
-          <p className="text-[13px] text-muted">Третя віха твого проєкту</p>
+          <p className="text-[13px] text-muted">Третя віха вашого проєкту</p>
           <h3 className="mb-4 font-display text-2xl font-semibold tracking-tight">Чи варто вкладатися</h3>
           <InvestEditor project={project} onSaved={() => setEditing(false)} />
         </>
@@ -175,7 +175,7 @@ export function InvestBonus() {
           <p className="mt-0.5 font-display text-xl font-semibold">{project.invest.verdict}</p>
           <p className="mt-1 leading-relaxed">{project.invest.goal}</p>
           <p className="mt-2 max-w-[60ch] leading-relaxed text-muted">
-            Третя віха поставлена. Наступну додаси в завданні модуля 5: люди навколо проєкту.
+            Третя віха поставлена. Наступну додасте в завданні модуля 5: люди навколо проєкту.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link href="/my-project" className={chip(false)}>
