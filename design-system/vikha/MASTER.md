@@ -16,6 +16,9 @@ In November 2026 the author asked to replace the orange tones with light and
 deep blue. The first bright version strained the eyes, so the palette went pastel
 and low in saturation. The same month the logo became a psi emblem; a blue one read
 as the VK icon, so the author chose teal for the emblem and then for the whole site.
+In November 2026 students said they got lost on lesson pages, so lessons moved from
+two columns to one reading axis, with a designer's audit as the input. The audit's
+label above the title, «·» meta line and outlined cards were not taken (§3, §4).
 
 ## 1. Concept: "Віха як діаграма Ганта"
 
@@ -48,6 +51,7 @@ theme-specific tweak (e.g. which toggle icon shows).
 | `foreground` | `#dde1e6` | `#1c2026` | text |
 | `muted` | `#9aa1aa` | `#59616b` | secondary text |
 | `border` | `#2c3036` | `#dadfe5` | real tables and form fields only |
+| `border-strong` | `#646a73` | `#858c95` | outline of empty state markers (≥ 3:1 on `background` and `surface`) |
 | `grid` | `#1b1e22` | `#e6e9ed` | chart rows and columns |
 | `accent` | `#86c5bd` pastel teal | `#2c746e` deep teal | the brand: emblem, primary button, open modules, diamonds, selected state |
 | `accent-foreground` | `#10211f` | `#fafbfc` | text on accent |
@@ -95,13 +99,15 @@ Scale:
 - Hero h1: 40px → `sm:text-6xl` → `lg:76px`, leading 1.02, tracking −0.03em, max 13ch
 - Section heading (`<SectionHeading>`): 30 → 34px
 - Lesson h1: 34px → 48px (≥640px); lesson h2: 28px — set in `.lesson-body`
-- Lesson body: 17px, line-height 1.7, max line length **70ch**
+- Lesson body: 17px, line-height 1.7, in a 720px column
+- Lesson h2: 4rem above it, so sections read as sections
 - Small text: 13–15px, **sentence case**, `text-muted`
 
 Typographic don'ts (they read as generated/templated):
 - **no eyebrows:** no small label above a heading, lead or lesson title
   (figures keep their short `title` only as `aria-label`; the lesson page
-  doesn't print «Урок N з M», the sidebar already shows it);
+  doesn't print «Урок N з M» above the title: the module track shows it, and
+  on a phone its collapsed line sits right above the title);
 - no ALL-CAPS tracked labels, no monospace outside real code;
 - no meta strings joined with middle dots («A · B · C»);
 - no "→" appended to buttons/links (arrows only where they *mean* direction,
@@ -116,8 +122,11 @@ Typographic don'ts (they read as generated/templated):
   (`.hero-glow`) → Gantt program → two "label column + content" sections
   (`lg:grid-cols-[4fr_7fr]`). Lists of equal items are rows (`<dl>`), not
   three identical cards.
-- Lesson page: sticky left sidebar 300px (`surface`) with the module track,
-  content with `<Split>` rows (text left, figure right from `xl` = 1280px).
+- Lesson page: **one reading axis.** `ModuleLayout` gives a sticky module track
+  300px (`surface`) from 1024px, a collapsed line above the content below that,
+  and one centered 720px column. No right column at any width: free space stays
+  margin. Every block has the column's width; figures follow the text they
+  explain. Assignments use the same frame with 880px, because games are controls.
 - Corners: **4px** for sheets/figures/callouts (`rounded-[4px]`), 6px buttons
   and chips (`rounded-md`), 2–3px bars, tiles and diamonds. No pill cards.
 - **Tone steps, not lines.** Figures and Callouts have no outline: they sit
@@ -139,13 +148,15 @@ Typographic don'ts (they read as generated/templated):
 | `ButtonLink` (`primary` / `text`) | `src/components/ui.tsx` | primary = teal button; text = underlined link-button |
 | `SectionHeading` | `src/components/ui.tsx` | section titles |
 | `ThemeToggle` | `src/components/theme-toggle.tsx` (+ `theme.ts`) | header sun/moon switch; no React state, CSS shows the icon |
-| `LessonNavCard` | `src/components/lesson-nav-card.tsx` | prev/next lesson links with a direction arrow |
+| `ModuleLayout` | `src/components/module-nav.tsx` | frame of lessons and assignments: module track and the content column |
+| `AssignmentMark` | `src/components/assignment-mark.tsx` | the assignment's diamond in the track: outline until the game is finished, then filled |
+| `LessonPager` | `src/components/lesson-pager.tsx` | last block of a lesson or assignment: «Назад» as text, «Далі» with the number and name of the target. It is the one filled button of a lesson; on an assignment it is `quiet`, because the game has its own |
 | `lessonsLabel(n)` | `src/components/ui.tsx` | Ukrainian plural «урок/уроки/уроків» |
 | `Paywall` | `src/components/paywall.tsx` | `accent-soft` offer in place of a paid lesson or assignment, wrapped by `PaidGate` inside `<Suspense>` |
 | `CourseGantt` | `src/components/course-gantt.tsx` | program as Gantt chart (≥1024px) / list (narrower), driven by `src/content/course.ts` |
 | `Figure` | `src/components/lesson/figure.tsx` | frame for lesson illustrations: tone step, display lead, visual, caption; `title` → `aria-label` only |
-| `Split`, `Columns`, `Callout` | `src/components/lesson/split.tsx` | lesson layout helpers; Callout is an `accent-soft` panel without outline |
-| `Wide` | `src/components/lesson/split.tsx` | full-width figure (mind maps, network diagrams) instead of the 70ch column |
+| `Callout` | `src/components/lesson/callout.tsx` | `accent-soft` panel without outline, for a module's conclusions and side notes in the text. Not right under a title: it outshines the title |
+| `FormulaNote`, `ModuleGoals` | `src/components/lesson/formula-note.tsx` | collapsed blocks: formulas, and a module's goals under the title of its first lesson |
 | `NetworkDiagram`, `NodeKey` | `src/components/lesson/network-diagram.tsx` | AON network of a module example. Client-only (uses `useId`): wrap it in a client figure |
 | `SplitFlapRow` | `src/components/split-flap.tsx` | departure-board text (on `/lab` for now) |
 | `ogCard` | `src/app/og-card.tsx` | link-preview image for home and every lesson |
@@ -171,26 +182,18 @@ classes (`fill-accent`, `stroke-foreground/60`) or `var(--token)`;
 ```mdx
 # Lesson title
 
-Intro paragraph (full width, 70ch).
-
-<Split>
+Intro paragraph.
 
 ## Section heading
 
 Text the illustration explains…
 
 <SomeFigure />
-
-</Split>
 ```
 
-- Every illustration sits next to the text it explains (inside `<Split>`).
-  **The last child of a `Split` is always the figure** (or a Callout): a
-  Split without one pushes its last paragraph into the side column. Text
-  without a figure goes outside `<Split>`.
-- Module opener: `<Split>` with intro + `<Callout title="Після завершення цього модуля ви зможете">`.
-- Module closer: `<Split>` with summary + `<Callout title="Ключові висновки модуля">`.
-- Long lists without a figure → `<Columns>`.
+- Every illustration comes right after the text it explains.
+- Module opener: `<ModuleGoals>` with the list right after the title, then the intro.
+- Module closer: summary + `<Callout title="Ключові висновки модуля">`.
 - «ялинки» quotes, «проєкт» spelling, lowercase after colon in list items.
 - Formulas: KaTeX via `remark-math` — inline `$r$`, block `$$ … $$`. Keep each
   block formula short enough for a phone; `.katex-display` scrolls as a
@@ -241,7 +244,7 @@ promise features that aren't built without marking them («Завдання мо
 - [ ] Tokens only; checked in **both** themes; one accent for action/selection, `second` = progress
 - [ ] No eyebrows, no outlines around figures or callouts, no hairline dividers, no assistant palette
 - [ ] Headings `font-display`, body Fixel Text; no all-caps labels, no `·` meta, no `→` on buttons
-- [ ] 375px, 768px, 1280px, 1440px — `document.documentElement.scrollWidth` equals viewport width
+- [ ] 375px, 768px, 1024px, 1440px — `document.documentElement.scrollWidth` equals viewport width
 - [ ] Focus visible; UI transitions ≤ 300ms with `--ease-out`; reduced motion respected
 - [ ] Text contrast ≥ 4.5:1; meaning never by color alone
 - [ ] New lesson: `description` in `course.ts`; its preview image renders (`/modules/<m>/<l>/opengraph-image`)

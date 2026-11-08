@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { AfterReleaseGame } from "@/components/assignment/after-release-game";
@@ -7,7 +6,6 @@ import { AgileGame } from "@/components/assignment/agile-game";
 import { ApproachesGame } from "@/components/assignment/approaches-game";
 import { BudgetGame } from "@/components/assignment/budget-game";
 import { FirstDayGame } from "@/components/assignment/first-day-game";
-import { AssignmentNeighbours } from "@/components/assignment/game-kit";
 import { GovernanceGame } from "@/components/assignment/governance-game";
 import { InvestmentCommitteeGame } from "@/components/assignment/investment-committee-game";
 import { PrinciplesWeekGame } from "@/components/assignment/principles-week-game";
@@ -17,6 +15,8 @@ import { ScheduleGame } from "@/components/assignment/schedule-game";
 import { ScopeGame } from "@/components/assignment/scope-game";
 import { StakeholdersGame } from "@/components/assignment/stakeholders-game";
 import { TeamGame } from "@/components/assignment/team-game";
+import { LessonPager } from "@/components/lesson-pager";
+import { ModuleLayout } from "@/components/module-nav";
 import { PaidGate } from "@/components/paid-gate";
 import { Paywall } from "@/components/paywall";
 import { ASSIGNMENTS, assignmentHref } from "@/content/assignments";
@@ -55,16 +55,9 @@ export default async function AssignmentPage({ params }: Props) {
   const next = publishedModules.find((x) => x.number === m.number + 1);
   const nextHref = next ? `/modules/${next.slug}/${next.lessons[0].slug}` : "/#program";
   const lastLesson = m.lessons[m.lessons.length - 1];
-  const withGame = publishedModules.filter((x) => ASSIGNMENTS[x.slug]);
-  const at = withGame.findIndex((x) => x.slug === slug);
-  const prevAssignment = withGame[at - 1];
-  const nextAssignment = withGame[at + 1];
 
   const game = (
-    <AssignmentNeighbours
-      prevHref={prevAssignment && assignmentHref(prevAssignment.slug)}
-      nextHref={nextAssignment && assignmentHref(nextAssignment.slug)}
-    >
+    <>
       {slug === "module-01" && <FirstDayGame nextHref={nextHref} />}
       {slug === "module-02" && <PrinciplesWeekGame nextHref={nextHref} />}
       {slug === "module-03" && <ApproachesGame nextHref={nextHref} />}
@@ -79,18 +72,12 @@ export default async function AssignmentPage({ params }: Props) {
       {slug === "module-12" && <QualityGame nextHref={nextHref} />}
       {slug === "module-13" && <AgileGame nextHref={nextHref} />}
       {slug === "module-14" && <AfterReleaseGame />}
-    </AssignmentNeighbours>
+    </>
   );
 
   return (
-    <main className="mx-auto max-w-[880px] px-4 py-10 sm:px-8 md:py-14">
-      <Link
-        href={`/modules/${m.slug}/${lastLesson.slug}`}
-        className="text-[15px] text-muted transition-colors duration-200 hover:text-foreground"
-      >
-        Модуль {m.number}. {m.title}
-      </Link>
-      <h1 className="mt-3 mb-8 font-display text-4xl font-semibold tracking-tight sm:text-5xl">Завдання модуля</h1>
+    <ModuleLayout module={m} current={{ assignment: true }} wide>
+      <h1 className="mb-8 font-display text-4xl font-semibold tracking-tight sm:text-5xl">Завдання модуля</h1>
       {isLockedModule(m.number) ? (
         <Suspense fallback={<p className="text-muted">Завантажуємо завдання…</p>}>
           <PaidGate paywall={<Paywall />}>{game}</PaidGate>
@@ -98,6 +85,15 @@ export default async function AssignmentPage({ params }: Props) {
       ) : (
         game
       )}
-    </main>
+      <LessonPager
+        quiet
+        prev={{ href: `/modules/${m.slug}/${lastLesson.slug}`, label: "Назад", title: lastLesson.title }}
+        next={
+          next
+            ? { href: nextHref, label: `Далі: модуль ${next.number}`, title: next.title }
+            : { href: nextHref, label: "Курс завершено", title: "Програма курсу" }
+        }
+      />
+    </ModuleLayout>
   );
 }

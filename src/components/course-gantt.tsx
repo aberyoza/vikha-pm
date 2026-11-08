@@ -5,7 +5,7 @@ import { isLockedModule, paywallEnabled } from "@/lib/paywall";
 import { MilestoneMark } from "./logo";
 import { lessonsLabel } from "./ui";
 
-const LABEL_W = "300px";
+const LABEL_W = "340px";
 const END_W = "56px";
 const COLS = modules.length;
 
@@ -92,7 +92,7 @@ export function CourseGantt() {
                   }}
                   className={`z-10 mx-[3px] flex h-6 origin-left animate-draw items-center self-center rounded-[3px] ${
                     locked
-                      ? "gap-1.5 bg-accent-soft pl-2 text-[13px] font-semibold whitespace-nowrap text-accent"
+                      ? "gap-1 bg-accent-soft pl-1.5 text-[13px] font-semibold whitespace-nowrap text-accent"
                       : open
                         ? "bg-accent pl-2.5 text-[13px] font-semibold whitespace-nowrap text-accent-foreground"
                         : "border-[1.5px] border-dashed border-muted/45"

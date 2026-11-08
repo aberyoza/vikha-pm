@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { LessonNavCard } from "@/components/lesson-nav-card";
+import { LessonPager, type PagerTarget } from "@/components/lesson-pager";
+import { ModuleLayout } from "@/components/module-nav";
 import { PaidGate } from "@/components/paid-gate";
 import { Paywall } from "@/components/paywall";
-import { findLesson, modules, publishedModules } from "@/content/course";
+import { findLesson, publishedModules } from "@/content/course";
 import { OPEN_GRAPH } from "@/content/site";
 import { jsonLd, lessonJsonLd } from "@/content/structured-data";
 import { ASSIGNMENTS, assignmentHref } from "@/content/assignments";
@@ -48,154 +48,58 @@ export default async function LessonPage({ params }: Props) {
   );
 
   const index = courseModule.lessons.findIndex((l) => l.slug === lesson.slug);
+  const total = courseModule.lessons.length;
   const lessonHref = (slug: string) => `/modules/${courseModule.slug}/${slug}`;
   const assignment = ASSIGNMENTS[courseModule.slug];
+  const previousModule = publishedModules.find((m) => m.number === courseModule.number - 1);
+
+  const back: PagerTarget | undefined = prev
+    ? { href: lessonHref(prev.slug), label: "Назад", title: prev.title }
+    : previousModule && ASSIGNMENTS[previousModule.slug]
+      ? { href: assignmentHref(previousModule.slug), label: "Назад", title: `Завдання модуля ${previousModule.number}` }
+      : undefined;
+  const forward: PagerTarget = next
+    ? { href: lessonHref(next.slug), label: `Далі: урок ${index + 2} з ${total}`, title: next.title }
+    : assignment
+      ? { href: assignmentHref(courseModule.slug), label: `Далі: завдання модуля, ${assignment.minutes} хв`, title: assignment.title }
+      : { href: "/#program", label: "Уроки модуля пройдено", title: "Повернутися до програми" };
 
   const body = (
     <>
-      <div className="lesson-body prose max-w-6xl">
+      <div className="lesson-body prose max-w-none">
         <Content />
       </div>
-
-      <nav
-        aria-label="Навігація уроками"
-        className="mt-16 grid max-w-6xl gap-4 border-t border-border pt-8 sm:grid-cols-2"
-      >
-        {prev ? (
-          <LessonNavCard
-            href={lessonHref(prev.slug)}
-            label="Попередній урок"
-            title={prev.title}
-            direction="prev"
-          />
-        ) : (
-          <span className="hidden sm:block" />
-        )}
-        {next ? (
-          <LessonNavCard
-            href={lessonHref(next.slug)}
-            label="Наступний урок"
-            title={next.title}
-            direction="next"
-          />
-        ) : assignment ? (
-          <LessonNavCard
-            href={assignmentHref(courseModule.slug)}
-            label="Уроки модуля пройдено"
-            title="Перейти до завдання"
-            direction="next"
-            highlight
-          />
-        ) : (
-          <LessonNavCard
-            href="/#program"
-            label="Уроки модуля пройдено"
-            title="Повернутися до програми"
-            direction="next"
-            highlight
-          />
-        )}
-      </nav>
+      <LessonPager prev={back} next={forward} />
     </>
   );
 
   return (
-    <div className="grid md:grid-cols-[300px_1fr]">
+    <ModuleLayout module={courseModule} current={lesson.slug}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(lessonJsonLd(courseModule, lesson)) }} />
-      <aside className="border-b border-border bg-surface px-4 py-7 sm:px-7 md:sticky md:top-0 md:h-dvh md:overflow-y-auto md:border-r md:border-b-0 md:py-9">
-        <Link
-          href="/#program"
-          className="text-[15px] text-muted transition-colors duration-200 hover:text-foreground"
+      {isLockedModule(courseModule.number) ? (
+        <Suspense
+          fallback={
+            <div className="lesson-body prose max-w-none">
+              <h1>{lesson.title}</h1>
+              <p className="text-muted">Завантажуємо урок…</p>
+            </div>
+          }
         >
-          Програма курсу
-        </Link>
-        <p className="mt-7 font-display text-[22px] leading-tight font-semibold tracking-tight">
-          {courseModule.title}
-        </p>
-        <p className="mt-1 text-sm text-muted">
-          Модуль {courseModule.number} з {modules.length}
-        </p>
-
-        <nav className="mt-7" aria-label="Уроки модуля">
-          <ol className="relative before:absolute before:top-3 before:bottom-3 before:left-[6px] before:w-0.5 before:bg-border">
-            {courseModule.lessons.map((l, i) => {
-              const state = i < index ? "done" : i === index ? "now" : "next";
-              return (
-                <li key={l.slug}>
-                  <Link
-                    href={lessonHref(l.slug)}
-                    aria-current={state === "now" ? "page" : undefined}
-                    className={`group relative block py-2 pl-8 text-[15px] transition-colors duration-200 ${
-                      state === "now"
-                        ? "font-semibold text-foreground"
-                        : "text-muted hover:text-foreground"
-                    }`}
-                  >
-                    <span
-                      aria-hidden
-                      className={`absolute top-[15px] left-px size-3 rounded-full border-2 ${
-                        state === "done"
-                          ? "border-second bg-second"
-                          : state === "now"
-                            ? "border-accent bg-surface ring-4 ring-accent-soft"
-                            : "border-border bg-surface"
-                      }`}
-                    />
-                    {l.title}
-                  </Link>
-                </li>
-              );
-            })}
-            <li className="relative mt-2 text-[15px]">
-              <span
-                aria-hidden
-                className="absolute top-[15px] left-px size-3 rotate-45 rounded-[2px] bg-accent"
-              />
-              {assignment ? (
-                <Link
-                  href={assignmentHref(courseModule.slug)}
-                  className="block py-2 pl-8 text-foreground transition-colors duration-200 hover:text-accent"
-                >
-                  Завдання модуля
-                  <span className="block text-sm text-muted">Гра на {assignment.minutes} хвилин</span>
-                </Link>
-              ) : (
-                <span className="block py-2 pl-8 text-foreground">
-                  Завдання модуля
-                  <span className="block text-sm text-muted">Скоро</span>
-                </span>
-              )}
-            </li>
-          </ol>
-        </nav>
-      </aside>
-
-      <article className="min-w-0 px-4 py-10 sm:px-10 md:py-12 xl:px-14">
-        {isLockedModule(courseModule.number) ? (
-          <Suspense
-            fallback={
-              <div className="lesson-body prose max-w-6xl">
+          <PaidGate
+            paywall={
+              <div className="lesson-body prose max-w-none">
                 <h1>{lesson.title}</h1>
-                <p className="text-muted">Завантажуємо урок…</p>
+                <p>{lesson.description}</p>
+                <Paywall />
               </div>
             }
           >
-            <PaidGate
-              paywall={
-                <div className="lesson-body prose max-w-6xl">
-                  <h1>{lesson.title}</h1>
-                  <p>{lesson.description}</p>
-                  <Paywall />
-                </div>
-              }
-            >
-              {body}
-            </PaidGate>
-          </Suspense>
-        ) : (
-          body
-        )}
-      </article>
-    </div>
+            {body}
+          </PaidGate>
+        </Suspense>
+      ) : (
+        body
+      )}
+    </ModuleLayout>
   );
 }
