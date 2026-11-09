@@ -9,7 +9,7 @@ import { themeInitScript } from "@/components/theme";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { CONTACT_EMAIL, INDEXABLE, OPEN_GRAPH, SITE_NAME, SITE_URL } from "@/content/site";
 import { authEnabled } from "@/lib/auth";
-import { COURSE_KIND, FREE_PART, paywallEnabled } from "@/lib/paywall";
+import { paywallEnabled } from "@/lib/paywall";
 import { fixelDisplay, fixelText } from "@/fonts";
 import "katex/dist/katex.min.css";
 import "./globals.css";
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     default: "Віха — курс з управління проєктами",
     template: "%s · Віха",
   },
-  description: `${COURSE_KIND} з управління проєктами українською мовою на основі PMBOK 7 і 8.${paywallEnabled ? ` ${FREE_PART}` : ""}`,
+  description: "Курс з управління проєктами українською мовою на основі PMBOK 7 і 8.",
   metadataBase: new URL(SITE_URL),
   applicationName: SITE_NAME,
   alternates: { canonical: "/" },
@@ -77,7 +77,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <Logo />
             <div className="max-w-xl sm:text-right">
               <p>
-                {COURSE_KIND} з управління проєктами. PMBOK® — зареєстрована
+                Курс з управління проєктами. PMBOK® — зареєстрована
                 торгова марка Project Management Institute, Inc. Курс не
                 пов&apos;язаний з PMI.
               </p>

@@ -2,7 +2,7 @@
 
 # Віха — project notes
 
-Free Ukrainian-language PM course (PMBOK 7/8). Next.js 16 (App Router, Cache
+Ukrainian-language PM course (PMBOK 7/8). Next.js 16 (App Router, Cache
 Components) · MDX lessons · Supabase · Vercel. Product brief and user stories:
 `docs/brief.md`.
 

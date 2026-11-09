@@ -7,10 +7,6 @@ export const FIRST_PAID_MODULE = 5;
 
 export const COURSE_PRICE_UAH = 3000;
 
-// Site copy that said "free" before payments were switched on.
-export const FREE_PART = `Модулі 1–${FIRST_PAID_MODULE - 1} безкоштовні.`;
-export const COURSE_KIND = paywallEnabled ? "Курс" : "Безкоштовний курс";
-
 export const isPaidModule = (moduleNumber: number) => moduleNumber >= FIRST_PAID_MODULE;
 
 export const isLockedModule = (moduleNumber: number) => paywallEnabled && isPaidModule(moduleNumber);
