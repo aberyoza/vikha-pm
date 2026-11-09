@@ -1,6 +1,5 @@
 import { AccountDeletedNotice } from "@/components/auth/account-deleted-notice";
 import { authEnabled } from "@/lib/auth";
-import { COURSE_KIND, FREE_PART, paywallEnabled } from "@/lib/paywall";
 import { CourseGantt } from "@/components/course-gantt";
 import { ButtonLink, SectionHeading } from "@/components/ui";
 import { publishedModules } from "@/content/course";
@@ -76,7 +75,7 @@ export default function Home() {
             </h1>
             <div>
               <p className="mb-6 max-w-[36ch] text-lg text-muted">
-                {COURSE_KIND} українською на основі PMBOK 7 і 8.{paywallEnabled && ` ${FREE_PART}`}{" "}
+                Курс українською на основі PMBOK 7 і 8.
                 Чотирнадцять модулів, практичні завдання і власний проєкт, що росте разом із курсом.
               </p>
               <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
