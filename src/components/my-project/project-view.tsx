@@ -31,9 +31,12 @@ function Fields({ rows }: { rows: { name: string; value: string }[] }) {
 export function ProjectView({ project }: { project: MyProject }) {
   return (
     <div>
-      <p className="text-muted">
-        {project.what} для {project.who}
-      </p>
+      {/* Only when the name says something else, or the line repeats the title. */}
+      {project.name !== `${project.what} для ${project.who}` && (
+        <p className="text-muted">
+          {project.what} для {project.who}
+        </p>
+      )}
       <h3 className="mt-1 font-display text-2xl font-semibold tracking-tight">{project.name}</h3>
       <ol className="mt-4 space-y-3">
         {MILESTONES.filter((m) => isMilestoneDone(project, m.module)).map((m) => (
