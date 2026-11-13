@@ -165,7 +165,7 @@ export function ProjectBuilder({ initial, onSaved }: { initial: MyProject | null
     return (
       <div>
         <p className="leading-relaxed text-muted">
-          Крути барабани, поки не випаде проєкт, який хочеться зробити. Смішна пара теж годиться. Можна закріпити
+          Крутіть барабани, поки не випаде проєкт, який хочеться зробити. Смішна пара теж годиться. Можна закріпити
           барабан або вписати своє.
         </p>
         <div className="mt-5 grid gap-2 sm:grid-cols-2">

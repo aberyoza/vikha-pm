@@ -116,9 +116,12 @@ export function ProjectPassport({ titles, startHref }: { titles: Record<number, 
   return (
     <div>
       <div className="rounded-[6px] bg-surface p-5 sm:p-8">
-        <p className="text-muted">
-          {project.what} для {project.who}
-        </p>
+        {/* Only when the name says something else, or the line repeats the title. */}
+        {project.name !== `${project.what} для ${project.who}` && (
+          <p className="text-muted">
+            {project.what} для {project.who}
+          </p>
+        )}
         <h2 className="mt-1 font-display text-3xl font-semibold tracking-tight sm:text-4xl">{project.name}</h2>
         <div className="mt-5 flex flex-wrap items-center gap-3">
           <ol className="flex flex-wrap gap-1.5" aria-label="Віхи проєкту">

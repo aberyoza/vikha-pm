@@ -37,9 +37,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const a = ASSIGNMENTS[slug];
   const m = modules.find((x) => x.slug === slug);
   if (!a || !m) return {};
-  const description = `Завдання модуля ${m.number} у формі короткої гри: ${a.title.toLowerCase()}, близько ${a.minutes} хвилин.`;
+  const description = `Завдання модуля ${m.number} у формі короткої гри «${a.title}», близько ${a.minutes} хвилин.`;
   return {
-    title: `${a.title}: завдання модуля ${m.number}`,
+    // Titles like «Коли вийде гра?» end with their own punctuation, so they go last.
+    title: `Завдання модуля ${m.number}: ${a.title}`,
     description,
     alternates: { canonical: assignmentHref(slug) },
     ...(isLockedModule(m.number) && { robots: { index: false, follow: true } }),

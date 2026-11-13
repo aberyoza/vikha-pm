@@ -607,7 +607,8 @@ export function AssignmentGame<O>(p: GameProps<O>) {
           </div>
           <p className="mt-4 max-w-[60ch] leading-relaxed text-muted">{p.finalText}</p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Link href={p.nextHref} className={primary}>
+            {/* The project bonus below is the main action when there is one. */}
+            <Link href={p.nextHref} className={p.children ? chip(false) : primary}>
               {p.nextLabel}
             </Link>
           </div>

@@ -116,7 +116,7 @@ function PanelBuilder({ onDone }: { onDone: (score: number) => void }) {
       ) : (
         <div className="mt-4 space-y-4">
           <Feedback ok={allPassed} title={allPassed ? "Панель прийнято!" : "Панель поки не приймають."}>
-            {allPassed ? "Кожне число на панелі веде до дії, тому власник знатиме, що робити, коли воно зміниться." : "Подивіться, яку умову не виконано, і зміни плитки."}
+            {allPassed ? "Кожне число на панелі веде до дії, тому власник знатиме, що робити, коли воно зміниться." : "Подивіться, яку умову не виконано, і змініть плитки."}
           </Feedback>
           <ul className="space-y-1 text-sm leading-relaxed">
             {G.PANEL_RULES.map((r) => (
