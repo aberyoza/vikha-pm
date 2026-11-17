@@ -2,6 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useId, useState } from "react";
+import { AdminOnly } from "@/components/admin-only";
 import { chip, primary } from "@/components/assignment/game-kit";
 import { ACCESS_BASES, ACCESS_BASIS_LABEL, type AccessBasis, type AccessStatus } from "@/lib/access";
 import { formatDate } from "@/lib/feedback";
@@ -169,33 +170,11 @@ function Lists() {
   );
 }
 
-// Only for the admin. The check here is about what to show; the database guards the data.
 export function AdminAccess() {
-  const [allowed, setAllowed] = useState<boolean | undefined>(undefined);
-
-  useEffect(() => {
-    const supabase = createClient();
-    (async () => {
-      const { data: auth } = await supabase.auth.getUser();
-      if (!auth.user) return setAllowed(false);
-      const { data } = await supabase.from("profiles").select("is_admin").eq("id", auth.user.id).maybeSingle();
-      setAllowed(!!data?.is_admin);
-    })();
-  }, []);
-
-  if (allowed === undefined) return <p className="text-muted">Завантажуємо…</p>;
-  if (!allowed) {
-    return (
-      <div>
-        <p className="text-muted">Помилка 404</p>
-        <h1 className="mt-3 font-display text-5xl font-semibold tracking-tight">Сторінку не знайдено</h1>
-      </div>
-    );
-  }
   return (
-    <>
+    <AdminOnly>
       <h1 className="mb-8 font-display text-4xl font-semibold tracking-tight">Доступ до курсу</h1>
       <Lists />
-    </>
+    </AdminOnly>
   );
 }

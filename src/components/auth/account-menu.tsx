@@ -103,6 +103,11 @@ export function AccountMenu() {
               Адмінка: доступ до курсу
             </Link>
           )}
+          {isAdmin && (
+            <Link role="menuitem" href="/admin/stats" onClick={() => setOpen(false)} className={item}>
+              Адмінка: статистика
+            </Link>
+          )}
           {unsaved ? (
             <div role="alert" className="px-3 py-2 text-[15px]">
               <p>Є незбережені зміни. Вийти й втратити їх?</p>
