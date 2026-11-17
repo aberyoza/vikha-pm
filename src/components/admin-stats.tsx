@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AdminOnly } from "@/components/admin-only";
 import { modules } from "@/content/course";
 import { COMPLETION_TARGET, courseFunnel, percentOf, STOPPED_AFTER_DAYS, type StudentStats } from "@/lib/course-stats";
 import { createClient } from "@/lib/supabase/client";
@@ -109,9 +108,9 @@ function Stats() {
 
 export function AdminStats() {
   return (
-    <AdminOnly>
+    <>
       <h1 className="mb-8 font-display text-4xl font-semibold tracking-tight">Статистика</h1>
       <Stats />
-    </AdminOnly>
+    </>
   );
 }

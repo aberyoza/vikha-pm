@@ -94,18 +94,8 @@ export function AccountMenu() {
             Мій кабінет
           </Link>
           {isAdmin && (
-            <Link role="menuitem" href="/admin/feedback" onClick={() => setOpen(false)} className={item}>
-              Адмінка: запити на фідбек
-            </Link>
-          )}
-          {isAdmin && (
-            <Link role="menuitem" href="/admin/access" onClick={() => setOpen(false)} className={item}>
-              Адмінка: доступ до курсу
-            </Link>
-          )}
-          {isAdmin && (
-            <Link role="menuitem" href="/admin/stats" onClick={() => setOpen(false)} className={item}>
-              Адмінка: статистика
+            <Link role="menuitem" href="/admin" onClick={() => setOpen(false)} className={item}>
+              Адмінка
             </Link>
           )}
           {unsaved ? (

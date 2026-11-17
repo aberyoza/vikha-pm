@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { AdminOnly } from "@/components/admin-only";
 import { useCallback, useEffect, useId, useState } from "react";
 import { primary } from "@/components/assignment/game-kit";
 import { EXPERIENCE } from "@/lib/auth";
@@ -175,5 +174,10 @@ function Request({ id }: { id: string }) {
 
 export function AdminFeedback() {
   const id = useSearchParams().get("id");
-  return <AdminOnly>{id ? <Request key={id} id={id} /> : <Queue />}</AdminOnly>;
+  return (
+    <>
+      <h1 className="mb-8 font-display text-4xl font-semibold tracking-tight">Запити на фідбек</h1>
+      {id ? <Request key={id} id={id} /> : <Queue />}
+    </>
+  );
 }
