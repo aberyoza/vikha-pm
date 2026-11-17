@@ -7,6 +7,10 @@ import { EXPERIENCE, GOAL_MAX, NAME_MAX, NAME_MIN, type Experience } from "@/lib
 export const field =
   "w-full rounded-[4px] bg-foreground/[0.07] px-3 py-2 text-base leading-relaxed outline-none focus-visible:outline-2 focus-visible:outline-accent";
 
+// The second button of the sign-in pages: the teal one stays the only accent there.
+export const secondary =
+  "w-full rounded-md bg-foreground/[0.07] px-5 py-2.5 font-semibold press enabled:hover:bg-foreground/[0.12] disabled:opacity-60";
+
 export const NAME_ERROR = `Вкажіть ім'я (від ${NAME_MIN} символів)`;
 
 export type ProfileDraft = { name: string; experience: Experience | null; goal: string };
