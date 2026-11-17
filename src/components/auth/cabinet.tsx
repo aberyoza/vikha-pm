@@ -11,6 +11,7 @@ import { AccessStatus } from "@/components/access/access-status";
 import { FeedbackList } from "@/components/feedback/my-feedback";
 import { paywallEnabled } from "@/lib/paywall";
 import { DeleteAccount } from "./delete-account";
+import { PasswordForm } from "./password-form";
 import { ProfileFields, type ProfileDraft } from "./profile-fields";
 
 function ProfileForm({ user, initial }: { user: User; initial: ProfileDraft }) {
@@ -83,6 +84,19 @@ function EmailToggle({ userId, initial }: { userId: string; initial: boolean }) 
   );
 }
 
+// Sets a password for someone who came through Google or a letter, or changes it.
+function PasswordSection({ email }: { email: string }) {
+  return (
+    <section className="mt-12 border-t border-border pt-6">
+      <h2 className="font-display text-2xl font-semibold tracking-tight">Пароль</h2>
+      <p className="mt-1 mb-5 leading-relaxed text-muted">
+        Після цього можна входити за email {email} і паролем. Вхід через Google і за посиланням теж працюватиме
+      </p>
+      <PasswordForm email={email} />
+    </section>
+  );
+}
+
 // Static shell: who is here is decided in the browser, and row-level security guards the data.
 export function Cabinet() {
   const router = useRouter();
@@ -110,6 +124,7 @@ export function Cabinet() {
   return (
     <>
       <ProfileForm user={loaded.user} initial={loaded.profile} />
+      <PasswordSection email={loaded.user.email ?? ""} />
       {paywallEnabled && <AccessStatus userId={loaded.user.id} />}
       <FeedbackList userId={loaded.user.id} />
       <EmailToggle userId={loaded.user.id} initial={loaded.emailsEnabled} />

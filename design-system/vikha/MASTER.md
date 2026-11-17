@@ -144,6 +144,7 @@ Typographic don'ts (they read as generated/templated):
 |---|---|---|
 | `Logo`, `Emblem` | `src/components/logo.tsx` | brand: Ψ with a diamond on its stem, in `accent`. Repeated in `src/app/og-card.tsx` and `src/app/icon.svg` |
 | `AccountMenu` | `src/components/auth/account-menu.tsx` | «Увійти» for a guest, the account menu for a student; shown only with `NEXT_PUBLIC_AUTH_ENABLED=1` |
+| `PasswordInput`, `PasswordForm` | `src/components/auth/password-input.tsx`, `password-form.tsx` | password field with a «Показати» text button inside it (no second "repeat password" field); setting or changing a password, with the code step Supabase asks for after a day. Sign-in pages keep Google as the one teal button, other actions use `secondary` from `profile-fields.tsx` |
 | `MilestoneMark` | `src/components/logo.tsx` | the teal diamond, the milestone symbol everywhere |
 | `ButtonLink` (`primary` / `text`) | `src/components/ui.tsx` | primary = teal button; text = underlined link-button |
 | `SectionHeading` | `src/components/ui.tsx` | section titles |

@@ -24,3 +24,12 @@ export const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test
 // Only paths inside the site: a link in a letter must not send people elsewhere.
 export const safeNext = (next: string | null | undefined) =>
   next && next.startsWith("/") && !next.startsWith("//") && !next.startsWith("/\\") ? next : "/";
+
+// The author's choice (2026-11-17): length only, no forced digits or capitals.
+// The same minimum is set in Supabase, which checks it again on the server.
+export const PASSWORD_MIN = 8;
+export const PASSWORD_ERROR = `Пароль має бути щонайменше ${PASSWORD_MIN} символів`;
+export const isValidPassword = (password: string) => password.length >= PASSWORD_MIN;
+
+// How a person came back from Google or a letter, so a failed link explains itself.
+export type AuthVia = "google" | "email" | "signup" | "recovery";
