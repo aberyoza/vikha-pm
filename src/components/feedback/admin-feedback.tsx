@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { AdminOnly } from "@/components/admin-only";
 import { useCallback, useEffect, useId, useState } from "react";
 import { primary } from "@/components/assignment/game-kit";
 import { EXPERIENCE } from "@/lib/auth";
@@ -172,31 +173,7 @@ function Request({ id }: { id: string }) {
   );
 }
 
-// Only for the admin. The check here is about what to show; row-level security guards the data.
 export function AdminFeedback() {
-  const params = useSearchParams();
-  const router = useRouter();
-  const id = params.get("id");
-  const [allowed, setAllowed] = useState<boolean | undefined>(undefined);
-
-  useEffect(() => {
-    const supabase = createClient();
-    (async () => {
-      const { data: auth } = await supabase.auth.getUser();
-      if (!auth.user) return setAllowed(false);
-      const { data } = await supabase.from("profiles").select("is_admin").eq("id", auth.user.id).maybeSingle();
-      setAllowed(!!data?.is_admin);
-    })();
-  }, [router]);
-
-  if (allowed === undefined) return <p className="text-muted">Завантажуємо…</p>;
-  if (!allowed) {
-    return (
-      <div>
-        <p className="text-muted">Помилка 404</p>
-        <h1 className="mt-3 font-display text-5xl font-semibold tracking-tight">Сторінку не знайдено</h1>
-      </div>
-    );
-  }
-  return id ? <Request key={id} id={id} /> : <Queue />;
+  const id = useSearchParams().get("id");
+  return <AdminOnly>{id ? <Request key={id} id={id} /> : <Queue />}</AdminOnly>;
 }
