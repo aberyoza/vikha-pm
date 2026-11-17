@@ -161,6 +161,7 @@ Typographic don'ts (they read as generated/templated):
 | `LessonTakeaways` | `src/components/lesson/lesson-takeaways.tsx` | «Головне з уроку», a numbered list on `surface`: the last block of every lesson |
 | `FormulaNote`, `ModuleGoals` | `src/components/lesson/formula-note.tsx` | collapsed blocks: formulas, and a module's goals under the title of its first lesson |
 | `NetworkDiagram`, `NodeKey` | `src/components/lesson/network-diagram.tsx` | AON network of a module example. Client-only (uses `useId`): wrap it in a client figure |
+| `AdminShell` | `src/components/admin-shell.tsx` | frame of `/admin/*` (in `src/app/admin/layout.tsx`), built like `ModuleLayout`: a sticky `surface` side panel with the sections from 1024px, a row of toggle chips below that. A teal count marks what waits for the author. Shows a 404 to anyone but the admin |
 | `SplitFlapRow` | `src/components/split-flap.tsx` | departure-board text (on `/lab` for now) |
 | `ogCard` | `src/app/og-card.tsx` | link-preview image for home and every lesson |
 

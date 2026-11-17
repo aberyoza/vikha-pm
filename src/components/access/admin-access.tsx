@@ -2,7 +2,6 @@
 
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useId, useState } from "react";
-import { AdminOnly } from "@/components/admin-only";
 import { chip, primary } from "@/components/assignment/game-kit";
 import { ACCESS_BASES, ACCESS_BASIS_LABEL, type AccessBasis, type AccessStatus } from "@/lib/access";
 import { formatDate } from "@/lib/feedback";
@@ -172,9 +171,9 @@ function Lists() {
 
 export function AdminAccess() {
   return (
-    <AdminOnly>
+    <>
       <h1 className="mb-8 font-display text-4xl font-semibold tracking-tight">Доступ до курсу</h1>
       <Lists />
-    </AdminOnly>
+    </>
   );
 }
