@@ -13,6 +13,7 @@ import { formatDate } from "@/lib/feedback";
 import { useCourseCompletedAt, useCourseProgress } from "@/lib/lesson-progress";
 import { isMilestoneDone } from "@/lib/milestones";
 import { useMyProject } from "@/lib/my-project";
+import { useScrollToHash } from "@/lib/scroll-to-hash";
 import { createClient } from "@/lib/supabase/client";
 import { useSession } from "@/lib/use-session";
 
@@ -109,8 +110,12 @@ export function CourseSummary() {
   const { games } = useCourseProgress();
   const completedAt = useCourseCompletedAt();
   const project = useMyProject();
+  const shown = games.has("module-14");
 
-  if (!games.has("module-14")) return null;
+  // A link with #course-summary: the cabinet, the return from sign-in.
+  useScrollToHash(shown);
+
+  if (!shown) return null;
 
   if (!completedAt)
     return (
