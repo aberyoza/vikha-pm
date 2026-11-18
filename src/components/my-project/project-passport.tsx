@@ -24,6 +24,10 @@ import { ScheduleEditor, ScheduleList } from "./project-schedule";
 import { ScopeEditor, ScopeList } from "./project-scope";
 import { TeamEditor, TeamList } from "./project-team";
 import { ProjectBuilder } from "./project-builder";
+import { useCourseProgress } from "@/lib/lesson-progress";
+import { useScrollToHash } from "@/lib/scroll-to-hash";
+
+const gameSlug = (module: number) => `module-${String(module).padStart(2, "0")}`;
 
 const chip = "rounded-md bg-foreground/[0.07] px-3 py-2 text-sm font-medium press hover:bg-foreground/[0.12]";
 const primary = "rounded-md bg-accent px-5 py-2.5 font-semibold text-accent-foreground press hover:brightness-110";
@@ -69,6 +73,9 @@ function SaveStatus() {
 export function ProjectPassport({ titles, startHref }: { titles: Record<number, string>; startHref: string }) {
   const project = useMyProject();
   const user = useSession();
+  const { games } = useCourseProgress();
+  // Links to #milestone-N (the course summary) and #feedback.
+  useScrollToHash(!!project);
   // Module whose milestone is being edited.
   const [editing, setEditing] = useState<number | null>(null);
   const [importError, setImportError] = useState(false);
@@ -350,7 +357,17 @@ export function ProjectPassport({ titles, startHref }: { titles: Record<number, 
                       <BenefitEditor project={project} onSaved={() => setEditing(null)} />
                     </div>
                   )}
-                  {!ok && <p className="mt-1 text-sm text-muted">Відкриється в завданні модуля {m.module}.</p>}
+                  {/* Once the game is played, the milestone is filled right here: the
+                      assignment shows its step only at the end of a new run. */}
+                  {!ok &&
+                    editing !== m.module &&
+                    (games.has(gameSlug(m.module)) ? (
+                      <button type="button" onClick={() => setEditing(m.module)} className={`${chip} mt-3 print:hidden`}>
+                        Заповнити віху
+                      </button>
+                    ) : (
+                      <p className="mt-1 text-sm text-muted">Відкриється в завданні модуля {m.module}.</p>
+                    ))}
                 </div>
               </div>
             </li>
