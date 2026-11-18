@@ -5,7 +5,7 @@ export const paywallEnabled = process.env.NEXT_PUBLIC_PAYWALL_ENABLED === "1";
 
 export const FIRST_PAID_MODULE = 5;
 
-export const COURSE_PRICE_UAH = 3000;
+export const COURSE_PRICE_UAH = 4000;
 
 export const isPaidModule = (moduleNumber: number) => moduleNumber >= FIRST_PAID_MODULE;
 
