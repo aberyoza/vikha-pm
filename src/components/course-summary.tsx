@@ -4,10 +4,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { chip, primary } from "@/components/assignment/game-kit";
+import { LessonPager, type PagerTarget } from "@/components/lesson-pager";
 import { assignmentHref } from "@/content/assignments";
 import { MILESTONES } from "@/content/my-project";
 import { authEnabled } from "@/lib/auth";
-import { formatDay, SUMMARY_ID } from "@/lib/course-finish";
+import { formatDay, PROGRAM_TARGET, SUMMARY_ID } from "@/lib/course-finish";
 import { formatDate } from "@/lib/feedback";
 import { useCourseCompletedAt, useCourseProgress } from "@/lib/lesson-progress";
 import { isMilestoneDone } from "@/lib/milestones";
@@ -155,5 +156,19 @@ export function CourseSummary() {
       <FeedbackStep canSend={filled > 0} />
       {practice}
     </section>
+  );
+}
+
+// The pager under the game of module 14. «Підсумок курсу» leads to the summary
+// only once the game is finished: before that the summary isn't on the page, and
+// a link to it would do nothing.
+export function CourseSummaryPager({ prev }: { prev: PagerTarget }) {
+  const { games } = useCourseProgress();
+  return (
+    <LessonPager
+      quiet
+      prev={prev}
+      next={games.has("module-14") ? { href: `#${SUMMARY_ID}`, label: "Далі", title: "Підсумок курсу" } : PROGRAM_TARGET}
+    />
   );
 }
