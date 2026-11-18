@@ -15,6 +15,7 @@ import { ScheduleGame } from "@/components/assignment/schedule-game";
 import { ScopeGame } from "@/components/assignment/scope-game";
 import { StakeholdersGame } from "@/components/assignment/stakeholders-game";
 import { TeamGame } from "@/components/assignment/team-game";
+import { CourseSummary } from "@/components/course-summary";
 import { LessonPager } from "@/components/lesson-pager";
 import { ModuleLayout } from "@/components/module-nav";
 import { PaidGate } from "@/components/paid-gate";
@@ -22,6 +23,7 @@ import { Paywall } from "@/components/paywall";
 import { ASSIGNMENTS, assignmentHref } from "@/content/assignments";
 import { modules, publishedModules } from "@/content/course";
 import { OPEN_GRAPH } from "@/content/site";
+import { SUMMARY_ID } from "@/lib/course-finish";
 import { isLockedModule } from "@/lib/paywall";
 
 type Props = PageProps<"/modules/[module]/assignment">;
@@ -72,7 +74,14 @@ export default async function AssignmentPage({ params }: Props) {
       {slug === "module-11" && <RiskGame nextHref={nextHref} />}
       {slug === "module-12" && <QualityGame nextHref={nextHref} />}
       {slug === "module-13" && <AgileGame nextHref={nextHref} />}
-      {slug === "module-14" && <AfterReleaseGame />}
+      {slug === "module-14" && (
+        <>
+          <AfterReleaseGame />
+          <div id={SUMMARY_ID} className="scroll-mt-4">
+            <CourseSummary />
+          </div>
+        </>
+      )}
     </>
   );
 
@@ -92,7 +101,7 @@ export default async function AssignmentPage({ params }: Props) {
         next={
           next
             ? { href: nextHref, label: `Далі: модуль ${next.number}`, title: next.title }
-            : { href: nextHref, label: "Курс завершено", title: "Програма курсу" }
+            : { href: `#${SUMMARY_ID}`, label: "Далі", title: "Підсумок курсу" }
         }
       />
     </ModuleLayout>

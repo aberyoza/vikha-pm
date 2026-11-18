@@ -49,13 +49,15 @@ export function markLessonRead(moduleSlug: string, lessonSlug: string) {
   window.dispatchEvent(new Event(LESSON_EVENT));
 }
 
-const isGameDone = (slug: string) => {
+const gameCompletedAt = (slug: string): number | null => {
   try {
-    return !!JSON.parse(readRaw(`vikha-assignment-${slug}`) ?? "null")?.completedAt;
+    const at = Date.parse(JSON.parse(readRaw(`vikha-assignment-${slug}`) ?? "null")?.completedAt);
+    return Number.isNaN(at) ? null : at;
   } catch {
-    return false;
+    return null;
   }
 };
+const isGameDone = (slug: string) => gameCompletedAt(slug) !== null;
 
 const subscribe = (cb: () => void) => {
   window.addEventListener("storage", cb);
@@ -84,7 +86,20 @@ export function useCourseProgress() {
   }, [raw]);
 }
 
-export type ModuleOutline = { slug: string; lessons: string[]; game: boolean };
+// The course is complete once the games of all 14 modules are done (the author's
+// decision of 2026-11-17). Each game keeps the date it was first finished, so the
+// course date is when the last of them was first finished, and replays don't move it.
+const completedSnapshot = () => {
+  const dates = GAME_SLUGS.map(gameCompletedAt);
+  return dates.every((d) => d !== null) ? new Date(Math.max(...(dates as number[]))).toISOString() : "";
+};
+
+// Null on the server and in the first paint, like the progress above.
+export function useCourseCompletedAt() {
+  return useSyncExternalStore(subscribe, completedSnapshot, () => "") || null;
+}
+
+export type ModuleOutline ={ slug: string; lessons: string[]; game: boolean };
 
 // Where the student stopped: the furthest module with any progress, or the one
 // after it once that module is finished. -1 for someone who hasn't started.

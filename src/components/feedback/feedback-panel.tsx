@@ -63,7 +63,7 @@ export function FeedbackPanel({ project, userId }: { project: MyProject; userId:
   if (pending === undefined) return null;
 
   return (
-    <section className="mt-8 rounded-[4px] bg-surface p-4 sm:p-5 print:hidden">
+    <section id="feedback" className="mt-8 scroll-mt-4 rounded-[4px] bg-surface p-4 sm:p-5 print:hidden">
       <h3 className="font-display text-xl font-semibold">Фідбек автора</h3>
       {pending ? (
         <div className="mt-2">

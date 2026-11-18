@@ -2,7 +2,6 @@
 
 import { useState, type ReactNode } from "react";
 import { BenefitBonus } from "@/components/my-project/project-benefit";
-import { assignmentHref } from "@/content/assignments";
 import * as G from "@/content/assignments/module-14";
 import type { Question } from "@/content/assignments/types";
 import { AssignmentGame, BasketLevel, basketSteps, chip, Deck, Feedback, HowTo, optionClass, primary, Questions, shuffled } from "./game-kit";
@@ -553,45 +552,6 @@ function AiLevel({ last, onDone }: { last: number[][]; onDone: (score: number) =
   );
 }
 
-const ALL_MODULES = Array.from({ length: 14 }, (_, k) => `module-${String(k + 1).padStart(2, "0")}`);
-
-const isCompleted = (slug: string) => {
-  try {
-    return !!JSON.parse(localStorage.getItem(`vikha-assignment-${slug}`) ?? "null")?.completedAt;
-  } catch {
-    return false;
-  }
-};
-
-// The end of the course. Rendered only after the last level, so storage is there to read.
-function CourseFinish() {
-  const [done] = useState(() => ALL_MODULES.filter(isCompleted));
-  return (
-    <div className="mt-8 rounded-[4px] bg-accent-soft p-4 sm:p-5">
-      <p className="font-display text-xl font-semibold">{done.length === ALL_MODULES.length ? "Курс пройдено" : "Це останнє завдання курсу"}</p>
-      <ol className="mt-3 flex flex-wrap gap-2" aria-label="Завдання модулів">
-        {ALL_MODULES.map((slug, k) => {
-          const on = done.includes(slug);
-          return (
-            <li key={slug}>
-              <a href={assignmentHref(slug)} title={`Завдання модуля ${k + 1}`} aria-label={`Завдання модуля ${k + 1}${on ? ", пройдено" : ""}`} className="grid size-6 place-items-center">
-                <span aria-hidden className={`block size-3.5 rotate-45 rounded-[2px] ${on ? "bg-accent" : "bg-foreground/15"}`} />
-              </a>
-            </li>
-          );
-        })}
-      </ol>
-      <p className="mt-3 text-sm text-muted tabular-nums">
-        Завдань пройдено: {done.length} з {ALL_MODULES.length}.
-        {done.length < ALL_MODULES.length && " Сірі ромби ведуть до завдань, які ще можна пройти."}
-      </p>
-      <p className="mt-3 max-w-[60ch] leading-relaxed">
-        Навичка з&apos;являється в практиці. Візьміть невеликий проєкт, свій, робочий чи волонтерський, і пройдіть його за курсом: статут, зацікавлені сторони, зміст, розклад, бюджет, ризики, якість, закриття.
-      </p>
-    </div>
-  );
-}
-
 export function AfterReleaseGame() {
   return (
     <AssignmentGame<Orders>
@@ -623,7 +583,6 @@ export function AfterReleaseGame() {
       nextHref="/my-project"
       nextLabel="До паспорта проєкту"
     >
-      <CourseFinish />
       <BenefitBonus />
     </AssignmentGame>
   );

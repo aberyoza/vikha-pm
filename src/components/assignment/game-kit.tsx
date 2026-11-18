@@ -524,7 +524,8 @@ export function AssignmentGame<O>(p: GameProps<O>) {
     setScores(next);
     if (level < last) return setPhase(level + 1);
     const sum = next.reduce((a, b) => a + b, 0);
-    write(p.storeKey, { best: Math.max(sum, saved?.best ?? 0), completedAt: new Date().toISOString() });
+    // The first finish stays: the course completion date is built from it.
+    write(p.storeKey, { best: Math.max(sum, saved?.best ?? 0), completedAt: saved?.completedAt ?? new Date().toISOString() });
     setPhase("final");
   };
 
