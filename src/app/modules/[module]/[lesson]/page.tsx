@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { LessonClarity } from "@/components/lesson-clarity";
 import { LessonPager, type PagerTarget } from "@/components/lesson-pager";
 import { LessonReadMark } from "@/components/lesson-read-mark";
 import { ModuleLayout } from "@/components/module-nav";
@@ -71,6 +72,7 @@ export default async function LessonPage({ params }: Props) {
         <Content />
       </div>
       <LessonReadMark key={lesson.slug} moduleSlug={courseModule.slug} lessonSlug={lesson.slug} />
+      <LessonClarity key={`${courseModule.slug}/${lesson.slug}`} moduleSlug={courseModule.slug} lessonSlug={lesson.slug} />
       <LessonPager prev={back} next={forward} />
     </>
   );
