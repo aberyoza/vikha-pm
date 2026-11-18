@@ -82,10 +82,10 @@
 | Розділ | Налаштування |
 |---|---|
 | [Sign In / Providers](https://supabase.com/dashboard/project/fxoxmlmhabecscdpemsv/auth/providers) | Google увімкнено, Email увімкнено, строк дії посилання `3600` секунд |
-| Sign In / Providers → Email, для входу за паролем | **треба задати:** Confirm email увімкнено, Secure password change увімкнено, Minimum password length `8`, Password requirements «No required characters». Кроки в розділі 17 |
+| Sign In / Providers → Email, для входу за паролем | Confirm email увімкнено, Secure password change увімкнено, Minimum password length `8`, Password requirements «No required characters» (задано 2026-11-18, розділ 17) |
 | [URL Configuration](https://supabase.com/dashboard/project/fxoxmlmhabecscdpemsv/auth/url-configuration) | Site URL `https://vikha-pm.com`. Redirect URLs: `https://vikha-pm.com/auth/callback**` і `http://localhost:3100/auth/callback**` |
 | [SMTP Settings](https://supabase.com/dashboard/project/fxoxmlmhabecscdpemsv/auth/smtp) | хост `smtp.resend.com`, порт `465`, користувач `resend`, відправник `no-reply@vikha-pm.com`, ім'я «Віха» |
-| Emails → Templates | українські шаблони **Magic Link** і **Confirm signup**, тема «Вхід до курсу «Віха»». **Треба додати** українські **Reset Password** і **Reauthentication** та оновити **Confirm signup**, розділ 17 |
+| Emails → Templates | українські шаблони **Magic Link**, **Confirm signup**, **Reset Password** і **Reauthentication**; останні три оновлено 2026-11-18 за розділом 17 |
 | Rate Limits | `100` листів на годину |
 
 ## Google Cloud
@@ -124,11 +124,11 @@
 - [ ] Перевірити на реальному сайті вимкнення листів про фідбек.
 - [ ] Повернути картку про фідбек на головну сторінку.
 - [ ] Налаштувати автоматичний експорт бази перед просуванням курсу.
-- [ ] Отримати український лист: шаблони збережено, але лист після цього ще не надсилали.
 - [ ] Показати юристу оферту (`/offer`) і текст політики. На сторінці поки немає імені відповідальної особи, лише «автор курсу» і контактна пошта.
+- [ ] Отримати український лист: шаблони збережено, але лист після цього ще не надсилали.
 - [ ] Перевірити лист, відкритий на іншому пристрої, ніж той, де запросили вхід.
+- [ ] Вхід за паролем: Supabase і шаблони листів налаштовано 2026-11-18, лишилося пройти перевірку з розділу 17.
 - [ ] Перейти у Vercel на тариф Pro одразу після першої оплати за курс.
-- [ ] Вхід за паролем: налаштувати Supabase і шаблони листів за розділом 17, потім пройти перевірку з того ж розділу.
 - [ ] Після увімкнення оплати зробити пробну покупку: запит, переказ, «Я оплатив», схвалення, повернення.
 
 ## Весь шлях налаштування
@@ -232,7 +232,7 @@
 
 ### 17. Вхід за email і паролем
 
-Код на сайті готовий (сторінки `/signup`, `/forgot-password`, `/new-password`, розділ «Пароль» у кабінеті, історії 18–21 у `docs/backlog-2026-11-password.md`). Поки Supabase не налаштовано, реєстрація працює з налаштуваннями за замовчуванням, тому спершу пройдіть ці кроки.
+Код на сайті готовий (сторінки `/signup`, `/forgot-password`, `/new-password`, розділ «Пароль» у кабінеті, історії 18–21 у `docs/backlog-2026-11-password.md`). Supabase і шаблони листів налаштовано 2026-11-18. Перевірку в кінці розділу ще не пройдено.
 
 **Supabase → [Sign In / Providers](https://supabase.com/dashboard/project/fxoxmlmhabecscdpemsv/auth/providers) → Email:**
 
