@@ -15,15 +15,15 @@ import { ScheduleGame } from "@/components/assignment/schedule-game";
 import { ScopeGame } from "@/components/assignment/scope-game";
 import { StakeholdersGame } from "@/components/assignment/stakeholders-game";
 import { TeamGame } from "@/components/assignment/team-game";
-import { CourseSummary } from "@/components/course-summary";
-import { LessonPager } from "@/components/lesson-pager";
+import { CourseSummary, CourseSummaryPager } from "@/components/course-summary";
+import { LessonPager, type PagerTarget } from "@/components/lesson-pager";
 import { ModuleLayout } from "@/components/module-nav";
 import { PaidGate } from "@/components/paid-gate";
 import { Paywall } from "@/components/paywall";
 import { ASSIGNMENTS, assignmentHref } from "@/content/assignments";
 import { modules, publishedModules } from "@/content/course";
 import { OPEN_GRAPH } from "@/content/site";
-import { SUMMARY_ID } from "@/lib/course-finish";
+import { PROGRAM_TARGET, SUMMARY_ID } from "@/lib/course-finish";
 import { isLockedModule } from "@/lib/paywall";
 
 type Props = PageProps<"/modules/[module]/assignment">;
@@ -58,6 +58,7 @@ export default async function AssignmentPage({ params }: Props) {
   const next = publishedModules.find((x) => x.number === m.number + 1);
   const nextHref = next ? `/modules/${next.slug}/${next.lessons[0].slug}` : "/#program";
   const lastLesson = m.lessons[m.lessons.length - 1];
+  const back: PagerTarget = { href: `/modules/${m.slug}/${lastLesson.slug}`, label: "Назад", title: lastLesson.title };
 
   const game = (
     <>
@@ -80,6 +81,7 @@ export default async function AssignmentPage({ params }: Props) {
           <div id={SUMMARY_ID} className="scroll-mt-4">
             <CourseSummary />
           </div>
+          <CourseSummaryPager prev={back} />
         </>
       )}
     </>
@@ -90,20 +92,22 @@ export default async function AssignmentPage({ params }: Props) {
       <h1 className="mb-8 font-display text-4xl font-semibold tracking-tight sm:text-5xl">Завдання модуля</h1>
       {isLockedModule(m.number) ? (
         <Suspense fallback={<p className="text-muted">Завантажуємо завдання…</p>}>
-          <PaidGate paywall={<Paywall />}>{game}</PaidGate>
+          <PaidGate
+            paywall={
+              <>
+                <Paywall />
+                {!next && <LessonPager quiet prev={back} next={PROGRAM_TARGET} />}
+              </>
+            }
+          >
+            {game}
+          </PaidGate>
         </Suspense>
       ) : (
         game
       )}
-      <LessonPager
-        quiet
-        prev={{ href: `/modules/${m.slug}/${lastLesson.slug}`, label: "Назад", title: lastLesson.title }}
-        next={
-          next
-            ? { href: nextHref, label: `Далі: модуль ${next.number}`, title: next.title }
-            : { href: `#${SUMMARY_ID}`, label: "Далі", title: "Підсумок курсу" }
-        }
-      />
+      {/* Module 14 has its pager under the summary, inside the game. */}
+      {next && <LessonPager quiet prev={back} next={{ href: nextHref, label: `Далі: модуль ${next.number}`, title: next.title }} />}
     </ModuleLayout>
   );
 }

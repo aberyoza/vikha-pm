@@ -23,6 +23,9 @@ function Arrow({ back }: { back?: boolean }) {
 // the one filled button of a lesson. A game has its own filled button, so there
 // `quiet` keeps this one in a tone.
 export function LessonPager({ prev, next, quiet }: { prev?: PagerTarget; next: PagerTarget; quiet?: boolean }) {
+  // A link within the page is a plain anchor: the browser scrolls to it on every
+  // click, while Link does nothing when the address already has that hash.
+  const Next = next.href.startsWith("#") ? "a" : Link;
   return (
     <nav
       aria-label="Перехід між уроками"
@@ -42,7 +45,7 @@ export function LessonPager({ prev, next, quiet }: { prev?: PagerTarget; next: P
       ) : (
         <span className="hidden sm:block" />
       )}
-      <Link
+      <Next
         href={next.href}
         className={`flex min-w-0 items-center justify-between gap-4 rounded-md px-5 py-3 press sm:max-w-[60%] ${
           quiet ? "bg-surface hover:bg-surface-raised" : "bg-accent text-accent-foreground hover:brightness-110"
@@ -53,7 +56,7 @@ export function LessonPager({ prev, next, quiet }: { prev?: PagerTarget; next: P
           <span className="block font-display text-lg leading-snug font-semibold">{next.title}</span>
         </span>
         <Arrow />
-      </Link>
+      </Next>
     </nav>
   );
 }
