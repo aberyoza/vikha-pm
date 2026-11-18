@@ -22,7 +22,7 @@ export default function OfferPage() {
   return (
     <main className="mx-auto max-w-[720px] px-4 py-10 sm:px-8 md:py-14">
       <h1 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">Договір оферти</h1>
-      <p className="mt-3 text-muted">Редакція від 6 листопада 2026 року</p>
+      <p className="mt-3 text-muted">Редакція від 18 листопада 2026 року</p>
 
       <div className="prose mt-8 max-w-none">
         <p>
