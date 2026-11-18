@@ -1,6 +1,7 @@
 "use client";
 
 import type { User } from "@supabase/supabase-js";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { primary } from "@/components/assignment/game-kit";
@@ -8,7 +9,9 @@ import { isValidName, type Experience } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/client";
 import { useSession } from "@/lib/use-session";
 import { AccessStatus } from "@/components/access/access-status";
+import { formatDay, summaryHref } from "@/lib/course-finish";
 import { FeedbackList } from "@/components/feedback/my-feedback";
+import { useCourseCompletedAt } from "@/lib/lesson-progress";
 import { paywallEnabled } from "@/lib/paywall";
 import { DeleteAccount } from "./delete-account";
 import { PasswordForm } from "./password-form";
@@ -85,6 +88,23 @@ function EmailToggle({ userId, initial }: { userId: string; initial: boolean }) 
 }
 
 // Sets a password for someone who came through Google or a letter, or changes it.
+// Shown once the games of all 14 modules are done.
+function CourseDone() {
+  const completedAt = useCourseCompletedAt();
+  if (!completedAt) return null;
+  return (
+    <section className="mt-12 border-t border-border pt-6">
+      <h2 className="font-display text-2xl font-semibold tracking-tight">Курс пройдено</h2>
+      <p className="mt-2 leading-relaxed">
+        {formatDay(completedAt)}{" "}
+        <Link href={summaryHref} className="underline underline-offset-4">
+          Підсумок курсу
+        </Link>
+      </p>
+    </section>
+  );
+}
+
 function PasswordSection({ email }: { email: string }) {
   return (
     <section className="mt-12 border-t border-border pt-6">
@@ -124,6 +144,7 @@ export function Cabinet() {
   return (
     <>
       <ProfileForm user={loaded.user} initial={loaded.profile} />
+      <CourseDone />
       <PasswordSection email={loaded.user.email ?? ""} />
       {paywallEnabled && <AccessStatus userId={loaded.user.id} />}
       <FeedbackList userId={loaded.user.id} />

@@ -143,7 +143,7 @@ export function ProjectPassport({ titles, startHref }: { titles: Record<number, 
         {MILESTONES.map((m) => {
           const ok = isMilestoneDone(project, m.module);
           return (
-            <li key={m.module} className={`rounded-[4px] p-4 sm:p-5 ${ok ? "bg-surface" : "bg-foreground/[0.03]"}`}>
+            <li key={m.module} id={`milestone-${m.module}`} className={`scroll-mt-4 rounded-[4px] p-4 sm:p-5 ${ok ? "bg-surface" : "bg-foreground/[0.03]"}`}>
               <div className="flex items-start gap-3">
                 <MilestoneMark className={`mt-2 size-2.5 ${ok ? "" : "opacity-25"}`} />
                 <div className="min-w-0 flex-1">
