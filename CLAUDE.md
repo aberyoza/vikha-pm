@@ -4,7 +4,8 @@
 
 Ukrainian-language PM course (PMBOK 7/8). Next.js 16 (App Router, Cache
 Components) · MDX lessons · Supabase · Vercel. Product brief and user stories:
-`docs/brief.md`.
+`docs/brief.md`. **Task queue by priority: `docs/backlog.md`** — take the next
+task from its top, and put new tasks at their place in it, not at the end.
 
 ## Design — always follow the style line
 
