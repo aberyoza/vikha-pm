@@ -16,6 +16,7 @@ const SECTIONS: { href: string; label: string; count?: keyof AdminCounts; countL
   { href: "/admin/feedback", label: "Запити на фідбек", count: "feedback", countLabel: "без відповіді" },
   { href: "/admin/access", label: "Доступ до курсу", count: "payments", countLabel: "повідомили про оплату" },
   { href: "/admin/stats", label: "Статистика" },
+  { href: "/admin/lessons", label: "Уроки" },
 ];
 
 async function loadCounts(): Promise<AdminCounts> {
